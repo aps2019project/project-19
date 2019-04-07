@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>730</x>
+      <y>190</y>
+      <w>150</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+RequestTypes
+--
+CreateAccount
+Login
+ShowLeaderBoard
+Save
+LogOut
+Help
+EnterBattle
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>480</x>
+      <y>190</y>
+      <w>100</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+MenuTypes
+--
+Account
+MainMenu
+Shop
+Battle
+Help</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
