@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>688</x>
-      <y>128</y>
+      <x>664</x>
+      <y>216</y>
       <w>184</w>
       <h>144</h>
     </coordinates>
@@ -16,7 +16,7 @@
 -width: int
 -player1: Player
 -player2: Player
-isTurnOfPlayer1: boolean
+-isTurnOfPlayer1: boolean
 -turnNumber: int
 -time: int
 -winnerPlayer: PLayer
@@ -27,8 +27,8 @@ isTurnOfPlayer1: boolean
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>928</x>
-      <y>128</y>
+      <x>904</x>
+      <y>216</y>
       <w>80</w>
       <h>96</h>
     </coordinates>
@@ -43,14 +43,15 @@ isTurnOfPlayer1: boolean
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>968</x>
-      <y>360</y>
+      <x>944</x>
+      <y>448</y>
       <w>176</w>
       <h>208</h>
     </coordinates>
     <panel_attributes>Player
 --
--Mana: int
+-mana: int
+-account: Account
 -deckCards: ArrayList&lt;Card&gt;
 -handCards: ArrayList&lt;Card&gt;
 -inBattleCards: ArrayList&lt;Card&gt;
@@ -60,45 +61,45 @@ isTurnOfPlayer1: boolean
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>672</x>
-      <y>464</y>
-      <w>80</w>
-      <h>104</h>
+      <x>592</x>
+      <y>544</y>
+      <w>96</w>
+      <h>136</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enumeration&gt;&gt;
 CardStatuses
 --
-InHand
-InDeck
-Placed
-InGraveYard</panel_attributes>
+IN_HAND
+IN_DECK
+PLACED
+IN_GRAVEYARD</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>568</x>
-      <y>464</y>
-      <w>80</w>
-      <h>136</h>
+      <x>448</x>
+      <y>544</y>
+      <w>120</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enumeration&gt;&gt;
-Buffs
+Buff
 --
-Holy_Buff
-Power_Buff
-Posion_Buff
-Weakness_Buff
-Stun_Buff
-Disarm_buff
+HOLY_BUFF
+POWER_BUFF
+POSION_BUFF
+WEAKNES_BUFF
+STUN_BUFF
+DISARM_BUFF
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>304</x>
-      <y>312</y>
+      <x>296</x>
+      <y>376</y>
       <w>80</w>
       <h>96</h>
     </coordinates>
@@ -110,8 +111,8 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>120</x>
-      <y>312</y>
+      <x>96</x>
+      <y>400</y>
       <w>136</w>
       <h>96</h>
     </coordinates>
@@ -126,8 +127,8 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>216</x>
-      <y>144</y>
+      <x>192</x>
+      <y>232</y>
       <w>152</w>
       <h>112</h>
     </coordinates>
@@ -143,8 +144,8 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>176</x>
-      <y>440</y>
+      <x>152</x>
+      <y>528</y>
       <w>80</w>
       <h>96</h>
     </coordinates>
@@ -156,8 +157,8 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>712</x>
-      <y>296</y>
+      <x>688</x>
+      <y>384</y>
       <w>96</w>
       <h>96</h>
     </coordinates>
@@ -170,8 +171,8 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>40</x>
-      <y>440</y>
+      <x>16</x>
+      <y>528</y>
       <w>104</w>
       <h>96</h>
     </coordinates>
@@ -183,19 +184,19 @@ spell: Spell</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>280</x>
-      <y>248</y>
-      <w>80</w>
-      <h>80</h>
+      <x>256</x>
+      <y>336</y>
+      <w>96</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;80.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;100.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>176</x>
-      <y>248</y>
+      <x>152</x>
+      <y>336</y>
       <w>128</w>
       <h>80</h>
     </coordinates>
@@ -205,8 +206,8 @@ spell: Spell</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>80</x>
-      <y>400</y>
+      <x>56</x>
+      <y>488</y>
       <w>120</w>
       <h>56</h>
     </coordinates>
@@ -216,8 +217,8 @@ spell: Spell</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>176</x>
-      <y>400</y>
+      <x>152</x>
+      <y>488</y>
       <w>56</w>
       <h>56</h>
     </coordinates>
@@ -227,22 +228,22 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>480</x>
-      <y>320</y>
+      <x>456</x>
+      <y>408</y>
       <w>96</w>
       <h>96</h>
     </coordinates>
     <panel_attributes>Spell
 --
--Buff: buff
+-buff: Buff
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>872</x>
-      <y>464</y>
+      <x>848</x>
+      <y>552</y>
       <w>80</w>
       <h>104</h>
     </coordinates>
@@ -255,8 +256,8 @@ MenuTypes
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1024</x>
-      <y>128</y>
+      <x>1000</x>
+      <y>216</y>
       <w>120</w>
       <h>168</h>
     </coordinates>
@@ -272,24 +273,24 @@ MenuTypes
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>776</x>
-      <y>464</y>
-      <w>80</w>
-      <h>104</h>
+      <x>704</x>
+      <y>544</y>
+      <w>136</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enumeration&gt;&gt;
-GameModes
+GameMode
 --
-DeathMatch
-CaptcureTheFlags
-KeepTheFlag</panel_attributes>
+DEATH_MATCH
+CAPTURE_THE_FLAGS
+KEEP_THE_FLAG</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>592</x>
-      <y>296</y>
+      <x>568</x>
+      <y>384</y>
       <w>96</w>
       <h>96</h>
     </coordinates>
@@ -298,6 +299,86 @@ KeepTheFlag</panel_attributes>
 -mainDeck:
 
 </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>24</x>
+      <y>688</y>
+      <w>96</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>Ranged
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>136</x>
+      <y>688</y>
+      <w>96</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>Melee
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>256</x>
+      <y>688</y>
+      <w>96</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>Hybrid
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>80</x>
+      <y>616</y>
+      <w>120</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>56</x>
+      <y>616</y>
+      <w>24</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>96</x>
+      <y>616</y>
+      <w>224</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;260.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>696</x>
+      <y>24</y>
+      <w>48</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Sajjad</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
