@@ -1,39 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>4</zoom_level>
+  <zoom_level>17</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>364</x>
-      <y>352</y>
-      <w>92</w>
-      <h>84</h>
+      <x>1615</x>
+      <y>272</y>
+      <w>408</w>
+      <h>425</h>
     </coordinates>
     <panel_attributes>Game
 --
 -cells: Cell[height][weight]
 -height: int
 -width: int
+-items: ArrayList&lt;Item&gt;
 -player1: Player
 -player2: Player
 -isTurnOfPlayer1: boolean
 -turnNumber: int
 -time: int
 -winnerPlayer: Player
--gameMode: GAME_MODE
+-gameMode: GameMode
+--
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>616</x>
-      <y>368</y>
-      <w>40</w>
-      <h>48</h>
+      <x>2312</x>
+      <y>323</y>
+      <w>255</w>
+      <h>272</h>
     </coordinates>
     <panel_attributes>Cell
 --
+-xCoordinate: int
+-yCoordinate: int
 -item: Item
 -card: Card
 -buff: Buff
@@ -43,10 +48,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>612</x>
-      <y>532</y>
-      <w>88</w>
-      <h>104</h>
+      <x>2584</x>
+      <y>1088</y>
+      <w>510</w>
+      <h>442</h>
     </coordinates>
     <panel_attributes>Player
 --
@@ -55,16 +60,22 @@
 -deckCards:Deck
 -handCards: ArrayList&lt;Card&gt;
 -inBattleCards: ArrayList&lt;Card&gt;
--</panel_attributes>
+-items: ArrayList&lt;Item&gt;
+-selectedCardId: int
+--
++cardExistsInHand(cardId: int): boolean
++myCardIsOnGround(cardid: String): boolean
++select(cardId: String): void
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>464</x>
-      <y>532</y>
-      <w>48</w>
-      <h>68</h>
+      <x>2040</x>
+      <y>1122</y>
+      <w>204</w>
+      <h>289</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enumeration&gt;&gt;
 CardStatuses
@@ -78,10 +89,10 @@ IN_GRAVEYARD</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>392</x>
-      <y>532</y>
-      <w>60</w>
-      <h>72</h>
+      <x>1734</x>
+      <y>1122</y>
+      <w>255</w>
+      <h>306</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enumeration&gt;&gt;
 Buff
@@ -98,10 +109,10 @@ DISARM_BUFF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>332</x>
-      <y>464</y>
-      <w>40</w>
-      <h>48</h>
+      <x>1479</x>
+      <y>833</y>
+      <w>170</w>
+      <h>204</h>
     </coordinates>
     <panel_attributes>SpellCard
 --
@@ -111,29 +122,33 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>248</x>
-      <y>464</y>
-      <w>68</w>
-      <h>48</h>
+      <x>1122</x>
+      <y>833</y>
+      <w>289</w>
+      <h>204</h>
     </coordinates>
-    <panel_attributes>onGroundCards
+    <panel_attributes>OnGroundCards
 --
 -ap: int
 -hp: int
 -specialPower: Spell
+-cell: Cell
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>264</x>
-      <y>376</y>
-      <w>76</w>
-      <h>56</h>
+      <x>1190</x>
+      <y>459</y>
+      <w>323</w>
+      <h>238</h>
     </coordinates>
     <panel_attributes>Card
 --
+-cardId: int
+-inBattleCardId: String
+-name: String
 -buff: Buff
 -cardStatus: CardStatuses
 -player: Player
@@ -145,12 +160,12 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>324</x>
-      <y>524</y>
-      <w>40</w>
-      <h>48</h>
+      <x>1445</x>
+      <y>1088</y>
+      <w>170</w>
+      <h>204</h>
     </coordinates>
-    <panel_attributes>HeroCard
+    <panel_attributes>Hero
 --
 </panel_attributes>
     <additional_attributes/>
@@ -158,13 +173,23 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>512</x>
-      <y>356</y>
-      <w>48</w>
-      <h>48</h>
+      <x>306</x>
+      <y>1020</y>
+      <w>561</w>
+      <h>493</h>
     </coordinates>
     <panel_attributes>Shop
 --
+-cards: ArrayLIst&lt;Card&gt;
+-items: ArrayList&lt;Item&gt;
+--
++cardExistsInShop(cardName: String): boolean
++itemExistsInShop(itemName: Stirng): boolean
++itemNumbersIsFull(): boolean
++buy(cardName: String): void
++buy(itemName: String): void
++itemExistsInCollection(itemId: int): boolean
++cardExistsInCollection(cardId: int): boolaen
 
 
 </panel_attributes>
@@ -173,12 +198,12 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>244</x>
-      <y>524</y>
-      <w>52</w>
-      <h>48</h>
+      <x>1105</x>
+      <y>1088</y>
+      <w>221</w>
+      <h>204</h>
     </coordinates>
-    <panel_attributes>MinionCard
+    <panel_attributes>Minion
 --
 </panel_attributes>
     <additional_attributes/>
@@ -186,10 +211,10 @@ spell: Spell</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>296</x>
-      <y>428</y>
-      <w>64</w>
-      <h>44</h>
+      <x>1326</x>
+      <y>680</y>
+      <w>272</w>
+      <h>187</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;140.0;90.0</additional_attributes>
@@ -197,10 +222,10 @@ spell: Spell</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>276</x>
-      <y>428</y>
-      <w>32</w>
-      <h>44</h>
+      <x>1241</x>
+      <y>680</y>
+      <w>136</w>
+      <h>187</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>60.0;10.0;10.0;90.0</additional_attributes>
@@ -208,10 +233,10 @@ spell: Spell</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>264</x>
-      <y>508</y>
-      <w>24</w>
-      <h>24</h>
+      <x>1190</x>
+      <y>1020</y>
+      <w>102</w>
+      <h>102</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>40.0;10.0;10.0;40.0</additional_attributes>
@@ -219,10 +244,10 @@ spell: Spell</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>276</x>
-      <y>508</y>
-      <w>76</w>
-      <h>24</h>
+      <x>1241</x>
+      <y>1020</y>
+      <w>323</w>
+      <h>102</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;170.0;40.0</additional_attributes>
@@ -230,10 +255,10 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>396</x>
-      <y>464</y>
-      <w>48</w>
-      <h>48</h>
+      <x>1751</x>
+      <y>833</y>
+      <w>204</w>
+      <h>204</h>
     </coordinates>
     <panel_attributes>Spell
 --
@@ -244,28 +269,33 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>668</x>
-      <y>368</y>
-      <w>88</w>
-      <h>92</h>
+      <x>306</x>
+      <y>578</y>
+      <w>544</w>
+      <h>391</h>
     </coordinates>
     <panel_attributes>Account
 --
--name: String
+_-nameAccountHashMap : HashMap&lt;Account&gt;_
+-userName: String
 -password: String
--money: int
+-money: long
 -matchHistory: Arraylist&lt;Game&gt;
 -collection: Collection
--</panel_attributes>
+--
++userNameIsValid(userName : String) : boolean
++passwordIsValid(password : String) : boolean
++sortUsers() : void
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>520</x>
-      <y>532</y>
-      <w>68</w>
-      <h>72</h>
+      <x>2278</x>
+      <y>1122</y>
+      <w>289</w>
+      <h>306</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enumeration&gt;&gt;
 GameMode
@@ -278,26 +308,44 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>452</x>
-      <y>452</y>
-      <w>76</w>
-      <h>48</h>
+      <x>306</x>
+      <y>0</y>
+      <w>765</w>
+      <h>544</h>
     </coordinates>
     <panel_attributes>Collection
 --
 -mainDeck: Deck
 -items: ArrayList&lt;Item&gt;
--
+-decks: ArrayList&lt;Deck&gt;
+-cards : ArrayList&lt;Card&gt;
+--
++createDeck(deckName: String): void
++deleteDeck(deckName: Stirng): void
++deckExists(deckName: String): boolean
++cardIsValid(cardId: int) : boolean
++itemIsValid(itemId: int) : boolean
++cardIsInDeck(cardId: int, deckName: String) : boolean
++itemIsInDeck(itemId: int, deckName: String) : boolean
++deckHasHero(deckName: String): boolean
++addCardToDeck(cardId: int, deckName: String): void
++addItemToDeck(itemId: int, deckName: String): void
++removeCard(cardId: int, deckName: String): void
++removeItem(itemId: int, deckName: String): void
++validateDeck(deckName: String): boolean
+ 
+
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>188</x>
-      <y>604</y>
-      <w>48</w>
-      <h>52</h>
+      <x>884</x>
+      <y>1462</y>
+      <w>204</w>
+      <h>221</h>
     </coordinates>
     <panel_attributes>Ranged
 --</panel_attributes>
@@ -306,10 +354,10 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>248</x>
-      <y>604</y>
-      <w>48</w>
-      <h>52</h>
+      <x>1122</x>
+      <y>1428</y>
+      <w>204</w>
+      <h>221</h>
     </coordinates>
     <panel_attributes>Melee
 --</panel_attributes>
@@ -318,10 +366,10 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>312</x>
-      <y>600</y>
-      <w>48</w>
-      <h>52</h>
+      <x>1394</x>
+      <y>1411</y>
+      <w>204</w>
+      <h>221</h>
     </coordinates>
     <panel_attributes>Hybrid
 --</panel_attributes>
@@ -330,10 +378,10 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>268</x>
-      <y>568</y>
-      <w>20</w>
-      <h>44</h>
+      <x>1207</x>
+      <y>1275</y>
+      <w>85</w>
+      <h>187</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>30.0;10.0;10.0;90.0</additional_attributes>
@@ -341,21 +389,21 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>204</x>
-      <y>568</y>
-      <w>72</w>
-      <h>44</h>
+      <x>952</x>
+      <y>1275</y>
+      <w>289</w>
+      <h>221</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>160.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>150.0;10.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>284</x>
-      <y>568</y>
-      <w>60</w>
-      <h>40</h>
+      <x>1275</x>
+      <y>1275</y>
+      <w>255</w>
+      <h>170</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;130.0;80.0</additional_attributes>
@@ -363,10 +411,10 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>536</x>
-      <y>452</y>
-      <w>72</w>
-      <h>40</h>
+      <x>2074</x>
+      <y>799</y>
+      <w>306</w>
+      <h>170</h>
     </coordinates>
     <panel_attributes>Deck
 --
@@ -379,15 +427,34 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>668</x>
-      <y>480</y>
-      <w>48</w>
-      <h>48</h>
+      <x>1258</x>
+      <y>238</y>
+      <w>204</w>
+      <h>204</h>
     </coordinates>
     <panel_attributes>Item
 --
-
+-itemId: int
+-name: String
+-cell: Cell
+-type: ItemType
 </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2465</x>
+      <y>765</y>
+      <w>272</w>
+      <h>187</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+ItemType
+--
+COLLECTABLE
+USABLE
+FLAG</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
