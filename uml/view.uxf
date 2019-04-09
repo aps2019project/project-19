@@ -134,4 +134,20 @@ ErrorTypes
 </panel_attributes>
     <additional_attributes/>
   </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>980</x>
+      <y>84</y>
+      <w>119</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>View
+--
+-toPrint: String
+--
+showMethods(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>

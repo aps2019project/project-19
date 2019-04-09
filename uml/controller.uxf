@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>7</zoom_level>
+  <zoom_level>13</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>497</x>
-      <y>35</y>
-      <w>70</w>
-      <h>147</h>
+      <x>234</x>
+      <y>0</y>
+      <w>130</w>
+      <h>273</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enumeration&gt;&gt;
 MenuTypes
@@ -22,10 +22,10 @@ Help</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>651</x>
-      <y>35</y>
-      <w>196</w>
-      <h>609</h>
+      <x>520</x>
+      <y>0</y>
+      <w>364</w>
+      <h>1131</h>
     </coordinates>
     <panel_attributes>Controller
 --
