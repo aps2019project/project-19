@@ -4,7 +4,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1615</x>
+      <x>1309</x>
       <y>272</y>
       <w>408</w>
       <h>425</h>
@@ -30,7 +30,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2312</x>
+      <x>2006</x>
       <y>323</y>
       <w>255</w>
       <h>272</h>
@@ -48,7 +48,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2584</x>
+      <x>2278</x>
       <y>1088</y>
       <w>510</w>
       <h>442</h>
@@ -72,7 +72,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2040</x>
+      <x>1734</x>
       <y>1122</y>
       <w>204</w>
       <h>289</h>
@@ -89,7 +89,7 @@ IN_GRAVEYARD</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1734</x>
+      <x>1428</x>
       <y>1122</y>
       <w>255</w>
       <h>306</h>
@@ -109,7 +109,7 @@ DISARM_BUFF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1479</x>
+      <x>1173</x>
       <y>833</y>
       <w>170</w>
       <h>204</h>
@@ -122,7 +122,7 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1122</x>
+      <x>816</x>
       <y>833</y>
       <w>289</w>
       <h>204</h>
@@ -139,7 +139,7 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1190</x>
+      <x>884</x>
       <y>459</y>
       <w>323</w>
       <h>238</h>
@@ -151,8 +151,8 @@ spell: Spell</panel_attributes>
 -name: String
 -buff: Buff
 -cardStatus: CardStatuses
--player: Player
 -price: int
+-mana: int
 --
 </panel_attributes>
     <additional_attributes/>
@@ -160,7 +160,7 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1445</x>
+      <x>1139</x>
       <y>1088</y>
       <w>170</w>
       <h>204</h>
@@ -173,7 +173,7 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>306</x>
+      <x>0</x>
       <y>1020</y>
       <w>561</w>
       <h>493</h>
@@ -185,11 +185,12 @@ spell: Spell</panel_attributes>
 --
 +cardExistsInShop(cardName: String): boolean
 +itemExistsInShop(itemName: Stirng): boolean
-+itemNumbersIsFull(): boolean
-+buy(cardName: String): void
-+buy(itemName: String): void
++buyCard(cardName: String): void
++buyItem(itemName: String): void
 +itemExistsInCollection(itemId: int): boolean
 +cardExistsInCollection(cardId: int): boolaen
++sellCard(cardId : int) void
++sellItem(cardId : int) void
 
 
 </panel_attributes>
@@ -198,7 +199,7 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1105</x>
+      <x>799</x>
       <y>1088</y>
       <w>221</w>
       <h>204</h>
@@ -211,7 +212,7 @@ spell: Spell</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1326</x>
+      <x>1020</x>
       <y>680</y>
       <w>272</w>
       <h>187</h>
@@ -222,7 +223,7 @@ spell: Spell</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1241</x>
+      <x>935</x>
       <y>680</y>
       <w>136</w>
       <h>187</h>
@@ -233,7 +234,7 @@ spell: Spell</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1190</x>
+      <x>884</x>
       <y>1020</y>
       <w>102</w>
       <h>102</h>
@@ -244,7 +245,7 @@ spell: Spell</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1241</x>
+      <x>935</x>
       <y>1020</y>
       <w>323</w>
       <h>102</h>
@@ -255,7 +256,7 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1751</x>
+      <x>1445</x>
       <y>833</y>
       <w>204</w>
       <h>204</h>
@@ -269,30 +270,29 @@ spell: Spell</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>306</x>
+      <x>0</x>
       <y>578</y>
-      <w>544</w>
+      <w>731</w>
       <h>391</h>
     </coordinates>
     <panel_attributes>Account
 --
-_-nameAccountHashMap : HashMap&lt;Account&gt;_
+_-nameAccountHashMap : HashMap&lt;String ,Account&gt;_
 -userName: String
 -password: String
 -money: long
 -matchHistory: Arraylist&lt;Game&gt;
 -collection: Collection
 --
-+userNameIsValid(userName : String) : boolean
-+passwordIsValid(password : String) : boolean
-+sortUsers() : void
+_+userNameIsValid(userName : String) : boolean_
+_+passwordIsValid(password : String , account: Account) : boolean_
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2278</x>
+      <x>1972</x>
       <y>1122</y>
       <w>289</w>
       <h>306</h>
@@ -308,7 +308,7 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>306</x>
+      <x>0</x>
       <y>0</y>
       <w>765</w>
       <h>544</h>
@@ -342,7 +342,7 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>884</x>
+      <x>578</x>
       <y>1462</y>
       <w>204</w>
       <h>221</h>
@@ -354,7 +354,7 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1122</x>
+      <x>816</x>
       <y>1428</y>
       <w>204</w>
       <h>221</h>
@@ -366,7 +366,7 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1394</x>
+      <x>1088</x>
       <y>1411</y>
       <w>204</w>
       <h>221</h>
@@ -378,7 +378,7 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1207</x>
+      <x>901</x>
       <y>1275</y>
       <w>85</w>
       <h>187</h>
@@ -389,7 +389,7 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>952</x>
+      <x>646</x>
       <y>1275</y>
       <w>289</w>
       <h>221</h>
@@ -400,7 +400,7 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1275</x>
+      <x>969</x>
       <y>1275</y>
       <w>255</w>
       <h>170</h>
@@ -411,7 +411,7 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2074</x>
+      <x>1768</x>
       <y>799</y>
       <w>306</w>
       <h>170</h>
@@ -427,8 +427,8 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1258</x>
-      <y>238</y>
+      <x>918</x>
+      <y>170</y>
       <w>204</w>
       <h>204</h>
     </coordinates>
@@ -444,7 +444,7 @@ KEEP_THE_FLAG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2465</x>
+      <x>2159</x>
       <y>765</y>
       <w>272</w>
       <h>187</h>
