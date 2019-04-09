@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>532</x>
+      <y>84</y>
+      <w>217</w>
+      <h>469</h>
+    </coordinates>
+    <panel_attributes>Request
+--
+-scanner: Scanner
+-command: String
+-requestType: RequestType
+-errorType: ErrorType
+-deckName: String
+-cardID: int
+-cardName: String
+-collectableName: String
+-collectableName: 
+-itemID: int
+--
++getNewCommand(): void
++findTypeOfRequest(): RequestType
++commandIsValid(): boolean
++checkSyntaxOfCreateAccount(): void
++checkSyntaxOfLogin(): void
++checkSyntaxOfShow(): void
++checkSyntaxOfSearchInCollection(): void
++checkSyntaxOfCreateDeck(): void
++checkSyntaxOfDeleteDeck(): void
++checkSyntaxOfAddToDeck(): void
++checkSyntaxOfRemoveCardFromDeck(): void
++checkSyntaxOfValidateDeck(): void
++checkSyntaxOfSelectMainDeck(): void
++checkSyntaxOfShowDeck(): void
++checkSyntaxOfSearchInShop(): void
++checkSyntaxOfBuyFromShop(): void
++checkSyntaxOfSellToShop(): void
++checkSyntaxOfShowCardInfoInBattle(): void
++checkSyntaxOfSelectCard(): void
++checkSyntaxOfMoveCard(): void
++checkSyntaxOfAttack(): void
++checkSyntaxOfComboAttack(): void
++checkSyntaxOfInsertCard(): void
++checkSyntaxOfSelectCollectable(): void
++checkSyntaxOfUseCollectable(): void
++checkSyntaxOfCardInfoInGraveYard(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>259</x>
+      <y>84</y>
+      <w>210</w>
+      <h>595</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+RequestTypes
+--
+ERROR
+CREATE_ACCOUNT
+LOGIN
+SHOW_LEADER_BOARD
+SAVE
+LOG_OUT
+HELP
+EXIT_MENU
+SAVE
+LOGOUT
+ENTER_BATTLE_MENU
+ENTER_SHOP
+ENTER_COLLECTION
+SHOW_COLLECTION_ITEMS
+SEARCH_IN_COLLECTION
+SAVE_COLLECTION
+CREATE_DECK
+DELETE_DECK
+ADD_TO_DECK
+REMOVE_CARD_FROM_DECK
+VALIDATE_DECK
+SELECT_MAIN_DECK
+SHOW_ALL_DECKS
+SHOW_DECK
+SEARCH_IN_SHOP
+BUY_FROM_SHOP
+SELL_TO_SHOP
+SHOW_SHOP
+SHOW_GAME_INFO
+SHOW_MY_MINIONS
+SHOW_OPPONENT_MINIONS
+SHOW_CARD_INFO_IN_BATTLE
+SELECT_CARD
+MOVE_CARD
+ATTACK
+COMBO_ATTACK
+USE_SPECIAL_POWER
+SHOW_HAND
+INSERT_CARD
+END_TURN
+SHOW_GATHERED_COLLECTABLES
+SELECT_COLLECTABLE
+SHOW_COLLECATBLE_INFO
+USE_COLLECTABLE
+SHOW_NEXT_CARD
+SHOW_CARD_INFO_IN_GRAVEYARD
+END_GAME
+SHOW_MENU_OPTIONS
+
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>784</x>
+      <y>84</y>
+      <w>147</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+ErrorTypes
+--
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
