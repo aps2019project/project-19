@@ -90,7 +90,7 @@ public class View {
     }
 
     ;
-    public void checkSyntaxOfSellToShop
+    public void checkSyntaxOfSellToShop()
 
     {
     }
