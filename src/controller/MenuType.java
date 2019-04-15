@@ -1,5 +1,5 @@
 package controller;
 
-public enum MenuTypes {
+public enum MenuType {
     ACCOUNT, MAINMENU, SHOP, BATTLE, HELP
 }

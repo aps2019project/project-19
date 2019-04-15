@@ -3,14 +3,30 @@ package controller;
 import view.*;
 
 public class Controller {
-    private MenuTypes menuTypes;
-    private ErrorType errorType;
+    private static MenuType menuType = MenuType.ACCOUNT;
+    //todo:check starting menu
+    private static ErrorType errorType;
 
-    public void main() {
-        boolean endGame = false;
-        while (endGame) {
+    public static void main() {
+        mainloop:
+        do {
+            System.out.println("Menu: "+menuType);
             Request request = new Request();
-        }
+            request.getNewCommand();
+            request.setRequestType(menuType);
+            if(!request.commandIsValid()){
+                View.printError(request.getErrorType());
+                continue ;
+            }
+            switch (request.getRequestType()){
+                case CREATE_ACCOUNT:
+                    System.out.println("account created");
+                    menuType = MenuType.MAINMENU;
+                    break;
+                case EXIT_MENU:
+                    break mainloop;
+            }
+        } while (true);
     }
 
     public void managelputs() {
