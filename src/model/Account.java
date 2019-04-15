@@ -1,10 +1,14 @@
 package model;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> 754349cd95a1fa31c25131ea911769f902338ea8
 import java.util.HashMap;
 
 public class Account {
 
+<<<<<<< HEAD
     private static HashMap<String, Account> nameAccountHashMap = new HashMap<String, Account>();
     private String userName;
     private String password;
@@ -59,4 +63,6 @@ public class Account {
     public static boolean userNameIsValid(String userName){}
 
     public static boolean passwordIsValid(String password, Account account){}
+=======
+>>>>>>> 754349cd95a1fa31c25131ea911769f902338ea8
 }
