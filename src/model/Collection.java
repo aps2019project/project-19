@@ -32,17 +32,17 @@ public class Collection {
 
     public void deleteDeck(String deckName){}
 
-    public boolean deckExist(String deckName){}
-
-    public boolean cardIsValid(int cardId){}
-
-    public boolean itemIsValid(int itemId){}
-
-    public boolean cardIsInDeck(int cardId, String deckName){}
-
-    public boolean itemIsInDeck(int itemId, String deckName){}
-
-    public boolean deckHasHero(String deckName){}
+//    public boolean deckExist(String deckName){}
+//
+//    public boolean cardIsValid(int cardId){}
+//
+//    public boolean itemIsValid(int itemId){}
+//
+//    public boolean cardIsInDeck(int cardId, String deckName){}
+//
+//    public boolean itemIsInDeck(int itemId, String deckName){}
+//
+//    public boolean deckHasHero(String deckName){}
 
     public void addCardToDeck(int cardId, String deckName){}
 
@@ -52,5 +52,5 @@ public class Collection {
 
     public void removeItem(int itemId, String deckName){}
 
-    public boolean validateDeck(String deckName){}
+//    public boolean validateDeck(String deckName){}
 }

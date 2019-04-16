@@ -1,6 +1,7 @@
 package view;
 
 import controller.MenuType;
+import model.Account;
 
 import java.util.Scanner;
 
@@ -11,6 +12,8 @@ public class Request {
    private ErrorType errorType;
    private String deckName;
    private String cardName;
+   private String userName;
+   private String password;
    private String collectableName;
    private int cardID;
    private int itemID;
@@ -25,9 +28,28 @@ public class Request {
             case ACCOUNT:
                 if (command.matches("create account \\w+"))
                     return RequestType.CREATE_ACCOUNT;
+                if (command.matches("login \\w+"))
+                    return RequestType.LOGIN;
+                if(command.matches("show leaderboard"))
+                    return RequestType.SHOW_LEADER_BOARD;
+                if(command.matches("save"))
+                    return RequestType.SAVE;
+                if(command.matches("logout"))
+                    return RequestType.LOGOUT;
+                if(command.matches("help"))
+                    return RequestType.HELP;
                 if(command.matches("exit"))
                     return RequestType.EXIT_MENU;
                 break;
+            case MAINMENU:
+                break;
+            case COLLECTION:
+                break;
+            case BATTLE:
+                break;
+            case SHOP:
+                break;
+
         }
         return RequestType.ERROR;
     }
@@ -37,6 +59,8 @@ public class Request {
         switch (requestType){
             case CREATE_ACCOUNT:
                 return checkSyntaxOfCreateAccount();
+            case LOGIN:
+                return checkSyntaxOfLogin();
             case ERROR:
                 errorType = ErrorType.INVALID_COMMAND;
                 return false;
@@ -48,10 +72,31 @@ public class Request {
 
 
     public boolean checkSyntaxOfCreateAccount() {
+        userName = command.split(" ")[2];
+        if(Account.userNameIsValid(userName)){
+            errorType = ErrorType.USERNAME_TAKEN;
+            return false;
+        }
+        System.out.println("Enter your password:");
+        getNewCommand();
+        password = command;
         return true;
     }
 
-    public void checkSyntaxOfLogin() {
+    public boolean checkSyntaxOfLogin() {
+        userName = command.split(" ")[1];
+        if(!Account.userNameIsValid(userName)){
+            errorType = ErrorType.INVALID_USERNAME;
+            return false;
+        }
+        System.out.println("Enter your password");
+        getNewCommand();
+        password = command;
+        if (!Account.passwordIsValid(password,userName)){
+            errorType = ErrorType.INVALID_PASSWORD;
+            return false;
+        }
+        return true;
     }
 
 
@@ -185,6 +230,12 @@ public class Request {
         return cardName;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+    public String getPassword(){
+        return password;
+    }
     public String getCollectableName() {
         return collectableName;
     }

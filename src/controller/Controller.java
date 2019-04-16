@@ -1,17 +1,20 @@
 package controller;
 
+import model.Account;
+import sun.applet.Main;
 import view.*;
 
 public class Controller {
     private static MenuType menuType = MenuType.ACCOUNT;
     //todo:check starting menu
     private static ErrorType errorType;
-
+    private static Request request;
+    private static Account logedInAccount;
     public static void main() {
         mainloop:
         do {
             System.out.println("Menu: "+menuType);
-            Request request = new Request();
+            request = new Request();
             request.getNewCommand();
             request.setRequestType(menuType);
             if(!request.commandIsValid()){
@@ -20,8 +23,12 @@ public class Controller {
             }
             switch (request.getRequestType()){
                 case CREATE_ACCOUNT:
+                    createNewAccount();
                     System.out.println("account created");
-                    menuType = MenuType.MAINMENU;
+                    break;
+                case LOGIN:
+                    login();
+                    System.out.println("loged into "+ request.getUserName());
                     break;
                 case EXIT_MENU:
                     break mainloop;
@@ -29,13 +36,17 @@ public class Controller {
         } while (true);
     }
 
-    public void managelputs() {
+    public static void managelputs() {
     }
 
-    public void createNewAccount() {
+    public static void createNewAccount() {
+        Account newAccount = new Account(request.getUserName(),request.getPassword());
+        Account.addAccount(newAccount);
     }
 
-    public void login() {
+    public static void login() {
+        logedInAccount = Account.getAccounts().get(request.getUserName());
+        menuType = MenuType.MAINMENU;
     }
 
     public void showLeaderBoard() {
