@@ -1,7 +1,6 @@
 package view;
 
 import controller.MenuType;
-import model.Account;
 
 import java.util.Scanner;
 
@@ -52,7 +51,18 @@ public class Request {
             case BATTLE:
                 break;
             case SHOP:
-                break;
+                if (command.matches("show collection"))
+                    return RequestType.SHOW_COLLECTION_ITEMS;
+                if (command.matches("search \\w+"))
+                    return RequestType.SEARCH_IN_SHOP;
+                if (command.matches("search collection \\w+"))
+                    return RequestType.SEARCH_IN_COLLECTION;
+                if (command.matches("buy \\w+"))
+                    return RequestType.BUY_FROM_SHOP;
+                if (command.matches("sell \\d+"))
+                    return RequestType.SELL_TO_SHOP;
+                if (command.matches("show"))
+                    return RequestType.SHOW_SHOP;
         }
         if(command.matches("help"))
             return RequestType.HELP;
@@ -62,32 +72,22 @@ public class Request {
     }
 
 
-    public boolean commandIsValid() {
+    public void parseCommand() {
         switch (requestType){
             case CREATE_ACCOUNT:
-                return checkSyntaxOfCreateAccount();
+                 parseCreateAccount();
             case LOGIN:
-                return checkSyntaxOfLogin();
-            case EXIT_MENU:
-                return true;
-            case HELP:
-                return true;
-            case ERROR:
-                errorType = ErrorType.INVALID_COMMAND;
-                return false;
+                 parseLogin();
         }
-        return false;
     }
 
 
-    public boolean checkSyntaxOfCreateAccount() {
+    public void parseCreateAccount() {
         userName = command.split(" ")[2];
-        return true;
     }
 
-    public boolean checkSyntaxOfLogin() {
+    public void parseLogin() {
         userName = command.split(" ")[1];
-        return true;
     }
 
 

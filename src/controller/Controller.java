@@ -21,64 +21,67 @@ public class Controller {
     //todo:check starting menu
     private Request request;
     private Account loggedInAccount;
+    private ErrorType errorType = null;
     private View view = View.getInstance();
 
-    public void main() {
-        mainloop:
+    public void run() {
+        mainLoop:
         do {
             System.out.println("Menu: " + menuType);
             request = new Request();
             request.getNewCommand();
             request.setRequestType(menuType);
-            if (!request.commandIsValid()) {
-                view.printError(request.getErrorType());
-                continue;
-            }
+            request.parseCommand();
             switch (request.getRequestType()) {
+                case ERROR:
+                    errorType = ErrorType.INVALID_COMMAND;
+                    break ;
                 case CREATE_ACCOUNT:
                     createNewAccount();
-                    System.out.println("account created");
                     break;
                 case LOGIN:
                     login();
-                    System.out.println("logged into " + request.getUserName());
                     break;
                 case EXIT_MENU:
-                    break mainloop;
+                    break mainLoop;
                 case SHOW_LEADER_BOARD:
                     showLeaderBoard();
                     break;
             }
+            if(errorType != null){
+                view.printError(errorType);
+                errorType=null;
+            }
         } while (true);
     }
 
-    public void managelputs() {
-    }
 
     public void createNewAccount() {
         if (Account.userNameIsValid(request.getUserName())) {
-            view.printError(ErrorType.USERNAME_TAKEN);
+            errorType=ErrorType.INVALID_USERNAME;
             return;
         }
         view.printEnterPassword();
         request.getNewCommand();
         Account newAccount = new Account(request.getUserName(), request.getCommand());
         Account.addAccount(newAccount);
+        System.out.println("account created");
     }
 
     public void login() {
         if (!Account.userNameIsValid(request.getUserName())) {
-            view.printError(ErrorType.INVALID_USERNAME);
+            errorType=ErrorType.INVALID_USERNAME;
             return;
         }
         view.printEnterPassword();
         request.getNewCommand();
         if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
-            view.printError(ErrorType.INVALID_PASSWORD);
+            errorType=ErrorType.INVALID_PASSWORD;
             return;
         }
         loggedInAccount = Account.getAccounts().get(request.getUserName());
         menuType = MenuType.MAINMENU;
+        System.out.println("logged into " + request.getUserName());
     }
 
     public void showLeaderBoard() {
