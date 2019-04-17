@@ -2,6 +2,7 @@ import controller.Controller;
 
 public class Main {
     public static void main(String[] args) {
-        Controller.main();
+        Controller controller = Controller.getInstance();
+        controller.main();
     }
 }

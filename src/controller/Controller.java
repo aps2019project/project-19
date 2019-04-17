@@ -4,30 +4,40 @@ import model.Account;
 import view.*;
 
 public class Controller {
-    private static MenuType menuType = MenuType.ACCOUNT;
+    private final static Controller CONTROLLER = new Controller();
+
+    public static Controller getInstance() {
+        return CONTROLLER;
+    }
+
+    private Controller() {
+    }
+
+    private MenuType menuType = MenuType.ACCOUNT;
     //todo:check starting menu
-    private static ErrorType errorType;
-    private static Request request;
-    private static Account loggedInAccount;
-    public static void main() {
+    private Request request;
+    private Account loggedInAccount;
+    private View view = View.getInstance();
+
+    public void main() {
         mainloop:
         do {
-            System.out.println("Menu: "+menuType);
+            System.out.println("Menu: " + menuType);
             request = new Request();
             request.getNewCommand();
             request.setRequestType(menuType);
-            if(!request.commandIsValid()){
-                View.printError(request.getErrorType());
-                continue ;
+            if (!request.commandIsValid()) {
+                view.printError(request.getErrorType());
+                continue;
             }
-            switch (request.getRequestType()){
+            switch (request.getRequestType()) {
                 case CREATE_ACCOUNT:
                     createNewAccount();
                     System.out.println("account created");
                     break;
                 case LOGIN:
                     login();
-                    System.out.println("logged into "+ request.getUserName());
+                    System.out.println("logged into " + request.getUserName());
                     break;
                 case EXIT_MENU:
                     break mainloop;
@@ -35,15 +45,31 @@ public class Controller {
         } while (true);
     }
 
-    public static void managelputs() {
+    public void managelputs() {
     }
 
-    public static void createNewAccount() {
-        Account newAccount = new Account(request.getUserName(),request.getPassword());
+    public void createNewAccount() {
+        if (Account.userNameIsValid(request.getUserName())) {
+            view.printError(ErrorType.USERNAME_TAKEN);
+            return;
+        }
+        view.printEnterPassword();
+        request.getNewCommand();
+        Account newAccount = new Account(request.getUserName(), request.getCommand());
         Account.addAccount(newAccount);
     }
 
-    public static void login() {
+    public void login() {
+        if (!Account.userNameIsValid(request.getUserName())) {
+            view.printError(ErrorType.INVALID_USERNAME);
+            return;
+        }
+        view.printEnterPassword();
+        request.getNewCommand();
+        if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
+            view.printError(ErrorType.INVALID_PASSWORD);
+            return;
+        }
         loggedInAccount = Account.getAccounts().get(request.getUserName());
         menuType = MenuType.MAINMENU;
     }

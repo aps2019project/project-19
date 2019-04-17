@@ -19,7 +19,7 @@ public class Request {
    private int itemID;
 
     public void getNewCommand() {
-        command=scanner.nextLine().trim();
+        command=scanner.nextLine().trim().toLowerCase();
     }
 
 
@@ -36,12 +36,14 @@ public class Request {
                     return RequestType.SAVE;
                 if(command.matches("logout"))
                     return RequestType.LOGOUT;
-                if(command.matches("help"))
-                    return RequestType.HELP;
-                if(command.matches("exit"))
-                    return RequestType.EXIT_MENU;
                 break;
             case MAINMENU:
+                if(command.matches("enter battle"))
+                    return RequestType.ENTER_BATTLE_MENU;
+                if(command.matches("enter shop"))
+                    return RequestType.ENTER_SHOP;
+                if(command.matches("enter collection"))
+                    return RequestType.ENTER_COLLECTION;
                 break;
             case COLLECTION:
                 break;
@@ -49,8 +51,11 @@ public class Request {
                 break;
             case SHOP:
                 break;
-
         }
+        if(command.matches("help"))
+            return RequestType.HELP;
+        else if(command.matches("exit"))
+            return RequestType.EXIT_MENU;
         return RequestType.ERROR;
     }
 
@@ -61,11 +66,13 @@ public class Request {
                 return checkSyntaxOfCreateAccount();
             case LOGIN:
                 return checkSyntaxOfLogin();
+            case EXIT_MENU:
+                return true;
+            case HELP:
+                return true;
             case ERROR:
                 errorType = ErrorType.INVALID_COMMAND;
                 return false;
-            case EXIT_MENU:
-                return true;
         }
         return false;
     }
@@ -73,29 +80,11 @@ public class Request {
 
     public boolean checkSyntaxOfCreateAccount() {
         userName = command.split(" ")[2];
-        if(Account.userNameIsValid(userName)){
-            errorType = ErrorType.USERNAME_TAKEN;
-            return false;
-        }
-        System.out.println("Enter your password:");
-        getNewCommand();
-        password = command;
         return true;
     }
 
     public boolean checkSyntaxOfLogin() {
         userName = command.split(" ")[1];
-        if(!Account.userNameIsValid(userName)){
-            errorType = ErrorType.INVALID_USERNAME;
-            return false;
-        }
-        System.out.println("Enter your password");
-        getNewCommand();
-        password = command;
-        if (!Account.passwordIsValid(password,userName)){
-            errorType = ErrorType.INVALID_PASSWORD;
-            return false;
-        }
         return true;
     }
 
