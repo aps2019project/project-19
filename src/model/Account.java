@@ -14,6 +14,15 @@ public class Account implements Comparable<Account> {
     private long money;
     private ArrayList<Game> matchHistory = new ArrayList<>();
     private Collection collection;
+    private Shop shop;
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
 
     public Account(String userName, String password) {
         this.userName = userName;

@@ -1,6 +1,8 @@
 package controller;
 
 import model.Account;
+import model.Card;
+import model.Item;
 import view.*;
 
 import java.util.ArrayList;
@@ -43,6 +45,9 @@ public class Controller {
                     break;
                 case LOGOUT:
                     logOut();
+                case SEARCH_IN_SHOP:
+                    searchInShop();
+                    break;
                 case EXIT_MENU:
                     exitMenu();
                     break;
@@ -72,7 +77,6 @@ public class Controller {
         Account.addAccount(newAccount);
         System.out.println("account created");
     }
-
 
     public void login() {
         if (!Account.userNameIsValid(request.getUserName())) {
@@ -161,6 +165,17 @@ public class Controller {
     }
 
     public void searchInShop() {
+        if (loggedInAccount.getShop().itemExistsInShop(request.getSearchingName())){
+            for (Item item : loggedInAccount.getShop().getItems())
+                if (item.getName().equals(request.getSearchingName()))
+                    System.out.println(item.getItemId());
+        }
+        else if (loggedInAccount.getShop().cardExistsInShop(request.getSearchingName())){
+            for (Card card : loggedInAccount.getShop().getCards())
+                if (card.getName().equals(request.getSearchingName()))
+                    System.out.println(card.getCardId());
+        }
+        else request.setErrorType(ErrorType.NOT_FOUND);
     }
 
     public void buyFromShop() {

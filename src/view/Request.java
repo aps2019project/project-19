@@ -6,16 +6,18 @@ import java.util.Scanner;
 
 public class Request {
     private static Scanner scanner = new Scanner(System.in);
-    private String command;
-    private RequestType requestType;
-    private ErrorType errorType;
-    private String deckName;
-    private String cardName;
-    private String userName;
-    private String collectableName;
+   private String command;
+   private RequestType requestType;
+   private ErrorType errorType;
+   private String deckName;
+   private String cardName;
+   private String searchingName;
+   private String userName;
+   private String password;
+   private String collectableName;
     private MenuType enteringMenu;
     private int cardID;
-    private int itemID;
+   private int itemID;
 
     public void getNewCommand() {
         do {
@@ -25,7 +27,7 @@ public class Request {
 
 
     public RequestType findTypeOfRequest(MenuType menuType) {
-        switch (menuType) {
+        switch (menuType){
             case ACCOUNT:
                 if (command.matches("create account \\w+"))
                     return RequestType.CREATE_ACCOUNT;
@@ -60,9 +62,9 @@ public class Request {
                 if (command.matches("show"))
                     return RequestType.SHOW_SHOP;
         }
-        if (command.matches("help"))
+        if(command.matches("help"))
             return RequestType.HELP;
-        else if (command.matches("exit"))
+        else if(command.matches("exit"))
             return RequestType.EXIT_MENU;
         return RequestType.ERROR;
     }
@@ -75,6 +77,9 @@ public class Request {
                 break;
             case LOGIN:
                 userName = command.split(" ")[1];
+                break;
+            case SEARCH_IN_SHOP:
+                searchingName = command.split(" ")[1];
                 break;
             case ENTER_MENU:
                 parseEnterMenu();
@@ -220,6 +225,14 @@ public class Request {
 
     public String getCardName() {
         return cardName;
+    }
+
+    public String getSearchingName() {
+        return searchingName;
+    }
+
+    public void setSearchingName(String searchingName) {
+        this.searchingName = searchingName;
     }
 
     public String getUserName() {
