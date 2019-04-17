@@ -19,7 +19,9 @@ public class Request {
    private int itemID;
 
     public void getNewCommand() {
-        command=scanner.nextLine().trim().toLowerCase();
+        do {
+            command = scanner.nextLine().trim().toLowerCase();
+        }while (command.equals(""));
     }
 
 
@@ -75,8 +77,10 @@ public class Request {
         switch (requestType){
             case CREATE_ACCOUNT:
                  parseCreateAccount();
+                 break;
             case LOGIN:
                  parseLogin();
+                 break;
             case SEARCH_IN_SHOP:
                 parseSearchInShop();
                 break;
@@ -234,11 +238,9 @@ public class Request {
     public String getUserName() {
         return userName;
     }
-
     public String getPassword(){
         return password;
     }
-
     public String getCollectableName() {
         return collectableName;
     }
