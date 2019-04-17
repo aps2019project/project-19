@@ -12,6 +12,7 @@ public class Request {
    private String deckName;
    private String cardName;
    private String searchingName;
+   private String productName;
    private String userName;
    private String collectableName;
     private MenuType enteringMenu;
@@ -80,6 +81,15 @@ public class Request {
             case SEARCH_IN_SHOP:
                 searchingName = command.split(" ")[1];
                 break;
+            case SEARCH_IN_COLLECTION:
+                searchingName = command.split(" ")[2];
+                break;
+            case BUY_FROM_SHOP:
+                productName = command.split(" ")[1];
+                break;
+        }
+    }
+
             case ENTER_MENU:
                 parseEnterMenu();
                 break;
@@ -130,8 +140,8 @@ public class Request {
     public void checkSyntaxOfShowDeck() {
     }
 
-
-    public void checkSyntaxOfSearchInShop() {
+    public void parseSearchInShop() {
+        searchingName = command.split(" ")[1];
     }
 
 
@@ -232,6 +242,14 @@ public class Request {
 
     public void setSearchingName(String searchingName) {
         this.searchingName = searchingName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getUserName() {
