@@ -13,7 +13,6 @@ public class Request {
    private String cardName;
    private String searchingName;
    private String userName;
-   private String password;
    private String collectableName;
     private MenuType enteringMenu;
     private int cardID;
