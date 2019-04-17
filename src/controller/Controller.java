@@ -5,9 +5,6 @@ import model.Card;
 import model.Item;
 import view.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class Controller {
     private final static Controller CONTROLLER = new Controller();
 
@@ -56,6 +53,9 @@ public class Controller {
                     break;
                 case SHOW_LEADER_BOARD:
                     showLeaderBoard();
+                    break;
+                case HELP:
+                    view.showHelp(menuType);
                     break;
             }
             if (errorType != null) {
