@@ -50,7 +50,18 @@ public class Request {
             case BATTLE:
                 break;
             case SHOP:
-                break;
+                if (command.matches("show collection"))
+                    return RequestType.SHOW_COLLECTION_ITEMS;
+                if (command.matches("search \\w+"))
+                    return RequestType.SEARCH_IN_SHOP;
+                if (command.matches("search collection \\w+"))
+                    return RequestType.SEARCH_IN_COLLECTION;
+                if (command.matches("buy \\w+"))
+                    return RequestType.BUY_FROM_SHOP;
+                if (command.matches("sell \\d+"))
+                    return RequestType.SELL_TO_SHOP;
+                if (command.matches("show"))
+                    return RequestType.SHOW_SHOP;
         }
         if(command.matches("help"))
             return RequestType.HELP;

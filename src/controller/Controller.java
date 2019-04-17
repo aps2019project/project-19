@@ -20,7 +20,7 @@ public class Controller {
     private View view = View.getInstance();
 
     public void main() {
-        mainloop:
+        mainLoop:
         do {
             System.out.println("Menu: " + menuType);
             request = new Request();
@@ -40,7 +40,7 @@ public class Controller {
                     System.out.println("logged into " + request.getUserName());
                     break;
                 case EXIT_MENU:
-                    break mainloop;
+                    break mainLoop;
             }
         } while (true);
     }
