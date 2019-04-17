@@ -5,12 +5,20 @@ import sun.applet.Main;
 import view.*;
 
 public class Controller {
-    private static MenuType menuType = MenuType.ACCOUNT;
+    private final static Controller CONTROLLER = new Controller();
+    public static Controller getInstance(){
+        return CONTROLLER;
+    }
+
+    private Controller() {
+    }
+
+    private MenuType menuType = MenuType.ACCOUNT;
     //todo:check starting menu
-    private static ErrorType errorType;
-    private static Request request;
-    private static Account logedInAccount;
-    public static void main() {
+    private Request request;
+    private View view = View.getInstance();
+    private Account logedInAccount;
+    public void main() {
         mainloop:
         do {
             System.out.println("Menu: "+menuType);
@@ -18,7 +26,7 @@ public class Controller {
             request.getNewCommand();
             request.setRequestType(menuType);
             if(!request.commandIsValid()){
-                View.printError(request.getErrorType());
+                view.printError(request.getErrorType());
                 continue ;
             }
             switch (request.getRequestType()){
@@ -39,12 +47,28 @@ public class Controller {
     public static void managelputs() {
     }
 
-    public static void createNewAccount() {
-        Account newAccount = new Account(request.getUserName(),request.getPassword());
+    public void createNewAccount() {
+        if(Account.userNameIsValid(request.getUserName())){
+            view.printError(ErrorType.USERNAME_TAKEN);
+            return;
+        }
+        view.printEnterPassword();
+        request.getNewCommand();
+        Account newAccount = new Account(request.getUserName(),request.getCommand());
         Account.addAccount(newAccount);
     }
 
-    public static void login() {
+    public void login() {
+        if(!Account.userNameIsValid(request.getUserName())){
+            view.printError(ErrorType.INVALID_USERNAME);
+            return;
+        }
+        view.printEnterPassword();
+        request.getNewCommand();
+        if (!Account.passwordIsValid(request.getCommand(),request.getUserName())){
+            view.printError(ErrorType.INVALID_PASSWORD);
+            return;
+        }
         logedInAccount = Account.getAccounts().get(request.getUserName());
         menuType = MenuType.MAINMENU;
     }
