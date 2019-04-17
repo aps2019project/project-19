@@ -1,6 +1,8 @@
 package controller;
 
 import model.Account;
+import model.Card;
+import model.Item;
 import view.*;
 
 public class Controller {
@@ -37,6 +39,9 @@ public class Controller {
                     break;
                 case LOGIN:
                     login();
+                    break;
+                case SEARCH_IN_SHOP:
+                    searchInShop();
                     break;
                 case EXIT_MENU:
                     break mainLoop;
@@ -135,6 +140,17 @@ public class Controller {
     }
 
     public void searchInShop() {
+        if (loggedInAccount.getShop().itemExistsInShop(request.getSearchingName())){
+            for (Item item : loggedInAccount.getShop().getItems())
+                if (item.getName().equals(request.getSearchingName()))
+                    System.out.println(item.getItemId());
+        }
+        else if (loggedInAccount.getShop().cardExistsInShop(request.getSearchingName())){
+            for (Card card : loggedInAccount.getShop().getCards())
+                if (card.getName().equals(request.getSearchingName()))
+                    System.out.println(card.getCardId());
+        }
+        else request.setErrorType(ErrorType.NOT_FOUND);
     }
 
     public void buyFromShop() {

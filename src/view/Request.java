@@ -11,6 +11,7 @@ public class Request {
    private ErrorType errorType;
    private String deckName;
    private String cardName;
+   private String searchingName;
    private String userName;
    private String password;
    private String collectableName;
@@ -76,6 +77,9 @@ public class Request {
                  parseCreateAccount();
             case LOGIN:
                  parseLogin();
+            case SEARCH_IN_SHOP:
+                parseSearchInShop();
+                break;
         }
     }
 
@@ -123,8 +127,8 @@ public class Request {
     public void checkSyntaxOfShowDeck() {
     }
 
-
-    public void checkSyntaxOfSearchInShop() {
+    public void parseSearchInShop() {
+        searchingName = command.split(" ")[1];
     }
 
 
@@ -219,12 +223,22 @@ public class Request {
         return cardName;
     }
 
+    public String getSearchingName() {
+        return searchingName;
+    }
+
+    public void setSearchingName(String searchingName) {
+        this.searchingName = searchingName;
+    }
+
     public String getUserName() {
         return userName;
     }
+
     public String getPassword(){
         return password;
     }
+
     public String getCollectableName() {
         return collectableName;
     }
