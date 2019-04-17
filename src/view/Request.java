@@ -1,7 +1,6 @@
 package view;
 
 import controller.MenuType;
-import model.Account;
 
 import java.util.Scanner;
 
@@ -60,30 +59,22 @@ public class Request {
     }
 
 
-    public boolean commandIsValid() {
+    public void parseCommand() {
         switch (requestType){
             case CREATE_ACCOUNT:
-                return checkSyntaxOfCreateAccount();
+                 parseCreateAccount();
             case LOGIN:
-                return checkSyntaxOfLogin();
-            case EXIT_MENU:
-                return true;
-            case HELP:
-                return true;
-            case ERROR:
-                errorType = ErrorType.INVALID_COMMAND;
-                return false;
+                 parseLogin();
         }
-        return false;
     }
 
 
-    public boolean checkSyntaxOfCreateAccount() {
+    public boolean parseCreateAccount() {
         userName = command.split(" ")[2];
         return true;
     }
 
-    public boolean checkSyntaxOfLogin() {
+    public boolean parseLogin() {
         userName = command.split(" ")[1];
         return true;
     }
