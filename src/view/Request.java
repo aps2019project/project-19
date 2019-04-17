@@ -28,6 +28,24 @@ public class Request {
                 if(command.matches("exit"))
                     return RequestType.EXIT_MENU;
                 break;
+            case SHOP:
+                if (command.matches("show collection"))
+                    return RequestType.SHOW_COLLECTION_ITEMS;
+                if (command.matches("search \\w+"))
+                    return RequestType.SEARCH_IN_SHOP;
+                if (command.matches("search collection \\w+"))
+                    return RequestType.SEARCH_IN_COLLECTION;
+                if (command.matches("buy \\w+"))
+                    return RequestType.BUY_FROM_SHOP;
+                if (command.matches("sell \\d+"))
+                    return RequestType.SELL_TO_SHOP;
+                if (command.matches("show"))
+                    return RequestType.SHOW_SHOP;
+                if (command.matches("help]"))
+                    return RequestType.HELP;
+                if (command.matches("exit"))
+                    return RequestType.EXIT_SHOP;
+                break;
         }
         return RequestType.ERROR;
     }
@@ -42,6 +60,14 @@ public class Request {
                 return false;
             case EXIT_MENU:
                 return true;
+            case SHOW_COLLECTION_ITEMS:
+                return true;
+            case SEARCH_IN_SHOP:
+                return true;
+            case SEARCH_IN_COLLECTION:
+                return true;
+            case BUY_FROM_SHOP:
+                return checkSyntaxOfBuyFromShop();
         }
         return false;
     }
@@ -52,10 +78,12 @@ public class Request {
     }
 
     public void checkSyntaxOfLogin() {
+
     }
 
 
     public void checkSyntaxOfShow() {
+
     }
 
 
