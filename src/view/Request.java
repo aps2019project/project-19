@@ -76,8 +76,10 @@ public class Request {
         switch (requestType){
             case CREATE_ACCOUNT:
                  parseCreateAccount();
+                 break;
             case LOGIN:
                  parseLogin();
+                 break;
         }
     }
 

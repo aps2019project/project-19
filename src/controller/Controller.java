@@ -1,7 +1,6 @@
 package controller;
 
 import model.Account;
-import model.Collection;
 import view.*;
 
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class Controller {
             switch (request.getRequestType()) {
                 case ERROR:
                     errorType = ErrorType.INVALID_COMMAND;
-                    break ;
+                    break;
                 case CREATE_ACCOUNT:
                     createNewAccount();
                     break;
@@ -48,9 +47,9 @@ public class Controller {
                     showLeaderBoard();
                     break;
             }
-            if(errorType != null){
+            if (errorType != null) {
                 view.printError(errorType);
-                errorType=null;
+                errorType = null;
             }
         } while (true);
     }
@@ -58,7 +57,7 @@ public class Controller {
 
     public void createNewAccount() {
         if (Account.userNameIsValid(request.getUserName())) {
-            errorType=ErrorType.INVALID_USERNAME;
+            errorType = ErrorType.USERNAME_TAKEN;
             return;
         }
         view.printEnterPassword();
@@ -70,13 +69,13 @@ public class Controller {
 
     public void login() {
         if (!Account.userNameIsValid(request.getUserName())) {
-            errorType=ErrorType.INVALID_USERNAME;
+            errorType = ErrorType.INVALID_USERNAME;
             return;
         }
         view.printEnterPassword();
         request.getNewCommand();
         if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
-            errorType=ErrorType.INVALID_PASSWORD;
+            errorType = ErrorType.INVALID_PASSWORD;
             return;
         }
         loggedInAccount = Account.getAccounts().get(request.getUserName());
@@ -85,12 +84,13 @@ public class Controller {
     }
 
     public void showLeaderBoard() {
-        ArrayList<Account> accounts = (ArrayList<Account>) Account.getAccounts().values();
+        ArrayList<Account> accounts = new ArrayList<>(Account.getAccounts().values());
         Collections.sort(accounts);
         int counter = 1;
-        for (Account account: accounts) {
+        for (Account account : accounts) {
             System.out.println(counter + " -  UserName : " + account.getUserName() +
                     " - Wins : " + account.getNumberOfWins());
+            counter++;
         }
     }
 
