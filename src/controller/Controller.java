@@ -146,12 +146,14 @@ public class Controller {
         boolean find = false;
         for (Item item : loggedInAccount.getCollection().getItems()) {
             if (item.getName().equals(request.getSearchingName())) {
+                //todo: bere view
                 System.out.println(item.getItemId());
                 find = true;
             }
         }
         for (Card card : loggedInAccount.getCollection().getCards()) {
             if (card.getName().equals(request.getSearchingName())){
+                //todo: bere view
                 System.out.println(card.getCardId());
                 find = true;
             }
@@ -189,11 +191,13 @@ public class Controller {
     public void searchInShop() {
         for (Item item : loggedInAccount.getShop().getItems())
             if (item.getName().equals(request.getSearchingName())) {
+                //todo:print should be in view
                 System.out.println(item.getItemId());
                 return;
             }
         for (Card card : loggedInAccount.getShop().getCards())
             if (card.getName().equals(request.getSearchingName())) {
+                //todo: print should be in view
                 System.out.println(card.getCardId());
                 return;
             }
@@ -208,6 +212,7 @@ public class Controller {
             request.setErrorType(ErrorType.NOT_ENOUGH_MONEY);
         else if (loggedInAccount.getCollection().getItems().size() < 3) request.setErrorType(ErrorType.FULL_ITEMS);
         else{
+            //todo: yeki az in 2 ta function bayad call she
             loggedInAccount.getShop().buyCard(request.getProductName());
             loggedInAccount.getShop().buyItem(request.getProductName());
         }
