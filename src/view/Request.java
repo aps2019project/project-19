@@ -14,15 +14,15 @@ public class Request {
    private String searchingName;
    private String productName;
    private String userName;
-   private String password;
    private String collectableName;
-   private int cardID;
+    private MenuType enteringMenu;
+    private int cardID;
    private int itemID;
 
     public void getNewCommand() {
         do {
             command = scanner.nextLine().trim().toLowerCase();
-        }while (command.equals(""));
+        } while (command.equals(""));
     }
 
 
@@ -33,20 +33,16 @@ public class Request {
                     return RequestType.CREATE_ACCOUNT;
                 if (command.matches("login \\w+"))
                     return RequestType.LOGIN;
-                if(command.matches("show leaderboard"))
+                if (command.matches("show leaderboard"))
                     return RequestType.SHOW_LEADER_BOARD;
-                if(command.matches("save"))
-                    return RequestType.SAVE;
-                if(command.matches("logout"))
-                    return RequestType.LOGOUT;
                 break;
             case MAINMENU:
-                if(command.matches("enter battle"))
-                    return RequestType.ENTER_BATTLE_MENU;
-                if(command.matches("enter shop"))
-                    return RequestType.ENTER_SHOP;
-                if(command.matches("enter collection"))
-                    return RequestType.ENTER_COLLECTION;
+                if (command.matches("save"))
+                    return RequestType.SAVE;
+                if (command.matches("logout"))
+                    return RequestType.LOGOUT;
+                if (command.matches("enter \\w+"))
+                    return RequestType.ENTER_MENU;
                 break;
             case COLLECTION:
                 break;
@@ -75,15 +71,15 @@ public class Request {
 
 
     public void parseCommand() {
-        switch (requestType){
+        switch (requestType) {
             case CREATE_ACCOUNT:
-                 parseCreateAccount();
-                 break;
+                userName = command.split(" ")[2];
+                break;
             case LOGIN:
-                 parseLogin();
-                 break;
+                userName = command.split(" ")[1];
+                break;
             case SEARCH_IN_SHOP:
-                parseSearchInShop();
+                searchingName = command.split(" ")[1];
                 break;
             case SEARCH_IN_COLLECTION:
                 searchingName = command.split(" ")[2];
@@ -94,22 +90,27 @@ public class Request {
         }
     }
 
+            case ENTER_MENU:
+                parseEnterMenu();
+                break;
 
-    public void parseCreateAccount() {
-        userName = command.split(" ")[2];
+        }
     }
 
-    public void parseLogin() {
-        userName = command.split(" ")[1];
+    public void parseEnterMenu(){
+        String enteringMenuName = command.split(" ")[1];
+        if ((enteringMenuName).equals("battle"))
+            enteringMenu = MenuType.BATTLE;
+        else if (enteringMenuName.equals("shop"))
+            enteringMenu = MenuType.SHOP;
+        else if(enteringMenuName.equals("collection"))
+            enteringMenu = MenuType.COLLECTION;
     }
-
-
     public void checkSyntaxOfShow() {
     }
 
 
-    public void parseSearchCollection() {
-        searchingName = command.split(" ")[2];
+    public void checkSyntaxOfSearchInCollection() {
     }
 
 
@@ -254,9 +255,6 @@ public class Request {
     public String getUserName() {
         return userName;
     }
-    public String getPassword(){
-        return password;
-    }
     public String getCollectableName() {
         return collectableName;
     }
@@ -268,4 +266,9 @@ public class Request {
     public int getItemID() {
         return itemID;
     }
+
+    public MenuType getEntringMenu() {
+        return enteringMenu;
+    }
+
 }

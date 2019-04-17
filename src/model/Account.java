@@ -1,9 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
-public class Account implements Comparable<Account>{
+public class Account implements Comparable<Account> {
 
     private static HashMap<String, Account> accounts = new HashMap<String, Account>();
     private String userName;
@@ -30,11 +31,25 @@ public class Account implements Comparable<Account>{
         //todo:check default money
     }
 
-    public static void addAccount(Account account){
-        accounts.put(account.getUserName(),account);
+    public static String sortAccounts() {
+        ArrayList<Account> accounts = new ArrayList<>(Account.getAccounts().values());
+        Collections.sort(accounts);
+        String output = new String("");
+        int counter = 1;
+        for (Account account : accounts) {
+            output += counter + " -  UserName : " + account.getUserName() +
+                    " - Wins : " + account.getNumberOfWins() + "\n";
+            counter++;
+        }
+        return output;
     }
 
-    public void addGame(Game game){}
+    public static void addAccount(Account account) {
+        accounts.put(account.getUserName(), account);
+    }
+
+    public void addGame(Game game) {
+    }
 
     public static HashMap<String, Account> getAccounts() {
         return accounts;
@@ -76,23 +91,25 @@ public class Account implements Comparable<Account>{
         this.collection = collection;
     }
 
-    public static boolean userNameIsValid(String userName){
+    public static boolean userNameIsValid(String userName) {
         return accounts.containsKey(userName);
     }
 
-    public static boolean passwordIsValid(String password, String userName){
-       return accounts.get(userName).password.equals(password);
+    public static boolean passwordIsValid(String password, String userName) {
+        return accounts.get(userName).password.equals(password);
     }
 
     public int getNumberOfWins() {
         return numberOfWins;
     }
-    public void increaseWinNumbers(){
+
+    public void increaseWinNumbers() {
         this.numberOfWins++;
     }
 
     @Override
     public int compareTo(Account account) {
-        return -Integer.compare(this.numberOfWins, account.numberOfWins);
+        return this.numberOfWins != account.numberOfWins ? -Integer.compare(this.numberOfWins, account.numberOfWins) :
+                this.userName.compareTo(account.userName);
     }
 }

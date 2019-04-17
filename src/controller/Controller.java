@@ -5,9 +5,6 @@ import model.Card;
 import model.Item;
 import view.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class Controller {
     private final static Controller CONTROLLER = new Controller();
 
@@ -43,6 +40,8 @@ public class Controller {
                 case LOGIN:
                     login();
                     break;
+                case LOGOUT:
+                    logOut();
                 case SEARCH_IN_SHOP:
                     searchInShop();
                     // TODO: test
@@ -55,9 +54,16 @@ public class Controller {
                     buyFromShop();
                     // TODO: buy functions
                 case EXIT_MENU:
-                    break mainLoop;
+                    exitMenu();
+                    break;
+                case ENTER_MENU:
+                    enterMenu();
+                    break;
                 case SHOW_LEADER_BOARD:
                     showLeaderBoard();
+                    break;
+                case HELP:
+                    view.showHelp(menuType);
                     break;
             }
             if (errorType != null) {
@@ -97,35 +103,40 @@ public class Controller {
     }
 
     public void showLeaderBoard() {
-        ArrayList<Account> accounts = new ArrayList<>(Account.getAccounts().values());
-        Collections.sort(accounts);
-        int counter = 1;
-        for (Account account : accounts) {
-            System.out.println(counter + " -  UserName : " + account.getUserName() +
-                    " - Wins : " + account.getNumberOfWins());
-            counter++;
-        }
+        view.show(Account.sortAccounts());
     }
 
     public void save() {
     }
 
     public void logOut() {
+        menuType = MenuType.ACCOUNT;
+        System.out.println("logged out from " + loggedInAccount.getUserName());
+        loggedInAccount = null;
     }
 
     public void help() {
     }
 
     public void exitMenu() {
+        //todo: maybe it need some changes
+        switch (menuType) {
+            case MAINMENU:
+                System.exit(0);
+            case BATTLE:
+                menuType = MenuType.MAINMENU;
+                break;
+            case COLLECTION:
+                menuType = MenuType.MAINMENU;
+                break;
+            case SHOP:
+                menuType = MenuType.MAINMENU;
+                break;
+        }
     }
 
-    public void enterBattleMenu() {
-    }
-
-    public void enterShop() {
-    }
-
-    public void enterCollection() {
+    public void enterMenu() {
+        menuType = request.getEntringMenu();
     }
 
     public void enterCollectionItems() {
