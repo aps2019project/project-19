@@ -1,7 +1,6 @@
 package controller;
 
 import model.Account;
-import sun.applet.Main;
 import view.*;
 
 public class Controller {
@@ -9,7 +8,7 @@ public class Controller {
     //todo:check starting menu
     private static ErrorType errorType;
     private static Request request;
-    private static Account logedInAccount;
+    private static Account loggedInAccount;
     public static void main() {
         mainloop:
         do {
@@ -28,7 +27,7 @@ public class Controller {
                     break;
                 case LOGIN:
                     login();
-                    System.out.println("loged into "+ request.getUserName());
+                    System.out.println("logged into "+ request.getUserName());
                     break;
                 case EXIT_MENU:
                     break mainloop;
@@ -45,7 +44,7 @@ public class Controller {
     }
 
     public static void login() {
-        logedInAccount = Account.getAccounts().get(request.getUserName());
+        loggedInAccount = Account.getAccounts().get(request.getUserName());
         menuType = MenuType.MAINMENU;
     }
 
