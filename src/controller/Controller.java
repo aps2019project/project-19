@@ -1,7 +1,11 @@
 package controller;
 
 import model.Account;
+import model.Collection;
 import view.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Controller {
     private final static Controller CONTROLLER = new Controller();
@@ -41,6 +45,9 @@ public class Controller {
                     break;
                 case EXIT_MENU:
                     break mainloop;
+                case SHOW_LEADER_BOARD:
+                    showLeaderBoard();
+                    break;
             }
         } while (true);
     }
@@ -75,6 +82,13 @@ public class Controller {
     }
 
     public void showLeaderBoard() {
+        ArrayList<Account> accounts = (ArrayList<Account>) Account.getAccounts().values();
+        Collections.sort(accounts);
+        int counter = 1;
+        for (Account account: accounts) {
+            System.out.println(counter + " -  UserName : " + account.getUserName() +
+                    " - Wins : " + account.getNumberOfWins());
+        }
     }
 
     public void save() {

@@ -19,7 +19,9 @@ public class Request {
    private int itemID;
 
     public void getNewCommand() {
-        command=scanner.nextLine().trim().toLowerCase();
+        do {
+            command = scanner.nextLine().trim().toLowerCase();
+        }while (command.equals(""));
     }
 
 
