@@ -1,27 +1,32 @@
 package model;
 
-//<<<<<<< HEAD
 import java.util.ArrayList;
-//=======
-//>>>>>>> 754349cd95a1fa31c25131ea911769f902338ea8
 import java.util.HashMap;
 
 public class Account {
 
-//<<<<<<< HEAD
-    private static HashMap<String, Account> nameAccountHashMap = new HashMap<String, Account>();
+    private static HashMap<String, Account> accounts = new HashMap<String, Account>();
     private String userName;
     private String password;
     private long money;
     private ArrayList<Game> matchHistory = new ArrayList<>();
     private Collection collection;
 
-    public static void addAccount(Account account){}
+    public Account(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+        this.money = 15000;
+        //todo:check default money
+    }
+
+    public static void addAccount(Account account){
+        accounts.put(account.getUserName(),account);
+    }
 
     public void addGame(Game game){}
 
-    public static HashMap<String, Account> getNameAccountHashMap() {
-        return nameAccountHashMap;
+    public static HashMap<String, Account> getAccounts() {
+        return accounts;
     }
 
     public ArrayList<Game> getMatchHistory() {
@@ -61,12 +66,11 @@ public class Account {
     }
 
     public static boolean userNameIsValid(String userName){
-        return true;
+        return accounts.containsKey(userName);
     }
 
-    public static boolean passwordIsValid(String password, Account account){
-        return true;
+    public static boolean passwordIsValid(String password, String userName){
+       return accounts.get(userName).password.equals(password);
     }
-//=======
-//>>>>>>> 754349cd95a1fa31c25131ea911769f902338ea8
+
 }

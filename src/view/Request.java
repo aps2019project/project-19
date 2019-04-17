@@ -1,6 +1,7 @@
 package view;
 
 import controller.MenuType;
+import model.Account;
 
 import java.util.Scanner;
 
@@ -11,12 +12,14 @@ public class Request {
    private ErrorType errorType;
    private String deckName;
    private String cardName;
+   private String userName;
+   private String password;
    private String collectableName;
    private int cardID;
    private int itemID;
 
     public void getNewCommand() {
-        command=scanner.nextLine().trim();
+        command=scanner.nextLine().trim().toLowerCase();
     }
 
 
@@ -25,28 +28,34 @@ public class Request {
             case ACCOUNT:
                 if (command.matches("create account \\w+"))
                     return RequestType.CREATE_ACCOUNT;
-                if(command.matches("exit"))
-                    return RequestType.EXIT_MENU;
+                if (command.matches("login \\w+"))
+                    return RequestType.LOGIN;
+                if(command.matches("show leaderboard"))
+                    return RequestType.SHOW_LEADER_BOARD;
+                if(command.matches("save"))
+                    return RequestType.SAVE;
+                if(command.matches("logout"))
+                    return RequestType.LOGOUT;
+                break;
+            case MAINMENU:
+                if(command.matches("enter battle"))
+                    return RequestType.ENTER_BATTLE_MENU;
+                if(command.matches("enter shop"))
+                    return RequestType.ENTER_SHOP;
+                if(command.matches("enter collection"))
+                    return RequestType.ENTER_COLLECTION;
+                break;
+            case COLLECTION:
+                break;
+            case BATTLE:
                 break;
             case SHOP:
-                if (command.matches("show collection"))
-                    return RequestType.SHOW_COLLECTION_ITEMS;
-                if (command.matches("search \\w+"))
-                    return RequestType.SEARCH_IN_SHOP;
-                if (command.matches("search collection \\w+"))
-                    return RequestType.SEARCH_IN_COLLECTION;
-                if (command.matches("buy \\w+"))
-                    return RequestType.BUY_FROM_SHOP;
-                if (command.matches("sell \\d+"))
-                    return RequestType.SELL_TO_SHOP;
-                if (command.matches("show"))
-                    return RequestType.SHOW_SHOP;
-                if (command.matches("help]"))
-                    return RequestType.HELP;
-                if (command.matches("exit"))
-                    return RequestType.EXIT_SHOP;
                 break;
         }
+        if(command.matches("help"))
+            return RequestType.HELP;
+        else if(command.matches("exit"))
+            return RequestType.EXIT_MENU;
         return RequestType.ERROR;
     }
 
@@ -55,35 +64,32 @@ public class Request {
         switch (requestType){
             case CREATE_ACCOUNT:
                 return checkSyntaxOfCreateAccount();
+            case LOGIN:
+                return checkSyntaxOfLogin();
+            case EXIT_MENU:
+                return true;
+            case HELP:
+                return true;
             case ERROR:
                 errorType = ErrorType.INVALID_COMMAND;
                 return false;
-            case EXIT_MENU:
-                return true;
-            case SHOW_COLLECTION_ITEMS:
-                return true;
-            case SEARCH_IN_SHOP:
-                return true;
-            case SEARCH_IN_COLLECTION:
-                return true;
-            case BUY_FROM_SHOP:
-                return checkSyntaxOfBuyFromShop();
         }
         return false;
     }
 
 
     public boolean checkSyntaxOfCreateAccount() {
+        userName = command.split(" ")[2];
         return true;
     }
 
-    public void checkSyntaxOfLogin() {
-
+    public boolean checkSyntaxOfLogin() {
+        userName = command.split(" ")[1];
+        return true;
     }
 
 
     public void checkSyntaxOfShow() {
-
     }
 
 
@@ -213,6 +219,12 @@ public class Request {
         return cardName;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+    public String getPassword(){
+        return password;
+    }
     public String getCollectableName() {
         return collectableName;
     }

@@ -55,9 +55,9 @@ public class Player {
         return items;
     }
 
-    public boolean cardExistsInHand(int cardId){}
-
-    public boolean myCardIsOnGround(String inBattleCardId){}
+//    public boolean cardExistsInHand(int cardId){}
+//
+//    public boolean myCardIsOnGround(String inBattleCardId){}
 
     public void select(String inBattleCardId){}
 }

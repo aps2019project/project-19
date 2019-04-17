@@ -1,8 +1,10 @@
 package view;
 
 public enum ErrorType {
-    INVALID_COMMAND("invalid command"),
-    INVALID_ACCOUNT_NAME("account name is already taken");
+    INVALID_COMMAND("invalid command."),
+    USERNAME_TAKEN("this user name is already taken."),
+    INVALID_USERNAME("this user name does not exists."),
+    INVALID_PASSWORD("your password is wrong.");
     private String message;
     ErrorType(String message){
         this.message = message;
