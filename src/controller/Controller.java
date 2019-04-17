@@ -41,8 +41,14 @@ public class Controller {
                 case LOGIN:
                     login();
                     break;
+                case LOGOUT:
+                    logOut();
                 case EXIT_MENU:
-                    break mainLoop;
+                    exitMenu();
+                    break;
+                case ENTER_MENU:
+                    enterMenu();
+                    break;
                 case SHOW_LEADER_BOARD:
                     showLeaderBoard();
                     break;
@@ -67,6 +73,7 @@ public class Controller {
         System.out.println("account created");
     }
 
+
     public void login() {
         if (!Account.userNameIsValid(request.getUserName())) {
             errorType = ErrorType.INVALID_USERNAME;
@@ -84,35 +91,40 @@ public class Controller {
     }
 
     public void showLeaderBoard() {
-        ArrayList<Account> accounts = new ArrayList<>(Account.getAccounts().values());
-        Collections.sort(accounts);
-        int counter = 1;
-        for (Account account : accounts) {
-            System.out.println(counter + " -  UserName : " + account.getUserName() +
-                    " - Wins : " + account.getNumberOfWins());
-            counter++;
-        }
+        view.show(Account.sortAccounts());
     }
 
     public void save() {
     }
 
     public void logOut() {
+        menuType = MenuType.ACCOUNT;
+        System.out.println("logged out from " + loggedInAccount.getUserName());
+        loggedInAccount = null;
     }
 
     public void help() {
     }
 
     public void exitMenu() {
+        //todo: maybe it need some changes
+        switch (menuType) {
+            case MAINMENU:
+                System.exit(0);
+            case BATTLE:
+                menuType = MenuType.MAINMENU;
+                break;
+            case COLLECTION:
+                menuType = MenuType.MAINMENU;
+                break;
+            case SHOP:
+                menuType = MenuType.MAINMENU;
+                break;
+        }
     }
 
-    public void enterBattleMenu() {
-    }
-
-    public void enterShop() {
-    }
-
-    public void enterCollection() {
+    public void enterMenu() {
+        menuType = request.getEntringMenu();
     }
 
     public void enterCollectionItems() {

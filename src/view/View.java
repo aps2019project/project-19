@@ -15,4 +15,7 @@ public class View {
     public void printEnterPassword(){
         System.out.println("Enter your password:");
     }
+    public void show(String string){
+        System.out.println(string);
+    }
 }

@@ -5,6 +5,8 @@ public enum ErrorType {
     USERNAME_TAKEN("this user name is already taken."),
     INVALID_USERNAME("this user name does not exists."),
     INVALID_PASSWORD("your password is wrong.");
+//    LOGGED_IN("you must logout from your account before creating new account or loggin into another"),
+//    NOT_LOGGED_IN("you must login to your account to");
     private String message;
     ErrorType(String message){
         this.message = message;
