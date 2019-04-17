@@ -27,6 +27,7 @@ public class Controller {
             request = new Request();
             request.getNewCommand();
             request.setRequestType(menuType);
+            request.parseCommand();
             switch (request.getRequestType()) {
                 case ERROR:
                     errorType = ErrorType.INVALID_COMMAND;
