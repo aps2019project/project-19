@@ -87,13 +87,9 @@ public class Request {
             case BUY_FROM_SHOP:
                 productName = command.split(" ")[1];
                 break;
-        }
-    }
-
             case ENTER_MENU:
                 parseEnterMenu();
                 break;
-
         }
     }
 
