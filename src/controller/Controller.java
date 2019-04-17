@@ -45,7 +45,15 @@ public class Controller {
                     break;
                 case SEARCH_IN_SHOP:
                     searchInShop();
+                    // TODO: test
                     break;
+                case SEARCH_IN_COLLECTION:
+                    searchInCollection();
+                    // TODO: test
+                    break;
+                case BUY_FROM_SHOP:
+                    buyFromShop();
+                    // TODO: buy functions
                 case EXIT_MENU:
                     break mainLoop;
                 case SHOW_LEADER_BOARD:
@@ -124,6 +132,20 @@ public class Controller {
     }
 
     public void searchInCollection() {
+        boolean find = false;
+        for (Item item : loggedInAccount.getCollection().getItems()) {
+            if (item.getName().equals(request.getSearchingName())) {
+                System.out.println(item.getItemId());
+                find = true;
+            }
+        }
+        for (Card card : loggedInAccount.getCollection().getCards()) {
+            if (card.getName().equals(request.getSearchingName())){
+                System.out.println(card.getCardId());
+                find = true;
+            }
+        }
+        if (!find) request.setErrorType(ErrorType.NOT_FOUND);
     }
 
     public void saveCollection() {
@@ -154,20 +176,30 @@ public class Controller {
     }
 
     public void searchInShop() {
-        if (loggedInAccount.getShop().itemExistsInShop(request.getSearchingName())){
-            for (Item item : loggedInAccount.getShop().getItems())
-                if (item.getName().equals(request.getSearchingName()))
-                    System.out.println(item.getItemId());
-        }
-        else if (loggedInAccount.getShop().cardExistsInShop(request.getSearchingName())){
-            for (Card card : loggedInAccount.getShop().getCards())
-                if (card.getName().equals(request.getSearchingName()))
-                    System.out.println(card.getCardId());
-        }
-        else request.setErrorType(ErrorType.NOT_FOUND);
+        for (Item item : loggedInAccount.getShop().getItems())
+            if (item.getName().equals(request.getSearchingName())) {
+                System.out.println(item.getItemId());
+                return;
+            }
+        for (Card card : loggedInAccount.getShop().getCards())
+            if (card.getName().equals(request.getSearchingName())) {
+                System.out.println(card.getCardId());
+                return;
+            }
+        request.setErrorType(ErrorType.NOT_FOUND);
     }
 
     public void buyFromShop() {
+        if (!loggedInAccount.getShop().itemExistsInShop(request.getProductName()) &&
+        !loggedInAccount.getShop().cardExistsInShop(request.getSearchingName()))
+            request.setErrorType(ErrorType.NOT_FOUND);
+        else if (loggedInAccount.getShop().priceIsEnough(request.getProductName(), loggedInAccount))
+            request.setErrorType(ErrorType.NOT_ENOUGH_MONEY);
+        else if (loggedInAccount.getCollection().getItems().size() < 3) request.setErrorType(ErrorType.FULL_ITEMS);
+        else{
+            loggedInAccount.getShop().buyCard(request.getProductName());
+            loggedInAccount.getShop().buyItem(request.getProductName());
+        }
     }
 
     public void sellToShop() {

@@ -3,6 +3,7 @@ package model;
 public class Item {
     private int itemId;
     private String name;
+    private int price;
     private Cell cell;
     private ItemTypes type;
 
@@ -20,6 +21,14 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public Cell getCell() {
