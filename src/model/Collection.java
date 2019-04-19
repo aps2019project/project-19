@@ -44,6 +44,20 @@ public class Collection {
 //
 //    public boolean deckHasHero(String deckName){}
 
+    public boolean existsInCollection(int producId){
+        for (Card card : cards) {
+            if (card.getCardId() == producId)
+                return true;
+        }
+        for (Item item : items){
+            if (item.getItemId() == producId)
+                return true;
+        }
+        return false;
+    }
+
+//    public boolean itemExistsInCollection(int itemId){}
+
     public void addCardToDeck(int cardId, String deckName){}
 
     public void addItemToDeck(int itemId, String deckName){}

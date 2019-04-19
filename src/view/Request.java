@@ -13,6 +13,7 @@ public class Request {
    private String cardName;
    private String searchingName;
    private String productName;
+   private int productId;
    private String userName;
    private String collectableName;
     private MenuType enteringMenu;
@@ -86,6 +87,9 @@ public class Request {
                 break;
             case BUY_FROM_SHOP:
                 productName = command.split(" ")[1];
+                break;
+            case SELL_TO_SHOP:
+                productId = Integer.parseInt(command.split(" ")[1]);
                 break;
             case ENTER_MENU:
                 parseEnterMenu();
@@ -250,6 +254,8 @@ public class Request {
     public void setProductName(String productName) {
         this.productName = productName;
     }
+
+    public int getProductId(){ return productId;}
 
     public String getUserName() {
         return userName;

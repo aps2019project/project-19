@@ -7,7 +7,8 @@ public enum ErrorType {
     INVALID_PASSWORD("your password is wrong."),
     NOT_FOUND("not found"),
     NOT_ENOUGH_MONEY("not enough money"),
-    FULL_ITEMS("you have already three items");
+    FULL_ITEMS("you have already three items"),
+    INVALID_SELL("you dont have that.");
 //    LOGGED_IN("you must logout from your account before creating new account or loggin into another"),
 //    NOT_LOGGED_IN("you must login to your account to");
     private String message;

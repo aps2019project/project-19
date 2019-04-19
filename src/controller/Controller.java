@@ -52,7 +52,12 @@ public class Controller {
                     break;
                 case BUY_FROM_SHOP:
                     buyFromShop();
-                    // TODO: buy functions
+                    // TODO: test
+                    break;
+                case SELL_TO_SHOP:
+                    sellToShop();
+                    // TODO: test
+                    break;
                 case EXIT_MENU:
                     exitMenu();
                     break;
@@ -146,19 +151,17 @@ public class Controller {
         boolean find = false;
         for (Item item : loggedInAccount.getCollection().getItems()) {
             if (item.getName().equals(request.getSearchingName())) {
-                //todo: bere view
-                System.out.println(item.getItemId());
+                view.show("" + item.getItemId());
                 find = true;
             }
         }
         for (Card card : loggedInAccount.getCollection().getCards()) {
-            if (card.getName().equals(request.getSearchingName())){
-                //todo: bere view
-                System.out.println(card.getCardId());
+            if (card.getName().equals(request.getSearchingName())) {
+                view.show("" + card.getCardId());
                 find = true;
             }
         }
-        if (!find) request.setErrorType(ErrorType.NOT_FOUND);
+        if (!find) errorType = ErrorType.NOT_FOUND;
     }
 
     public void saveCollection() {
@@ -191,34 +194,36 @@ public class Controller {
     public void searchInShop() {
         for (Item item : loggedInAccount.getShop().getItems())
             if (item.getName().equals(request.getSearchingName())) {
-                //todo:print should be in view
-                System.out.println(item.getItemId());
+                view.show("" + item.getItemId());
                 return;
             }
         for (Card card : loggedInAccount.getShop().getCards())
             if (card.getName().equals(request.getSearchingName())) {
-                //todo: print should be in view
-                System.out.println(card.getCardId());
+                view.show("" + card.getCardId());
                 return;
             }
-        request.setErrorType(ErrorType.NOT_FOUND);
+        errorType = ErrorType.NOT_FOUND;
     }
 
     public void buyFromShop() {
-        if (!loggedInAccount.getShop().itemExistsInShop(request.getProductName()) &&
-        !loggedInAccount.getShop().cardExistsInShop(request.getSearchingName()))
-            request.setErrorType(ErrorType.NOT_FOUND);
+        if (!loggedInAccount.getShop().existsInShop(request.getProductName()))
+            errorType = ErrorType.NOT_FOUND;
         else if (loggedInAccount.getShop().priceIsEnough(request.getProductName(), loggedInAccount))
-            request.setErrorType(ErrorType.NOT_ENOUGH_MONEY);
+            errorType = ErrorType.NOT_ENOUGH_MONEY;
         else if (loggedInAccount.getCollection().getItems().size() < 3) request.setErrorType(ErrorType.FULL_ITEMS);
-        else{
-            //todo: yeki az in 2 ta function bayad call she
-            loggedInAccount.getShop().buyCard(request.getProductName());
-            loggedInAccount.getShop().buyItem(request.getProductName());
+        else {
+            loggedInAccount.getShop().buy(request.getProductName(), loggedInAccount);
+            view.show("Successful purchase");
         }
     }
 
     public void sellToShop() {
+        if (!loggedInAccount.getCollection().existsInCollection(request.getProductId()))
+            errorType = ErrorType.INVALID_SELL;
+        else{
+            loggedInAccount.getShop().sell(request.getProductId(), loggedInAccount);
+            view.show("successful sales");
+        }
     }
 
     public void showShop() {

@@ -1,6 +1,10 @@
 package model;
 
 public class SpellCard extends Card{
+
+    private Spell spell;
+
+
     public Spell getSpell() {
         return spell;
     }
@@ -9,5 +13,4 @@ public class SpellCard extends Card{
         this.spell = spell;
     }
 
-    private Spell spell;
 }
