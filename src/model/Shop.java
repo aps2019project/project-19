@@ -46,10 +46,12 @@ public class Shop {
     }
 
     public void buyCard(String cardName) {
+        //todo: not completed
         System.out.println("card bought successfully");
     }
 
     public void buyItem(String itemName) {
+        //todo: not completed
         System.out.println("item bought successfully");
     }
 
