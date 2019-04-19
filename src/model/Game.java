@@ -14,7 +14,7 @@ public class Game {
     private int turnNumber;
     private Time time;
     private Player winnerPlayer;
-    private  GameMode gameMode;
+    private GameMode gameMode;
 
     public int getLength() {
         return length;

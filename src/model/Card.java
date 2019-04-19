@@ -56,7 +56,9 @@ public class Card {
         this.mana = mana;
     }
 
-    public void castSpell(Cell targetCell){}
+    public void castSpell(Cell targetCell) {
+    }
 
-    public void castSpell(Card targetCard){}
+    public void castSpell(Card targetCard) {
+    }
 }

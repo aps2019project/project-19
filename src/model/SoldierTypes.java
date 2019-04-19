@@ -1,6 +1,6 @@
 package model;
 
-public enum  SoldierTypes {
+public enum SoldierTypes {
     RANGED,
     MELEE,
     ATTACK

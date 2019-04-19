@@ -1,6 +1,6 @@
 package model;
 
-public class SoldierCard extends Card{
+public class SoldierCard extends Card {
     private int ap;
     private int hp;
     private Cell cell;
@@ -38,7 +38,9 @@ public class SoldierCard extends Card{
         this.type = type;
     }
 
-    public void attack(Card opponentCard){}
+    public void attack(Card opponentCard) {
+    }
 
-    public void counterAttack(Card opponentCard){}
+    public void counterAttack(Card opponentCard) {
+    }
 }

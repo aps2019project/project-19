@@ -220,7 +220,7 @@ public class Controller {
     public void sellToShop() {
         if (!loggedInAccount.getCollection().existsInCollection(request.getProductId()))
             errorType = ErrorType.INVALID_SELL;
-        else{
+        else {
             loggedInAccount.getShop().sell(request.getProductId(), loggedInAccount);
             view.show("successful sales");
         }

@@ -59,5 +59,6 @@ public class Player {
 //
 //    public boolean myCardIsOnGround(String inBattleCardId){}
 
-    public void select(String inBattleCardId){}
+    public void select(String inBattleCardId) {
+    }
 }

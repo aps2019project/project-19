@@ -1,13 +1,13 @@
 package model;
 
-public class Minion extends SoldierCard{
-    private Spell ability;
+public class Minion extends SoldierCard {
+    private Buff ability;
 
-    public Spell getAbility() {
-        return ability;
+    public void setAbility(Buff ability) {
+        this.ability = ability;
     }
 
-    public void setAbility(Spell ability) {
-        this.ability = ability;
+    public Buff getAbility() {
+        return ability;
     }
 }

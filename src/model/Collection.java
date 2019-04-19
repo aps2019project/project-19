@@ -28,9 +28,11 @@ public class Collection {
         return cards;
     }
 
-    public void createDeck(String deckName){}
+    public void createDeck(String deckName) {
+    }
 
-    public void deleteDeck(String deckName){}
+    public void deleteDeck(String deckName) {
+    }
 
 //    public boolean deckExist(String deckName){}
 //
@@ -44,12 +46,12 @@ public class Collection {
 //
 //    public boolean deckHasHero(String deckName){}
 
-    public boolean existsInCollection(int producId){
+    public boolean existsInCollection(int producId) {
         for (Card card : cards) {
             if (card.getCardId() == producId)
                 return true;
         }
-        for (Item item : items){
+        for (Item item : items) {
             if (item.getItemId() == producId)
                 return true;
         }
@@ -58,13 +60,17 @@ public class Collection {
 
 //    public boolean itemExistsInCollection(int itemId){}
 
-    public void addCardToDeck(int cardId, String deckName){}
+    public void addCardToDeck(int cardId, String deckName) {
+    }
 
-    public void addItemToDeck(int itemId, String deckName){}
+    public void addItemToDeck(int itemId, String deckName) {
+    }
 
-    public void removeCard(int cardId, String deckName){}
+    public void removeCard(int cardId, String deckName) {
+    }
 
-    public void removeItem(int itemId, String deckName){}
+    public void removeItem(int itemId, String deckName) {
+    }
 
 //    public boolean validateDeck(String deckName){}
 }

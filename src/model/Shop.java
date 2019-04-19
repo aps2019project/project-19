@@ -34,7 +34,7 @@ public class Shop {
         return false;
     }
 
-    public boolean priceIsEnough(String productName, Account account){
+    public boolean priceIsEnough(String productName, Account account) {
         for (Item item : items) {
             if (item.getName().equals(productName))
                 if (item.getPrice() < account.getMoney())
@@ -52,16 +52,16 @@ public class Shop {
         // TODO: its needs some changes please dont touch it
         generateNewId();
         for (Card card : cards) {
-            if (card.getName().equals(productName)){
-                if (card instanceof SoldierCard){
+            if (card.getName().equals(productName)) {
+                if (card instanceof SoldierCard) {
                     SoldierCard card1 = new SoldierCard();
-                    card1 = (SoldierCard)card;
+                    card1 = (SoldierCard) card;
                     card1.setCardId(id);
                     account.getCollection().getCards().add(card1);
                 }
-                if (card instanceof SpellCard){
+                if (card instanceof SpellCard) {
                     SpellCard card1 = new SpellCard();
-                    card1 = (SpellCard)card;
+                    card1 = (SpellCard) card;
                     card1.setCardId(id);
                     account.getCollection().getCards().add(card1);
                 }
@@ -70,7 +70,7 @@ public class Shop {
             }
         }
         for (Item item : items) {
-            if (item.getName().equals(productName)){
+            if (item.getName().equals(productName)) {
                 Item item1 = new Item();
                 item1 = item;
                 item1.setItemId(id);
@@ -104,5 +104,7 @@ public class Shop {
     public void sellItem(int itemId) {
     }
 
-    public void generateNewId(){ id ++;}
+    public void generateNewId() {
+        id++;
+    }
 }

@@ -1,16 +1,13 @@
 package model;
 
-public class SpellCard extends Card{
+public class SpellCard extends Card {
+    private Buff buff;
 
-    private Spell spell;
-
-
-    public Spell getSpell() {
-        return spell;
+    public Buff getBuff() {
+        return buff;
     }
 
-    public void setSpell(Spell spell) {
-        this.spell = spell;
+    public void setBuff(Buff buff) {
+        this.buff = buff;
     }
-
 }

@@ -1,13 +1,13 @@
 package model;
 
-public class Hero extends SoldierCard{
-    private Spell specialPower;
+public class Hero extends SoldierCard {
+    private Buff specialPower;
 
-    public Spell getSpecialPower() {
+    public Buff getSpecialPower() {
         return specialPower;
     }
 
-    public void setSpecialPower(Spell specialPower) {
+    public void setSpecialPower(Buff specialPower) {
         this.specialPower = specialPower;
     }
 }
