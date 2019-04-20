@@ -49,19 +49,23 @@ public class Shop {
     }
 
     public void buy(String productName, Account account) {
-        // TODO: its needs some changes please dont touch it
         generateNewId();
         for (Card card : cards) {
             if (card.getName().equals(productName)) {
-                if (card instanceof SoldierCard) {
-                    SoldierCard card1 = new SoldierCard();
-                    card1 = (SoldierCard) card;
+                if (card instanceof Hero) {
+                    Hero card1 = new Hero((Hero)card);
                     card1.setCardId(id);
                     account.getCollection().getCards().add(card1);
                 }
+
+                if (card instanceof Minion){
+                    Minion card1 = new Minion((Minion)card);
+                    card1.setCardId(id);
+                    account.getCollection().getCards().add(card1);
+                }
+
                 if (card instanceof SpellCard) {
-                    SpellCard card1 = new SpellCard();
-                    card1 = (SpellCard) card;
+                    SpellCard card1 = new SpellCard((SpellCard)card);
                     card1.setCardId(id);
                     account.getCollection().getCards().add(card1);
                 }
@@ -71,8 +75,7 @@ public class Shop {
         }
         for (Item item : items) {
             if (item.getName().equals(productName)) {
-                Item item1 = new Item();
-                item1 = item;
+                Item item1 = new Item(item);
                 item1.setItemId(id);
                 account.getCollection().getItems().add(item1);
                 account.setMoney(account.getMoney() - item.getPrice());

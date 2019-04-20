@@ -6,6 +6,17 @@ public class SoldierCard extends Card {
     private Cell cell;
     private SoldierTypes type;
 
+    public SoldierCard(){
+        super();
+    }
+
+    public SoldierCard(SoldierCard soldierCard){
+        super(soldierCard);
+        this.ap = soldierCard.ap;
+        this.hp = soldierCard.hp;
+        this.type = soldierCard.type;
+    }
+
     public int getAp() {
         return ap;
     }
