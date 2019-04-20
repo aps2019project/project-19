@@ -1,11 +1,21 @@
 package model;
 
+import javax.imageio.event.IIOReadProgressListener;
+
 public class Item {
     private int itemId;
     private String name;
     private int price;
     private Cell cell;
     private ItemTypes type;
+
+    public Item(){}
+
+    public Item(Item item){
+        this.name = item.name;
+        this.price = item.price;
+        this.type = item.type;
+    }
 
     public int getItemId() {
         return itemId;

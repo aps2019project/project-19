@@ -2,25 +2,25 @@ package model;
 
 public class Buff {
     private String name;
-    private Kind kind;
+    private Effect effect;
 
     public String getName() {
         return name;
     }
 
-    public Kind getKind() {
-        return kind;
+    public Effect getKind() {
+        return effect;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setKind(Kind kind) {
-        this.kind = kind;
+    public void setKind(Effect effect) {
+        this.effect = effect;
     }
 }
 
-enum Kind {
+enum Effect {
     POSITIVE, NEGATIVE
 }

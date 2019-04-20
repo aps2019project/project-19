@@ -3,6 +3,12 @@ package model;
 public class SpellCard extends Card {
     private Buff buff;
 
+    public SpellCard(){super();}
+
+    public SpellCard(SpellCard spellCard){
+        super(spellCard);
+        this.buff = spellCard.buff;
+    }
     public Buff getBuff() {
         return buff;
     }

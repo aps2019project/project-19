@@ -1,5 +1,7 @@
 package model;
 
+import java.util.concurrent.CancellationException;
+
 public class Card {
     private int cardId;
     private String inBattleCardId;
@@ -7,6 +9,14 @@ public class Card {
     private CardStatus cardStatus;
     private int price;
     private int mana;
+
+    public Card(){}
+
+    public Card(Card card){
+        this.name = card.name;
+        this.price = card.price;
+        this.mana = card.mana;
+    }
 
     public int getCardId() {
         return cardId;
