@@ -6,19 +6,21 @@ import java.util.Scanner;
 
 public class Request {
     private static Scanner scanner = new Scanner(System.in);
-   private String command;
-   private RequestType requestType;
-   private ErrorType errorType;
-   private String deckName;
-   private String cardName;
-   private String searchingName;
-   private String productName;
-   private int productId;
-   private String userName;
-   private String collectableName;
+    private String command;
+    private RequestType requestType;
+    private ErrorType errorType;
+    private String deckName;
+    private String cardName;
+    private String searchingName;
+    private String productName;
+    private int productId;
+    private String userName;
+    private String collectableName;
     private MenuType enteringMenu;
     private int cardID;
-   private int itemID;
+    private int itemID;
+    private static boolean isAnyCardSelected;
+    private static boolean isAnyItemSelected;
 
     public void getNewCommand() {
         do {
@@ -28,7 +30,7 @@ public class Request {
 
 
     public RequestType findTypeOfRequest(MenuType menuType) {
-        switch (menuType){
+        switch (menuType) {
             case ACCOUNT:
                 if (command.matches("create account \\w+"))
                     return RequestType.CREATE_ACCOUNT;
@@ -48,7 +50,45 @@ public class Request {
             case COLLECTION:
                 break;
             case BATTLE:
-                break;
+                if (command.matches("game info"))
+                    return RequestType.SHOW_GAME_INFO;
+                if (command.matches("show my minions"))
+                    return RequestType.SHOW_MY_MINIONS;
+                if (command.matches("show opponents minions"))
+                    return RequestType.SHOW_OPPONENT_MINIONS;
+                if (command.matches("show card info \\d+"))
+                    return RequestType.SHOW_CARD_INFO_IN_BATTLE;
+                if (command.matches("select \\d+"))
+                    return RequestType.SELECT_CARD_OR_COLLECTABLE;
+                if (command.matches("move to \\(\\[\\d+], \\[\\d+]\\)") && isAnyCardSelected)
+                    return RequestType.MOVE_CARD;
+                if (command.matches("attack \\d+") && isAnyCardSelected)
+                    return RequestType.ATTACK;
+                if (command.matches("attack combo( \\d+ \\d+)+"))
+                    return RequestType.COMBO_ATTACK;
+                if (command.matches("use special power \\(\\d+, \\d+\\)") && isAnyCardSelected)
+                    return RequestType.USE_SPECIAL_POWER;
+                if (command.matches("show hand"))
+                        return RequestType.SHOW_HAND;
+                if (command.matches("insert \\w+ in \\(\\d+, \\d+\\)"))
+                    return RequestType.INSERT_CARD;
+                if(command.matches("end turn"))
+                    return RequestType.END_TURN;
+                if(command.matches("show collectables"))
+                    return RequestType.SHOW_GATHERED_COLLECTABLES;
+                if (command.matches("show info")&& isAnyItemSelected)
+                    return RequestType.SHOW_COLLECATBLE_INFO;
+                if (command.matches("use location \\[\\d+, \\d+]"))
+                    return RequestType.USE_COLLECTABLE;
+                if(command.matches("show next card"))
+                    return RequestType.SHOW_NEXT_CARD;
+                if(command.matches("enter graveyard"))
+                    return RequestType.ENTER_GRAVEYARD;
+                if(command.matches("show my choices"))
+                    return RequestType.SHOW_MY_CHOICES;
+                if(command.matches("end game"))
+                    return RequestType.END_GAME;
+                    break;
             case SHOP:
                 if (command.matches("show collection"))
                     return RequestType.SHOW_COLLECTION_ITEMS;
@@ -62,10 +102,11 @@ public class Request {
                     return RequestType.SELL_TO_SHOP;
                 if (command.matches("show"))
                     return RequestType.SHOW_SHOP;
+                break;
         }
-        if(command.matches("help"))
+        if (command.matches("help"))
             return RequestType.HELP;
-        else if(command.matches("exit"))
+        else if (command.matches("exit"))
             return RequestType.EXIT_MENU;
         return RequestType.ERROR;
     }
@@ -98,17 +139,16 @@ public class Request {
     }
 
 
-
-
-    public void parseEnterMenu(){
+    public void parseEnterMenu() {
         String enteringMenuName = command.split(" ")[1];
         if ((enteringMenuName).equals("battle"))
             enteringMenu = MenuType.BATTLE;
         else if (enteringMenuName.equals("shop"))
             enteringMenu = MenuType.SHOP;
-        else if(enteringMenuName.equals("collection"))
+        else if (enteringMenuName.equals("collection"))
             enteringMenu = MenuType.COLLECTION;
     }
+
     public void checkSyntaxOfShow() {
     }
 
@@ -255,11 +295,14 @@ public class Request {
         this.productName = productName;
     }
 
-    public int getProductId(){ return productId;}
+    public int getProductId() {
+        return productId;
+    }
 
     public String getUserName() {
         return userName;
     }
+
     public String getCollectableName() {
         return collectableName;
     }

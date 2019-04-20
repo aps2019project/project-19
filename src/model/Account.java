@@ -32,6 +32,7 @@ public class Account implements Comparable<Account> {
     }
 
     public static String sortAccounts() {
+        //todo:change function name
         ArrayList<Account> accounts = new ArrayList<>(Account.getAccounts().values());
         Collections.sort(accounts);
         String output = new String("");

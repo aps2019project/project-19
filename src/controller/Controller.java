@@ -16,7 +16,6 @@ public class Controller {
     }
 
     private MenuType menuType = MenuType.ACCOUNT;
-    //todo:check starting menu
     private Request request;
     private Account loggedInAccount;
     private ErrorType errorType = null;
