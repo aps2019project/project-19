@@ -49,7 +49,7 @@ public class View {
                         "12. Show Next Card\n13. Enter Graveyard\n14. Show My Choices\n15. End Game\n16. Help\n17. Exit");
                 break;
             case GRAVEYARD:
-                System.out.println("1. Show Cards\n2. Show Info [card id]\n"+
+                System.out.println("1. Show Cards\n2. Show Info [card id]\n" +
                         "3. Help\n4. Exit\n");
                 break;
             case COLLECTION:

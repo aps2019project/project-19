@@ -69,26 +69,26 @@ public class Request {
                 if (command.matches("use special power \\(\\d+, \\d+\\)") && isAnyCardSelected)
                     return RequestType.USE_SPECIAL_POWER;
                 if (command.matches("show hand"))
-                        return RequestType.SHOW_HAND;
+                    return RequestType.SHOW_HAND;
                 if (command.matches("insert \\w+ in \\(\\d+, \\d+\\)"))
                     return RequestType.INSERT_CARD;
-                if(command.matches("end turn"))
+                if (command.matches("end turn"))
                     return RequestType.END_TURN;
-                if(command.matches("show collectables"))
+                if (command.matches("show collectables"))
                     return RequestType.SHOW_GATHERED_COLLECTABLES;
-                if (command.matches("show info")&& isAnyItemSelected)
+                if (command.matches("show info") && isAnyItemSelected)
                     return RequestType.SHOW_COLLECATBLE_INFO;
                 if (command.matches("use location \\[\\d+, \\d+]"))
                     return RequestType.USE_COLLECTABLE;
-                if(command.matches("show next card"))
+                if (command.matches("show next card"))
                     return RequestType.SHOW_NEXT_CARD;
-                if(command.matches("enter graveyard"))
+                if (command.matches("enter graveyard"))
                     return RequestType.ENTER_GRAVEYARD;
-                if(command.matches("show my choices"))
+                if (command.matches("show my choices"))
                     return RequestType.SHOW_MY_CHOICES;
-                if(command.matches("end game"))
+                if (command.matches("end game"))
                     return RequestType.END_GAME;
-                    break;
+                break;
             case SHOP:
                 if (command.matches("show collection"))
                     return RequestType.SHOW_COLLECTION_ITEMS;

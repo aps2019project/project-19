@@ -10,10 +10,10 @@ public enum RequestType {
     LOG_OUT,
     HELP,
     EXIT_MENU,
-//    ENTER_ACCOUNT_MENU,
+    //    ENTER_ACCOUNT_MENU,
     //todo:check save function
     LOGOUT,
-//    ENTER_BATTLE_MENU,
+    //    ENTER_BATTLE_MENU,
 //    ENTER_SHOP,
 //    ENTER_COLLECTION,
     ENTER_MENU,
