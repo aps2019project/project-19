@@ -62,19 +62,19 @@ public class Shop {
         for (Card card : cards) {
             if (card.getName().equals(productName)) {
                 if (card instanceof Hero) {
-                    Hero card1 = new Hero((Hero)card);
+                    Hero card1 = new Hero((Hero) card);
                     card1.setCardId(id);
                     account.getCollection().getCards().add(card1);
                 }
 
-                if (card instanceof Minion){
-                    Minion card1 = new Minion((Minion)card);
+                if (card instanceof Minion) {
+                    Minion card1 = new Minion((Minion) card);
                     card1.setCardId(id);
                     account.getCollection().getCards().add(card1);
                 }
 
                 if (card instanceof SpellCard) {
-                    SpellCard card1 = new SpellCard((SpellCard)card);
+                    SpellCard card1 = new SpellCard((SpellCard) card);
                     card1.setCardId(id);
                     account.getCollection().getCards().add(card1);
                 }

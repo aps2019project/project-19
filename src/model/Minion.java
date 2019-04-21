@@ -1,11 +1,15 @@
 package model;
 
+import model.Buff.Buff;
+
 public class Minion extends SoldierCard {
     private Buff ability;
 
-    public Minion(){super();}
+    public Minion() {
+        super();
+    }
 
-    public Minion(Minion minion){
+    public Minion(Minion minion) {
         super(minion);
         this.ability = minion.ability;
     }

@@ -9,9 +9,10 @@ public class Item {
     private Cell cell;
     private ItemTypes type;
 
-    public Item(){}
+    public Item() {
+    }
 
-    public Item(Item item){
+    public Item(Item item) {
         this.name = item.name;
         this.price = item.price;
         this.type = item.type;

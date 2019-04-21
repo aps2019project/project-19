@@ -1,20 +1,29 @@
 package model;
 
+import model.Buff.Buff;
+
+import java.util.ArrayList;
+
 public class SoldierCard extends Card {
     private int ap;
     private int hp;
     private Cell cell;
     private SoldierTypes type;
+    private ArrayList<Buff> buffs = new ArrayList<>();
 
-    public SoldierCard(){
+    public SoldierCard() {
         super();
     }
 
-    public SoldierCard(SoldierCard soldierCard){
+    public SoldierCard(SoldierCard soldierCard) {
         super(soldierCard);
         this.ap = soldierCard.ap;
         this.hp = soldierCard.hp;
         this.type = soldierCard.type;
+    }
+
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
     }
 
     public int getAp() {
@@ -47,6 +56,14 @@ public class SoldierCard extends Card {
 
     public void setType(SoldierTypes type) {
         this.type = type;
+    }
+
+    public void changeAp(int number) {
+        this.ap += number;
+    }
+
+    public void changeHp(int number) {
+        this.hp += number;
     }
 
     public void attack(Card opponentCard) {

@@ -10,9 +10,10 @@ public class Card {
     private int price;
     private int mana;
 
-    public Card(){}
+    public Card() {
+    }
 
-    public Card(Card card){
+    public Card(Card card) {
         this.name = card.name;
         this.price = card.price;
         this.mana = card.mana;

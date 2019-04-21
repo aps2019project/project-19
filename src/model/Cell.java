@@ -1,5 +1,7 @@
 package model;
 
+import model.Buff.Buff;
+
 public class Cell {
     private int xCoordinate;
     private int yCoordinate;
