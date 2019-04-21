@@ -2,6 +2,7 @@ package controller;
 
 import model.Account;
 import model.Card;
+import model.Deck;
 import model.Item;
 import view.*;
 
@@ -57,6 +58,21 @@ public class Controller {
                 case SELL_TO_SHOP:
                     sellToShop();
                     // TODO: test
+                    break;
+                case SHOW_SHOP:
+                    showShop();
+                    // todo: showShop
+                    break;
+                case SHOW_COLLECTION_ITEMS:
+                    showCollectionItems();
+                    // todo: showCollection
+                    break;
+                case SAVE_COLLECTION:
+                    saveCollection();
+                    // todo: saveCollection
+                    break;
+                case CREATE_DECK:
+                    createDeck();
                     break;
                 case EXIT_MENU:
                     exitMenu();
@@ -141,10 +157,10 @@ public class Controller {
     }
 
     public void enterMenu() {
-        menuType = request.getEntringMenu();
+        menuType = request.getEnteringMenu();
     }
 
-    public void enterCollectionItems() {
+    public void showCollectionItems() {
     }
 
     public void searchInCollection() {
@@ -168,6 +184,12 @@ public class Controller {
     }
 
     public void createDeck() {
+        if (loggedInAccount.getCollection().deckExist(request.getDeckName())) {
+            errorType = ErrorType.DECK_EXISTS;
+            return;
+        }
+        Deck deck = new Deck(request.getDeckName());
+        loggedInAccount.getCollection().getDecks().add(deck);
     }
 
     public void deleteDeck() {
@@ -210,7 +232,8 @@ public class Controller {
             errorType = ErrorType.NOT_FOUND;
         else if (loggedInAccount.getShop().priceIsEnough(request.getProductName(), loggedInAccount))
             errorType = ErrorType.NOT_ENOUGH_MONEY;
-        else if (loggedInAccount.getCollection().getItems().size() < 3) request.setErrorType(ErrorType.FULL_ITEMS);
+        else if (!loggedInAccount.getShop().validateNumberOfItems(request.getProductName()))
+            errorType = ErrorType.FULL_ITEMS;
         else {
             loggedInAccount.getShop().buy(request.getProductName(), loggedInAccount);
             view.show("Successful purchase");

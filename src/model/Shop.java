@@ -48,6 +48,15 @@ public class Shop {
         return false;
     }
 
+    public boolean validateNumberOfItems(String productName){
+        for (Item item : items){
+            if (item.getName().equals(productName))
+                if (items.size() >= 3)
+                    return false;
+        }
+        return true;
+    }
+
     public void buy(String productName, Account account) {
         generateNewId();
         for (Card card : cards) {

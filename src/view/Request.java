@@ -6,19 +6,19 @@ import java.util.Scanner;
 
 public class Request {
     private static Scanner scanner = new Scanner(System.in);
-   private String command;
-   private RequestType requestType;
-   private ErrorType errorType;
-   private String deckName;
-   private String cardName;
-   private String searchingName;
-   private String productName;
-   private int productId;
-   private String userName;
-   private String collectableName;
+    private String command;
+    private RequestType requestType;
+    private ErrorType errorType;
+    private String deckName;
+    private String cardName;
+    private String searchingName;
+    private String productName;
+    private int productId;
+    private String userName;
+    private String collectableName;
     private MenuType enteringMenu;
-    private int cardID;
-   private int itemID;
+    private int cardOrItemID;
+    private int itemID;
 
     public void getNewCommand() {
         do {
@@ -28,7 +28,7 @@ public class Request {
 
 
     public RequestType findTypeOfRequest(MenuType menuType) {
-        switch (menuType){
+        switch (menuType) {
             case ACCOUNT:
                 if (command.matches("create account \\w+"))
                     return RequestType.CREATE_ACCOUNT;
@@ -46,6 +46,28 @@ public class Request {
                     return RequestType.ENTER_MENU;
                 break;
             case COLLECTION:
+                if (command.matches("show"))
+                    return RequestType.SHOW_COLLECTION_ITEMS;
+                if (command.matches("search \\w+"))
+                    return RequestType.SEARCH_IN_COLLECTION;
+                if (command.matches("save"))
+                    return RequestType.SAVE_COLLECTION;
+                if (command.matches("create deck \\w+"))
+                    return RequestType.CREATE_DECK;
+                if (command.matches("delete deck"))
+                    return RequestType.DELETE_DECK;
+                if (command.matches("add \\d+ to deck \\w+"))
+                    return RequestType.ADD_TO_DECK;
+                if (command.matches("remove \\d+ from deck \\w+"))
+                    return RequestType.REMOVE_CARD_FROM_DECK;
+                if (command.matches("validate deck \\w+"))
+                    return RequestType.VALIDATE_DECK;
+                if (command.matches("select deck \\w+"))
+                    return RequestType.SELECT_MAIN_DECK;
+                if (command.matches("show all decks"))
+                    return RequestType.SHOW_ALL_DECKS;
+                if (command.matches("show deck \\w+"))
+                    return RequestType.SHOW_DECK;
                 break;
             case BATTLE:
                 break;
@@ -63,9 +85,9 @@ public class Request {
                 if (command.matches("show"))
                     return RequestType.SHOW_SHOP;
         }
-        if(command.matches("help"))
+        if (command.matches("help"))
             return RequestType.HELP;
-        else if(command.matches("exit"))
+        else if (command.matches("exit"))
             return RequestType.EXIT_MENU;
         return RequestType.ERROR;
     }
@@ -83,7 +105,7 @@ public class Request {
                 searchingName = command.split(" ")[1];
                 break;
             case SEARCH_IN_COLLECTION:
-                searchingName = command.split(" ")[2];
+                parseSearchInCollection(enteringMenu);
                 break;
             case BUY_FROM_SHOP:
                 productName = command.split(" ")[1];
@@ -91,24 +113,52 @@ public class Request {
             case SELL_TO_SHOP:
                 productId = Integer.parseInt(command.split(" ")[1]);
                 break;
+            case CREATE_DECK:
+                deckName = command.split(" ")[2];
+                break;
+            case DELETE_DECK:
+                deckName = command.split(" ")[2];
+                break;
+            case ADD_TO_DECK:
+                cardOrItemID = Integer.parseInt(command.split("")[1]);
+                deckName = command.split(" ")[4];
+                break;
+            case REMOVE_CARD_FROM_DECK:
+                cardOrItemID = Integer.parseInt(command.split(" ")[1]);
+                deckName = command.split(" ")[4];
+                break;
+            case VALIDATE_DECK:
+                deckName = command.split(" ")[2];
+                break;
+            case SELECT_MAIN_DECK:
+                deckName = command.split(" ")[2];
+                break;
+            case SHOW_DECK:
+                deckName = command.split(" ")[2];
+                break;
             case ENTER_MENU:
                 parseEnterMenu();
                 break;
         }
     }
 
+    private void parseSearchInCollection(MenuType menuType) {
+        if (menuType == MenuType.SHOP)
+            searchingName = command.split(" ")[2];
+        else searchingName = command.split(" ")[1];
+    }
 
 
-
-    public void parseEnterMenu(){
+    public void parseEnterMenu() {
         String enteringMenuName = command.split(" ")[1];
         if ((enteringMenuName).equals("battle"))
             enteringMenu = MenuType.BATTLE;
         else if (enteringMenuName.equals("shop"))
             enteringMenu = MenuType.SHOP;
-        else if(enteringMenuName.equals("collection"))
+        else if (enteringMenuName.equals("collection"))
             enteringMenu = MenuType.COLLECTION;
     }
+
     public void checkSyntaxOfShow() {
     }
 
@@ -211,8 +261,8 @@ public class Request {
         this.collectableName = collectableName;
     }
 
-    public void setCardID(int cardID) {
-        this.cardID = cardID;
+    public void setCardOrItemID(int cardOrItemID) {
+        this.cardOrItemID = cardOrItemID;
     }
 
     public void setItemID(int itemID) {
@@ -255,24 +305,27 @@ public class Request {
         this.productName = productName;
     }
 
-    public int getProductId(){ return productId;}
+    public int getProductId() {
+        return productId;
+    }
 
     public String getUserName() {
         return userName;
     }
+
     public String getCollectableName() {
         return collectableName;
     }
 
-    public int getCardID() {
-        return cardID;
+    public int getCardOrItemID() {
+        return cardOrItemID;
     }
 
     public int getItemID() {
         return itemID;
     }
 
-    public MenuType getEntringMenu() {
+    public MenuType getEnteringMenu() {
         return enteringMenu;
     }
 

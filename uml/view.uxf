@@ -16,7 +16,7 @@
 -requestType: RequestType
 -errorType: ErrorType
 -deckName: String
--cardID: int
+-cardOrItemID: int
 -cardName: String
 -collectableName: String
 -collectableName: 

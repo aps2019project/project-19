@@ -34,7 +34,13 @@ public class Collection {
     public void deleteDeck(String deckName) {
     }
 
-//    public boolean deckExist(String deckName){}
+    public boolean deckExist(String deckName){
+        for (Deck deck : decks) {
+            if (deck.getName().equals(deckName))
+                return true;
+        }
+        return false;
+    }
 //
 //    public boolean cardIsValid(int cardId){}
 //

@@ -13,8 +13,8 @@ public class Account implements Comparable<Account> {
     //todo: when a player wins add to wins
     private long money;
     private ArrayList<Game> matchHistory = new ArrayList<>();
-    private Collection collection;
-    private Shop shop;
+    private Collection collection = new Collection();
+    private Shop shop = new Shop();
 
     public Shop getShop() {
         return shop;
