@@ -1,4 +1,4 @@
-package model;
+package model.Game;
 
 public enum GameMode {
     DEATH_MATCH,

@@ -1,5 +1,7 @@
 package model;
 
+import model.Game.Game;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
