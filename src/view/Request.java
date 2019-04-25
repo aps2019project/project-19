@@ -61,7 +61,7 @@ public class Request {
                 if (command.matches("add \\d+ to deck \\w+"))
                     return RequestType.ADD_TO_DECK;
                 if (command.matches("remove \\d+ from deck \\w+"))
-                    return RequestType.REMOVE_CARD_FROM_DECK;
+                    return RequestType.REMOVE_FROM_DECK;
                 if (command.matches("validate deck \\w+"))
                     return RequestType.VALIDATE_DECK;
                 if (command.matches("select deck \\w+"))
@@ -169,7 +169,7 @@ public class Request {
                 cardOrItemID = Integer.parseInt(command.split("")[1]);
                 deckName = command.split(" ")[4];
                 break;
-            case REMOVE_CARD_FROM_DECK:
+            case REMOVE_FROM_DECK:
                 cardOrItemID = Integer.parseInt(command.split(" ")[1]);
                 deckName = command.split(" ")[4];
                 break;

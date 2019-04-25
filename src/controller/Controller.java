@@ -76,6 +76,14 @@ public class Controller {
                 case DELETE_DECK:
                     deleteDeck();
                     break;
+                case ADD_TO_DECK:
+                    addToDeck();
+                    // todo: test
+                    break;
+                case REMOVE_FROM_DECK:
+                    removeFromDeck();
+                    //todo: test
+                    break;
                 case EXIT_MENU:
                     exitMenu();
                     break;
@@ -186,26 +194,44 @@ public class Controller {
     }
 
     public void createDeck() {
-        if (loggedInAccount.getCollection().deckExist(request.getDeckName())) {
+        if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
             errorType = ErrorType.DECK_EXISTS;
             return;
         }
         Deck deck = new Deck(request.getDeckName());
-        loggedInAccount.getCollection().getDecks().add(deck);
+        loggedInAccount.getCollection().getDecks().put(request.getDeckName(), deck);
     }
 
     public void deleteDeck() {
-        if (loggedInAccount.getCollection().deckExist(request.getDeckName())) {
-            loggedInAccount.getCollection().getDecks().removeIf(deck -> deck.getName().equals(request.getDeckName()));
+        if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
+            loggedInAccount.getCollection().getDecks().remove(request.getDeckName());
             return;
         }
         errorType = ErrorType.DECK_NOT_EXISTS;
     }
 
     public void addToDeck() {
+        if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
+            errorType = ErrorType.DECK_NOT_EXISTS;
+        else if (!loggedInAccount.getCollection().existsInCollection(request.getCardOrItemID()))
+            errorType = ErrorType.NOT_FOUND;
+        else if (loggedInAccount.getCollection().existsInDeck(request.getDeckName(), request.getCardOrItemID()))
+            errorType = ErrorType.EXISTS_IN_DECK;
+        else if (loggedInAccount.getCollection().deckIsFull(request.getDeckName(), request.getCardOrItemID()))
+            errorType = ErrorType.DECK_IS_FULL;
+        else if (loggedInAccount.getCollection().isHero(request.getCardOrItemID())) {
+            if (loggedInAccount.getCollection().getDecks().get(request.getDeckName()).deckHasHero())
+                errorType = ErrorType.DECK_HAS_HERO;
+        } else loggedInAccount.getCollection().addToDeck(request.getCardOrItemID(), request.getDeckName());
     }
 
-    public void removeCardFromDeck() {
+    public void removeFromDeck() {
+        if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
+            errorType = ErrorType.DECK_NOT_EXISTS;
+        else if (!loggedInAccount.getCollection().existsInDeck(request.getDeckName(), request.getCardOrItemID()))
+            errorType = ErrorType.NOT_FOUND;
+        else loggedInAccount.getCollection().removeFromDeck(request.getDeckName(), request.getCardOrItemID());
+
     }
 
     public void validateDeck() {
@@ -249,7 +275,7 @@ public class Controller {
 
     public void sellToShop() {
         if (!loggedInAccount.getCollection().existsInCollection(request.getProductId()))
-            errorType = ErrorType.INVALID_SELL;
+            errorType = ErrorType.NOT_FOUND;
         else {
             loggedInAccount.getShop().sell(request.getProductId(), loggedInAccount);
             view.show("successful sales");
