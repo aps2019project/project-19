@@ -73,6 +73,9 @@ public class Controller {
                 case CREATE_DECK:
                     createDeck();
                     break;
+                case DELETE_DECK:
+                    deleteDeck();
+                    break;
                 case EXIT_MENU:
                     exitMenu();
                     break;
@@ -192,6 +195,11 @@ public class Controller {
     }
 
     public void deleteDeck() {
+        if (loggedInAccount.getCollection().deckExist(request.getDeckName())) {
+            loggedInAccount.getCollection().getDecks().removeIf(deck -> deck.getName().equals(request.getDeckName()));
+            return;
+        }
+        errorType = ErrorType.DECK_NOT_EXISTS;
     }
 
     public void addToDeck() {

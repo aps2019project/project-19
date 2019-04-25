@@ -56,7 +56,7 @@ public class Request {
                     return RequestType.SAVE_COLLECTION;
                 if (command.matches("create deck \\w+"))
                     return RequestType.CREATE_DECK;
-                if (command.matches("delete deck"))
+                if (command.matches("delete deck \\w+"))
                     return RequestType.DELETE_DECK;
                 if (command.matches("add \\d+ to deck \\w+"))
                     return RequestType.ADD_TO_DECK;
