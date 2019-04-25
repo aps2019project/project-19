@@ -9,9 +9,16 @@ public class SpellCard extends Card {
     private ArrayList<Buff> buffs = new ArrayList<>();
     private Target targetArea;
 
+    public SpellCard(int cardId, String name, int price, int mana, ArrayList<Buff> buffs, Target targetArea) {
+        super(cardId, name, price, mana);
+        this.buffs = buffs;
+        this.targetArea = targetArea;
+    }
+
     public SpellCard() {
         super();
     }
+
 
     public SpellCard(SpellCard spellCard) {
         super(spellCard);

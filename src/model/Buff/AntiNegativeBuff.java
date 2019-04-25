@@ -7,4 +7,8 @@ public class AntiNegativeBuff extends Buff {
     public void castBuff(SoldierCard soldier) {
 
     }
+
+    public AntiNegativeBuff(Kind kind, int duration, boolean isContinuous) {
+        super(kind, duration, isContinuous);
+    }
 }

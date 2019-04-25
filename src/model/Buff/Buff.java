@@ -7,6 +7,12 @@ public abstract class Buff {
     private int duration;
     private boolean isContinuous;
 
+    public Buff(Kind kind, int duration, boolean isContinuous) {
+        this.kind = kind;
+        this.duration = duration;
+        this.isContinuous = isContinuous;
+    }
+
     public void setContinuous(boolean continuous) {
         isContinuous = continuous;
     }

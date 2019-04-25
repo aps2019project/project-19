@@ -7,4 +7,8 @@ public class AntiPoisonBuff extends Buff {
     public void castBuff(SoldierCard soldier) {
 
     }
+
+    public AntiPoisonBuff(Kind kind, int duration, boolean isContinuous) {
+        super(kind, duration, isContinuous);
+    }
 }

@@ -11,4 +11,10 @@ public class PowerBuff extends Buff{
         soldier.changeHp(this.hpIncrease);
         soldier.changeAp(this.apIncrease);
     }
+
+    public PowerBuff(Kind kind, int duration, boolean isContinuous, int hpIncrease, int apIncrease) {
+        super(kind, duration, isContinuous);
+        this.hpIncrease = hpIncrease;
+        this.apIncrease = apIncrease;
+    }
 }

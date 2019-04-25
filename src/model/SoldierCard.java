@@ -16,6 +16,14 @@ public class SoldierCard extends Card {
         super();
     }
 
+    public SoldierCard(int cardId, String name, int price, int mana, int ap, int hp, SoldierTypes type, int attackRange) {
+        super(cardId, name, price, mana);
+        this.ap = ap;
+        this.hp = hp;
+        this.type = type;
+        this.attackRange = attackRange;
+    }
+
     public SoldierCard(SoldierCard soldierCard) {
         super(soldierCard);
         this.ap = soldierCard.ap;
