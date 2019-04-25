@@ -115,7 +115,6 @@ public class Shop {
 
     public void sellItem(int itemId) {
     }
-
     public void generateNewId() {
         id++;
     }

@@ -1,10 +1,10 @@
 package controller;
 
-import model.Account;
-import model.Card;
-import model.Deck;
-import model.Item;
+import model.*;
+import model.Buff.Buff;
 import view.*;
+
+import java.util.ArrayList;
 
 public class Controller {
     private final static Controller CONTROLLER = new Controller();
@@ -21,7 +21,7 @@ public class Controller {
     private Account loggedInAccount;
     private ErrorType errorType = null;
     private View view = View.getInstance();
-
+\
     public void run() {
         mainLoop:
         do {

@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import controller.CardInitializer;
 import controller.Controller;
 import model.*;
 import model.Buff.Buff;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        CardInitializer cardInitializer = CardInitializer.getInstance();
+        cardInitializer.createCards();
         Controller controller = Controller.getInstance();
         controller.run();
 //        ArrayList<Buff> buffs = new ArrayList<>();

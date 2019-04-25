@@ -9,6 +9,11 @@ public class Hero extends SoldierCard {
         super();
     }
 
+    public Hero(int cardId, String name, int price, int mana, int ap, int hp, SoldierTypes type, int attackRange, Buff specialPower) {
+        super(cardId, name, price, mana, ap, hp, type, attackRange);
+        this.specialPower = specialPower;
+    }
+
     public Hero(Hero hero) {
         super(hero);
         this.specialPower = hero.specialPower;
