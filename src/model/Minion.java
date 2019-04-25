@@ -2,23 +2,34 @@ package model;
 
 import model.Buff.Buff;
 
+import java.util.ArrayList;
+
 public class Minion extends SoldierCard {
-    private Buff ability;
+    private ArrayList<Buff> buffs;
+    private int attackRange;
 
-    public Minion() {
-        super();
+    public Minion(ArrayList<Buff> buffs, int attackRange) {
+        this.buffs = buffs;
+        this.attackRange = attackRange;
     }
 
-    public Minion(Minion minion) {
-        super(minion);
-        this.ability = minion.ability;
+    public Minion(SoldierCard soldierCard, ArrayList<Buff> buffs, int attackRange) {
+        super(soldierCard);
+        this.buffs = buffs;
+        this.attackRange = attackRange;
+        this.buffs = new ArrayList<>();
     }
 
-    public void setAbility(Buff ability) {
-        this.ability = ability;
+    @Override
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
     }
 
-    public Buff getAbility() {
-        return ability;
+    public int getAttackRange() {
+        return attackRange;
+    }
+
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
     }
 }
