@@ -7,4 +7,8 @@ public class ApStatus extends Buff {
     public void castBuff(SoldierCard soldier) {
 
     }
+
+    public ApStatus(Kind kind, int duration, boolean isContinuous) {
+        super(kind, duration, isContinuous);
+    }
 }

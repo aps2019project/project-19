@@ -5,6 +5,12 @@ public class Target {
     private int areaSize;
     private SoldierTargetType soldierTargetType;
 
+    public Target(Type type, int areaSize, SoldierTargetType soldierTargetType) {
+        this.type = type;
+        this.areaSize = areaSize;
+        this.soldierTargetType = soldierTargetType;
+    }
+
     public Type getType() {
         return type;
     }

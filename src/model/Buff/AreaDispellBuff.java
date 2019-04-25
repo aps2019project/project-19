@@ -8,4 +8,8 @@ public class AreaDispellBuff extends Buff {
     public void castBuff(SoldierCard soldier) {
 
     }
+
+    public AreaDispellBuff(Kind kind, int duration, boolean isContinuous) {
+        super(kind, duration, isContinuous);
+    }
 }

@@ -13,6 +13,13 @@ public class Card {
     public Card() {
     }
 
+    public Card(int cardId, String name, int price, int mana) {
+        this.cardId = cardId;
+        this.name = name;
+        this.price = price;
+        this.mana = mana;
+    }
+
     public Card(Card card) {
         this.name = card.name;
         this.price = card.price;

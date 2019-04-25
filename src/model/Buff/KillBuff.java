@@ -7,4 +7,8 @@ public class KillBuff extends Buff {
     public void castBuff(SoldierCard soldier) {
 
     }
+
+    public KillBuff(Kind kind, int duration, boolean isContinuous) {
+        super(kind, duration, isContinuous);
+    }
 }
