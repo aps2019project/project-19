@@ -5,19 +5,15 @@ import model.Buff.Buff;
 import java.util.ArrayList;
 
 public class Minion extends SoldierCard {
-    private ArrayList<Buff> buffs;
-    private int attackRange;
+    private ArrayList<Buff> buffs = new ArrayList<>();
 
-    public Minion(ArrayList<Buff> buffs, int attackRange) {
-        this.buffs = buffs;
-        this.attackRange = attackRange;
+    public Minion() {
+        super();
     }
 
-    public Minion(SoldierCard soldierCard, ArrayList<Buff> buffs, int attackRange) {
-        super(soldierCard);
-        this.buffs = buffs;
-        this.attackRange = attackRange;
-        this.buffs = new ArrayList<>();
+    public Minion(Minion minion) {
+        super(minion);
+        this.buffs = minion.buffs;
     }
 
     @Override
@@ -25,11 +21,4 @@ public class Minion extends SoldierCard {
         return buffs;
     }
 
-    public int getAttackRange() {
-        return attackRange;
-    }
-
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
-    }
 }

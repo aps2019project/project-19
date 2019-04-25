@@ -10,6 +10,7 @@ public class SoldierCard extends Card {
     private Cell cell;
     private SoldierTypes type;
     private ArrayList<Buff> buffs = new ArrayList<>();
+    private int attackRange;
 
     public SoldierCard() {
         super();
@@ -20,6 +21,7 @@ public class SoldierCard extends Card {
         this.ap = soldierCard.ap;
         this.hp = soldierCard.hp;
         this.type = soldierCard.type;
+        this.attackRange = soldierCard.attackRange;
     }
 
     public ArrayList<Buff> getBuffs() {
@@ -56,6 +58,14 @@ public class SoldierCard extends Card {
 
     public void setType(SoldierTypes type) {
         this.type = type;
+    }
+
+    public int getAttackRange() {
+        return attackRange;
+    }
+
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
     }
 
     public void changeAp(int number) {

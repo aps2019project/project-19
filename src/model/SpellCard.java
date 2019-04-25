@@ -3,8 +3,10 @@ package model;
 import model.Buff.Buff;
 import model.Target.Target;
 
+import java.util.ArrayList;
+
 public class SpellCard extends Card {
-    private Buff buff;
+    private ArrayList<Buff> buffs = new ArrayList<>();
     private Target targetArea;
 
     public SpellCard() {
@@ -13,15 +15,16 @@ public class SpellCard extends Card {
 
     public SpellCard(SpellCard spellCard) {
         super(spellCard);
-        this.buff = spellCard.buff;
+        this.buffs = spellCard.buffs;
+        this.targetArea = spellCard.targetArea;
     }
 
-    public Buff getBuff() {
-        return buff;
+    public ArrayList<Buff> getBuff() {
+        return buffs;
     }
 
     public void setBuff(Buff buff) {
-        this.buff = buff;
+        this.buffs = buffs;
     }
 
     public void setTargetArea(Target targetArea) {
