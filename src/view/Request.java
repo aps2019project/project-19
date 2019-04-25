@@ -111,6 +111,11 @@ public class Request {
                 if (command.matches("end game"))
                     return RequestType.END_GAME;
                 break;
+            case GRAVEYARD:
+                if(command.matches("show info \\d+"))
+                    return RequestType.SHOW_CARD_INFO_IN_GRAVEYARD;
+                if(command.matches("show cards"))
+                    return RequestType.SHOW_All_CARDS_IN_GRAVEYARD;
             case SHOP:
                 if (command.matches("show collection"))
                     return RequestType.SHOW_COLLECTION_ITEMS;
