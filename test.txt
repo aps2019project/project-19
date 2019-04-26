@@ -1,0 +1,20 @@
+create account ali
+ali
+login ali
+ali
+help
+enter shop
+help
+show
+search dive sepid
+buy dive sepid 
+buy total disarm
+buy simorgh
+show collection
+search collection oo
+search collection total disarm
+exit 
+enter collection 
+show
+search dive sepid
+
