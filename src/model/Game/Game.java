@@ -19,7 +19,6 @@ public class Game {
     private Date date;
     private Player winnerPlayer;
     private GameMode gameMode;
-    private GameKind gameKind;
 
     public int getLength() {
         return length;
@@ -99,27 +98,5 @@ public class Game {
 
     public Date getDate() {
         return date;
-    }
-
-    public GameKind getGameKind() {
-        return gameKind;
-    }
-
-    public void selectGameKind(String mode) {
-        // TODO: 4/22/19 get mode in view
-        if (mode.equals("single player")) {
-            this.gameKind = GameKind.SINGLEPLAYER;
-        } else if (mode.equals("multi palyer")) {
-            this.gameKind = GameKind.MULTIPLAYER;
-        }
-    }
-
-    public void selectSinglePlayerGameMode(String mode) {
-        // TODO: 4/22/19 ??????? 
-        if (mode.equals("story")) {
-
-        } else if (mode.equals("custom game")) {
-
-        }
     }
 }

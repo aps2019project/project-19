@@ -1,18 +1,16 @@
 package view;
 
 public enum RequestType {
-
     ERROR,
     CREATE_ACCOUNT,
     LOGIN,
     SHOW_LEADER_BOARD,
     SAVE,
-    LOG_OUT,
     HELP,
     EXIT_MENU,
+    LOGOUT,
     //    ENTER_ACCOUNT_MENU,
     //todo:check save function
-    LOGOUT,
     //    ENTER_BATTLE_MENU,
 //    ENTER_SHOP,
 //    ENTER_COLLECTION,
@@ -54,5 +52,5 @@ public enum RequestType {
     SHOW_CARD_INFO_IN_GRAVEYARD,
     END_GAME,
     SHOW_MENU_OPTIONS,
-
+    ENTER_BATTLE_MODELS
 }

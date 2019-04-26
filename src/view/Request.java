@@ -16,6 +16,7 @@ public class Request {
     private int productId;
     private String userName;
     private String collectableName;
+    private String gameModel;
     private MenuType enteringMenu;
     private int cardOrItemID;
     private int itemID;
@@ -72,6 +73,8 @@ public class Request {
                     return RequestType.SHOW_DECK;
                 break;
             case BATTLE:
+                if (command.matches("enter \\w+"))
+                    return RequestType.ENTER_BATTLE_MODELS;
                 if (command.matches("game info"))
                     return RequestType.SHOW_GAME_INFO;
                 if (command.matches("show my minions"))
@@ -112,9 +115,9 @@ public class Request {
                     return RequestType.END_GAME;
                 break;
             case GRAVEYARD:
-                if(command.matches("show info \\d+"))
+                if (command.matches("show info \\d+"))
                     return RequestType.SHOW_CARD_INFO_IN_GRAVEYARD;
-                if(command.matches("show cards"))
+                if (command.matches("show cards"))
                     return RequestType.SHOW_All_CARDS_IN_GRAVEYARD;
             case SHOP:
                 if (command.matches("show collection"))
@@ -182,10 +185,21 @@ public class Request {
             case SHOW_DECK:
                 deckName = command.split(" ")[2];
                 break;
+            case ENTER_BATTLE_MODELS:
+                gameModel = detectGameModel();
             case ENTER_MENU:
                 parseEnterMenu();
                 break;
         }
+    }
+
+    private String detectGameModel() {
+        String[] strings = command.split(" ");
+        if(strings.length == 3 && command.endsWith("single player"))
+            return "singlePlayer";
+        else if(strings.length == 3 && command.endsWith("multi player"))
+            return "multiPlayer";
+        return "error";
     }
 
     private void parseSearchInCollection(MenuType menuType) {
@@ -375,4 +389,7 @@ public class Request {
         return enteringMenu;
     }
 
+    public String getGameModel() {
+        return gameModel;
+    }
 }

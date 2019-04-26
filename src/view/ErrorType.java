@@ -8,13 +8,14 @@ public enum ErrorType {
     NOT_FOUND("card or item not found"),
     NOT_ENOUGH_MONEY("not enough money"),
     FULL_ITEMS("you have already three items"),
-//    INVALID_SELL("you dont have that."),
+    //    INVALID_SELL("you dont have that."),
     DECK_EXISTS("a deck with this name already exists"),
     DECK_NOT_EXISTS("you dont have any deck with this name"),
     EXISTS_IN_DECK("exists in deck."),
     DECK_IS_FULL("deck is full"),
-    DECK_HAS_HERO("deck has hero.");
-//    LOGGED_IN("you must logout from your account before creating new account or loggin into another"),
+    DECK_HAS_HERO("deck has hero."),
+    WRONG_MODE("wrong mode");
+    //    LOGGED_IN("you must logout from your account before creating new account or login into another"),
 //    NOT_LOGGED_IN("you must login to your account to");
     private String message;
 

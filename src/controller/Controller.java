@@ -2,6 +2,9 @@ package controller;
 
 import model.*;
 import model.Buff.Buff;
+import model.Game.Game;
+import model.Game.MultiPlayerGame;
+import model.Game.SinglePlayerGame;
 import view.*;
 
 import java.util.ArrayList;
@@ -19,11 +22,12 @@ public class Controller {
     private MenuType menuType = MenuType.ACCOUNT;
     private Request request;
     private Account loggedInAccount;
+    private Game game;
     private ErrorType errorType = null;
     private View view = View.getInstance();
-\
+
     public void run() {
-        mainLoop:
+        //mainLoop:
         do {
             System.out.println("Menu: " + menuType);
             request = new Request();
@@ -42,6 +46,7 @@ public class Controller {
                     break;
                 case LOGOUT:
                     logOut();
+                    break;
                 case SEARCH_IN_SHOP:
                     searchInShop();
                     // TODO: test
@@ -96,12 +101,24 @@ public class Controller {
                 case HELP:
                     view.showHelp(menuType);
                     break;
+                case ENTER_BATTLE_MODELS:
+                    createGame();
+                    break;
             }
             if (errorType != null) {
                 view.printError(errorType);
                 errorType = null;
             }
         } while (true);
+    }
+
+    private void createGame() {
+        if (request.getGameModel().equals("singlePlayer")) {
+            game = new SinglePlayerGame();
+        } else if (request.getGameModel().equals("multiPlayer")) {
+            game = new MultiPlayerGame();
+        } else
+            view.printError(ErrorType.WRONG_MODE);
     }
 
 
@@ -154,19 +171,22 @@ public class Controller {
         switch (menuType) {
             case MAINMENU:
                 System.exit(0);
-            case BATTLE:
+            default:
                 menuType = MenuType.MAINMENU;
-                break;
-            case COLLECTION:
-                menuType = MenuType.MAINMENU;
-                break;
-            case SHOP:
-                menuType = MenuType.MAINMENU;
-                break;
+//            case BATTLE:
+//                menuType = MenuType.MAINMENU;
+//                break;
+//            case COLLECTION:
+//                menuType = MenuType.MAINMENU;
+//                break;
+//            case SHOP:
+//                menuType = MenuType.MAINMENU;
+//                break;
         }
     }
 
     public void enterMenu() {
+        // TODO: 4/26/19 check availability of a valid deck for entering battle
         menuType = request.getEnteringMenu();
     }
 
@@ -343,5 +363,9 @@ public class Controller {
     }
 
     public void showMenuOptions() {
+    }
+
+    public Game getGame() {
+        return game;
     }
 }

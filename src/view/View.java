@@ -40,13 +40,15 @@ public class View {
                         "5. Sell [item id | card id]\n6. Show\n7. Help\n8. Exit");
                 break;
             case BATTLE:
-                System.out.println("1. Game Info\n2. Show My Minions\n3. Show Opponent Minions\n" +
-                        "4. Show Card Info [card id]\n5. Select [Card id]\n\t5.1 Move to ([x], [y])\n" +
-                        "\t5.2 Attack [opponent card id]\n\t5.3 Use Special Power ([x], [y])\n" +
-                        "6. Attack Combo [opponent card id] [my card id] [my card id] [...]\n9. Show Hand\n" +
-                        "8. Insert [card name] In ([x], [y])\n11. End Turn\n12. Show Collectables\n" +
-                        "11. Select [collectable id]\n\t11.1 Show Info\n\t11.2 Use Location [x, y]\n" +
-                        "12. Show Next Card\n13. Enter Graveyard\n14. Show My Choices\n15. End Game\n16. Help\n17. Exit");
+                System.out.println("1. enter single player\n2. enter multi player\n" +
+                        "3. Game Info\n4. Show My Minions\n5. Show Opponent Minions\n" +
+                        "6. Show Card Info [card id]\n7. Select [Card id]\n\t7.1 Move to ([x], [y])\n" +
+                        "\t7.2 Attack [opponent card id]\n\t7.3 Use Special Power ([x], [y])\n" +
+                        "8. Attack Combo [opponent card id] [my card id] [my card id] [...]\n9. Show Hand\n" +
+                        "10. Insert [card name] In ([x], [y])\n11. End Turn\n12. Show Collectables\n" +
+                        "13. Select [collectable id]\n\t13.1 Show Info\n\t13.2 Use Location [x, y]\n" +
+                        "14. Show Next Card\n15. Enter Graveyard\n16. Show My Choices\n" +
+                        "17. End Game\n18. Help\n19. Exit");
                 break;
             case GRAVEYARD:
                 System.out.println("1. Show Cards\n2. Show Info [card id]\n" +
@@ -54,7 +56,8 @@ public class View {
                 break;
             case COLLECTION:
                 System.out.println("1. Show\n2. Save\n3. Search [item name| card name]" +
-                        "4. Create Deck\n5. Delete Deck\n6. Add [item id | card id | hero id] To Deck [deck name]\n" +
+                        "4. Create Deck\n5. Delete Deck\n" +
+                        "6. Add [item id | card id | hero id] To Deck [deck name]\n" +
                         "7. Remove [item id | card id | hero id] From Deck [deck name]\n" +
                         "8. Validate Deck [deck name]\n9. Select Deck [deck name]\n9. Show Deck [deck name]\n" +
                         "7. Help\n8. Exit");
