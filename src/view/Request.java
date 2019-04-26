@@ -206,12 +206,12 @@ public class Request {
         if (menuType == MenuType.SHOP)
             searchingName = command.split(" ")[2];
         else searchingName = command.split(" ")[1];
-        private void parseSearchInCollection (
-                ) {
-            if (command.matches("search collection (\\w+ ?)+"))
-                searchingName = command.substring(17).trim();
-            else searchingName = command.substring(6).trim();
-        }
+    }
+
+    private void parseSearchInCollection() {
+        if (command.matches("search collection (\\w+ ?)+"))
+            searchingName = command.substring(17).trim();
+        else searchingName = command.substring(6).trim();
     }
 
 
