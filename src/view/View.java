@@ -27,7 +27,7 @@ public class View {
     public void showHelp(MenuType menuType) {
         switch (menuType) {
             case MAINMENU:
-                System.out.println("1. Collection\n2. Shop [user name]\n" +
+                System.out.println("1. Collection\n2. Shop\n" +
                         "3. Battle\n4. Exit\n5. Help\n");
                 break;
             case ACCOUNT:

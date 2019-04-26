@@ -1,6 +1,7 @@
-package model;
+package model.Cards;
 
 import model.Buff.Buff;
+import model.Cell;
 
 import java.util.ArrayList;
 

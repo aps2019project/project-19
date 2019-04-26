@@ -2,6 +2,10 @@ package controller;
 
 import model.*;
 import model.Buff.*;
+import model.Cards.Hero;
+import model.Cards.Minion;
+import model.Cards.SoldierTypes;
+import model.Cards.SpellCard;
 import model.Target.SoldierTargetType;
 import model.Target.Target;
 import model.Target.Type;
@@ -12,6 +16,7 @@ public class CardInitializer {
     private ArrayList<Minion> minionCards = new ArrayList<>();
     private ArrayList<SpellCard> spellCards = new ArrayList<>();
     private ArrayList<Hero> heroes = new ArrayList<>();
+    private Shop shop = Shop.getInstance();
 
     private final static CardInitializer CARD_INITIALIZER = new CardInitializer();
     public static CardInitializer getInstance(){
@@ -19,7 +24,7 @@ public class CardInitializer {
     }
     private CardInitializer(){
     }
-    public void createCards(Account account){
+    public void createCards(){
          ArrayList<Minion> minionCards = new ArrayList<>();
          ArrayList<SpellCard> spellCards = new ArrayList<>();
          ArrayList<Hero> heroes = new ArrayList<>();
@@ -27,10 +32,13 @@ public class CardInitializer {
          createHeroes(heroes);
          createSpellCards(spellCards,new ArrayList<Buff>());
         for (Minion minionCard : minionCards) {
-
+            shop.getCards().add(minionCard);
         }
         for (SpellCard spellCard : spellCards) {
-
+            shop.getCards().add(spellCard);
+        }
+        for (Hero hero : heroes) {
+            shop.getCards().add(hero);
         }
     }
     public void createMinions(ArrayList<Minion> minions, ArrayList<Buff> buffs) {
@@ -60,6 +68,7 @@ public class CardInitializer {
 
         buff = new StunBuff(Kind.POSITIVE,1,false);
         Hero simorgh = new Hero(302,"simorgh",9000,5,4,50,SoldierTypes.MELEE,0,buff);
+        heroes.add(simorgh);
         //todo:must have target area
 
     }

@@ -1,4 +1,4 @@
-package model;
+package model.Cards;
 
 public enum CardStatus {
     IN_HAND,

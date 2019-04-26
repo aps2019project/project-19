@@ -1,6 +1,7 @@
 package model;
 
 import model.Buff.Buff;
+import model.Cards.Card;
 
 public class Cell {
     private int xCoordinate;

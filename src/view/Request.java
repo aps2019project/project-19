@@ -51,7 +51,7 @@ public class Request {
             case COLLECTION:
                 if (command.matches("show"))
                     return RequestType.SHOW_COLLECTION_ITEMS;
-                if (command.matches("search \\w+"))
+                if (command.matches("search (\\w+ ?)+"))
                     return RequestType.SEARCH_IN_COLLECTION;
                 if (command.matches("save"))
                     return RequestType.SAVE_COLLECTION;
@@ -122,11 +122,11 @@ public class Request {
             case SHOP:
                 if (command.matches("show collection"))
                     return RequestType.SHOW_COLLECTION_ITEMS;
-                if (command.matches("search \\w+"))
-                    return RequestType.SEARCH_IN_SHOP;
-                if (command.matches("search collection \\w+"))
+                if (command.matches("search collection (\\w+ ?)+"))
                     return RequestType.SEARCH_IN_COLLECTION;
-                if (command.matches("buy \\w+"))
+                if (command.matches("search (\\w+ ?)+"))
+                    return RequestType.SEARCH_IN_SHOP;
+                if (command.matches("buy (\\w+ ?)+"))
                     return RequestType.BUY_FROM_SHOP;
                 if (command.matches("sell \\d+"))
                     return RequestType.SELL_TO_SHOP;
@@ -151,13 +151,13 @@ public class Request {
                 userName = command.split(" ")[1];
                 break;
             case SEARCH_IN_SHOP:
-                searchingName = command.split(" ")[1];
+                searchingName = command.substring(6).trim();
                 break;
             case SEARCH_IN_COLLECTION:
-                parseSearchInCollection(enteringMenu);
+                parseSearchInCollection();
                 break;
             case BUY_FROM_SHOP:
-                productName = command.split(" ")[1];
+                productName = command.substring(3).trim();
                 break;
             case SELL_TO_SHOP:
                 productId = Integer.parseInt(command.split(" ")[1]);
@@ -206,6 +206,11 @@ public class Request {
         if (menuType == MenuType.SHOP)
             searchingName = command.split(" ")[2];
         else searchingName = command.split(" ")[1];
+    private void parseSearchInCollection(
+    ) {
+        if (command.matches("search collection (\\w+ ?)+"))
+                searchingName = command.substring(17).trim();
+        else searchingName = command.substring(6).trim();
     }
 
 
@@ -252,11 +257,6 @@ public class Request {
 
     public void checkSyntaxOfShowDeck() {
     }
-
-    public void parseSearchInShop() {
-        searchingName = command.split(" ")[1];
-    }
-
 
     public void checkSyntaxOfBuyFromShop() {
     }

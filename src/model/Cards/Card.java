@@ -1,6 +1,6 @@
-package model;
+package model.Cards;
 
-import java.util.concurrent.CancellationException;
+import model.Cell;
 
 public class Card {
     private int cardId;
@@ -15,7 +15,7 @@ public class Card {
 
     public Card(int cardId, String name, int price, int mana) {
         this.cardId = cardId;
-        this.name = name;
+        this.name = name.toLowerCase();
         this.price = price;
         this.mana = mana;
     }
@@ -78,5 +78,15 @@ public class Card {
     }
 
     public void castSpell(Card targetCard) {
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "cardId=" + cardId +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", mana=" + mana +
+                '}';
     }
 }

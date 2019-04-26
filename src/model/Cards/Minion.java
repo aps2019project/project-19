@@ -1,5 +1,6 @@
-package model;
+package model.Cards;
 
+import model.AbilityCastTime;
 import model.Buff.Buff;
 
 import java.util.ArrayList;
