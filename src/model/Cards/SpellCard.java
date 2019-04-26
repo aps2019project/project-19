@@ -1,4 +1,4 @@
-package model;
+package model.Cards;
 
 import model.Buff.Buff;
 import model.Target.Target;

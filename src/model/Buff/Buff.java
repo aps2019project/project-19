@@ -1,6 +1,6 @@
 package model.Buff;
 
-import model.SoldierCard;
+import model.Cards.SoldierCard;
 
 public abstract class Buff {
     private Kind kind;

@@ -1,6 +1,6 @@
 package model.Buff;
 
-import model.SoldierCard;
+import model.Cards.SoldierCard;
 
 public class StunBuff extends Buff{
     @Override

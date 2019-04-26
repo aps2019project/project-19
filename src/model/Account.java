@@ -16,21 +16,11 @@ public class Account implements Comparable<Account> {
     private long money;
     private ArrayList<Game> matchHistory = new ArrayList<>();
     private Collection collection = new Collection();
-    private Shop shop = new Shop();
-
-    public Shop getShop() {
-        return shop;
-    }
-
-    public void setShop(Shop shop) {
-        this.shop = shop;
-    }
 
     public Account(String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.money = 15000;
-        //todo:check default money
     }
 
     public static String sortAccounts() {

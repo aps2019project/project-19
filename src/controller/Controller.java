@@ -1,10 +1,8 @@
 package controller;
 
 import model.*;
-import model.Buff.Buff;
+import model.Cards.Card;
 import view.*;
-
-import java.util.ArrayList;
 
 public class Controller {
     private final static Controller CONTROLLER = new Controller();
@@ -15,13 +13,13 @@ public class Controller {
 
     private Controller() {
     }
-
+    private Shop shop = Shop.getInstance();
     private MenuType menuType = MenuType.ACCOUNT;
     private Request request;
     private Account loggedInAccount;
     private ErrorType errorType = null;
     private View view = View.getInstance();
-\
+
     public void run() {
         mainLoop:
         do {
@@ -60,7 +58,6 @@ public class Controller {
                     break;
                 case SHOW_SHOP:
                     showShop();
-                    // todo: showShop
                     break;
                 case SHOW_COLLECTION_ITEMS:
                     showCollectionItems();
@@ -171,6 +168,9 @@ public class Controller {
     }
 
     public void showCollectionItems() {
+        for (Card card : loggedInAccount.getCollection().getCards()) {
+            view.show(card.toString());
+        }
     }
 
     public void searchInCollection() {
@@ -247,28 +247,30 @@ public class Controller {
     }
 
     public void searchInShop() {
-        for (Item item : loggedInAccount.getShop().getItems())
+        for (Item item : shop.getItems())
             if (item.getName().equals(request.getSearchingName())) {
                 view.show("" + item.getItemId());
                 return;
             }
-        for (Card card : loggedInAccount.getShop().getCards())
+        for (Card card : shop.getCards())
             if (card.getName().equals(request.getSearchingName())) {
                 view.show("" + card.getCardId());
                 return;
             }
+        //todo:all arraylists must set to hashmap
+        //duplicated code with existsInShop in Shop class
         errorType = ErrorType.NOT_FOUND;
     }
 
     public void buyFromShop() {
-        if (!loggedInAccount.getShop().existsInShop(request.getProductName()))
+        if (!shop.existsInShop(request.getProductName()))
             errorType = ErrorType.NOT_FOUND;
-        else if (loggedInAccount.getShop().priceIsEnough(request.getProductName(), loggedInAccount))
+        else if (!shop.priceIsEnough(request.getProductName(), loggedInAccount))
             errorType = ErrorType.NOT_ENOUGH_MONEY;
-        else if (!loggedInAccount.getShop().validateNumberOfItems(request.getProductName()))
+        else if (!shop.validateNumberOfItems(request.getProductName()))
             errorType = ErrorType.FULL_ITEMS;
         else {
-            loggedInAccount.getShop().buy(request.getProductName(), loggedInAccount);
+            shop.buy(request.getProductName(), loggedInAccount);
             view.show("Successful purchase");
         }
     }
@@ -277,12 +279,16 @@ public class Controller {
         if (!loggedInAccount.getCollection().existsInCollection(request.getProductId()))
             errorType = ErrorType.NOT_FOUND;
         else {
-            loggedInAccount.getShop().sell(request.getProductId(), loggedInAccount);
+            shop.sell(request.getProductId(), loggedInAccount);
             view.show("successful sales");
         }
     }
 
     public void showShop() {
+        for (Card card : shop.getCards()) {
+            view.show(card.toString());
+            //todo:to string must be written
+        }
     }
 
     public void showGameInfo() {

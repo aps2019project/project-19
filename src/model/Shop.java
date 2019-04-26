@@ -1,13 +1,22 @@
 package model;
 
 
+import model.Cards.Card;
+import model.Cards.Hero;
+import model.Cards.Minion;
+import model.Cards.SpellCard;
+
 import java.util.ArrayList;
 
 public class Shop {
     private int id;
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
+    private final static Shop SHOP = new Shop();
 
+    public static Shop getInstance(){
+        return SHOP;
+    }
     public ArrayList<Card> getCards() {
         return cards;
     }
@@ -23,6 +32,9 @@ public class Shop {
 //        return false;
 //    }
 
+    private Shop() {
+    }
+
     public boolean existsInShop(String productName) {
         for (Item item : items)
             if (item.getName().equals(productName))
@@ -35,6 +47,7 @@ public class Shop {
     }
 
     public boolean priceIsEnough(String productName, Account account) {
+        //todo: duplicate code :/
         for (Item item : items) {
             if (item.getName().equals(productName))
                 if (item.getPrice() < account.getMoney())
