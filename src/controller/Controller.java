@@ -15,6 +15,7 @@ public class Controller {
 
     private Controller() {
     }
+
     private Shop shop = Shop.getInstance();
     private MenuType menuType = MenuType.ACCOUNT;
     private Request request;

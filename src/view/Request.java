@@ -195,9 +195,9 @@ public class Request {
 
     private String detectGameModel() {
         String[] strings = command.split(" ");
-        if(strings.length == 3 && command.endsWith("single player"))
+        if (strings.length == 3 && command.endsWith("single player"))
             return "singlePlayer";
-        else if(strings.length == 3 && command.endsWith("multi player"))
+        else if (strings.length == 3 && command.endsWith("multi player"))
             return "multiPlayer";
         return "error";
     }
@@ -206,11 +206,12 @@ public class Request {
         if (menuType == MenuType.SHOP)
             searchingName = command.split(" ")[2];
         else searchingName = command.split(" ")[1];
-    private void parseSearchInCollection(
-    ) {
-        if (command.matches("search collection (\\w+ ?)+"))
+        private void parseSearchInCollection (
+                ) {
+            if (command.matches("search collection (\\w+ ?)+"))
                 searchingName = command.substring(17).trim();
-        else searchingName = command.substring(6).trim();
+            else searchingName = command.substring(6).trim();
+        }
     }
 
 
@@ -393,3 +394,5 @@ public class Request {
         return gameModel;
     }
 }
+
+
