@@ -61,10 +61,10 @@ public class Shop {
         return false;
     }
 
-    public boolean validateNumberOfItems(String productName){
+    public boolean validateNumberOfItems(String productName, Account account){
         for (Item item : items){
             if (item.getName().equals(productName))
-                if (items.size() >= 3)
+                if (account.getCollection().getItems().size() >= 3)
                     return false;
         }
         return true;

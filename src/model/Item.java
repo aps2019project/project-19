@@ -1,21 +1,40 @@
 package model;
 
 import javax.imageio.event.IIOReadProgressListener;
+import java.util.ArrayList;
+
+import model.Buff.Buff;
+import model.Target.Target;
+import model.Target.Type;
 
 public class Item {
     private int itemId;
     private String name;
     private int price;
     private Cell cell;
+    private ArrayList<Buff> buffs = new ArrayList<>();
     private ItemTypes type;
+    private Target target;
 
     public Item() {
     }
 
     public Item(Item item) {
+        this.itemId = item.itemId;
         this.name = item.name;
         this.price = item.price;
         this.type = item.type;
+        this.buffs = item.buffs;
+        this.target = item.target;
+    }
+
+    public Item(int itemId, String name, int price, ItemTypes type, ArrayList<Buff> buffs, Target target){
+        this.itemId =itemId;
+        this.name = name.toLowerCase();
+        this.price = price;
+        this.type = type;
+        this.buffs = buffs;
+        this.target = target;
     }
 
     public int getItemId() {
