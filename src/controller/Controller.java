@@ -47,19 +47,16 @@ public class Controller {
                     break;
                 case SEARCH_IN_SHOP:
                     searchInShop();
-                    // TODO: test
                     break;
                 case SEARCH_IN_COLLECTION:
                     searchInCollection();
-                    // TODO: test
                     break;
                 case BUY_FROM_SHOP:
                     buyFromShop();
-                    // TODO: test
+                    //todo: test
                     break;
                 case SELL_TO_SHOP:
                     sellToShop();
-                    // TODO: test
                     break;
                 case SHOW_SHOP:
                     showShop();
@@ -80,11 +77,11 @@ public class Controller {
                     break;
                 case ADD_TO_DECK:
                     addToDeck();
-                    // todo: test
+                    // todo: test for items
                     break;
                 case REMOVE_FROM_DECK:
                     removeFromDeck();
-                    //todo: test
+                    //todo: test for items
                     break;
                 case EXIT_MENU:
                     exitMenu();
@@ -278,7 +275,7 @@ public class Controller {
             errorType = ErrorType.NOT_FOUND;
         else if (!shop.priceIsEnough(request.getProductName(), loggedInAccount))
             errorType = ErrorType.NOT_ENOUGH_MONEY;
-        else if (!shop.validateNumberOfItems(request.getProductName()))
+        else if (!shop.validateNumberOfItems(request.getProductName(),loggedInAccount ))
             errorType = ErrorType.FULL_ITEMS;
         else {
             shop.buy(request.getProductName(), loggedInAccount);

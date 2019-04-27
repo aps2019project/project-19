@@ -169,7 +169,7 @@ public class Request {
                 deckName = command.split(" ")[2];
                 break;
             case ADD_TO_DECK:
-                cardOrItemID = Integer.parseInt(command.split("")[1]);
+                cardOrItemID = Integer.parseInt(command.split(" ")[1]);
                 deckName = command.split(" ")[4];
                 break;
             case REMOVE_FROM_DECK:
