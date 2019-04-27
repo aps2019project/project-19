@@ -2,10 +2,11 @@ package model.Cards;
 
 import model.Buff.Buff;
 import model.Target.Target;
+import view.ShowFormat;
 
 import java.util.ArrayList;
 
-public class SpellCard extends Card {
+public class SpellCard extends Card implements ShowFormat {
     private ArrayList<Buff> buffs = new ArrayList<>();
     private Target targetArea;
 
@@ -40,5 +41,19 @@ public class SpellCard extends Card {
 
     public Target getTargetArea() {
         return targetArea;
+    }
+
+    @Override
+    public String toString() {
+        return "Type : Spell - "
+                + "Name : " + getName() + " - "
+                + "MP : " + getMana() + " - "
+                + "Desc : " + getDescription();
+    }
+
+
+    @Override
+    public String toBattleFormat() {
+        return null;
     }
 }

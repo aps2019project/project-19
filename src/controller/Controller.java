@@ -3,8 +3,11 @@ package controller;
 import model.*;
 import model.Buff.Buff;
 import model.Cards.Card;
+import model.Cards.Hero;
 import view.*;
 import model.Game.*;
+
+import java.util.ArrayList;
 
 public class Controller {
     private final static Controller CONTROLLER = new Controller();
@@ -92,9 +95,11 @@ public class Controller {
                     break;
                 case VALIDATE_DECK:
                     validateDeck();
+                    // todo: test
                     break;
                 case SELECT_MAIN_DECK:
                     selectMainDeck();
+                    // todo: test
                     break;
                 case REMOVE_FROM_DECK:
                     removeFromDeck();
@@ -191,11 +196,27 @@ public class Controller {
     }
 
     public void showCollectionItems() {
+        int number = 1;
+        view.show("Heroes :");
         for (Card card : loggedInAccount.getCollection().getCards()) {
-            view.show(card.toString());
+            if (card instanceof Hero) {
+                view.show("\t" + number + " : " + card.toString() + " - Sell cost : " + card.getPrice());
+                number++;
+            }
         }
+        number = 1;
+        view.show("Items :");
         for (Item item : loggedInAccount.getCollection().getItems()) {
-            view.show(item.toString());
+            view.show("\t" + number + " : " + item.toString() + " - Sell cost : " + item.getPrice());
+            number++;
+        }
+        number = 1;
+        view.show("Cards :");
+        for (Card card : loggedInAccount.getCollection().getCards()) {
+            if (!(card instanceof Hero)){
+                view.show("\t" + number + " : " + card.toString() + " - Sell cost : " + card.getPrice());
+                number++;
+            }
         }
     }
 
@@ -270,16 +291,28 @@ public class Controller {
     }
 
     public void validateDeck() {
-
+        if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
+            errorType = ErrorType.DECK_NOT_EXISTS;
+        else if (loggedInAccount.getCollection().getDecks().get(request.getDeckName()).deckIsValid())
+            view.show("deck is valid");
+        else errorType = ErrorType.INVALID_DECK;
     }
 
     public void selectMainDeck() {
-
+        if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
+            errorType = ErrorType.DECK_NOT_EXISTS;
+        else if (loggedInAccount.getCollection().getDecks().get(request.getDeckName()).deckIsValid()) {
+            loggedInAccount.getCollection().setMainDeck(request.getDeckName());
+            view.show("deck has selected");
+        }
+        else errorType = ErrorType.INVALID_DECK;
     }
 
     public void showAllDecks() {
+        int deckNumber = 1;
         for (Deck deck : loggedInAccount.getCollection().getDecks().values()) {
-            view.show(deck.toString()+"\n");
+            view.show(deckNumber + " : " + deck.toString());
+            deckNumber++;
         }
     }
 
@@ -289,6 +322,27 @@ public class Controller {
         else {
             Deck deck = loggedInAccount.getCollection().getDecks().get(request.getDeckName());
             view.show(deck.toString());
+//            ArrayList<Card> cards = new ArrayList<>(deck.getCards().values());
+//            ArrayList<Item> items = new ArrayList<>(deck.getItems().values());
+//            int number = 1;
+//            view.show("Heroes :");
+//            for (Card card : cards) {
+//                if (card instanceof Hero)
+//                    view.show("\t" + number + " : " + card.toString());
+//            }
+//            view.show("Items :");
+//            for (Item item : items) {
+//                view.show("\t" + number + " : " + item.toString());
+//                number++;
+//            }
+//            number = 1;
+//            view.show("Cards :");
+//            for (Card card : cards) {
+//                if (!(card instanceof Hero)){
+//                    view.show("\t" + number + " : " + card.toString());
+//                    number++;
+//                }
+//            }
         }
     }
 
@@ -332,12 +386,27 @@ public class Controller {
     }
 
     public void showShop() {
+        int number = 1;
+        view.show("Heroes :");
         for (Card card : shop.getCards()) {
-            view.show(card.toString());
-            //todo:to string must be written
+            if (card instanceof Hero) {
+                view.show("\t" + number + " : " + card.toString() + " - Buy cost : " + card.getPrice());
+                number++;
+            }
         }
+        number = 1;
+        view.show("Items :");
         for (Item item : shop.getItems()) {
-            view.show(item.toString());
+            view.show("\t" + number + " : " + item.toString() + " - Buy cost : " + item.getPrice());
+            number++;
+        }
+        number = 1;
+        view.show("Cards :");
+        for (Card card : shop.getCards()) {
+            if (!(card instanceof Hero)){
+                view.show("\t" + number + " : " + card.toString() + "- Buy cost : " + card.getPrice());
+                number++;
+            }
         }
     }
 

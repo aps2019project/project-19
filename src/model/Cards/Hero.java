@@ -1,8 +1,9 @@
 package model.Cards;
 
 import model.Buff.Buff;
+import view.ShowFormat;
 
-public class Hero extends SoldierCard {
+public class Hero extends SoldierCard implements ShowFormat {
     private Buff specialPower;
 
     public Hero() {
@@ -17,6 +18,25 @@ public class Hero extends SoldierCard {
     public Hero(Hero hero) {
         super(hero);
         this.specialPower = hero.specialPower;
+    }
+
+    @Override
+    public String toString() {
+        return "Name : " + getName() + " - "
+                + "AP : " + getAp() + " - "
+                + "HP : " + getHp() + " - "
+                + "Class : " + getType() + " - "
+                + "Special power : " + getDescription();
+    }
+
+
+    @Override
+    public String toBattleFormat() {
+        return getInBattleCardId() + " : "
+                + getName() + ", "
+                + "health : " + getHp() + ", "
+                + "location : " + "(" + getCell().getxCoordinate() + ", " + getCell().getyCoordinate() + "), "
+                + "Power : " + getAp();
     }
 
     public Buff getSpecialPower() {

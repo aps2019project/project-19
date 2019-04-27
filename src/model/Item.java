@@ -1,11 +1,8 @@
 package model;
 
-import javax.imageio.event.IIOReadProgressListener;
 import java.util.ArrayList;
-
 import model.Buff.Buff;
 import model.Target.Target;
-import model.Target.Type;
 
 public class Item {
     private int itemId;
@@ -21,7 +18,6 @@ public class Item {
     }
 
     public Item(Item item) {
-        this.itemId = item.itemId;
         this.name = item.name;
         this.price = item.price;
         this.type = item.type;
@@ -80,12 +76,23 @@ public class Item {
         this.type = type;
     }
 
+    public String getDescription() {
+        return decription;
+    }
+
+//    @Override
+//    public String toString() {
+//        return "Item{" +
+//                "itemId=" + itemId +
+//                ", name='" + name + '\'' +
+//                ", price=" + price +
+//                '}';
+//    }
+
     @Override
     public String toString() {
-        return "Item{" +
-                "itemId=" + itemId +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
+        return "Name : " + getName() + " - "
+                + "Desc : " + getDescription();
     }
+
 }

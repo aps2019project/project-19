@@ -13,6 +13,7 @@ public enum ErrorType {
     DECK_NOT_EXISTS("you dont have any deck with this name"),
     EXISTS_IN_DECK("exists in deck."),
     DECK_IS_FULL("deck is full"),
+    INVALID_DECK("deck is not valid"),
     DECK_HAS_HERO("deck has hero."),
     WRONG_MODE("wrong mode");
     //    LOGGED_IN("you must logout from your account before creating new account or login into another"),

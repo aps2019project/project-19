@@ -16,8 +16,8 @@ public class Collection {
         return mainDeck;
     }
 
-    public void setMainDeck(Deck mainDeck) {
-        this.mainDeck = mainDeck;
+    public void setMainDeck(String deckName) {
+        this.mainDeck = decks.get(deckName);
     }
 
     public ArrayList<Item> getItems() {

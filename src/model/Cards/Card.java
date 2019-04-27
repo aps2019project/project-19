@@ -61,6 +61,10 @@ public class Card {
         this.cardStatus = cardStatus;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public int getPrice() {
         return price;
     }
@@ -83,13 +87,13 @@ public class Card {
     public void castSpell(Card targetCard) {
     }
 
-    @Override
-    public String toString() {
-        return "Card{" +
-                "cardId=" + cardId +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", mana=" + mana +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Card{" +
+//                "cardId=" + cardId +
+//                ", name='" + name + '\'' +
+//                ", price=" + price +
+//                ", mana=" + mana +
+//                '}';
+//    }
 }

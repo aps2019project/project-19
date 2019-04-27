@@ -28,6 +28,12 @@ public class Deck {
         return false;
     }
 
+    public boolean deckIsValid(){
+        if (cards.size() == 20 && deckHasHero())
+            return true;
+        return false;
+    }
+
     public HashMap<Integer, Card> getCards() {
         return cards;
     }
@@ -38,13 +44,26 @@ public class Deck {
 
     @Override
     public String toString() {
-        StringBuilder toString = new StringBuilder("");
-        toString.append(this.getName()+"\n");
+        int number = 1;
+        StringBuilder toString = new StringBuilder();
+        toString.append(this.getName() + " : " + "\n");
+        toString.append("\tHeroes :\n");
         for (Card card : this.getCards().values()){
-            toString.append(card.toString()+"\n");
+            if (card instanceof Hero)
+                toString.append("\t\t" + number + " : " + card.toString() + "\n");
         }
+        toString.append("\tItems :\n");
         for (Item item : this.getItems().values()) {
-            toString.append(item.toString()+"\n");
+            toString.append("\t\t" + number + " : " + item.toString() + "\n");
+            number++;
+        }
+        number = 1;
+        toString.append("\tCards :\n");
+        for (Card card : this.getCards().values()) {
+            if (!(card instanceof Hero)){
+                toString.append("\t\t" + number + " : " + card.toString() + "\n");
+                number++;
+            }
         }
         return toString.toString();
     }
