@@ -9,8 +9,8 @@ public class Hero extends SoldierCard {
         super();
     }
 
-    public Hero(int cardId, String name, int price, int mana, int ap, int hp, SoldierTypes type, int attackRange, Buff specialPower) {
-        super(cardId, name, price, mana, ap, hp, type, attackRange);
+    public Hero(int cardId, String name, int price, int mana, int ap, int hp, SoldierTypes type, int attackRange, String description, Buff specialPower) {
+        super(cardId, name, price, mana, ap, hp, type, attackRange, description);
         this.specialPower = specialPower;
     }
 

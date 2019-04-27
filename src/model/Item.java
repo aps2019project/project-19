@@ -15,6 +15,7 @@ public class Item {
     private ArrayList<Buff> buffs = new ArrayList<>();
     private ItemTypes type;
     private Target target;
+    private String decription;
 
     public Item() {
     }
@@ -26,15 +27,17 @@ public class Item {
         this.type = item.type;
         this.buffs = item.buffs;
         this.target = item.target;
+        this.decription = item.decription;
     }
 
-    public Item(int itemId, String name, int price, ItemTypes type, ArrayList<Buff> buffs, Target target){
+    public Item(int itemId, String name, int price,String description, ItemTypes type, ArrayList<Buff> buffs, Target target){
         this.itemId =itemId;
         this.name = name.toLowerCase();
         this.price = price;
         this.type = type;
         this.buffs = buffs;
         this.target = target;
+        this.decription = description;
     }
 
     public int getItemId() {

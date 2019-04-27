@@ -5,10 +5,9 @@ import model.Cards.Card;
 import model.Cards.Hero;
 import model.Cards.Minion;
 import model.Cards.SpellCard;
-
 import java.util.ArrayList;
 
-public class Shop {
+public class Shop{
     private int id;
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();

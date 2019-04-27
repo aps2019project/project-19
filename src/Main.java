@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
         CardInitializer cardInitializer = CardInitializer.getInstance();
         cardInitializer.createCards();
+        //todo: write description
         Controller controller = Controller.getInstance();
         controller.run();
 //        ArrayList<Buff> buffs = new ArrayList<>();

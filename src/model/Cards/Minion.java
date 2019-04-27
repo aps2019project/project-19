@@ -13,8 +13,8 @@ public class Minion extends SoldierCard {
         super();
     }
 
-    public Minion(int cardId, String name, int price, int mana, int ap, int hp, SoldierTypes type, int attackRange, AbilityCastTime abilityCastTime, ArrayList<Buff> abilities) {
-        super(cardId, name, price, mana, ap, hp, type, attackRange);
+    public Minion(int cardId, String name, int price, int mana, int ap, int hp, SoldierTypes type, int attackRange, String descrption, AbilityCastTime abilityCastTime, ArrayList<Buff> abilities) {
+        super(cardId, name, price, mana, ap, hp, type, attackRange, descrption);
         this.abilities = abilities;
         this.abilityCastTime = abilityCastTime;
     }

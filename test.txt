@@ -7,14 +7,23 @@ enter shop
 help
 show
 search dive sepid
-buy dive sepid 
+buy namoose separ
+buy dive sepid
+buy namoose separ 
 buy total disarm
 buy simorgh
+buy namoose separ
+buy namoose separ
 show collection
 search collection oo
 search collection total disarm
 exit 
 enter collection 
 show
+create deck a
+create deck b
+add 1 to deck a
+add 2 to deck b
+remove deck a
 search dive sepid
 

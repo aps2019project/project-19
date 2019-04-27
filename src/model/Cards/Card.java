@@ -9,21 +9,24 @@ public class Card {
     private CardStatus cardStatus;
     private int price;
     private int mana;
+    private String description;
 
     public Card() {
     }
 
-    public Card(int cardId, String name, int price, int mana) {
+    public Card(int cardId, String name, int price, int mana, String description) {
         this.cardId = cardId;
         this.name = name.toLowerCase();
         this.price = price;
         this.mana = mana;
+        this.description =description;
     }
 
     public Card(Card card) {
         this.name = card.name;
         this.price = card.price;
         this.mana = card.mana;
+        this.description = card.description;
     }
 
     public int getCardId() {
