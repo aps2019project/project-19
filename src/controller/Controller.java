@@ -110,9 +110,9 @@ public class Controller {
     }
 
     private void createGame() {
-        if (request.getGameModel().equals("singlePlayer")) {
+        if (request.getGameModel().equals("singleplayer")) {
             game = new SinglePlayerGame();
-        } else if (request.getGameModel().equals("multiPlayer")) {
+        } else if (request.getGameModel().equals("multiplayer")) {
             game = new MultiPlayerGame();
         } else
             view.printError(ErrorType.WRONG_MODE);
@@ -170,15 +170,6 @@ public class Controller {
                 System.exit(0);
             default:
                 menuType = MenuType.MAINMENU;
-//            case BATTLE:
-//                menuType = MenuType.MAINMENU;
-//                break;
-//            case COLLECTION:
-//                menuType = MenuType.MAINMENU;
-//                break;
-//            case SHOP:
-//                menuType = MenuType.MAINMENU;
-//                break;
         }
     }
 
