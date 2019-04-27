@@ -206,7 +206,7 @@ public class CardInitializer {
     private static void createItem(ArrayList<Item> items, ArrayList<Buff> buffs){
         buffs.add(new HolyBuff(Kind.POSITIVE, 1, false,12));
         Target target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO);
-        Item namooseSepar = new Item(001, "Namoose Separ", 400, ItemTypes.USABLE, buffs, target);
+        Item namooseSepar = new Item(401, "Namoose Separ", 400, ItemTypes.USABLE, buffs, target);
         items.add(namooseSepar);
     }
 }

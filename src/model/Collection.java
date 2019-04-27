@@ -88,15 +88,13 @@ public class Collection {
     public void addToDeck(int id, String deckName) {
         for (Card card : cards) {
             if (card.getCardId() == id) {
-                Card card1 = new Card(card);
-                decks.get(deckName).getCards().put(id, card1);
+                decks.get(deckName).getCards().put(id, card);
                 return;
             }
         }
         for (Item item : items) {
             if (item.getItemId() == id){
-                Item item1 = new Item(item);
-                decks.get(deckName).getItems().put(id, item1);
+                decks.get(deckName).getItems().put(id, item);
                 return;
             }
         }
