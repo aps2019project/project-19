@@ -79,4 +79,13 @@ public class Item {
     public void setType(ItemTypes type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemId=" + itemId +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

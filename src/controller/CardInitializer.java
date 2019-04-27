@@ -20,23 +20,20 @@ public class CardInitializer {
     private Shop shop = Shop.getInstance();
 
     private final static CardInitializer CARD_INITIALIZER = new CardInitializer();
-
-    public static CardInitializer getInstance() {
+    public static CardInitializer getInstance(){
         return CARD_INITIALIZER;
     }
-
-    private CardInitializer() {
+    private CardInitializer(){
     }
-
-    public void createCards() {
-        ArrayList<Minion> minionCards = new ArrayList<>();
-        ArrayList<SpellCard> spellCards = new ArrayList<>();
-        ArrayList<Hero> heroes = new ArrayList<>();
-        ArrayList<Item> items = new ArrayList<>();
-        createMinions(minionCards, new ArrayList<Buff>());
-        createHeroes(heroes);
-        createSpellCards(spellCards, new ArrayList<Buff>());
-        createItem(items, new ArrayList<Buff>());
+    public void createCards(){
+         ArrayList<Minion> minionCards = new ArrayList<>();
+         ArrayList<SpellCard> spellCards = new ArrayList<>();
+         ArrayList<Hero> heroes = new ArrayList<>();
+         ArrayList<Item> items = new ArrayList<>();
+         createMinions(minionCards,new ArrayList<Buff>());
+         createHeroes(heroes);
+         createSpellCards(spellCards,new ArrayList<Buff>());
+         createItem(items, new ArrayList<Buff>());
         for (Minion minionCard : minionCards) {
             shop.getCards().add(minionCard);
         }

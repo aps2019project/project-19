@@ -35,4 +35,17 @@ public class Deck {
     public HashMap<Integer, Item> getItems() {
         return items;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder toString = new StringBuilder("");
+        toString.append(this.getName()+"\n");
+        for (Card card : this.getCards().values()){
+            toString.append(card.toString()+"\n");
+        }
+        for (Item item : this.getItems().values()) {
+            toString.append(item.toString()+"\n");
+        }
+        return toString.toString();
+    }
 }

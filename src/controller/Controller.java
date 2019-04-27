@@ -36,6 +36,10 @@ public class Controller {
                 case ERROR:
                     errorType = ErrorType.INVALID_COMMAND;
                     break;
+                ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
+                case SHOW_LEADER_BOARD:
+                    showLeaderBoard();
+                    break;
                 case CREATE_ACCOUNT:
                     createNewAccount();
                     break;
@@ -45,6 +49,7 @@ public class Controller {
                 case LOGOUT:
                     logOut();
                     break;
+                ///////////////////////////// SHOP  ///////////////////////////
                 case SEARCH_IN_SHOP:
                     searchInShop();
                     break;
@@ -53,7 +58,6 @@ public class Controller {
                     break;
                 case BUY_FROM_SHOP:
                     buyFromShop();
-                    //todo: test
                     break;
                 case SELL_TO_SHOP:
                     sellToShop();
@@ -61,6 +65,7 @@ public class Controller {
                 case SHOW_SHOP:
                     showShop();
                     break;
+                //////////////////////////// COLLECTION /////////////////////////
                 case SHOW_COLLECTION_ITEMS:
                     showCollectionItems();
                     // todo: showCollection
@@ -75,22 +80,32 @@ public class Controller {
                 case DELETE_DECK:
                     deleteDeck();
                     break;
+                case SHOW_DECK:
+                    showDeck();
+                    break;
+                case SHOW_ALL_DECKS:
+                    showAllDecks();
+                    break;
                 case ADD_TO_DECK:
                     addToDeck();
                     // todo: test for items
+                    break;
+                case VALIDATE_DECK:
+                    validateDeck();
+                    break;
+                case SELECT_MAIN_DECK:
+                    selectMainDeck();
                     break;
                 case REMOVE_FROM_DECK:
                     removeFromDeck();
                     //todo: test for items
                     break;
+                /////////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
                     break;
                 case ENTER_MENU:
                     enterMenu();
-                    break;
-                case SHOW_LEADER_BOARD:
-                    showLeaderBoard();
                     break;
                 case HELP:
                     view.showHelp(menuType);
@@ -107,9 +122,9 @@ public class Controller {
     }
 
     private void createGame() {
-        if (request.getGameModel().equals("singlePlayer")) {
+        if (request.getGameModel().equals("singleplayer")) {
             game = new SinglePlayerGame();
-        } else if (request.getGameModel().equals("multiPlayer")) {
+        } else if (request.getGameModel().equals("multiplayer")) {
             game = new MultiPlayerGame();
         } else
             view.printError(ErrorType.WRONG_MODE);
@@ -167,15 +182,6 @@ public class Controller {
                 System.exit(0);
             default:
                 menuType = MenuType.MAINMENU;
-//            case BATTLE:
-//                menuType = MenuType.MAINMENU;
-//                break;
-//            case COLLECTION:
-//                menuType = MenuType.MAINMENU;
-//                break;
-//            case SHOP:
-//                menuType = MenuType.MAINMENU;
-//                break;
         }
     }
 
@@ -187,6 +193,9 @@ public class Controller {
     public void showCollectionItems() {
         for (Card card : loggedInAccount.getCollection().getCards()) {
             view.show(card.toString());
+        }
+        for (Item item : loggedInAccount.getCollection().getItems()) {
+            view.show(item.toString());
         }
     }
 
@@ -208,6 +217,7 @@ public class Controller {
     }
 
     public void saveCollection() {
+        view.show("saved!");
     }
 
     public void createDeck() {
@@ -217,11 +227,13 @@ public class Controller {
         }
         Deck deck = new Deck(request.getDeckName());
         loggedInAccount.getCollection().getDecks().put(request.getDeckName(), deck);
+        view.show(request.getDeckName()+" created");
     }
 
     public void deleteDeck() {
         if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
             loggedInAccount.getCollection().getDecks().remove(request.getDeckName());
+            view.show(request.getDeckName()+" deleted");
             return;
         }
         errorType = ErrorType.DECK_NOT_EXISTS;
@@ -236,10 +248,13 @@ public class Controller {
             errorType = ErrorType.EXISTS_IN_DECK;
         else if (loggedInAccount.getCollection().deckIsFull(request.getDeckName(), request.getCardOrItemID()))
             errorType = ErrorType.DECK_IS_FULL;
-        else if (loggedInAccount.getCollection().isHero(request.getCardOrItemID())) {
-            if (loggedInAccount.getCollection().getDecks().get(request.getDeckName()).deckHasHero())
-                errorType = ErrorType.DECK_HAS_HERO;
-        } else loggedInAccount.getCollection().addToDeck(request.getCardOrItemID(), request.getDeckName());
+        else if (loggedInAccount.getCollection().isHero(request.getCardOrItemID()) &&
+                loggedInAccount.getCollection().getDecks().get(request.getDeckName()).deckHasHero())
+            errorType = ErrorType.DECK_HAS_HERO;
+        else {
+            loggedInAccount.getCollection().addToDeck(request.getCardOrItemID(), request.getDeckName());
+            view.show("card "+ request.getCardOrItemID()+ " added to deck "+request.getDeckName());
+        }
     }
 
     public void removeFromDeck() {
@@ -247,20 +262,34 @@ public class Controller {
             errorType = ErrorType.DECK_NOT_EXISTS;
         else if (!loggedInAccount.getCollection().existsInDeck(request.getDeckName(), request.getCardOrItemID()))
             errorType = ErrorType.NOT_FOUND;
-        else loggedInAccount.getCollection().removeFromDeck(request.getDeckName(), request.getCardOrItemID());
+        else {
+            loggedInAccount.getCollection().removeFromDeck(request.getDeckName(), request.getCardOrItemID());
+            view.show("card "+ request.getCardOrItemID()+ " removed from deck "+request.getDeckName());
+        }
 
     }
 
     public void validateDeck() {
+
     }
 
     public void selectMainDeck() {
+
     }
 
     public void showAllDecks() {
+        for (Deck deck : loggedInAccount.getCollection().getDecks().values()) {
+            view.show(deck.toString()+"\n");
+        }
     }
 
     public void showDeck() {
+        if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
+            errorType = ErrorType.DECK_NOT_EXISTS;
+        else {
+            Deck deck = loggedInAccount.getCollection().getDecks().get(request.getDeckName());
+            view.show(deck.toString());
+        }
     }
 
     public void searchInShop() {
@@ -284,7 +313,7 @@ public class Controller {
             errorType = ErrorType.NOT_FOUND;
         else if (!shop.priceIsEnough(request.getProductName(), loggedInAccount))
             errorType = ErrorType.NOT_ENOUGH_MONEY;
-        else if (!shop.validateNumberOfItems(request.getProductName(),loggedInAccount ))
+        else if (!shop.validateNumberOfItems(request.getProductName(), loggedInAccount))
             errorType = ErrorType.FULL_ITEMS;
         else {
             shop.buy(request.getProductName(), loggedInAccount);
@@ -297,14 +326,18 @@ public class Controller {
             errorType = ErrorType.NOT_FOUND;
         else {
             shop.sell(request.getProductId(), loggedInAccount);
-            view.show("successful sales");
+            view.show("Successful sale");
         }
+        // TODO: 2019-04-27 must remove card from decks
     }
 
     public void showShop() {
         for (Card card : shop.getCards()) {
             view.show(card.toString());
             //todo:to string must be written
+        }
+        for (Item item : shop.getItems()) {
+            view.show(item.toString());
         }
     }
 
