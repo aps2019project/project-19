@@ -19,7 +19,7 @@ public abstract class Card {
         this.name = name.toLowerCase();
         this.price = price;
         this.mana = mana;
-        this.description =description;
+        this.description = description;
     }
 
     public Card(Card card) {
