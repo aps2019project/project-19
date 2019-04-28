@@ -322,27 +322,6 @@ public class Controller {
         else {
             Deck deck = loggedInAccount.getCollection().getDecks().get(request.getDeckName());
             view.show(deck.toString());
-//            ArrayList<Card> cards = new ArrayList<>(deck.getCards().values());
-//            ArrayList<Item> items = new ArrayList<>(deck.getItems().values());
-//            int number = 1;
-//            view.show("Heroes :");
-//            for (Card card : cards) {
-//                if (card instanceof Hero)
-//                    view.show("\t" + number + " : " + card.toString());
-//            }
-//            view.show("Items :");
-//            for (Item item : items) {
-//                view.show("\t" + number + " : " + item.toString());
-//                number++;
-//            }
-//            number = 1;
-//            view.show("Cards :");
-//            for (Card card : cards) {
-//                if (!(card instanceof Hero)){
-//                    view.show("\t" + number + " : " + card.toString());
-//                    number++;
-//                }
-//            }
         }
     }
 

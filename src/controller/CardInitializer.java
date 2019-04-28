@@ -72,7 +72,59 @@ public class CardInitializer {
                 SoldierTypes.MELEE, 0, "damage enemy", null, null);
         minions.add(pahlavaneFarse);
 //
+        Minion sepahsalarfars = new Minion(106,"sepah salare fars",600,9,6,24,
+                SoldierTypes.MELEE,0,"this minion can attack multiple targets",AbilityCastTime.COMBO,
+                null);
+        minions.add(sepahsalarfars);
+
+        Minion camandareTorani = new Minion(107,"camandare torani",500,1,4,3,
+                SoldierTypes.RANGED,5,"be carefull!he will shot your head from miles away!",
+                null,null);
+        minions.add(camandareFars);
+
+        Minion gholabSanghDareTorani = new Minion(108,"gholabsangdare torani",600,1,2,4,
+                SoldierTypes.RANGED,7,"get away,his rocks will smash your head!",null,
+                null);
+        minions.add(gholabSanghDareTorani);
+
+        Minion neyzeDareTorani = new Minion(109,"neyzedare torani",600,1,4,4,
+                SoldierTypes.HYBRID,3,"he is a real treat to your cavalries!",null,
+                null);
+        minions.add(neyzeDareTorani);
+
+        buffs = new ArrayList<>();
+        Buff buff = new DisArmBuff(Kind.NEGATIVE,1,false);
+        buffs.add(buff);
+        buff = new PoisonBuff(Kind.NEGATIVE,4,false,1);
+        buffs.add(buff);
+        Minion jasoseTorani = new Minion(110,"jasose torani",700,4,6,6,SoldierTypes.MELEE,
+                0,"disarm the enemy for 1 turn and poison him for 4 turns",AbilityCastTime.ON_ATTACK,
+                buffs);
+        minions.add(jasoseTorani);
+
+        Minion ghorzDareTorani = new Minion(111,"ghorzdare torani",450,2,10,3,
+                SoldierTypes.MELEE,0,"GHORZDAR SMASH!!!",null,null);
+        minions.add(ghorzDareTorani);
+
+        Minion shahzadeTorani = new Minion(112,"shahzade torani",800,6,10,6,
+                SoldierTypes.MELEE, 0,"can attack multiple targets",AbilityCastTime.COMBO,null);
+        minions.add(shahzadeTorani);
+
+        Minion diveSiah = new Minion(113,"shahzade torani",300,9,10,14,
+                SoldierTypes.HYBRID,7,"gooraaaa!",null,null);
+        minions.add(diveSiah);
+
+        Minion gholeSangAndaz = new Minion(114,"ghole sang andaz",300,9,12,12,
+                SoldierTypes.RANGED,7,"gooraaa!",null,null);
+        minions.add(gholeSangAndaz);
+
+
+
+
+
+
     }
+
 
     public void createHeroes(ArrayList<Hero> heroes) {
         Buff buff = new PowerBuff(Kind.POSITIVE, 0, true, 0, 4);
