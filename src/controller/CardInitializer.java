@@ -62,7 +62,7 @@ public class CardInitializer {
                 SoldierTypes.HYBRID, 3, null, null, null);
         minions.add(neyzeDareFars);
 
-        Minion asbSavarFars = new Minion(104, "asbsavare Fars", 200, 4, 6, 10,
+        Minion asbSavarFars = new Minion(104, "asb savare Fars", 200, 4, 6, 10,
                 SoldierTypes.MELEE, 0, null, null, null);
         minions.add(asbSavarFars);
 

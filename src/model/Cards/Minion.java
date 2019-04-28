@@ -6,7 +6,7 @@ import view.ShowFormat;
 
 import java.util.ArrayList;
 
-public class Minion extends SoldierCard implements ShowFormat {
+public class Minion extends SoldierCard {
     private ArrayList<Buff> abilities = new ArrayList<>();
     private AbilityCastTime abilityCastTime;
 
@@ -36,14 +36,14 @@ public class Minion extends SoldierCard implements ShowFormat {
                 + "Special power : " + getDescription();
     }
 
-
-    @Override
-    public String toBattleFormat() {
-        return getInBattleCardId() + " : "
-                + getName() + ", "
-                + "health : " + getHp() + ", "
-                + "location : " + "(" + getCell().getxCoordinate() + ", " + getCell().getyCoordinate() + "), "
-                + "Power : " + getAp();
+    public String toInfoString() {
+        return "Minion:\n"
+                + "Name: " + getName() + "\n"
+                + "HP: " + getHp() + " Ap: " + getAp() + " MP: " + getMana() + "\n"
+                + "Range: " +getAttackRange() + "\n"
+                + "Combo-ability: " + getDescription() + "\n"
+                + "Cost: " + getPrice() + "\n"
+                + "Desc: " + getDescription();
     }
 
     @Override

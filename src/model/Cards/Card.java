@@ -2,7 +2,7 @@ package model.Cards;
 
 import model.Cell;
 
-public class Card {
+public abstract class Card {
     private int cardId;
     private String inBattleCardId;
     private String name;
@@ -87,13 +87,5 @@ public class Card {
     public void castSpell(Card targetCard) {
     }
 
-//    @Override
-//    public String toString() {
-//        return "Card{" +
-//                "cardId=" + cardId +
-//                ", name='" + name + '\'' +
-//                ", price=" + price +
-//                ", mana=" + mana +
-//                '}';
-//    }
+    public abstract String toInfoString();
 }

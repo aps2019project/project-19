@@ -6,7 +6,7 @@ import view.ShowFormat;
 
 import java.util.ArrayList;
 
-public class SpellCard extends Card implements ShowFormat {
+public class SpellCard extends Card {
     private ArrayList<Buff> buffs = new ArrayList<>();
     private Target targetArea;
 
@@ -51,9 +51,11 @@ public class SpellCard extends Card implements ShowFormat {
                 + "Desc : " + getDescription();
     }
 
-
-    @Override
-    public String toBattleFormat() {
-        return null;
+    public String toInfoString(){
+        return "Spell:\n"
+                + "Name: " + getName() + "\n"
+                + "Mp: " + getMana() + "\n"
+                + "Cost: " + getPrice() + "\n"
+                + "Desc: " + getDescription();
     }
 }

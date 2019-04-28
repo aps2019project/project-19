@@ -5,7 +5,7 @@ import model.Cell;
 
 import java.util.ArrayList;
 
-public class SoldierCard extends Card {
+public abstract class SoldierCard extends Card {
     private int ap;
     private int hp;
     private Cell cell;
@@ -90,4 +90,14 @@ public class SoldierCard extends Card {
 
     public void counterAttack(Card opponentCard) {
     }
+
+    public String toBattleFormat() {
+        return getInBattleCardId() + " : "
+                + getName() + ", "
+                + "health : " + getHp() + ", "
+                + "location : " + "(" + getCell().getxCoordinate() + ", " + getCell().getyCoordinate() + "), "
+                + "Power : " + getAp();
+    }
+
+    public abstract String toInfoString();
 }

@@ -24,6 +24,5 @@ create deck a
 create deck b
 add 1 to deck a
 add 2 to deck b
-remove deck a
 search dive sepid
 
