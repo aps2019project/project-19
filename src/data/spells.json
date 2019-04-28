@@ -1,0 +1,477 @@
+[
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.DisArmBuff",
+        "INSTANCE": {
+          "kind": "NEGATIVE",
+          "duration": 0,
+          "isContinuous": true
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_ENEMY"
+    },
+    "cardId": 201,
+    "name": "total disarm",
+    "price": 1000,
+    "mana": 0,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.DispellBuff",
+        "INSTANCE": {
+          "kind": "NEGATIVE",
+          "duration": 0,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "AREA",
+      "areaSize": 2
+    },
+    "cardId": 202,
+    "name": "area dispel",
+    "price": 1500,
+    "mana": 2,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.PowerBuff",
+        "INSTANCE": {
+          "hpIncrease": 0,
+          "apIncrease": 2,
+          "kind": "POSITIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_FRIENDLY_SOLDIER"
+    },
+    "cardId": 203,
+    "name": "empower",
+    "price": 250,
+    "mana": 1,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.AttackBuff",
+        "INSTANCE": {
+          "damage": 4,
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_ENEMY"
+    },
+    "cardId": 204,
+    "name": "fire ball",
+    "price": 400,
+    "mana": 1,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.PowerBuff",
+        "INSTANCE": {
+          "hpIncrease": 0,
+          "apIncrease": 4,
+          "kind": "POSITIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "FRIENDLY_HERO"
+    },
+    "cardId": 205,
+    "name": "god strength",
+    "price": 450,
+    "mana": 2,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.FireBuff",
+        "INSTANCE": {
+          "hpDecrease": 2,
+          "kind": "NEGATIVE",
+          "duration": 2,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "AREA",
+      "areaSize": 2
+    },
+    "cardId": 206,
+    "name": "hell fire",
+    "price": 600,
+    "mana": 3,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.AttackBuff",
+        "INSTANCE": {
+          "damage": 7,
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ENEMY_HERO"
+    },
+    "cardId": 207,
+    "name": "lighting bolt",
+    "price": 1250,
+    "mana": 2,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.PoisonBuff",
+        "INSTANCE": {
+          "hpDecrease": 1,
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "AREA",
+      "areaSize": 3
+    },
+    "cardId": 208,
+    "name": "poison lake",
+    "price": 900,
+    "mana": 5,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.PowerBuff",
+        "INSTANCE": {
+          "hpIncrease": 0,
+          "apIncrease": 4,
+          "kind": "POSITIVE",
+          "duration": 3,
+          "isContinuous": false
+        }
+      },
+      {
+        "CLASSNAME": "model.Buff.DisArmBuff",
+        "INSTANCE": {
+          "kind": "NEGATIVE",
+          "duration": 3,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_FRIENDLY_SOLDIER"
+    },
+    "cardId": 209,
+    "name": "madness",
+    "price": 650,
+    "mana": 0,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.DisArmBuff",
+        "INSTANCE": {
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ALL_ENEMIES"
+    },
+    "cardId": 210,
+    "name": "all disarm",
+    "price": 2000,
+    "mana": 9,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.PoisonBuff",
+        "INSTANCE": {
+          "hpDecrease": 1,
+          "kind": "NEGATIVE",
+          "duration": 4,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ALL_ENEMIES"
+    },
+    "cardId": 211,
+    "name": "all poison",
+    "price": 1500,
+    "mana": 8,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.AntiNegativeBuff",
+        "INSTANCE": {
+          "kind": "POSITIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_SOLDIER"
+    },
+    "cardId": 212,
+    "name": "dispel",
+    "price": 2100,
+    "mana": 0,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.FireBuff",
+        "INSTANCE": {
+          "hpDecrease": 2,
+          "kind": "NEGATIVE",
+          "duration": 2,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "AREA",
+      "areaSize": 2
+    },
+    "cardId": 206,
+    "name": "hell fire",
+    "price": 600,
+    "mana": 3,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.PowerBuff",
+        "INSTANCE": {
+          "hpIncrease": 0,
+          "apIncrease": 6,
+          "kind": "POSITIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_FRIENDLY_SOLDIER"
+    },
+    "cardId": 214,
+    "name": "power up",
+    "price": 2500,
+    "mana": 2,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.PowerBuff",
+        "INSTANCE": {
+          "hpIncrease": 0,
+          "apIncrease": 2,
+          "kind": "POSITIVE",
+          "duration": 0,
+          "isContinuous": true
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ALL_FRIENDLY_SOLDIERS"
+    },
+    "cardId": 215,
+    "name": "all power",
+    "price": 2000,
+    "mana": 4,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.AttackBuff",
+        "INSTANCE": {
+          "damage": 6,
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ALL_ENEMIES_IN_A_COLUMN"
+    },
+    "cardId": 216,
+    "name": "all attack",
+    "price": 1500,
+    "mana": 4,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.WeaknessBuff",
+        "INSTANCE": {
+          "hpDecrease": 0,
+          "apDecrease": 4,
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_ENEMY_MINION"
+    },
+    "cardId": 217,
+    "name": "weakening",
+    "price": 1000,
+    "mana": 1,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.WeaknessBuff",
+        "INSTANCE": {
+          "hpDecrease": 6,
+          "apDecrease": 0,
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      },
+      {
+        "CLASSNAME": "model.Buff.PowerBuff",
+        "INSTANCE": {
+          "hpIncrease": 0,
+          "apIncrease": 8,
+          "kind": "POSITIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_FRIENDLY_MINION"
+    },
+    "cardId": 218,
+    "name": "sacrifice",
+    "price": 1600,
+    "mana": 2,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.KillBuff",
+        "INSTANCE": {
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "FRIENDLY_HERO"
+    },
+    "cardId": 219,
+    "name": "kings guard",
+    "price": 1750,
+    "mana": 9,
+    "description": ""
+  },
+  {
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.StunBuff",
+        "INSTANCE": {
+          "kind": "NEGATIVE",
+          "duration": 2,
+          "isContinuous": false
+        }
+      }
+    ],
+    "targetArea": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_ENEMY"
+    },
+    "cardId": 220,
+    "name": "shock",
+    "price": 1200,
+    "mana": 1,
+    "description": ""
+  }
+]

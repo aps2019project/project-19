@@ -1,27 +1,32 @@
 package model.Cards;
 
 import model.Buff.Buff;
+import model.Target.Target;
 import view.ShowFormat;
 
 public class Hero extends SoldierCard {
     private Buff specialPower;
     private int coolDown;
+    private Target target;
+
 
     public Hero() {
         super();
     }
 
     public Hero(int cardId, String name, int price, int mana, int ap, int hp, SoldierTypes type,
-                int attackRange, String description, Buff specialPower, int coolDown) {
+                int attackRange, String description, Buff specialPower, int coolDown, Target target) {
         super(cardId, name, price, mana, ap, hp, type, attackRange, description);
         this.specialPower = specialPower;
         this.coolDown = coolDown;
+        this.target = target;
     }
 
     public Hero(Hero hero) {
         super(hero);
         this.specialPower = hero.specialPower;
         this.coolDown = hero.coolDown;
+        this.target = hero.target;
     }
 
     @Override
@@ -38,6 +43,10 @@ public class Hero extends SoldierCard {
                 + "Name: " + getName() + "\n"
                 + "Cost: " + getPrice() + "\n"
                 + "Desc: " + getDescription();
+    }
+
+    public Target getTarget() {
+        return target;
     }
 
     public int getCoolDown() {

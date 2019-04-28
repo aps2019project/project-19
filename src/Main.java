@@ -6,8 +6,13 @@ import controller.CardInitializer;
 import controller.Controller;
 import model.*;
 import model.Buff.*;
+import model.Cards.Hero;
 import model.Cards.Minion;
 import model.Cards.SoldierTypes;
+import model.Cards.SpellCard;
+import model.Target.SoldierTargetType;
+import model.Target.Target;
+import model.Target.Type;
 
 import java.awt.image.AreaAveragingScaleFilter;
 import java.io.FileReader;

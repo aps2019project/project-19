@@ -117,26 +117,87 @@ public class CardInitializer {
                 SoldierTypes.HYBRID, 7, "gooraaaa!", null, null);
         minions.add(diveSiah);
 
-        Minion gholeSangAndaz = new Minion(114, "ghole sang andaz", 300, 9, 12, 12,
+        Minion ghooleSangAndaz = new Minion(114, "ghoole sang andaz", 300, 9, 12, 12,
                 SoldierTypes.RANGED, 7, "gooraaa!", null, null);
-        minions.add(gholeSangAndaz);
+        minions.add(ghooleSangAndaz);
+        buffs = new ArrayList<>();
+        buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 10, 0));
+        Minion oghab = new Minion(115, "oghab", 200, 2, 2, 0,
+                SoldierTypes.RANGED, 3, "", AbilityCastTime.PASSIVE, buffs);
+        minions.add(oghab);
+        Minion diveGorazSavar = new Minion(116, "dive goraz savar", 300, 6, 8, 16,
+                SoldierTypes.MELEE, 0, "", null, null);
+        minions.add(diveGorazSavar);
+        buffs = new ArrayList<>();
+        buffs.add(new WeaknessBuff(Kind.NEGATIVE, 1, false, 2, 0));
+        // TODO: 4/28/19 target requires
+        Minion ghooleTackCheshm = new Minion(117, "ghoole tack cheshm", 500, 7, 11, 12,
+                SoldierTypes.HYBRID, 3, "", AbilityCastTime.ON_DEATH, buffs);
+        minions.add(ghooleTackCheshm);
+        buffs = new ArrayList<>();
+        buffs.add(new PoisonBuff(Kind.NEGATIVE, 3, false, 1));
+        Minion mareSammi = new Minion(118, "mare sammi", 300, 4, 6, 5,
+                SoldierTypes.RANGED, 4, "", AbilityCastTime.ON_ATTACK, buffs);
+        minions.add(mareSammi);
+        Minion ezhdehayeAtashAndaz = new Minion(119, "ezhdehaye atash andaz", 250, 5, 5, 9,
+                SoldierTypes.RANGED, 4, "", null, null);
+        minions.add(ezhdehayeAtashAndaz);
+        //todo we don't have the buff :(
+        Minion shireDarandeh = new Minion(120, "shire darandeh", 600, 2, 8, 1,
+                SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_ATTACK, null);
+        minions.add(shireDarandeh);
     }
-
 
     public void createHeroes(ArrayList<Hero> heroes) {
         Buff buff = new PowerBuff(Kind.POSITIVE, 0, true, 0, 4);
         Hero diveSepid = new Hero(301, "dive sepid", 8000, 1, 4, 50,
-                SoldierTypes.MELEE, 0, "", buff, 2);
+                SoldierTypes.MELEE, 0, "", buff, 2,
+                new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO));
         heroes.add(diveSepid);
 
         buff = new StunBuff(Kind.POSITIVE, 1, false);
         Hero simorgh = new Hero(302, "simorgh", 9000, 5, 4, 50,
-                SoldierTypes.MELEE, 0, "", buff, 8);
+                SoldierTypes.MELEE, 0, "", buff, 8,
+                new Target(Type.SOLDIER, 0, SoldierTargetType.ALL_ENEMIES));
         heroes.add(simorgh);
         buff = new DisArmBuff(Kind.NEGATIVE, 1, false);
         Hero ezhdehaYeHaftSar = new Hero(303, "ezhdeha ye haft sar", 8000, 0, 4, 50,
-                SoldierTypes.MELEE, 0, "", buff, 1);
+                SoldierTypes.MELEE, 0, "", buff, 1,
+                new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_SOLDIER));
         heroes.add(ezhdehaYeHaftSar);
+        buff = new StunBuff(Kind.NEGATIVE, 1, false);
+        Hero rakhsh = new Hero(304, "rakhsh", 8000, 1, 4, 50,
+                SoldierTypes.MELEE, 0, "", buff, 2,
+                new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY));
+        heroes.add(rakhsh);
+        buff = new PoisonBuff(Kind.NEGATIVE, 3, false, 1);
+        Hero zahack = new Hero(305, "zahack", 10000, 0, 2, 50,
+                SoldierTypes.MELEE, 0, "", buff, 0,
+                new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY));
+        heroes.add(zahack);
+        buff = new HolyBuff(Kind.POSITIVE, 3, false, 1);
+        Hero kaveh = new Hero(306, "kaveh", 8000, 1, 4, 50,
+                SoldierTypes.MELEE, 0, "", buff, 3,
+                new Target(Type.AREA, 1, null));
+        heroes.add(kaveh);
+        buff = new WeaknessBuff(Kind.NEGATIVE, 1, false, 4, 0);
+        Hero arash = new Hero(307, "arash", 10000, 2, 2, 30,
+                SoldierTypes.RANGED, 6, "", buff, 2,
+                new Target(Type.SOLDIER, 0, SoldierTargetType.ALL_SOLDIERS_IN_A_ROW));
+        heroes.add(arash);
+        buff = new DispellBuff(Kind.NEGATIVE, 1, false);
+        Hero afsaneh = new Hero(308, "afsaneh", 11000, 1, 3, 40,
+                SoldierTypes.RANGED, 3, "", buff, 2,
+                new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY));
+        heroes.add(afsaneh);
+        buff = new HolyBuff(Kind.POSITIVE, 3, false, 1);
+        Hero esfandiar = new Hero(309, "esfandiar", 12000, 0, 3, 35,
+                SoldierTypes.HYBRID, 3, "", buff, 0,
+                new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO));
+        heroes.add(esfandiar);
+        Hero rostam = new Hero(310, "rostam", 8000, 0, 7, 55,
+                SoldierTypes.HYBRID, 4, "", null, 0, null);
+        heroes.add(rostam);
         //todo:must have target area
     }
 
@@ -148,7 +209,7 @@ public class CardInitializer {
         spellCards.add(totalDisarm);
 
         buffs = new ArrayList<>();
-        buffs.add(new AntiNegativeBuff(Kind.POSITIVE, 0, false));
+        buffs.add(new DispellBuff(Kind.NEGATIVE, 0, false));
         target = new Target(Type.AREA, 2, null);
         SpellCard areaDispel = new SpellCard(202, "Area Dispel", 1500, 2,
                 "", buffs, target);
@@ -282,7 +343,6 @@ public class CardInitializer {
         SpellCard shock = new SpellCard(220, "Shock", 1200, 1,
                 "", buffs, target);
         spellCards.add(shock);
-
     }
 
     private static void createItem(ArrayList<Item> items, ArrayList<Buff> buffs) {

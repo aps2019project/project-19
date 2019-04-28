@@ -54,5 +54,257 @@
     "name": "asb savare fars",
     "price": 200,
     "mana": 4
+  },
+  {
+    "ap": 6,
+    "hp": 24,
+    "type": "MELEE",
+    "buffs": [],
+    "attackRange": 0,
+    "cardId": 105,
+    "name": "pahlavane fars",
+    "price": 600,
+    "mana": 9,
+    "description": "damage enemy"
+  },
+  {
+    "abilityCastTime": "COMBO",
+    "ap": 6,
+    "hp": 24,
+    "type": "MELEE",
+    "buffs": [],
+    "attackRange": 0,
+    "cardId": 106,
+    "name": "sepah salare fars",
+    "price": 600,
+    "mana": 9,
+    "description": "this minion can attack multiple targets"
+  },
+  {
+    "ap": 4,
+    "hp": 6,
+    "type": "RANGED",
+    "buffs": [],
+    "attackRange": 7,
+    "cardId": 101,
+    "name": "camandarefarse",
+    "price": 300,
+    "mana": 2
+  },
+  {
+    "ap": 2,
+    "hp": 4,
+    "type": "RANGED",
+    "buffs": [],
+    "attackRange": 7,
+    "cardId": 108,
+    "name": "gholabsangdare torani",
+    "price": 600,
+    "mana": 1,
+    "description": "get away,his rocks will smash your head!"
+  },
+  {
+    "ap": 4,
+    "hp": 4,
+    "type": "HYBRID",
+    "buffs": [],
+    "attackRange": 3,
+    "cardId": 109,
+    "name": "neyzedare torani",
+    "price": 600,
+    "mana": 1,
+    "description": "he is a real treat to your cavalries!"
+  },
+  {
+    "abilities": [
+      {
+        "CLASSNAME": "model.Buff.DisArmBuff",
+        "INSTANCE": {
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      },
+      {
+        "CLASSNAME": "model.Buff.PoisonBuff",
+        "INSTANCE": {
+          "hpDecrease": 1,
+          "kind": "NEGATIVE",
+          "duration": 4,
+          "isContinuous": false
+        }
+      }
+    ],
+    "abilityCastTime": "ON_ATTACK",
+    "ap": 6,
+    "hp": 6,
+    "type": "MELEE",
+    "buffs": [],
+    "attackRange": 0,
+    "cardId": 110,
+    "name": "jasose torani",
+    "price": 700,
+    "mana": 4,
+    "description": "disarm the enemy for 1 turn and poison him for 4 turns"
+  },
+  {
+    "ap": 10,
+    "hp": 3,
+    "type": "MELEE",
+    "buffs": [],
+    "attackRange": 0,
+    "cardId": 111,
+    "name": "ghorzdare torani",
+    "price": 450,
+    "mana": 2,
+    "description": "GHORZDAR SMASH!!!"
+  },
+  {
+    "abilityCastTime": "COMBO",
+    "ap": 10,
+    "hp": 6,
+    "type": "MELEE",
+    "buffs": [],
+    "attackRange": 0,
+    "cardId": 112,
+    "name": "shahzade torani",
+    "price": 800,
+    "mana": 6,
+    "description": "can attack multiple targets"
+  },
+  {
+    "ap": 10,
+    "hp": 14,
+    "type": "HYBRID",
+    "buffs": [],
+    "attackRange": 7,
+    "cardId": 113,
+    "name": "shahzade torani",
+    "price": 300,
+    "mana": 9,
+    "description": "gooraaaa!"
+  },
+  {
+    "ap": 12,
+    "hp": 12,
+    "type": "RANGED",
+    "buffs": [],
+    "attackRange": 7,
+    "cardId": 114,
+    "name": "ghoole sang andaz",
+    "price": 300,
+    "mana": 9,
+    "description": "gooraaa!"
+  },
+  {
+    "abilities": [
+      {
+        "CLASSNAME": "model.Buff.PowerBuff",
+        "INSTANCE": {
+          "hpIncrease": 10,
+          "apIncrease": 0,
+          "kind": "POSITIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "abilityCastTime": "PASSIVE",
+    "ap": 2,
+    "hp": 0,
+    "type": "RANGED",
+    "buffs": [],
+    "attackRange": 3,
+    "cardId": 115,
+    "name": "oghab",
+    "price": 200,
+    "mana": 2,
+    "description": ""
+  },
+  {
+    "ap": 8,
+    "hp": 16,
+    "type": "MELEE",
+    "buffs": [],
+    "attackRange": 0,
+    "cardId": 116,
+    "name": "dive goraz savar",
+    "price": 300,
+    "mana": 6,
+    "description": ""
+  },
+  {
+    "abilities": [
+      {
+        "CLASSNAME": "model.Buff.WeaknessBuff",
+        "INSTANCE": {
+          "hpDecrease": 2,
+          "apDecrease": 0,
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false
+        }
+      }
+    ],
+    "abilityCastTime": "ON_DEATH",
+    "ap": 11,
+    "hp": 12,
+    "type": "HYBRID",
+    "buffs": [],
+    "attackRange": 3,
+    "cardId": 117,
+    "name": "ghoole tack cheshm",
+    "price": 500,
+    "mana": 7,
+    "description": ""
+  },
+  {
+    "abilities": [
+      {
+        "CLASSNAME": "model.Buff.PoisonBuff",
+        "INSTANCE": {
+          "hpDecrease": 1,
+          "kind": "NEGATIVE",
+          "duration": 3,
+          "isContinuous": false
+        }
+      }
+    ],
+    "abilityCastTime": "ON_ATTACK",
+    "ap": 6,
+    "hp": 5,
+    "type": "RANGED",
+    "buffs": [],
+    "attackRange": 4,
+    "cardId": 118,
+    "name": "mare sammi",
+    "price": 300,
+    "mana": 4,
+    "description": ""
+  },
+  {
+    "ap": 5,
+    "hp": 9,
+    "type": "RANGED",
+    "buffs": [],
+    "attackRange": 4,
+    "cardId": 119,
+    "name": "ezhdehaye atash andaz",
+    "price": 250,
+    "mana": 5,
+    "description": ""
+  },
+  {
+    "abilityCastTime": "ON_ATTACK",
+    "ap": 8,
+    "hp": 1,
+    "type": "MELEE",
+    "buffs": [],
+    "attackRange": 0,
+    "cardId": 120,
+    "name": "shire darandeh",
+    "price": 600,
+    "mana": 2,
+    "description": ""
   }
 ]
