@@ -104,14 +104,6 @@ public class Shop{
         }
     }
 
-//    public void buyItem(String itemName) {
-//        System.out.println("item bought successfully");
-//    }
-
-//    public boolean cardExistsInCollection(int itemId){}
-//
-//    public boolean itemExistsInCollection(int cardId){}
-
     public void sell(int productId, Account account) {
         for (Card card : account.getCollection().getCards()) {
             if (card.getCardId() == productId)
@@ -121,13 +113,17 @@ public class Shop{
             if (item.getItemId() == productId)
                 account.setMoney(account.getMoney() + item.getPrice());
         }
+        for (Deck deck : account.getCollection().getDecks().values()) {
+            deck.getCards().remove(productId);
+            deck.getItems().remove(productId);
+        }
         account.getCollection().getCards().removeIf(card -> card.getCardId() == productId);
         account.getCollection().getItems().removeIf(item -> item.getItemId() == productId);
     }
 
     public void sellItem(int itemId) {
     }
-    public void generateNewId() {
+    private void generateNewId() {
         id++;
     }
 }

@@ -121,25 +121,30 @@ public class CardInitializer {
         Minion ghooleSangAndaz = new Minion(114, "ghoole sang andaz", 300, 9, 12, 12,
                 SoldierTypes.RANGED, 7, "gooraaa!", null, null);
         minions.add(ghooleSangAndaz);
+
         buffs = new ArrayList<>();
         buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 10, 0));
         Minion oghab = new Minion(115, "oghab", 200, 2, 2, 0,
                 SoldierTypes.RANGED, 3, "", AbilityCastTime.PASSIVE, buffs);
         minions.add(oghab);
+
         Minion diveGorazSavar = new Minion(116, "dive goraz savar", 300, 6, 8, 16,
                 SoldierTypes.MELEE, 0, "", null, null);
         minions.add(diveGorazSavar);
+
         buffs = new ArrayList<>();
         buffs.add(new WeaknessBuff(Kind.NEGATIVE, 1, false, 2, 0));
         // TODO: 4/28/19 target requires
         Minion ghooleTackCheshm = new Minion(117, "ghoole tack cheshm", 500, 7, 11, 12,
                 SoldierTypes.HYBRID, 3, "", AbilityCastTime.ON_DEATH, buffs);
         minions.add(ghooleTackCheshm);
+
         buffs = new ArrayList<>();
         buffs.add(new PoisonBuff(Kind.NEGATIVE, 3, false, 1));
         Minion mareSammi = new Minion(118, "mare sammi", 300, 4, 6, 5,
                 SoldierTypes.RANGED, 4, "", AbilityCastTime.ON_ATTACK, buffs);
         minions.add(mareSammi);
+
         Minion ezhdehayeAtashAndaz = new Minion(119, "ezhdehaye atash andaz", 250, 5, 5, 9,
                 SoldierTypes.RANGED, 4, "", null, null);
         minions.add(ezhdehayeAtashAndaz);
@@ -147,6 +152,8 @@ public class CardInitializer {
         Minion shireDarandeh = new Minion(120, "shire darandeh", 600, 2, 8, 1,
                 SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_ATTACK, null);
         minions.add(shireDarandeh);
+
+
     }
 
 
