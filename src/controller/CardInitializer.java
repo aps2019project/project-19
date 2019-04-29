@@ -10,6 +10,7 @@ import model.Target.SoldierTargetType;
 import model.Target.Target;
 import model.Target.Type;
 
+import java.lang.management.MonitorInfo;
 import java.util.ArrayList;
 
 public class CardInitializer {
@@ -122,32 +123,123 @@ public class CardInitializer {
         Minion ghooleSangAndaz = new Minion(114, "ghoole sang andaz", 300, 9, 12, 12,
                 SoldierTypes.RANGED, 7, "gooraaa!", null, null);
         minions.add(ghooleSangAndaz);
+
         buffs = new ArrayList<>();
         buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 10, 0));
         Minion oghab = new Minion(115, "oghab", 200, 2, 2, 0,
                 SoldierTypes.RANGED, 3, "", AbilityCastTime.PASSIVE, buffs);
         minions.add(oghab);
+
         Minion diveGorazSavar = new Minion(116, "dive goraz savar", 300, 6, 8, 16,
                 SoldierTypes.MELEE, 0, "", null, null);
         minions.add(diveGorazSavar);
+
         buffs = new ArrayList<>();
         buffs.add(new WeaknessBuff(Kind.NEGATIVE, 1, false, 2, 0));
         // TODO: 4/28/19 target requires
         Minion ghooleTackCheshm = new Minion(117, "ghoole tack cheshm", 500, 7, 11, 12,
                 SoldierTypes.HYBRID, 3, "", AbilityCastTime.ON_DEATH, buffs);
         minions.add(ghooleTackCheshm);
+
         buffs = new ArrayList<>();
         buffs.add(new PoisonBuff(Kind.NEGATIVE, 3, false, 1));
         Minion mareSammi = new Minion(118, "mare sammi", 300, 4, 6, 5,
                 SoldierTypes.RANGED, 4, "", AbilityCastTime.ON_ATTACK, buffs);
         minions.add(mareSammi);
+
         Minion ezhdehayeAtashAndaz = new Minion(119, "ezhdehaye atash andaz", 250, 5, 5, 9,
                 SoldierTypes.RANGED, 4, "", null, null);
         minions.add(ezhdehayeAtashAndaz);
+
         //todo we don't have the buff :(
         Minion shireDarandeh = new Minion(120, "shire darandeh", 600, 2, 8, 1,
                 SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_ATTACK, null);
         minions.add(shireDarandeh);
+
+        buffs = new ArrayList<>();
+        buffs.add(new HolyInverseBuff(Kind.NEGATIVE, 0, true, 1));
+        Minion mareGhoolPeykar = new Minion(121, "mare ghool peykar", 500, 8, 7, 14,
+                SoldierTypes.RANGED, 5, "", AbilityCastTime.ON_SPAWN, buffs);
+        minions.add(mareGhoolPeykar);
+
+        buffs = new ArrayList<>();
+        //todo check second buff
+        buffs.add(new AttackBuff(Kind.NEGATIVE, 0, false, 6));
+        buffs.add(new AttackBuff(Kind.NEGATIVE, -1, false, 4));
+        Minion gorgeSephid = new Minion(122, "gorge sephid", 400, 5, 2, 8,
+                SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_ATTACK, buffs);
+        minions.add(gorgeSephid);
+
+        buffs = new ArrayList<>();
+        buffs.add(new WeaknessBuff(Kind.NEGATIVE, 0, false, 8, 0));
+        Minion palang = new Minion(123, "palang", 400, 4, 2, 6,
+                SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_ATTACK, buffs);
+        minions.add(palang);
+
+        buffs = new ArrayList<>();
+        buffs.add(new AttackBuff(Kind.NEGATIVE, 0, false, 6));
+        Minion gorg = new Minion(124, "gorg", 400, 3, 1, 6,
+                SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_ATTACK, buffs);
+        minions.add(gorg);
+
+        buffs = new ArrayList<>();
+        //todo needs target
+        buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0, 2));
+        buffs.add(new WeaknessBuff(Kind.NEGATIVE, 1, false, 1, 0));
+        Minion jadoogar = new Minion(125, "jadoogar", 550, 4, 4, 5,
+                SoldierTypes.RANGED, 3, "", AbilityCastTime.PASSIVE, buffs);
+        minions.add(jadoogar);
+
+        buffs = new ArrayList<>();
+        buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0, 2));
+        buffs.add(new HolyBuff(Kind.POSITIVE, 1, false, 1));
+        Minion jadoogareAzam = new Minion(126, "jadoogare azam", 550, 6, 6, 6,
+                SoldierTypes.RANGED, 5, "", AbilityCastTime.PASSIVE, buffs);
+        minions.add(jadoogareAzam);
+
+        buffs = new ArrayList<>();
+        buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0, 1));
+        Minion jen = new Minion(127, "jen", 500, 5, 4, 10,
+                SoldierTypes.RANGED, 4, "", AbilityCastTime.ON_TURN, buffs);
+        minions.add(jen);
+
+        buffs = new ArrayList<>();
+        buffs.add(new AntiDisArmBuff(Kind.POSITIVE, 0, true));
+        Minion gorazeVahshi = new Minion(128, "goraze vahshi", 500, 6, 14, 10,
+                SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_DEFEND, buffs);
+        minions.add(gorazeVahshi);
+
+        buffs = new ArrayList<>();
+        buffs.add(new AntiPoisonBuff(Kind.POSITIVE, 0, true));
+        Minion piran = new Minion(129, "piran", 400, 8, 12, 20,
+                SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_DEFEND, buffs);
+        minions.add(piran);
+
+        buffs = new ArrayList<>();
+        buffs.add(new AntiNegativeBuff(Kind.POSITIVE, 0, true));
+        Minion giv = new Minion(130, "giv", 450, 4, 7, 5,
+                SoldierTypes.RANGED, 5, "", AbilityCastTime.ON_DEFEND, buffs);
+        minions.add(giv);
+
+        buffs = new ArrayList<>();
+        buffs.add(new AttackBuff(Kind.NEGATIVE, 1, false, 16));
+        Minion bahman = new Minion(131, "bahman", 450, 8, 9, 16,
+                SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_SPAWN, buffs);
+        minions.add(bahman);
+
+        buffs = new ArrayList<>();
+        buffs.add(new ApStatus(Kind.POSITIVE, 0, true));
+        Minion ashkboos = new Minion(132, "ashkboos", 400, 7, 8, 14,
+                SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_DEFEND, buffs);
+        minions.add(ashkboos);
+
+        Minion iraj = new Minion(133, "iraj", 500, 4, 20, 6,
+                SoldierTypes.RANGED, 3, "", null, null);
+        minions.add(iraj);
+
+        Minion ghooleBozorg = new Minion(134, "ghoole bozorg", 600, 9, 8, 30,
+                SoldierTypes.HYBRID, 2, "", null, null);
+        minions.add(ghooleBozorg);
     }
 
 
