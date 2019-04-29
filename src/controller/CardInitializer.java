@@ -69,12 +69,13 @@ public class CardInitializer {
 //        buffs = new ArrayList<>();
 //        Buff buff = new buff()
         Minion pahlavaneFarse = new Minion(105, "pahlavane Fars", 600, 9, 6, 24,
-                SoldierTypes.MELEE, 0, "damage enemy", null, null);
+                SoldierTypes.MELEE, 0, "for every attack in last turn,deal 5 damage to enemy",
+                null, null);
         minions.add(pahlavaneFarse);
 //
         Minion sepahsalarfars = new Minion(106,"sepah salare fars",600,9,6,24,
-                SoldierTypes.MELEE,0,"this minion can attack multiple targets",AbilityCastTime.COMBO,
-                null);
+                SoldierTypes.MELEE,0,"combo",
+                AbilityCastTime.COMBO, null);
         minions.add(sepahsalarfars);
 
         Minion camandareTorani = new Minion(107,"camandare torani",500,1,4,3,
@@ -82,7 +83,7 @@ public class CardInitializer {
                 null,null);
         minions.add(camandareFars);
 
-        Minion gholabSanghDareTorani = new Minion(108,"gholabsangdare torani",600,1,2,4,
+        Minion gholabSanghDareTorani = new Minion(108,"gholab sang dare torani",600,1,2,4,
                 SoldierTypes.RANGED,7,"get away,his rocks will smash your head!",null,
                 null);
         minions.add(gholabSanghDareTorani);

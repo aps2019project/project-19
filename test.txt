@@ -7,22 +7,50 @@ enter shop
 help
 show
 search dive sepid
-buy namoose separ
 buy dive sepid
-buy namoose separ 
-buy total disarm
-buy simorgh
-buy namoose separ
-buy namoose separ
-show collection
-search collection oo
-search collection total disarm
-exit 
-enter collection 
-show
-create deck a
-create deck b
-add 1 to deck a
-add 2 to deck b
-search dive sepid
-
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy dive sepid
+exit
+enter collection
+create deck test
+add 1 to deck test
+add 22 to deck test
+add 2 to deck test
+add 3 to deck test
+add 4 to deck test
+add 5 to deck test
+add 6 to deck test
+add 7 to deck test
+add 8 to deck test
+add 9 to deck test
+add 10 to deck test
+add 11 to deck test
+add 12 to deck test
+add 13 to deck test
+add 14 to deck test
+add 15 to deck test
+add 16 to deck test
+add 17 to deck test
+add 18 to deck test
+add 19 to deck test
+add 20 to deck test
+validate deck test
+select deck test
