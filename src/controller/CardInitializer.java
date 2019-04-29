@@ -238,6 +238,47 @@ public class CardInitializer {
         Minion ghooleBozorg = new Minion(134, "ghoole bozorg", 600, 9, 8, 30,
                 SoldierTypes.HYBRID, 2, "", null, null);
         minions.add(ghooleBozorg);
+
+        buffs = new ArrayList<>();
+        buff = new DispellBuff(Kind.NEGATIVE,1,false);
+        buffs.add(buff);
+        // TODO: 2019-04-29 only positive spells must be displaced
+        Minion ghooleDoSar = new Minion(135,"goole do sar",550,4,4,10,SoldierTypes.MELEE,
+                0,"displl his target's positive spells",AbilityCastTime.ON_ATTACK,buffs);
+        minions.add(ghooleDoSar);
+
+        buffs = new ArrayList<>();
+        buff = new StunBuff(Kind.NEGATIVE,1,false);
+        buffs.add(buff);
+        Minion naneSarma = new Minion(136,"nane sarma",500,3,4,3,SoldierTypes.RANGED,5,
+                "stun enemies next to him for 1 turn",AbilityCastTime.ON_SPAWN,buffs);
+        minions.add(naneSarma);
+
+        buffs = new ArrayList<>();
+        buff = new HolyBuff(Kind.POSITIVE,0,true,1);
+        for (int i = 0; i < 12; i++) {
+            buffs.add(buff);
+        }
+        Minion foladZereh = new Minion(137,"folad zereh",650,3,1,1,SoldierTypes.MELEE,0,
+                "has 12 holy buff",AbilityCastTime.PASSIVE,buffs);
+        minions.add(foladZereh);
+
+        buffs = new ArrayList<>();
+        buff = new AttackBuff(Kind.NEGATIVE,0,false,6);
+        // TODO: 2019-04-29 target not handeled
+        buffs.add(buff);
+        Minion siavash = new Minion(138,"siavash",350,4,5,8,SoldierTypes.MELEE,0
+                ,"deals 6 damage to enemy hero",AbilityCastTime.ON_DEATH,buffs);
+        minions.add(siavash);
+
+        Minion shahGhol = new Minion(139,"shah ghol",600,5,4,10,SoldierTypes.MELEE,0,
+                "can attack multiple targets",AbilityCastTime.COMBO,null);
+        minions.add(shahGhol);
+
+        Minion arjanghDiv = new Minion(140,"arjang div",600,3,6,6,SoldierTypes.MELEE,
+                0,"can attack multiple targets",AbilityCastTime.COMBO,null);
+        minions.add(arjanghDiv);
+
     }
 
 
