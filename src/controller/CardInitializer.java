@@ -72,12 +72,13 @@ public class CardInitializer {
 //        buffs = new ArrayList<>();
 //        Buff buff = new buff()
         Minion pahlavaneFarse = new Minion(105, "pahlavane Fars", 600, 9, 6, 24,
-                SoldierTypes.MELEE, 0, "damage enemy", null, null);
+                SoldierTypes.MELEE, 0, "for every attack in last turn,deal 5 damage to enemy",
+                null, null);
         minions.add(pahlavaneFarse);
 //
-        Minion sepahsalarfars = new Minion(106, "sepah salare fars", 600, 9, 6, 24,
-                SoldierTypes.MELEE, 0, "this minion can attack multiple targets", AbilityCastTime.COMBO,
-                null);
+        Minion sepahsalarfars = new Minion(106,"sepah salare fars",600,9,6,24,
+                SoldierTypes.MELEE,0,"combo",
+                AbilityCastTime.COMBO, null);
         minions.add(sepahsalarfars);
 
         Minion camandareTorani = new Minion(107, "camandare torani", 500, 1, 4, 3,
@@ -148,6 +149,7 @@ public class CardInitializer {
         minions.add(shireDarandeh);
     }
 
+
     public void createHeroes(ArrayList<Hero> heroes) {
         Buff buff = new PowerBuff(Kind.POSITIVE, 0, true, 0, 4);
         Hero diveSepid = new Hero(301, "dive sepid", 8000, 1, 4, 50,
@@ -199,6 +201,7 @@ public class CardInitializer {
                 SoldierTypes.HYBRID, 4, "", null, 0, null);
         heroes.add(rostam);
         //todo:must have target area
+
     }
 
     private static void createSpellCards(ArrayList<SpellCard> spellCards, ArrayList<Buff> buffs) {
@@ -343,6 +346,7 @@ public class CardInitializer {
         SpellCard shock = new SpellCard(220, "Shock", 1200, 1,
                 "", buffs, target);
         spellCards.add(shock);
+
     }
 
     private static void createItem(ArrayList<Item> items, ArrayList<Buff> buffs) {
