@@ -45,8 +45,6 @@ public class Request {
                     return RequestType.SAVE;
                 if (command.matches("logout"))
                     return RequestType.LOGOUT;
-                if (command.matches("enter \\w+"))
-                    return RequestType.ENTER_MENU;
                 break;
             case COLLECTION:
                 if (command.matches("show"))
@@ -71,6 +69,16 @@ public class Request {
                     return RequestType.SHOW_ALL_DECKS;
                 if (command.matches("show deck \\w+"))
                     return RequestType.SHOW_DECK;
+                break;
+            case START_NEW_GAME:
+                break;
+            case SINGLE_GAME_MENU:
+                break;
+            case SINGLE_GAME_STORY_MODE:
+                break;
+            case SINGLE_GAME_CUSTOM_MODE:
+                break;
+            case MULTI_GAME_MENU:
                 break;
             case BATTLE:
                 if (command.matches("enter \\w+"))
@@ -136,8 +144,10 @@ public class Request {
         }
         if (command.matches("help"))
             return RequestType.HELP;
-        else if (command.matches("exit"))
+        if (command.matches("exit"))
             return RequestType.EXIT_MENU;
+        if (command.matches("enter (\\w+ ?)+"))
+            return RequestType.ENTER_MENU;
         return RequestType.ERROR;
     }
 
@@ -216,13 +226,21 @@ public class Request {
 
 
     public void parseEnterMenu() {
-        String enteringMenuName = command.split(" ")[1];
+        String enteringMenuName = command.substring(5).trim();
         if ((enteringMenuName).equals("battle"))
-            enteringMenu = MenuType.BATTLE;
+            enteringMenu = MenuType.START_NEW_GAME;
         else if (enteringMenuName.equals("shop"))
             enteringMenu = MenuType.SHOP;
         else if (enteringMenuName.equals("collection"))
             enteringMenu = MenuType.COLLECTION;
+        else if (enteringMenuName.equals("single player"))
+            enteringMenu = MenuType.SINGLE_GAME_MENU;
+        else if (enteringMenuName.equals("multi player"))
+            enteringMenu = MenuType.MULTI_GAME_MENU;
+        else if (enteringMenuName.equals("custom game"))
+            enteringMenu = MenuType.SINGLE_GAME_CUSTOM_MODE;
+        else if (enteringMenuName.equals("story mode"))
+            enteringMenu = MenuType.SINGLE_GAME_STORY_MODE;
     }
 
     public void checkSyntaxOfShow() {

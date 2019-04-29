@@ -1,13 +1,11 @@
 package controller;
 
 import model.*;
-import model.Buff.Buff;
 import model.Cards.Card;
 import model.Cards.Hero;
+import sun.security.util.ManifestEntryVerifier;
 import view.*;
 import model.Game.*;
-
-import java.util.ArrayList;
 
 public class Controller {
     private final static Controller CONTROLLER = new Controller();
@@ -185,14 +183,51 @@ public class Controller {
         switch (menuType) {
             case MAINMENU:
                 System.exit(0);
+                break;
+            case SINGLE_GAME_CUSTOM_MODE:
+                menuType = MenuType.SINGLE_GAME_MENU;
+                break;
+            case SINGLE_GAME_STORY_MODE:
+                menuType = MenuType.SINGLE_GAME_MENU;
+                break;
+            case SINGLE_GAME_MENU:
+                menuType = MenuType.START_NEW_GAME;
+                break;
+            case MULTI_GAME_MENU:
+                menuType = MenuType.START_NEW_GAME;
+                break;
             default:
                 menuType = MenuType.MAINMENU;
+                break;
         }
     }
 
     public void enterMenu() {
         // TODO: 4/26/19 check availability of a valid deck for entering battle
-        menuType = request.getEnteringMenu();
+        switch (menuType){
+            case MAINMENU:
+                if(request.getEnteringMenu() == MenuType.SHOP || request.getEnteringMenu() == MenuType.START_NEW_GAME ||
+                        request.getEnteringMenu() == MenuType.COLLECTION ) {
+                    menuType = request.getEnteringMenu();
+                    return;
+                }
+                break;
+            case START_NEW_GAME:
+                if(request.getEnteringMenu() == MenuType.SINGLE_GAME_MENU ||
+                        request.getEnteringMenu() == MenuType.MULTI_GAME_MENU) {
+                    menuType = request.getEnteringMenu();
+                    return;
+                }
+                break;
+            case SINGLE_GAME_MENU:
+                if(request.getEnteringMenu() == MenuType.SINGLE_GAME_CUSTOM_MODE ||
+                        request.getEnteringMenu() == MenuType.SINGLE_GAME_STORY_MODE) {
+                    menuType = request.getEnteringMenu();
+                    return;
+                }
+                break;
+        }
+        errorType = ErrorType.INVALID_COMMAND;
     }
 
     public void showCollectionItems() {

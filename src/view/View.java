@@ -62,6 +62,22 @@ public class View {
                         "8. Validate Deck [deck name]\n9. Select Deck [deck name]\n9. Show Deck [deck name]\n" +
                         "7. Help\n8. Exit");
                 break;
+            case START_NEW_GAME:
+                System.out.println("1. Single player\n2. Multi player\n3. elp\n4. Exit");
+                break;
+            case SINGLE_GAME_MENU:
+                System.out.println("1. Story Mode\n2. Custom Game\n3. Help\n4. Exit");
+                break;
+            case SINGLE_GAME_STORY_MODE:
+                System.out.println("options");
+                break;
+            case SINGLE_GAME_CUSTOM_MODE:
+                System.out.println("options");
+                break;
+            case MULTI_GAME_MENU:
+                System.out.println("options");
+                break;
         }
+
     }
 }
