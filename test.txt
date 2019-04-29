@@ -1,10 +1,12 @@
 create account ali
 ali
+create account hh
+hh
+create account nam
+nam
 login ali
 ali
-help
 enter shop
-help
 show
 search dive sepid
 buy dive sepid
@@ -54,3 +56,56 @@ add 19 to deck test
 add 20 to deck test
 validate deck test
 select deck test
+exit 
+logout
+login nam
+nam
+enter shop
+buy dive sepid
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+buy asb savare Fars
+exit 
+enter collection
+create deck a
+add 21 to deck a
+add 22 to deck a
+add 23 to deck a
+add 24 to deck a
+add 25 to deck a
+add 26 to deck a
+add 27 to deck a
+add 28 to deck a
+add 29 to deck a
+add 30 to deck a
+add 31 to deck a
+add 32 to deck a
+add 33 to deck a
+add 34 to deck a
+add 35 to deck a
+add 36 to deck a
+add 37 to deck a
+add 38 to deck a
+add 39 to deck a
+add 40 to deck a
+validate deck a
+select deck a
+exit
+enter battle
+enter multi player

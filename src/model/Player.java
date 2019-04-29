@@ -13,6 +13,12 @@ public class Player {
     private ArrayList<Item> items = new ArrayList<>();
     private int selectedCardId;
 
+    public Player(Account account, Deck deckCards) {
+        this.account = account;
+        this.deckCards = deckCards;
+        this.mana = 2;
+    }
+
     public int getMana() {
         return mana;
     }

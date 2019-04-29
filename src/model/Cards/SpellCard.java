@@ -2,7 +2,6 @@ package model.Cards;
 
 import model.Buff.Buff;
 import model.Target.Target;
-import view.ShowFormat;
 
 import java.util.ArrayList;
 

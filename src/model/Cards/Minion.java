@@ -2,7 +2,6 @@ package model.Cards;
 
 import model.AbilityCastTime;
 import model.Buff.Buff;
-import view.ShowFormat;
 
 import java.util.ArrayList;
 

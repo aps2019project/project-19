@@ -15,7 +15,9 @@ public enum ErrorType {
     DECK_IS_FULL("deck is full"),
     INVALID_DECK("deck is not valid"),
     DECK_HAS_HERO("deck has hero."),
-    WRONG_MODE("wrong mode");
+    WRONG_MODE("wrong mode"),
+    INVALID_OPPONENT_DECK("opponent deck is not complete"),
+    INVALID_OPPONENT("oponent username is invalid");
     //    LOGGED_IN("you must logout from your account before creating new account or login into another"),
 //    NOT_LOGGED_IN("you must login to your account to");
     private String message;

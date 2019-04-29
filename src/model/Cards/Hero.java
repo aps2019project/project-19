@@ -2,7 +2,6 @@ package model.Cards;
 
 import model.Buff.Buff;
 import model.Target.Target;
-import view.ShowFormat;
 
 public class Hero extends SoldierCard {
     private Buff specialPower;

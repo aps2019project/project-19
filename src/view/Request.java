@@ -16,7 +16,6 @@ public class Request {
     private int productId;
     private String userName;
     private String collectableName;
-    private String gameModel;
     private MenuType enteringMenu;
     private int cardOrItemID;
     private int itemID;
@@ -45,8 +44,6 @@ public class Request {
                     return RequestType.SAVE;
                 if (command.matches("logout"))
                     return RequestType.LOGOUT;
-                if (command.matches("enter \\w+"))
-                    return RequestType.ENTER_MENU;
                 break;
             case COLLECTION:
                 if (command.matches("show"))
@@ -72,9 +69,23 @@ public class Request {
                 if (command.matches("show deck \\w+"))
                     return RequestType.SHOW_DECK;
                 break;
+            case START_NEW_GAME:
+                break;
+            case SINGLE_GAME_MENU:
+                break;
+            case SINGLE_GAME_STORY_MODE:
+                break;
+            case SINGLE_GAME_CUSTOM_MODE:
+                break;
+            case MULTI_GAME_MENU:
+                if(command.matches("show players"))
+                    return RequestType.SHOW_ALL_PLAYERS;
+                if(command.matches("select user \\w+"))
+                    return RequestType.SELECT_OPPONENT_USER;
+                if(command.matches("start multiplayer game (\\w+ ?)+ \\d+"))
+                    return RequestType.SELECT_MODE;
+                break;
             case BATTLE:
-                if (command.matches("enter \\w+"))
-                    return RequestType.ENTER_BATTLE_MODELS;
                 if (command.matches("game info"))
                     return RequestType.SHOW_GAME_INFO;
                 if (command.matches("show my minions"))
@@ -136,20 +147,24 @@ public class Request {
         }
         if (command.matches("help"))
             return RequestType.HELP;
-        else if (command.matches("exit"))
+        if (command.matches("exit"))
             return RequestType.EXIT_MENU;
+        if (command.matches("enter (\\w+ ?)+"))
+            return RequestType.ENTER_MENU;
         return RequestType.ERROR;
     }
 
 
     public void parseCommand() {
         switch (requestType) {
+            ///////////////////// ACCOUNT ///////////////////
             case CREATE_ACCOUNT:
                 userName = command.split(" ")[2];
                 break;
             case LOGIN:
                 userName = command.split(" ")[1];
                 break;
+                /////////////////// SHOP //////////////////
             case SEARCH_IN_SHOP:
                 searchingName = command.substring(6).trim();
                 break;
@@ -162,6 +177,7 @@ public class Request {
             case SELL_TO_SHOP:
                 productId = Integer.parseInt(command.split(" ")[1]);
                 break;
+                /////////////////// COLLECTION /////////////////
             case CREATE_DECK:
                 deckName = command.split(" ")[2];
                 break;
@@ -185,21 +201,13 @@ public class Request {
             case SHOW_DECK:
                 deckName = command.split(" ")[2];
                 break;
-            case ENTER_BATTLE_MODELS:
-                gameModel = detectGameModel();
+                /////////////////////// CREATING GAME /////////////////
+            case SELECT_OPPONENT_USER:
+                userName = command.split(" ")[2];
             case ENTER_MENU:
                 parseEnterMenu();
                 break;
         }
-    }
-
-    private String detectGameModel() {
-        String[] strings = command.split(" ");
-        if (strings.length == 3 && command.endsWith("single player"))
-            return "singlePlayer";
-        else if (strings.length == 3 && command.endsWith("multi player"))
-            return "multiPlayer";
-        return "error";
     }
 
     private void parseSearchInCollection(MenuType menuType) {
@@ -216,13 +224,21 @@ public class Request {
 
 
     public void parseEnterMenu() {
-        String enteringMenuName = command.split(" ")[1];
+        String enteringMenuName = command.substring(5).trim();
         if ((enteringMenuName).equals("battle"))
-            enteringMenu = MenuType.BATTLE;
+            enteringMenu = MenuType.START_NEW_GAME;
         else if (enteringMenuName.equals("shop"))
             enteringMenu = MenuType.SHOP;
         else if (enteringMenuName.equals("collection"))
             enteringMenu = MenuType.COLLECTION;
+        else if (enteringMenuName.equals("single player"))
+            enteringMenu = MenuType.SINGLE_GAME_MENU;
+        else if (enteringMenuName.equals("multi player"))
+            enteringMenu = MenuType.MULTI_GAME_MENU;
+        else if (enteringMenuName.equals("custom game"))
+            enteringMenu = MenuType.SINGLE_GAME_CUSTOM_MODE;
+        else if (enteringMenuName.equals("story mode"))
+            enteringMenu = MenuType.SINGLE_GAME_STORY_MODE;
     }
 
     public void checkSyntaxOfShow() {
@@ -390,9 +406,6 @@ public class Request {
         return enteringMenu;
     }
 
-    public String getGameModel() {
-        return gameModel;
-    }
 }
 
 

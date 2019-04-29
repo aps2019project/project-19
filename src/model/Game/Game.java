@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Game {
-    private int length;
-    private int width;
+    private final int length = 9;
+    private final int width = 5;
     private Cell[][] cells = new Cell[width][length];
     private ArrayList<Item> items = new ArrayList<>();
     private Player player1;
@@ -20,20 +20,19 @@ public class Game {
     private Player winnerPlayer;
     private GameMode gameMode;
 
+    public Game(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+        // TODO: 2019-04-29 set date
+        this.isTurnOfPlayerOne = true;
+    }
+
     public int getLength() {
         return length;
     }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
-
     public int getWidth() {
         return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
     }
 
     public Cell[][] getCells() {
