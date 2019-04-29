@@ -26,6 +26,7 @@ public class CardInitializer {
     }
 
     private CardInitializer() {
+
     }
 
     public void createCards() {
@@ -76,8 +77,8 @@ public class CardInitializer {
                 null, null);
         minions.add(pahlavaneFarse);
 //
-        Minion sepahsalarfars = new Minion(106,"sepah salare fars",600,9,6,24,
-                SoldierTypes.MELEE,0,"combo",
+        Minion sepahsalarfars = new Minion(106, "sepah salare fars", 600, 9, 6, 24,
+                SoldierTypes.MELEE, 0, "combo",
                 AbilityCastTime.COMBO, null);
         minions.add(sepahsalarfars);
 

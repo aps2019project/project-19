@@ -16,7 +16,6 @@ public class Request {
     private int productId;
     private String userName;
     private String collectableName;
-    private String gameModel;
     private MenuType enteringMenu;
     private int cardOrItemID;
     private int itemID;
@@ -79,10 +78,14 @@ public class Request {
             case SINGLE_GAME_CUSTOM_MODE:
                 break;
             case MULTI_GAME_MENU:
+                if(command.matches("show players"))
+                    return RequestType.SHOW_ALL_PLAYERS;
+                if(command.matches("select user \\w+"))
+                    return RequestType.SELECT_OPPONENT_USER;
+                if(command.matches("start multiplayer game (\\w+ ?)+ \\d+"))
+                    return RequestType.SELECT_MODE;
                 break;
             case BATTLE:
-                if (command.matches("enter \\w+"))
-                    return RequestType.ENTER_BATTLE_MODELS;
                 if (command.matches("game info"))
                     return RequestType.SHOW_GAME_INFO;
                 if (command.matches("show my minions"))
@@ -154,12 +157,14 @@ public class Request {
 
     public void parseCommand() {
         switch (requestType) {
+            ///////////////////// ACCOUNT ///////////////////
             case CREATE_ACCOUNT:
                 userName = command.split(" ")[2];
                 break;
             case LOGIN:
                 userName = command.split(" ")[1];
                 break;
+                /////////////////// SHOP //////////////////
             case SEARCH_IN_SHOP:
                 searchingName = command.substring(6).trim();
                 break;
@@ -172,6 +177,7 @@ public class Request {
             case SELL_TO_SHOP:
                 productId = Integer.parseInt(command.split(" ")[1]);
                 break;
+                /////////////////// COLLECTION /////////////////
             case CREATE_DECK:
                 deckName = command.split(" ")[2];
                 break;
@@ -195,21 +201,13 @@ public class Request {
             case SHOW_DECK:
                 deckName = command.split(" ")[2];
                 break;
-            case ENTER_BATTLE_MODELS:
-                gameModel = detectGameModel();
+                /////////////////////// CREATING GAME /////////////////
+            case SELECT_OPPONENT_USER:
+                userName = command.split(" ")[2];
             case ENTER_MENU:
                 parseEnterMenu();
                 break;
         }
-    }
-
-    private String detectGameModel() {
-        String[] strings = command.split(" ");
-        if (strings.length == 3 && command.endsWith("single player"))
-            return "singlePlayer";
-        else if (strings.length == 3 && command.endsWith("multi player"))
-            return "multiPlayer";
-        return "error";
     }
 
     private void parseSearchInCollection(MenuType menuType) {
@@ -408,9 +406,6 @@ public class Request {
         return enteringMenu;
     }
 
-    public String getGameModel() {
-        return gameModel;
-    }
 }
 
 

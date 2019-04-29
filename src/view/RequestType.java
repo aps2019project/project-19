@@ -2,19 +2,16 @@ package view;
 
 public enum RequestType {
     ERROR,
+    HELP,
+    EXIT_MENU,
+    ENTER_MENU,
+    /////////// ACCOUNT /////////
     CREATE_ACCOUNT,
     LOGIN,
     SHOW_LEADER_BOARD,
     SAVE,
-    HELP,
-    EXIT_MENU,
     LOGOUT,
-    //    ENTER_ACCOUNT_MENU,
-    //todo:check save function
-    //    ENTER_BATTLE_MENU,
-//    ENTER_SHOP,
-//    ENTER_COLLECTION,
-    ENTER_MENU,
+    ///////// COLLECTION /////////
     SHOW_COLLECTION_ITEMS,
     SEARCH_IN_COLLECTION,
     SAVE_COLLECTION,
@@ -26,10 +23,12 @@ public enum RequestType {
     SELECT_MAIN_DECK,
     SHOW_ALL_DECKS,
     SHOW_DECK,
+    //////// SHOP ////////
     SEARCH_IN_SHOP,
     BUY_FROM_SHOP,
     SELL_TO_SHOP,
     SHOW_SHOP,
+    /////// BATTLE ///////
     SHOW_GAME_INFO,
     SHOW_MY_MINIONS,
     SHOW_OPPONENT_MINIONS,
@@ -51,6 +50,8 @@ public enum RequestType {
     ENTER_GRAVEYARD,
     SHOW_CARD_INFO_IN_GRAVEYARD,
     END_GAME,
-    SHOW_MENU_OPTIONS,
-    ENTER_BATTLE_MODELS,
+    ////// CREATING GAME //////
+    SHOW_ALL_PLAYERS,
+    SELECT_OPPONENT_USER,
+    SELECT_MODE,
 }

@@ -3,7 +3,6 @@ package controller;
 import model.*;
 import model.Cards.Card;
 import model.Cards.Hero;
-import sun.security.util.ManifestEntryVerifier;
 import view.*;
 import model.Game.*;
 
@@ -93,17 +92,24 @@ public class Controller {
                     break;
                 case VALIDATE_DECK:
                     validateDeck();
-                    // todo: test
                     break;
                 case SELECT_MAIN_DECK:
                     selectMainDeck();
-                    // todo: test
                     break;
                 case REMOVE_FROM_DECK:
                     removeFromDeck();
                     //todo: test for items
                     break;
-                /////////////////////////////////////            //////////////////////
+                    ///////////////////////////////// CREATING GAME ///////////////////////
+                case SHOW_ALL_PLAYERS:
+                    showAllPlayer();
+                    break;
+                case SELECT_OPPONENT_USER:
+                    createGame();
+                    // TODO: 2019-04-29 test
+                    break;
+                case SELECT_MODE:
+                    /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
                     break;
@@ -112,9 +118,6 @@ public class Controller {
                     break;
                 case HELP:
                     view.showHelp(menuType);
-                    break;
-                case ENTER_BATTLE_MODELS:
-                    createGame();
                     break;
             }
             if (errorType != null) {
@@ -125,12 +128,21 @@ public class Controller {
     }
 
     private void createGame() {
-        if (request.getGameModel().equals("singleplayer")) {
-            game = new SinglePlayerGame();
-        } else if (request.getGameModel().equals("multiplayer")) {
-            game = new MultiPlayerGame();
-        } else
-            view.printError(ErrorType.WRONG_MODE);
+        if(Account.userNameIsValid(request.getUserName())){
+            errorType = ErrorType.INVALID_OPPONENT;
+            return;
+        }
+        Account opponentAccount = Account.getAccounts().get(request.getUserName());
+        if(opponentAccount.getCollection().getMainDeck() == null ||
+                !opponentAccount.getCollection().getMainDeck().deckIsValid()){
+            errorType = ErrorType.INVALID_OPPONENT_DECK;
+            return;
+        }
+
+        Player player1 = new Player(loggedInAccount,loggedInAccount.getCollection().getMainDeck());
+        Player player2 = new Player(opponentAccount,opponentAccount.getCollection().getMainDeck());
+        game = new Game(player1,player2);
+        view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
 
 
@@ -203,24 +215,33 @@ public class Controller {
     }
 
     public void enterMenu() {
-        // TODO: 4/26/19 check availability of a valid deck for entering battle
-        switch (menuType){
+        switch (menuType) {
             case MAINMENU:
-                if(request.getEnteringMenu() == MenuType.SHOP || request.getEnteringMenu() == MenuType.START_NEW_GAME ||
-                        request.getEnteringMenu() == MenuType.COLLECTION ) {
+                if (request.getEnteringMenu() == MenuType.SHOP ||
+                        request.getEnteringMenu() == MenuType.COLLECTION) {
                     menuType = request.getEnteringMenu();
                     return;
                 }
+                if (request.getEnteringMenu() == MenuType.START_NEW_GAME) {
+                    if (loggedInAccount.getCollection().getMainDeck() == null ||
+                            !loggedInAccount.getCollection().getMainDeck().deckIsValid()) {
+                        errorType = ErrorType.INVALID_DECK;
+                        return;
+                    }
+                    menuType = request.getEnteringMenu();
+                    return;
+                }
+
                 break;
             case START_NEW_GAME:
-                if(request.getEnteringMenu() == MenuType.SINGLE_GAME_MENU ||
+                if (request.getEnteringMenu() == MenuType.SINGLE_GAME_MENU ||
                         request.getEnteringMenu() == MenuType.MULTI_GAME_MENU) {
                     menuType = request.getEnteringMenu();
                     return;
                 }
                 break;
             case SINGLE_GAME_MENU:
-                if(request.getEnteringMenu() == MenuType.SINGLE_GAME_CUSTOM_MODE ||
+                if (request.getEnteringMenu() == MenuType.SINGLE_GAME_CUSTOM_MODE ||
                         request.getEnteringMenu() == MenuType.SINGLE_GAME_STORY_MODE) {
                     menuType = request.getEnteringMenu();
                     return;
@@ -248,7 +269,7 @@ public class Controller {
         number = 1;
         view.show("Cards :");
         for (Card card : loggedInAccount.getCollection().getCards()) {
-            if (!(card instanceof Hero)){
+            if (!(card instanceof Hero)) {
                 view.show("\t" + number + " : " + card.toString() + " - Sell cost : " + card.getPrice());
                 number++;
             }
@@ -283,13 +304,13 @@ public class Controller {
         }
         Deck deck = new Deck(request.getDeckName());
         loggedInAccount.getCollection().getDecks().put(request.getDeckName(), deck);
-        view.show(request.getDeckName()+" created");
+        view.show(request.getDeckName() + " created");
     }
 
     public void deleteDeck() {
         if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
             loggedInAccount.getCollection().getDecks().remove(request.getDeckName());
-            view.show(request.getDeckName()+" deleted");
+            view.show(request.getDeckName() + " deleted");
             return;
         }
         errorType = ErrorType.DECK_NOT_EXISTS;
@@ -309,7 +330,7 @@ public class Controller {
             errorType = ErrorType.DECK_HAS_HERO;
         else {
             loggedInAccount.getCollection().addToDeck(request.getCardOrItemID(), request.getDeckName());
-            view.show("card "+ request.getCardOrItemID()+ " added to deck "+request.getDeckName());
+            view.show("card " + request.getCardOrItemID() + " added to deck " + request.getDeckName());
         }
     }
 
@@ -320,7 +341,7 @@ public class Controller {
             errorType = ErrorType.NOT_FOUND;
         else {
             loggedInAccount.getCollection().removeFromDeck(request.getDeckName(), request.getCardOrItemID());
-            view.show("card "+ request.getCardOrItemID()+ " removed from deck "+request.getDeckName());
+            view.show("card " + request.getCardOrItemID() + " removed from deck " + request.getDeckName());
         }
 
     }
@@ -339,8 +360,7 @@ public class Controller {
         else if (loggedInAccount.getCollection().getDecks().get(request.getDeckName()).deckIsValid()) {
             loggedInAccount.getCollection().setMainDeck(request.getDeckName());
             view.show("deck has selected");
-        }
-        else errorType = ErrorType.INVALID_DECK;
+        } else errorType = ErrorType.INVALID_DECK;
     }
 
     public void showAllDecks() {
@@ -417,13 +437,17 @@ public class Controller {
         number = 1;
         view.show("Cards :");
         for (Card card : shop.getCards()) {
-            if (!(card instanceof Hero)){
+            if (!(card instanceof Hero)) {
                 view.show("\t" + number + " : " + card.toString() + "- Buy cost : " + card.getPrice());
                 number++;
             }
         }
     }
-
+    public void showAllPlayer(){
+        for (String account : Account.getAccounts().keySet()) {
+            view.show(account);
+        }
+    }
     public void showGameInfo() {
     }
 
