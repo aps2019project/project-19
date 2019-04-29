@@ -128,7 +128,7 @@ public class Controller {
     }
 
     private void createGame() {
-        if(Account.userNameIsValid(request.getUserName())){
+        if(!Account.userNameIsValid(request.getUserName()) || loggedInAccount.getUserName().equals(request.getUserName())){
             errorType = ErrorType.INVALID_OPPONENT;
             return;
         }
