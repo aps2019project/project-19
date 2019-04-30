@@ -109,3 +109,6 @@ select deck a
 exit
 enter battle
 enter multi player
+start multiplayer game death match
+select user ali
+start multiplayer game death match

@@ -12,6 +12,7 @@ public class Game {
     private final int width = 5;
     private Cell[][] cells = new Cell[width][length];
     private ArrayList<Item> items = new ArrayList<>();
+    private int numOfFlags;
     private Player player1;
     private Player player2;
     private boolean isTurnOfPlayerOne;
@@ -90,6 +91,22 @@ public class Game {
 
     public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
+    }
+
+    public void setCells(Cell[][] cells) {
+        this.cells = cells;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+
+    public int getNumOfFlags() {
+        return numOfFlags;
+    }
+
+    public void setNumOfFlags(int numOfFlags) {
+        this.numOfFlags = numOfFlags;
     }
 
     public void setDate(Date date) {

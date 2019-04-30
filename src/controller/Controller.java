@@ -5,8 +5,6 @@ import model.Cards.*;
 import view.*;
 import model.Game.*;
 
-import java.nio.file.FileAlreadyExistsException;
-
 public class Controller {
     private final static Controller CONTROLLER = new Controller();
 
@@ -23,6 +21,7 @@ public class Controller {
     private Account loggedInAccount;
     private Game game;
     private boolean playerOneMustShow;
+    private Player activePlayer;
     private ErrorType errorType = null;
     private View view = View.getInstance();
 
@@ -34,6 +33,12 @@ public class Controller {
             request.getNewCommand();
             request.setRequestType(menuType);
             request.parseCommand();
+            if (game != null) {
+                if (game.isTurnOfPlayerOne())
+                    activePlayer = game.getPlayer1();
+                else
+                    activePlayer = game.getPlayer2();
+            }
             switch (request.getRequestType()) {
                 case ERROR:
                     errorType = ErrorType.INVALID_COMMAND;
@@ -110,7 +115,8 @@ public class Controller {
                     createGame();
                     break;
                 case SELECT_MODE:
-                    // TODO: 2019-04-29 check user must be selected before
+                    selectMode();
+                    // TODO: 2019-04- test
                     break;
                 ///////////////////////////////// BATTLE  ////////////////////////
                 case INSERT_CARD:
@@ -129,6 +135,10 @@ public class Controller {
                 case SHOW_CARD_INFO_IN_BATTLE:
                     showCardInfoInBattle();
                     break;
+                case SELECT_CARD_OR_COLLECTABLE:
+                    selectCardOrItem(activePlayer);
+                    // TODO: 2019-04-30 test
+                    break;
                 case SHOW_HAND:
                     showHand();
                     break;
@@ -138,7 +148,13 @@ public class Controller {
                 case SHOW_NEXT_CARD:
                     showNextCard();
                     break;
-                /////////////////////////////////            //////////////////////
+                case SHOW_COLLECATBLE_INFO:
+                    // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
+                    break;
+                case USE_COLLECTABLE:
+                    // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
+                    break;
+                    /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
                     break;
@@ -174,6 +190,16 @@ public class Controller {
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
 
+    private void selectMode() {
+        if (game == null) {
+            errorType = ErrorType.INVALID_COMMAND;
+            return;
+        }
+        game.setGameMode(request.getGameMode());
+        if (request.getGameMode() == GameMode.KEEP_THE_FLAG)
+            game.setNumOfFlags(request.getNumOfFlags());
+        System.err.println("game mode seted");
+    }
 
     public void createNewAccount() {
         if (Account.userNameIsValid(request.getUserName())) {
@@ -483,13 +509,14 @@ public class Controller {
     }
 
     public void showMinions() {
+        /// TODO: 2019-04-30 duplicate code
         if (playerOneMustShow) {
-            for (Card card : game.getPlayer1().getInBattleCards()) {
+            for (Card card : game.getPlayer1().getIntBattleCards().values()) {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
         } else {
-            for (Card card : game.getPlayer2().getInBattleCards()) {
+            for (Card card : game.getPlayer2().getIntBattleCards().values()) {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
@@ -500,14 +527,15 @@ public class Controller {
     }
 
     public void showCardInfoInBattle() {
+        // TODO: 2019-04-30 duplicate code
         if (game.isTurnOfPlayerOne()) {
-            for (Card card : game.getPlayer1().getInBattleCards()) {
+            for (Card card : game.getPlayer1().getIntBattleCards().values()) {
                 if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                     view.show(card.toInfoString());
                     return;
                 }
             }
-        } else for (Card card : game.getPlayer2().getInBattleCards()) {
+        } else for (Card card : game.getPlayer2().getIntBattleCards().values()) {
             if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                 view.show(card.toInfoString());
                 return;
@@ -516,7 +544,21 @@ public class Controller {
         errorType = ErrorType.INVLID_CARD_ID;
     }
 
-    public void selectCard() {
+    public void selectCardOrItem(Player player) {
+        int id = request.getCardOrItemID();
+        if(player.getIntBattleCards().containsKey(id)) {
+            Card card = activePlayer.getIntBattleCards().get(id);
+            activePlayer.setSelectedCard(card);
+            System.err.println(card.getName()+" "+card.getCardId()+ " selected");
+        return;
+        }
+        if(player.getItems().containsKey(id)){
+            Item item = activePlayer.getItems().get(id);
+            activePlayer.setSelectedItem(item);
+            System.err.println(item.getName()+" selected");
+            return;
+        }
+        errorType = ErrorType.INVLID_CARD_ID;
     }
 
     public void moveCard() {
