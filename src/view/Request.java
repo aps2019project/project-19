@@ -23,8 +23,8 @@ public class Request {
     private int itemID;
     private GameMode gameMode;
     private int numOfFlags;
-    private static boolean isAnyCardSelected;
-    private static boolean isAnyItemSelected;
+    private static boolean AnyCardSelected;
+    private static boolean AnyItemSelected;
 
     public void getNewCommand() {
         do {
@@ -86,7 +86,7 @@ public class Request {
                     return RequestType.SHOW_ALL_PLAYERS;
                 if (command.matches("select user \\w+"))
                     return RequestType.SELECT_OPPONENT_USER;
-                if (command.matches("start multiplayer game (\\w+ ?)+ \\d+"))
+                if (command.matches("start multiplayer game (\\w+ ?)+(\\d+)?"))
                     return RequestType.SELECT_MODE;
                 break;
             case BATTLE:
@@ -102,13 +102,13 @@ public class Request {
                 //sajad
                 if (command.matches("select \\d+"))
                     return RequestType.SELECT_CARD_OR_COLLECTABLE;
-                if (command.matches("move to \\(\\[\\d+], \\[\\d+]\\)") && isAnyCardSelected)
+                if (command.matches("move to \\(\\[\\d+], \\[\\d+]\\)") && AnyCardSelected)
                     return RequestType.MOVE_CARD;
-                if (command.matches("attack \\d+") && isAnyCardSelected)
+                if (command.matches("attack \\d+") && AnyCardSelected)
                     return RequestType.ATTACK;
                 if (command.matches("attack combo( \\d+ \\d+)+"))
                     return RequestType.COMBO_ATTACK;
-                if (command.matches("use special power \\(\\d+, \\d+\\)") && isAnyCardSelected)
+                if (command.matches("use special power \\(\\d+, \\d+\\)") && AnyCardSelected)
                     return RequestType.USE_SPECIAL_POWER;
                 //amir
                 if (command.matches("show hand"))
@@ -120,7 +120,7 @@ public class Request {
                 if (command.matches("show collectables"))
                     return RequestType.SHOW_GATHERED_COLLECTABLES;
                 //roham
-                if (command.matches("show info") && isAnyItemSelected)
+                if (command.matches("show info") && AnyItemSelected)
                     return RequestType.SHOW_COLLECATBLE_INFO;
                 //amir
                 if (command.matches("use location \\[\\d+, \\d+]"))
@@ -219,12 +219,17 @@ public class Request {
                 break;
             case SELECT_MODE:
                 parseSelectMode();
+                break;
             case ENTER_MENU:
                 parseEnterMenu();
                 break;
             ////////////////////// Battle //////////////////////
             case SHOW_CARD_INFO_IN_BATTLE:
                 inBattleCardId = command.split(" ")[3];
+                break;
+            case SELECT_CARD_OR_COLLECTABLE:
+                cardOrItemID = Integer.parseInt(command.split(" ")[1]);
+                break;
         }
     }
 
@@ -439,6 +444,41 @@ public class Request {
         return enteringMenu;
     }
 
+    public void setInBattleCardId(String inBattleCardId) {
+        this.inBattleCardId = inBattleCardId;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
+    public void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public int getNumOfFlags() {
+        return numOfFlags;
+    }
+
+    public void setNumOfFlags(int numOfFlags) {
+        this.numOfFlags = numOfFlags;
+    }
+
+    public static boolean isAnyCardSelected() {
+        return AnyCardSelected;
+    }
+
+    public static void setAnyCardSelected(boolean anyCardSelected) {
+        Request.AnyCardSelected = anyCardSelected;
+    }
+
+    public static boolean isAnyItemSelected() {
+        return AnyItemSelected;
+    }
+
+    public static void setAnyItemSelected(boolean anyItemSelected) {
+        Request.AnyItemSelected = anyItemSelected;
+    }
 }
 
 

@@ -23,6 +23,7 @@ public class Controller {
     private Account loggedInAccount;
     private Game game;
     private boolean playerOneMustShow;
+    private Player activePlayer;
     private ErrorType errorType = null;
     private View view = View.getInstance();
 
@@ -34,6 +35,12 @@ public class Controller {
             request.getNewCommand();
             request.setRequestType(menuType);
             request.parseCommand();
+            if(game!=null) {
+                if (game.isTurnOfPlayerOne())
+                    activePlayer = game.getPlayer1();
+                else
+                    activePlayer = game.getPlayer2();
+            }
             switch (request.getRequestType()) {
                 case ERROR:
                     errorType = ErrorType.INVALID_COMMAND;
@@ -110,6 +117,7 @@ public class Controller {
                     createGame();
                     break;
                 case SELECT_MODE:
+                    selectMode();
                     // TODO: 2019-04-29 check user must be selected before
                     break;
                 ///////////////////////////////// BATTLE  ////////////////////////
@@ -127,6 +135,9 @@ public class Controller {
                     break;
                 case SHOW_CARD_INFO_IN_BATTLE:
                     showCardInfoInBattle();
+                    break;
+                case SELECT_CARD_OR_COLLECTABLE:
+                    selectCardOrItem(activePlayer);
                     break;
                 /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
@@ -163,7 +174,16 @@ public class Controller {
         game = new Game(player1, player2);
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
-
+    private void selectMode(){
+        if(game == null) {
+            errorType = ErrorType.INVALID_COMMAND;
+            return;
+        }
+        game.setGameMode(request.getGameMode());
+        if(request.getGameMode() == GameMode.KEEP_THE_FLAG)
+            game.setNumOfFlags(request.getNumOfFlags());
+        System.err.println("game mode seted");
+    }
 
     public void createNewAccount() {
         if (Account.userNameIsValid(request.getUserName())) {
@@ -471,8 +491,8 @@ public class Controller {
 
     public void showGameInfo() {
     }
-
     public void showMinions() {
+        /// TODO: 2019-04-30 duplicate code
         if (playerOneMustShow)
             for (Card card : game.getPlayer1().getIntBattleCards()) {
                 if (card instanceof SoldierCard)
@@ -488,6 +508,7 @@ public class Controller {
     }
 
     public void showCardInfoInBattle() {
+        // TODO: 2019-04-30 duplicate code
         if (game.isTurnOfPlayerOne()){
             for (Card card : game.getPlayer1().getIntBattleCards()) {
                 if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
@@ -505,7 +526,8 @@ public class Controller {
         errorType = ErrorType.INVLID_CARD_ID;
     }
 
-    public void selectCard() {
+    public void selectCardOrItem(Player player) {
+        int id = request.getCardOrItemID();
     }
 
     public void moveCard() {

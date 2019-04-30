@@ -63,8 +63,14 @@ public class Player {
         return items;
     }
 
-//    public boolean cardExistsInHand(int cardId){}
-//
+    public boolean cardExistsInHand(int cardId){
+        for (Card handCard : handCards) {
+            if (cardId == handCard.getCardId())
+                return true;
+        }
+        return false;
+    }
+
 //    public boolean myCardIsOnGround(String inBattleCardId){}
 
     public void select(String inBattleCardId) {
