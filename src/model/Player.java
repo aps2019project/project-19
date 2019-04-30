@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Player {
+    private final int handCapacity = 5;
     private int mana;
     private Account account;
     private Deck deckCards;
@@ -19,6 +20,10 @@ public class Player {
         this.account = account;
         this.deckCards = deckCards;
         this.mana = 2;
+    }
+
+    public int getHandCapacity() {
+        return handCapacity;
     }
 
     public int getMana() {
@@ -96,21 +101,13 @@ public class Player {
     }
 
     public void moveARandomCardToHand() {
-        if (handCards.size() < 5) {
+        if (handCards.size() < handCapacity) {
             Random random = new Random();
             ArrayList<Card> cards = new ArrayList<>(deckCards.getCards().values());
             int rand = random.nextInt(cards.size());
             Card card = cards.get(rand);
-            Shop.generateNewId();
-            if (card instanceof Minion) {
-                Minion card1 = new Minion((Minion) card);
-                card1.setCardId(Shop.getId());
-                handCards.add(card1);
-            } else if (card instanceof SpellCard) {
-                SpellCard card1 = new SpellCard((SpellCard) card);
-                card1.setCardId(Shop.getId());
-                handCards.add(card1);
-            }
+            card.setCardStatus(CardStatus.IN_HAND);
+            handCards.add(card);
         }
     }
 }

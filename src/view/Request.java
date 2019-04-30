@@ -115,7 +115,7 @@ public class Request {
                     return RequestType.SHOW_HAND;
                 if (command.matches("insert \\w+ in \\(\\d+, \\d+\\)"))
                     return RequestType.INSERT_CARD;
-                if (command.matches("end turn"))
+                if (command.matches("end turn"))//some how
                     return RequestType.END_TURN;
                 if (command.matches("show collectables"))
                     return RequestType.SHOW_GATHERED_COLLECTABLES;
@@ -125,7 +125,7 @@ public class Request {
                 //amir
                 if (command.matches("use location \\[\\d+, \\d+]"))
                     return RequestType.USE_COLLECTABLE;
-                if (command.matches("show next card"))
+                if (command.matches("show next card"))//done
                     return RequestType.SHOW_NEXT_CARD;
                 //sajad
                 if (command.matches("enter graveyard"))

@@ -134,6 +134,9 @@ public class Controller {
                 case END_TURN:
                     endTurn();
                     break;
+                case SHOW_NEXT_CARD:
+                    showNextCard();
+                    break;
                 /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
@@ -563,6 +566,18 @@ public class Controller {
     }
 
     public void showNextCard() {
+        Player currentPlayer;
+        if (game.isTurnOfPlayerOne()) {
+            currentPlayer = game.getPlayer1();
+        } else {
+            currentPlayer = game.getPlayer2();
+        }
+        if (currentPlayer.getNextCardId() == 0) {
+            view.show("No More Card In Your Deck!!!\n");
+        } else {
+            int cardId = currentPlayer.getNextCardId();
+            view.show(currentPlayer.getDeckCards().getCards().get(cardId).toInfoString());
+        }
     }
 
     public void showCardInfoInGraveYard() {

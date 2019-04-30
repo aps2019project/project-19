@@ -9,7 +9,7 @@ import model.Cards.SpellCard;
 import java.util.ArrayList;
 
 public class Shop {
-    private static int id;
+    private int id;
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private final static Shop SHOP = new Shop();
@@ -20,10 +20,6 @@ public class Shop {
 
     public ArrayList<Card> getCards() {
         return cards;
-    }
-
-    public static int getId() {
-        return id;
     }
 
     public ArrayList<Item> getItems() {
@@ -130,7 +126,7 @@ public class Shop {
     public void sellItem(int itemId) {
     }
 
-    public static void generateNewId() {
+    public void generateNewId() {
         id++;
     }
 }
