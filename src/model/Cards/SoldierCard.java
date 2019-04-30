@@ -2,8 +2,10 @@ package model.Cards;
 
 import model.Buff.Buff;
 import model.Cell;
+import model.Item;
 
 import java.util.ArrayList;
+import java.util.PrimitiveIterator;
 
 public abstract class SoldierCard extends Card {
     private int ap;
@@ -11,6 +13,7 @@ public abstract class SoldierCard extends Card {
     private Cell cell;
     private SoldierTypes type;
     private ArrayList<Buff> buffs = new ArrayList<>();
+    private Item flag;
     private int attackRange;
 
     public SoldierCard() {
