@@ -523,7 +523,7 @@ public class Controller {
             for (Card card : activePlayer.getInBattleCards().keySet()) {
                 if (card instanceof SoldierCard) {
                     Cell cell = activePlayer.getInBattleCards().get(card);
-                    view.show(((SoldierCard) card).toBattleFormat(cell.getxCoordinate(),cell.getyCoordinate());
+                    view.show(((SoldierCard) card).toBattleFormat(cell.getxCoordinate(),cell.getyCoordinate()));
                 }
             }
     }
