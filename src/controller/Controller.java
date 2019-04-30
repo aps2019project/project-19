@@ -679,7 +679,6 @@ public class Controller {
             menuType = MenuType.MAINMENU;
         errorType = ErrorType.GAME_IS_NOT_OVER;
     }
-
     public void showMenuOptions() {
     }
 
