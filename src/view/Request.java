@@ -138,7 +138,7 @@ public class Request {
                 if (command.matches("show my choices"))
                     return RequestType.SHOW_MY_CHOICES;
                 //amir
-                if (command.matches("end game"))
+                if (command.matches("end game"))//done
                     return RequestType.END_GAME;
                 break;
             case GRAVEYARD:
