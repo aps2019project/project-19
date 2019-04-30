@@ -23,8 +23,6 @@ public class Request {
     private int itemID;
     private GameMode gameMode;
     private int numOfFlags;
-    private static boolean AnyCardSelected;
-    private static boolean AnyItemSelected;
 
     public void getNewCommand() {
         do {
@@ -102,13 +100,13 @@ public class Request {
                 //sajad
                 if (command.matches("select \\d+"))
                     return RequestType.SELECT_CARD_OR_COLLECTABLE;
-                if (command.matches("move to \\(\\[\\d+], \\[\\d+]\\)") && AnyCardSelected)
+                if (command.matches("move to \\(\\[\\d+], \\[\\d+]\\)"))
                     return RequestType.MOVE_CARD;
-                if (command.matches("attack \\d+") && AnyCardSelected)
+                if (command.matches("attack \\d+"))
                     return RequestType.ATTACK;
                 if (command.matches("attack combo( \\d+ \\d+)+"))
                     return RequestType.COMBO_ATTACK;
-                if (command.matches("use special power \\(\\d+, \\d+\\)") && AnyCardSelected)
+                if (command.matches("use special power \\(\\d+, \\d+\\)"))
                     return RequestType.USE_SPECIAL_POWER;
                 //amir
                 if (command.matches("show hand"))//done
@@ -120,7 +118,7 @@ public class Request {
                 if (command.matches("show collectables"))
                     return RequestType.SHOW_GATHERED_COLLECTABLES;
                 //roham
-                if (command.matches("show info") && AnyItemSelected)
+                if (command.matches("show info"))
                     return RequestType.SHOW_COLLECATBLE_INFO;
                 //amir
                 if (command.matches("use location \\[\\d+, \\d+]"))
@@ -464,21 +462,6 @@ public class Request {
         this.numOfFlags = numOfFlags;
     }
 
-    public static boolean isAnyCardSelected() {
-        return AnyCardSelected;
-    }
-
-    public static void setAnyCardSelected(boolean anyCardSelected) {
-        Request.AnyCardSelected = anyCardSelected;
-    }
-
-    public static boolean isAnyItemSelected() {
-        return AnyItemSelected;
-    }
-
-    public static void setAnyItemSelected(boolean anyItemSelected) {
-        Request.AnyItemSelected = anyItemSelected;
-    }
 }
 
 

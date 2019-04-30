@@ -35,7 +35,7 @@ public class Controller {
             request.getNewCommand();
             request.setRequestType(menuType);
             request.parseCommand();
-            if(game!=null) {
+            if (game != null) {
                 if (game.isTurnOfPlayerOne())
                     activePlayer = game.getPlayer1();
                 else
@@ -118,7 +118,7 @@ public class Controller {
                     break;
                 case SELECT_MODE:
                     selectMode();
-                    // TODO: 2019-04-29 check user must be selected before
+                    // TODO: 2019-04- test
                     break;
                 ///////////////////////////////// BATTLE  ////////////////////////
                 case INSERT_CARD:
@@ -138,6 +138,7 @@ public class Controller {
                     break;
                 case SELECT_CARD_OR_COLLECTABLE:
                     selectCardOrItem(activePlayer);
+                    // TODO: 2019-04-30 test
                     break;
                 case SHOW_HAND:
                     showHand();
@@ -148,7 +149,13 @@ public class Controller {
                 case SHOW_NEXT_CARD:
                     showNextCard();
                     break;
-                /////////////////////////////////            //////////////////////
+                case SHOW_COLLECATBLE_INFO:
+                    // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
+                    break;
+                case USE_COLLECTABLE:
+                    // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
+                    break;
+                    /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
                     break;
@@ -183,13 +190,14 @@ public class Controller {
         game = new Game(player1, player2);
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
-    private void selectMode(){
-        if(game == null) {
+
+    private void selectMode() {
+        if (game == null) {
             errorType = ErrorType.INVALID_COMMAND;
             return;
         }
         game.setGameMode(request.getGameMode());
-        if(request.getGameMode() == GameMode.KEEP_THE_FLAG)
+        if (request.getGameMode() == GameMode.KEEP_THE_FLAG)
             game.setNumOfFlags(request.getNumOfFlags());
         System.err.println("game mode seted");
     }
@@ -503,13 +511,13 @@ public class Controller {
 
     public void showMinions() {
         /// TODO: 2019-04-30 duplicate code
-        if (playerOneMustShow)
-            for (Card card : game.getPlayer1().getIntBattleCards()) {
+        if (playerOneMustShow) {
+            for (Card card : game.getPlayer1().getIntBattleCards().values()) {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
         } else {
-            for (Card card : game.getPlayer2().getIntBattleCards()) {
+            for (Card card : game.getPlayer2().getIntBattleCards().values()) {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
@@ -521,14 +529,14 @@ public class Controller {
 
     public void showCardInfoInBattle() {
         // TODO: 2019-04-30 duplicate code
-        if (game.isTurnOfPlayerOne()){
-            for (Card card : game.getPlayer1().getIntBattleCards()) {
+        if (game.isTurnOfPlayerOne()) {
+            for (Card card : game.getPlayer1().getIntBattleCards().values()) {
                 if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                     view.show(card.toInfoString());
                     return;
                 }
             }
-        } else for (Card card : game.getPlayer2().getIntBattleCards()) {
+        } else for (Card card : game.getPlayer2().getIntBattleCards().values()) {
             if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                 view.show(card.toInfoString());
                 return;
@@ -539,6 +547,19 @@ public class Controller {
 
     public void selectCardOrItem(Player player) {
         int id = request.getCardOrItemID();
+        if(player.getIntBattleCards().containsKey(id)) {
+            Card card = activePlayer.getIntBattleCards().get(id);
+            activePlayer.setSelectedCard(card);
+            System.err.println(card.getName()+" "+card.getCardId()+ " selected");
+        return;
+        }
+        if(player.getItems().containsKey(id)){
+            Item item = activePlayer.getItems().get(id);
+            activePlayer.setSelectedItem(item);
+            System.err.println(item.getName()+" selected");
+            return;
+        }
+        errorType = ErrorType.INVLID_CARD_ID;
     }
 
     public void moveCard() {
@@ -554,6 +575,7 @@ public class Controller {
     }
 
     public void showHand() {
+        // TODO: 2019-04-30 duplicate
         if (game.isTurnOfPlayerOne()) {
             view.show(game.getPlayer1().handInfo());
         } else {
