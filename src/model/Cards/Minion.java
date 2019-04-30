@@ -13,7 +13,9 @@ public class Minion extends SoldierCard {
         super();
     }
 
-    public Minion(int cardId, String name, int price, int mana, int ap, int hp, SoldierTypes type, int attackRange, String descrption, AbilityCastTime abilityCastTime, ArrayList<Buff> abilities) {
+    public Minion(int cardId, String name, int price, int mana, int ap, int hp,
+                  SoldierTypes type, int attackRange, String descrption,
+                  AbilityCastTime abilityCastTime, ArrayList<Buff> abilities) {
         super(cardId, name, price, mana, ap, hp, type, attackRange, descrption);
         this.abilities = abilities;
         this.abilityCastTime = abilityCastTime;
@@ -39,7 +41,7 @@ public class Minion extends SoldierCard {
         return "Minion:\n"
                 + "Name: " + getName() + "\n"
                 + "HP: " + getHp() + " Ap: " + getAp() + " MP: " + getMana() + "\n"
-                + "Range: " +getAttackRange() + "\n"
+                + "Range: " + getAttackRange() + "\n"
                 + "Combo-ability: " + getDescription() + "\n"
                 + "Cost: " + getPrice() + "\n"
                 + "Desc: " + getDescription();

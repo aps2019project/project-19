@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public abstract class SoldierCard extends Card {
     private int ap;
     private int hp;
-    private Cell cell;
     private SoldierTypes type;
     private ArrayList<Buff> buffs = new ArrayList<>();
     boolean hasFlag;
@@ -52,14 +51,6 @@ public abstract class SoldierCard extends Card {
 
     public void setHp(int hp) {
         this.hp = hp;
-    }
-
-    public Cell getCell() {
-        return cell;
-    }
-
-    public void setCell(Cell cell) {
-        this.cell = cell;
     }
 
     public SoldierTypes getType() {

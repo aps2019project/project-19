@@ -1,8 +1,12 @@
 package view;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import controller.MenuType;
+import model.Game.GameMode;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Request {
     private static Scanner scanner = new Scanner(System.in);
@@ -13,6 +17,7 @@ public class Request {
     private String cardName;
     private String searchingName;
     private String productName;
+    private int x,y;
     private int productId;
     private String userName;
     private String collectableName;
@@ -20,8 +25,10 @@ public class Request {
     private MenuType enteringMenu;
     private int cardOrItemID;
     private int itemID;
-    private static boolean isAnyCardSelected;
-    private static boolean isAnyItemSelected;
+    private GameMode gameMode;
+    private int numOfFlags;
+    private int destinationX;
+    private int destinationY;
 
     public void getNewCommand() {
         do {
@@ -83,7 +90,7 @@ public class Request {
                     return RequestType.SHOW_ALL_PLAYERS;
                 if (command.matches("select user \\w+"))
                     return RequestType.SELECT_OPPONENT_USER;
-                if (command.matches("start multiplayer game (\\w+ ?)+ \\d+"))
+                if (command.matches("start multiplayer game (\\w+ ?)+(\\d+)?"))
                     return RequestType.SELECT_MODE;
                 break;
             case BATTLE:
@@ -99,30 +106,30 @@ public class Request {
                 //sajad
                 if (command.matches("select \\d+"))
                     return RequestType.SELECT_CARD_OR_COLLECTABLE;
-                if (command.matches("move to \\(\\[\\d+], \\[\\d+]\\)") && isAnyCardSelected)
+                if (command.matches("move to \\(\\[(?<X>\\d+)], \\[(?<Y>\\d+)]\\)"))
                     return RequestType.MOVE_CARD;
-                if (command.matches("attack \\d+") && isAnyCardSelected)
+                if (command.matches("attack \\d+"))
                     return RequestType.ATTACK;
                 if (command.matches("attack combo( \\d+ \\d+)+"))
                     return RequestType.COMBO_ATTACK;
-                if (command.matches("use special power \\(\\d+, \\d+\\)") && isAnyCardSelected)
+                if (command.matches("use special power \\(\\d+, \\d+\\)"))
                     return RequestType.USE_SPECIAL_POWER;
                 //amir
-                if (command.matches("show hand"))
+                if (command.matches("show hand"))//done
                     return RequestType.SHOW_HAND;
-                if (command.matches("insert \\w+ in \\(\\d+, \\d+\\)"))
+                if (command.matches("insert \\w+ in \\(\\d+, \\d+\\)"))//done
                     return RequestType.INSERT_CARD;
-                if (command.matches("end turn"))
+                if (command.matches("end turn"))//some how
                     return RequestType.END_TURN;
                 if (command.matches("show collectables"))
                     return RequestType.SHOW_GATHERED_COLLECTABLES;
                 //roham
-                if (command.matches("show info") && isAnyItemSelected)
+                if (command.matches("show info"))
                     return RequestType.SHOW_COLLECATBLE_INFO;
                 //amir
                 if (command.matches("use location \\[\\d+, \\d+]"))
                     return RequestType.USE_COLLECTABLE;
-                if (command.matches("show next card"))
+                if (command.matches("show next card"))//done
                     return RequestType.SHOW_NEXT_CARD;
                 //sajad
                 if (command.matches("enter graveyard"))
@@ -131,7 +138,7 @@ public class Request {
                 if (command.matches("show my choices"))
                     return RequestType.SHOW_MY_CHOICES;
                 //amir
-                if (command.matches("end game"))
+                if (command.matches("end game"))//done
                     return RequestType.END_GAME;
                 break;
             case GRAVEYARD:
@@ -213,19 +220,50 @@ public class Request {
             /////////////////////// CREATING GAME /////////////////
             case SELECT_OPPONENT_USER:
                 userName = command.split(" ")[2];
+                break;
+            case SELECT_MODE:
+                parseSelectMode();
+                break;
             case ENTER_MENU:
                 parseEnterMenu();
                 break;
             ////////////////////// Battle //////////////////////
             case SHOW_CARD_INFO_IN_BATTLE:
                 inBattleCardId = command.split(" ")[3];
+                break;
+            case INSERT_CARD:
+                parseInsertCommand();
+                break;
+            case SELECT_CARD_OR_COLLECTABLE:
+                cardOrItemID = Integer.parseInt(command.split(" ")[1]);
+                break;
+            case MOVE_CARD:
+                parseMoveCard();
         }
     }
 
-    private void parseSearchInCollection(MenuType menuType) {
-        if (menuType == MenuType.SHOP)
-            searchingName = command.split(" ")[2];
-        else searchingName = command.split(" ")[1];
+    private void parseInsertCommand() {
+        String[] strings = command.split("[ ,()]");
+        cardName = strings[1];
+        x = Integer.parseInt(strings[4]);
+        y = Integer.parseInt(strings[6]);
+    }
+
+    private void parseSelectMode() {
+        if (command.substring(22).trim().equals("death match")) {
+            gameMode = GameMode.DEATH_MATCH;
+            return;
+        }
+        if (command.substring(22).trim().matches("capture the flag")) {
+            gameMode = GameMode.CAPTURE_THE_FLAGS;
+            return;
+        }
+        if (command.substring(22).trim().matches("keep the flag \\d+")) {
+            gameMode = GameMode.KEEP_THE_FLAG;
+            numOfFlags = Integer.parseInt(command.split(" ")[6]);
+            return;
+        }
+        errorType = ErrorType.INVALID_COMMAND;
     }
 
     private void parseSearchInCollection() {
@@ -253,81 +291,12 @@ public class Request {
             enteringMenu = MenuType.SINGLE_GAME_STORY_MODE;
     }
 
-    public void checkSyntaxOfShow() {
-    }
-
-
-    public void checkSyntaxOfSearchInCollection() {
-    }
-
-
-    public void checkSyntaxOfCreateDeck() {
-    }
-
-
-    public void checkSyntaxOfDeleteDeck() {
-    }
-
-    public void checkSyntaxOfAddToDeck() {
-    }
-
-
-    public void checkSyntaxOfRemoveCardFromDeck() {
-    }
-
-
-    public void checkSyntaxOfValidateDeck() {
-    }
-
-
-    public void checkSyntaxOfSelectMainDeck() {
-    }
-
-
-    public void checkSyntaxOfShowDeck() {
-    }
-
-    public void checkSyntaxOfBuyFromShop() {
-    }
-
-
-    public void checkSyntaxOfSellToShop() {
-    }
-
-
-    public void checkSyntaxOfShowCardInfoInBattle() {
-    }
-
-
-    public void checkSyntaxOfSelectCard() {
-    }
-
-
-    public void checkSyntaxOfMoveCard() {
-    }
-
-
-    public void checkSyntaxOfAttack() {
-    }
-
-
-    public void checkSyntaxOfComboAttack() {
-    }
-
-
-    public void checkSyntaxOfInsertCard() {
-    }
-
-
-    public void checkSyntaxOfSelectCollectable() {
-    }
-
-
-    public void checkSyntaxOfUseCollectable() {
-    }
-
-
-    public void checkSyntaxOfCardInfoInGraveYard() {
+    public void parseMoveCard(){
+        Pattern pattern = Pattern.compile("move to \\(\\[(?<X>\\d+)], \\[(?<Y>\\d+)]\\)");
+        Matcher matcher = pattern.matcher(command);
+        matcher.matches();
+        destinationX = Integer.parseInt(matcher.group("X"));
+        destinationY = Integer.parseInt(matcher.group("Y"));
     }
 
     public void setRequestType(MenuType menuType) {
@@ -422,6 +391,48 @@ public class Request {
         return enteringMenu;
     }
 
+    public void setInBattleCardId(String inBattleCardId) {
+        this.inBattleCardId = inBattleCardId;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
+    public void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public int getNumOfFlags() {
+        return numOfFlags;
+    }
+
+    public void setNumOfFlags(int numOfFlags) {
+        this.numOfFlags = numOfFlags;
+    }
+
+    public int getDestinationX() {
+        return destinationX;
+    }
+
+    public void setDestinationX(int destinationX) {
+        this.destinationX = destinationX;
+    }
+
+    public int getDestinationY() {
+        return destinationY;
+    }
+
+    public void setDestinationY(int destinationY) {
+        this.destinationY = destinationY;
+    }
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }
 
 

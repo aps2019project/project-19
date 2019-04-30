@@ -11,6 +11,11 @@ public class Cell {
     private Buff buff;
     private boolean hasFlag;
 
+    public Cell(int xCoordinate, int yCoordinate) {
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
+    }
+
     public int getxCoordinate() {
         return xCoordinate;
     }

@@ -11,7 +11,15 @@ public class Game {
     private final int length = 9;
     private final int width = 5;
     private Cell[][] cells = new Cell[width][length];
+    {
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                cells[i][j] = new Cell(i+1,j+1);
+            }
+        }
+    }
     private ArrayList<Item> items = new ArrayList<>();
+    private int numOfFlags;
     private Player player1;
     private Player player2;
     private boolean isTurnOfPlayerOne;
@@ -25,6 +33,7 @@ public class Game {
         this.player2 = player2;
         // TODO: 2019-04-29 set date
         this.isTurnOfPlayerOne = true;
+        this.turnNumber = 1;
     }
 
     public int getLength() {
@@ -91,11 +100,47 @@ public class Game {
         this.gameMode = gameMode;
     }
 
+    public void setCells(Cell[][] cells) {
+        this.cells = cells;
+    }
+    public Cell getCell(int x, int y){
+            return cells[y-1][x-1];
+    }
+    public boolean coordinateIsValid(int x, int y){
+        return getCell(x,y) != null;
+    }
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+
+    public int getNumOfFlags() {
+        return numOfFlags;
+    }
+
+    public void setNumOfFlags(int numOfFlags) {
+        this.numOfFlags = numOfFlags;
+    }
+
     public void setDate(Date date) {
         this.date = date;
     }
 
     public Date getDate() {
         return date;
+    }
+
+    public void changeTurn() {
+        Player currentPlayer;
+        if (isTurnOfPlayerOne) {
+            isTurnOfPlayerOne = false;
+            currentPlayer = player2;
+        } else {
+            isTurnOfPlayerOne = true;
+            currentPlayer = player1;
+        }
+        turnNumber++;
+        if (turnNumber <= 14) {
+            currentPlayer.increaseMana();
+        }
     }
 }
