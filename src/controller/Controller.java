@@ -516,22 +516,15 @@ public class Controller {
     }
 
     public void showGameInfo() {
-
     }
 
     public void showMinions() {
-        /// TODO: 2019-04-30 duplicate code
-        if (playerOneMustShow) {
-            for (Card card : game.getPlayer1().getInBattleCards().keySet()) {
-                if (card instanceof SoldierCard)
-                    view.show(((SoldierCard) card).toBattleFormatString());
+            for (Card card : activePlayer.getInBattleCards().keySet()) {
+                if (card instanceof SoldierCard) {
+                    Cell cell = activePlayer.getInBattleCards().get(card);
+                    view.show(((SoldierCard) card).toBattleFormat(cell.getxCoordinate(),cell.getyCoordinate()));
+                }
             }
-        } else {
-            for (Card card : game.getPlayer2().getInBattleCards().keySet()) {
-                if (card instanceof SoldierCard)
-                    view.show(((SoldierCard) card).toBattleFormatString());
-            }
-        }
     }
 
     public void showOpponentMinions() {
@@ -580,7 +573,7 @@ public class Controller {
         Card card = activePlayer.getSelectedCard();
     }
 
-    public void attack(){
+    public void attack() {
     }
 
     public void comboAttack() {
@@ -679,7 +672,6 @@ public class Controller {
             menuType = MenuType.MAINMENU;
         errorType = ErrorType.GAME_IS_NOT_OVER;
     }
-
     public void showMenuOptions() {
     }
 

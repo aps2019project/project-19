@@ -91,11 +91,11 @@ public abstract class SoldierCard extends Card {
     public void counterAttack(Card opponentCard) {
     }
 
-    public String toBattleFormatString() {
+    public String toBattleFormat(int x,int y) {
         return getInBattleCardId() + " : "
                 + getName() + ", "
                 + "health : " + getHp() + ", "
-                + "location : " + "(" + getCell().getxCoordinate() + ", " + getCell().getyCoordinate() + "), "
+                + "location : " + "(" + x + ", " + y + "), "
                 + "Power : " + getAp();
     }
 
