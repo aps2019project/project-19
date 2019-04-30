@@ -520,18 +520,12 @@ public class Controller {
     }
 
     public void showMinions() {
-        /// TODO: 2019-04-30 duplicate code
-        if (playerOneMustShow) {
-            for (Card card : game.getPlayer1().getInBattleCards().keySet()) {
-                if (card instanceof SoldierCard)
-                    view.show(((SoldierCard) card).toBattleFormat());
+            for (Card card : activePlayer.getInBattleCards().keySet()) {
+                if (card instanceof SoldierCard) {
+                    Cell cell = activePlayer.getInBattleCards().get(card);
+                    view.show(((SoldierCard) card).toBattleFormat(cell.getxCoordinate(),cell.getyCoordinate());
+                }
             }
-        } else {
-            for (Card card : game.getPlayer2().getInBattleCards().keySet()) {
-                if (card instanceof SoldierCard)
-                    view.show(((SoldierCard) card).toBattleFormat());
-            }
-        }
     }
 
     public void showOpponentMinions() {
