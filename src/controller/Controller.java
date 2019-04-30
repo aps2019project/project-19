@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import model.Cards.Card;
 import model.Cards.Hero;
+import model.Cards.SoldierCard;
 import view.*;
 import model.Game.*;
 
@@ -21,6 +22,7 @@ public class Controller {
     private Request request;
     private Account loggedInAccount;
     private Game game;
+    private boolean playerOneMustShow;
     private ErrorType errorType = null;
     private View view = View.getInstance();
 
@@ -100,7 +102,7 @@ public class Controller {
                     removeFromDeck();
                     //todo: test for items
                     break;
-                    ///////////////////////////////// CREATING GAME ///////////////////////
+                ///////////////////////////////// CREATING GAME ///////////////////////
                 case SHOW_ALL_PLAYERS:
                     showAllPlayer();
                     break;
@@ -110,10 +112,23 @@ public class Controller {
                 case SELECT_MODE:
                     // TODO: 2019-04-29 check user must be selected before
                     break;
-                    ///////////////////////////////// BATTLE  ////////////////////////
+                ///////////////////////////////// BATTLE  ////////////////////////
                 case INSERT_CARD:
                     break;
-                    /////////////////////////////////            //////////////////////
+                case SHOW_GAME_INFO:
+                    break;
+                case SHOW_MY_MINIONS:
+                    playerOneMustShow = game.isTurnOfPlayerOne();
+                    showMinions();
+                    break;
+                case SHOW_OPPONENT_MINIONS:
+                    playerOneMustShow = !game.isTurnOfPlayerOne();
+                    showMinions();
+                    break;
+                case SHOW_CARD_INFO_IN_BATTLE:
+                    showCardInfoInBattle();
+                    break;
+                /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
                     break;
@@ -132,20 +147,20 @@ public class Controller {
     }
 
     private void createGame() {
-        if(!Account.userNameIsValid(request.getUserName()) || loggedInAccount.getUserName().equals(request.getUserName())){
+        if (!Account.userNameIsValid(request.getUserName()) || loggedInAccount.getUserName().equals(request.getUserName())) {
             errorType = ErrorType.INVALID_OPPONENT;
             return;
         }
         Account opponentAccount = Account.getAccounts().get(request.getUserName());
-        if(opponentAccount.getCollection().getMainDeck() == null ||
-                !opponentAccount.getCollection().getMainDeck().deckIsValid()){
+        if (opponentAccount.getCollection().getMainDeck() == null ||
+                !opponentAccount.getCollection().getMainDeck().deckIsValid()) {
             errorType = ErrorType.INVALID_OPPONENT_DECK;
             return;
         }
 
-        Player player1 = new Player(loggedInAccount,loggedInAccount.getCollection().getMainDeck());
-        Player player2 = new Player(opponentAccount,opponentAccount.getCollection().getMainDeck());
-        game = new Game(player1,player2);
+        Player player1 = new Player(loggedInAccount, loggedInAccount.getCollection().getMainDeck());
+        Player player2 = new Player(opponentAccount, opponentAccount.getCollection().getMainDeck());
+        game = new Game(player1, player2);
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
 
@@ -447,21 +462,47 @@ public class Controller {
             }
         }
     }
-    public void showAllPlayer(){
+
+    public void showAllPlayer() {
         for (String account : Account.getAccounts().keySet()) {
             view.show(account);
         }
     }
+
     public void showGameInfo() {
     }
 
-    public void showMyMinions() {
+    public void showMinions() {
+        if (playerOneMustShow)
+            for (Card card : game.getPlayer1().getIntBattleCards()) {
+                if (card instanceof SoldierCard)
+                    view.show(((SoldierCard) card).toBattleFormat());
+            }
+        else for (Card card : game.getPlayer2().getIntBattleCards()) {
+            if (card instanceof SoldierCard)
+                view.show(((SoldierCard) card).toBattleFormat());
+        }
     }
 
     public void showOpponentMinions() {
     }
 
     public void showCardInfoInBattle() {
+        if (game.isTurnOfPlayerOne()){
+            for (Card card : game.getPlayer1().getIntBattleCards()) {
+                if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
+                    view.show(card.toInfoString());
+                    return;
+                }
+            }
+        }
+        else for (Card card : game.getPlayer2().getIntBattleCards()) {
+            if (card.getInBattleCardId().equals(request.getInBattleCardId())){
+                view.show(card.toInfoString());
+                return;
+            }
+        }
+        errorType = ErrorType.INVLID_CARD_ID;
     }
 
     public void selectCard() {

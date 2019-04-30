@@ -502,7 +502,7 @@ public class CardInitializer {
         buffs.add(new PowerBuff(Kind.POSITIVE, 0, true, 6, 0));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_SOLDIER);
         Item nooshDaroo = new Item(004, "noosh Daroo", 0,
-                "one randomly minion haelths increase by 6", ItemTypes.COLLECTABLE, buffs, target);
+                "one randomly minion healths increase by 6", ItemTypes.COLLECTABLE, buffs, target);
         items.add(nooshDaroo);
 
     }

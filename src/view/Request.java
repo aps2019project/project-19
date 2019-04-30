@@ -17,6 +17,7 @@ public class Request {
     private int productId;
     private String userName;
     private String collectableName;
+    private String inBattleCardId;
     private MenuType enteringMenu;
     private int cardOrItemID;
     private int itemID;
@@ -221,6 +222,9 @@ public class Request {
             case ENTER_MENU:
                 parseEnterMenu();
                 break;
+            ////////////////////// Battle //////////////////////
+            case SHOW_CARD_INFO_IN_BATTLE:
+                inBattleCardId = command.split(" ")[3];
         }
     }
 
@@ -417,6 +421,10 @@ public class Request {
 
     public String getCollectableName() {
         return collectableName;
+    }
+
+    public String getInBattleCardId() {
+        return inBattleCardId;
     }
 
     public int getCardOrItemID() {
