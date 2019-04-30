@@ -3,6 +3,7 @@ package model;
 import model.Cards.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Player {
@@ -10,8 +11,8 @@ public class Player {
     private int mana;
     private Account account;
     private Deck deckCards;
-    private ArrayList<Card> handCards = new ArrayList<>();
-    private ArrayList<Card> intBattleCards = new ArrayList<>();
+    private HashMap<String, Card> handCards = new HashMap<>();
+    private ArrayList<SoldierCard> inBattleCards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private int selectedCardId;
     private int nextCardId;
@@ -58,12 +59,12 @@ public class Player {
         this.selectedCardId = selectedCardId;
     }
 
-    public ArrayList<Card> getHandCards() {
+    public HashMap<String, Card> getHandCards() {
         return handCards;
     }
 
-    public ArrayList<Card> getIntBattleCards() {
-        return intBattleCards;
+    public ArrayList<SoldierCard> getInBattleCards() {
+        return inBattleCards;
     }
 
     public ArrayList<Item> getItems() {
@@ -90,7 +91,8 @@ public class Player {
 
     public String handInfo() {
         StringBuilder result = new StringBuilder();
-        for (Card card : handCards) {
+        ArrayList<Card> cards = new ArrayList<>(handCards.values());
+        for (Card card : cards) {
             result.append(card.toInfoString());
             result.append("\n");
         }
@@ -107,7 +109,7 @@ public class Player {
             int rand = random.nextInt(cards.size());
             Card card = cards.get(rand);
             card.setCardStatus(CardStatus.IN_HAND);
-            handCards.add(card);
+            handCards.put(card.getName(), card);
         }
     }
 }

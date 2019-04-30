@@ -1,11 +1,11 @@
 package controller;
 
 import model.*;
-import model.Cards.Card;
-import model.Cards.Hero;
-import model.Cards.SoldierCard;
+import model.Cards.*;
 import view.*;
 import model.Game.*;
+
+import java.nio.file.FileAlreadyExistsException;
 
 public class Controller {
     private final static Controller CONTROLLER = new Controller();
@@ -114,6 +114,7 @@ public class Controller {
                     break;
                 ///////////////////////////////// BATTLE  ////////////////////////
                 case INSERT_CARD:
+                    insertCard();
                     break;
                 case SHOW_GAME_INFO:
                     break;
@@ -483,12 +484,12 @@ public class Controller {
 
     public void showMinions() {
         if (playerOneMustShow) {
-            for (Card card : game.getPlayer1().getIntBattleCards()) {
+            for (Card card : game.getPlayer1().getInBattleCards()) {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
         } else {
-            for (Card card : game.getPlayer2().getIntBattleCards()) {
+            for (Card card : game.getPlayer2().getInBattleCards()) {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
@@ -500,13 +501,13 @@ public class Controller {
 
     public void showCardInfoInBattle() {
         if (game.isTurnOfPlayerOne()) {
-            for (Card card : game.getPlayer1().getIntBattleCards()) {
+            for (Card card : game.getPlayer1().getInBattleCards()) {
                 if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                     view.show(card.toInfoString());
                     return;
                 }
             }
-        } else for (Card card : game.getPlayer2().getIntBattleCards()) {
+        } else for (Card card : game.getPlayer2().getInBattleCards()) {
             if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                 view.show(card.toInfoString());
                 return;
@@ -531,26 +532,67 @@ public class Controller {
     }
 
     public void showHand() {
-        if (game.isTurnOfPlayerOne()) {
-            view.show(game.getPlayer1().handInfo());
-        } else {
-            view.show(game.getPlayer2().handInfo());
-        }
+        Player player = currentPlayer();
+        view.show(player.handInfo());
     }
 
     public void insertCard() {
+        Player player = currentPlayer();
+        Card card = player.getHandCards().get(request.getCardName());
+        if (card == null) {
+            errorType = ErrorType.INVALID_CARDNAME;
+        } else if (card instanceof SpellCard) {
+            errorType = ErrorType.SPELL_NOT_IMPLEMENTABLE;
+        } else if (!checkCoordination()) {
+            errorType = ErrorType.INVALID_TARGET;
+        } else if (!isImplementationPossible(player)) {
+            errorType = ErrorType.INVALID_TARGET;
+        } else if (player.getMana() < card.getMana()) {
+            errorType = ErrorType.NOT_ENOUGH_MANA;
+        } else {
+            card.setCardStatus(CardStatus.PLACED);
+            player.getInBattleCards().add((SoldierCard) card);
+            player.getHandCards().remove(card.getName(), card);
+            ((SoldierCard) card).setCell(game.getCells()[request.getX()][request.getY()]);
+            //todo should we add card to cell field????
+            view.show(card.getName() + " with " + card.getInBattleCardId() +
+                    " inserted to (" + request.getX() + ", " + request.getY() + ")\n");
+        }
+    }
+
+    private boolean isImplementationPossible(Player player) {
+        boolean flag = false;
+        for (SoldierCard inBattleCard : player.getInBattleCards()) {
+            if (Math.abs(request.getX() - inBattleCard.getCell().getxCoordinate()) == 1 &&
+                    Math.abs(request.getY() - inBattleCard.getCell().getyCoordinate()) == 1) {
+                flag = true;
+            }
+            if (inBattleCard.getCell().getxCoordinate() == request.getX() &&
+                    inBattleCard.getCell().getyCoordinate() == request.getY()) {
+                return false;
+            }
+        }
+        return flag;
+    }
+
+    private boolean checkCoordination() {
+        return request.getX() >= 0 && request.getX() < 9 && request.getY() >= 0 && request.getY() < 5;
     }
 
     public void endTurn() {
+        Player player = currentPlayer();
         //todo 1.cast buff, 2.check winner
         //1
         //2
-        if (game.isTurnOfPlayerOne()) {
-            game.getPlayer1().moveARandomCardToHand();
-        } else {
-            game.getPlayer2().moveARandomCardToHand();
-        }
+        player.moveARandomCardToHand();
         game.changeTurn();
+    }
+
+    public Player currentPlayer() {
+        if (game.isTurnOfPlayerOne()) {
+            return game.getPlayer1();
+        }
+        return game.getPlayer2();
     }
 
     public void showGatheredCollectables() {
@@ -566,12 +608,7 @@ public class Controller {
     }
 
     public void showNextCard() {
-        Player currentPlayer;
-        if (game.isTurnOfPlayerOne()) {
-            currentPlayer = game.getPlayer1();
-        } else {
-            currentPlayer = game.getPlayer2();
-        }
+        Player currentPlayer = currentPlayer();
         if (currentPlayer.getNextCardId() == 0) {
             view.show("No More Card In Your Deck!!!\n");
         } else {

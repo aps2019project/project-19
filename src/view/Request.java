@@ -14,6 +14,7 @@ public class Request {
     private String cardName;
     private String searchingName;
     private String productName;
+    private int x,y;
     private int productId;
     private String userName;
     private String collectableName;
@@ -113,7 +114,7 @@ public class Request {
                 //amir
                 if (command.matches("show hand"))//done
                     return RequestType.SHOW_HAND;
-                if (command.matches("insert \\w+ in \\(\\d+, \\d+\\)"))
+                if (command.matches("insert \\w+ in \\(\\d+, \\d+\\)"))//done
                     return RequestType.INSERT_CARD;
                 if (command.matches("end turn"))//some how
                     return RequestType.END_TURN;
@@ -225,7 +226,17 @@ public class Request {
             ////////////////////// Battle //////////////////////
             case SHOW_CARD_INFO_IN_BATTLE:
                 inBattleCardId = command.split(" ")[3];
+                break;
+            case INSERT_CARD:
+                parseInsertCommand();
         }
+    }
+
+    private void parseInsertCommand() {
+        String[] strings = command.split("[ ,()]");
+        cardName = strings[1];
+        x = Integer.parseInt(strings[4]);
+        y = Integer.parseInt(strings[6]);
     }
 
     private void parseSelectMode() {
@@ -439,6 +450,13 @@ public class Request {
         return enteringMenu;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }
 
 
