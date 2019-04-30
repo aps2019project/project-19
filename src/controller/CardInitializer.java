@@ -482,10 +482,28 @@ public class CardInitializer {
     }
 
     private static void createItem(ArrayList<Item> items, ArrayList<Buff> buffs) {
+        //todo: first item
+        //todo: random target
+        //todo: specific soldier effected
         buffs.add(new HolyBuff(Kind.POSITIVE, 1, false, 12));
         Target target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO);
-        Item namooseSepar = new Item(001, "Namoose Separ", 400,
+        Item namooseSepar = new Item(002, "Namoose Separ", 400,
                 "", ItemTypes.USABLE, buffs, target);
         items.add(namooseSepar);
+
+        buffs = new ArrayList<>();
+        buffs.add(new DisArmBuff(Kind.NEGATIVE, 1, false));
+        target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO);
+        Item camaneDamol = new Item(003,"camane damol", 30000,
+                "disarm enemy for one turn", ItemTypes.USABLE, buffs, target);
+        items.add(camaneDamol);
+
+        buffs = new ArrayList<>();
+        buffs.add(new PowerBuff(Kind.POSITIVE, 0, true, 6, 0));
+        target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_SOLDIER);
+        Item nooshDaroo = new Item(004, "noosh Daroo", 0,
+                "one randomly minion haelths increase by 6", ItemTypes.COLLECTABLE, buffs, target);
+        items.add(nooshDaroo);
+
     }
 }

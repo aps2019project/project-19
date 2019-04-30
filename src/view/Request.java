@@ -81,14 +81,15 @@ public class Request {
             case SINGLE_GAME_CUSTOM_MODE:
                 break;
             case MULTI_GAME_MENU:
-                if(command.matches("show players"))
+                if (command.matches("show players"))
                     return RequestType.SHOW_ALL_PLAYERS;
-                if(command.matches("select user \\w+"))
+                if (command.matches("select user \\w+"))
                     return RequestType.SELECT_OPPONENT_USER;
-                if(command.matches("start multiplayer game (\\w+ ?)+ \\d+"))
+                if (command.matches("start multiplayer game (\\w+ ?)+ \\d+"))
                     return RequestType.SELECT_MODE;
                 break;
             case BATTLE:
+                //roham
                 if (command.matches("game info"))
                     return RequestType.SHOW_GAME_INFO;
                 if (command.matches("show my minions"))
@@ -97,6 +98,7 @@ public class Request {
                     return RequestType.SHOW_OPPONENT_MINIONS;
                 if (command.matches("show card info \\d+"))
                     return RequestType.SHOW_CARD_INFO_IN_BATTLE;
+                //sajad
                 if (command.matches("select \\d+"))
                     return RequestType.SELECT_CARD_OR_COLLECTABLE;
                 if (command.matches("move to \\(\\[\\d+], \\[\\d+]\\)") && isAnyCardSelected)
@@ -107,6 +109,7 @@ public class Request {
                     return RequestType.COMBO_ATTACK;
                 if (command.matches("use special power \\(\\d+, \\d+\\)") && isAnyCardSelected)
                     return RequestType.USE_SPECIAL_POWER;
+                //amir
                 if (command.matches("show hand"))
                     return RequestType.SHOW_HAND;
                 if (command.matches("insert \\w+ in \\(\\d+, \\d+\\)"))
@@ -115,16 +118,21 @@ public class Request {
                     return RequestType.END_TURN;
                 if (command.matches("show collectables"))
                     return RequestType.SHOW_GATHERED_COLLECTABLES;
+                //roham
                 if (command.matches("show info") && isAnyItemSelected)
                     return RequestType.SHOW_COLLECATBLE_INFO;
+                //amir
                 if (command.matches("use location \\[\\d+, \\d+]"))
                     return RequestType.USE_COLLECTABLE;
                 if (command.matches("show next card"))
                     return RequestType.SHOW_NEXT_CARD;
+                //sajad
                 if (command.matches("enter graveyard"))
                     return RequestType.ENTER_GRAVEYARD;
+                //
                 if (command.matches("show my choices"))
                     return RequestType.SHOW_MY_CHOICES;
+                //amir
                 if (command.matches("end game"))
                     return RequestType.END_GAME;
                 break;
@@ -167,7 +175,7 @@ public class Request {
             case LOGIN:
                 userName = command.split(" ")[1];
                 break;
-                /////////////////// SHOP //////////////////
+            /////////////////// SHOP //////////////////
             case SEARCH_IN_SHOP:
                 searchingName = command.substring(6).trim();
                 break;
@@ -180,7 +188,7 @@ public class Request {
             case SELL_TO_SHOP:
                 productId = Integer.parseInt(command.split(" ")[1]);
                 break;
-                /////////////////// COLLECTION /////////////////
+            /////////////////// COLLECTION /////////////////
             case CREATE_DECK:
                 deckName = command.split(" ")[2];
                 break;
@@ -204,7 +212,7 @@ public class Request {
             case SHOW_DECK:
                 deckName = command.split(" ")[2];
                 break;
-                /////////////////////// CREATING GAME /////////////////
+            /////////////////////// CREATING GAME /////////////////
             case SELECT_OPPONENT_USER:
                 userName = command.split(" ")[2];
                 break;
