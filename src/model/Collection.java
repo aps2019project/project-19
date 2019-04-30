@@ -1,6 +1,7 @@
 package model;
 
 import model.Cards.Card;
+import model.Cards.CardStatus;
 import model.Cards.Hero;
 
 import java.util.ArrayList;
@@ -62,12 +63,12 @@ public class Collection {
     }
 
     public boolean existsInDeck(String deckName, int id) {
-         if (decks.get(deckName).getCards().containsKey(id) || decks.get(deckName).getItems().containsKey(id))
-             return true;
-         return false;
+        if (decks.get(deckName).getCards().containsKey(id) || decks.get(deckName).getItems().containsKey(id))
+            return true;
+        return false;
     }
 
-    public boolean deckIsFull(String deckName, int id){
+    public boolean deckIsFull(String deckName, int id) {
         for (Card card : cards) {
             if (card.getCardId() == id && decks.get(deckName).getCards().size() >= 20)
                 return true;
@@ -75,8 +76,8 @@ public class Collection {
         return false;
     }
 
-    public boolean isHero(int id){
-        for (Card card : cards){
+    public boolean isHero(int id) {
+        for (Card card : cards) {
             if (card.getCardId() == id && card instanceof Hero)
                 return true;
         }
@@ -89,18 +90,19 @@ public class Collection {
         for (Card card : cards) {
             if (card.getCardId() == id) {
                 decks.get(deckName).getCards().put(id, card);
+                card.setCardStatus(CardStatus.IN_DECK);
                 return;
             }
         }
         for (Item item : items) {
-            if (item.getItemId() == id){
+            if (item.getItemId() == id) {
                 decks.get(deckName).getItems().put(id, item);
                 return;
             }
         }
     }
 
-    public void removeFromDeck(String deckName, int id){
+    public void removeFromDeck(String deckName, int id) {
         decks.get(deckName).getCards().remove(id);
         decks.get(deckName).getItems().remove(id);
     }

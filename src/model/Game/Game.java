@@ -26,6 +26,7 @@ public class Game {
         this.player2 = player2;
         // TODO: 2019-04-29 set date
         this.isTurnOfPlayerOne = true;
+        this.turnNumber = 1;
     }
 
     public int getLength() {
@@ -114,5 +115,20 @@ public class Game {
 
     public Date getDate() {
         return date;
+    }
+
+    public void changeTurn() {
+        Player currentPlayer;
+        if (isTurnOfPlayerOne) {
+            isTurnOfPlayerOne = false;
+            currentPlayer = player2;
+        } else {
+            isTurnOfPlayerOne = true;
+            currentPlayer = player1;
+        }
+        turnNumber++;
+        if (turnNumber <= 14) {
+            currentPlayer.increaseMana();
+        }
     }
 }

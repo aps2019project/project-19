@@ -5,17 +5,19 @@ import model.Cards.Card;
 import model.Cards.Hero;
 import model.Cards.Minion;
 import model.Cards.SpellCard;
+
 import java.util.ArrayList;
 
-public class Shop{
+public class Shop {
     private int id;
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private final static Shop SHOP = new Shop();
 
-    public static Shop getInstance(){
+    public static Shop getInstance() {
         return SHOP;
     }
+
     public ArrayList<Card> getCards() {
         return cards;
     }
@@ -60,8 +62,8 @@ public class Shop{
         return false;
     }
 
-    public boolean validateNumberOfItems(String productName, Account account){
-        for (Item item : items){
+    public boolean validateNumberOfItems(String productName, Account account) {
+        for (Item item : items) {
             if (item.getName().equals(productName))
                 if (account.getCollection().getItems().size() >= 3)
                     return false;
@@ -123,7 +125,8 @@ public class Shop{
 
     public void sellItem(int itemId) {
     }
-    private void generateNewId() {
+
+    public void generateNewId() {
         id++;
     }
 }

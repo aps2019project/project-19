@@ -139,6 +139,15 @@ public class Controller {
                 case SELECT_CARD_OR_COLLECTABLE:
                     selectCardOrItem(activePlayer);
                     break;
+                case SHOW_HAND:
+                    showHand();
+                    break;
+                case END_TURN:
+                    endTurn();
+                    break;
+                case SHOW_NEXT_CARD:
+                    showNextCard();
+                    break;
                 /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
@@ -491,6 +500,7 @@ public class Controller {
 
     public void showGameInfo() {
     }
+
     public void showMinions() {
         /// TODO: 2019-04-30 duplicate code
         if (playerOneMustShow)
@@ -498,9 +508,11 @@ public class Controller {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
-        else for (Card card : game.getPlayer2().getIntBattleCards()) {
-            if (card instanceof SoldierCard)
-                view.show(((SoldierCard) card).toBattleFormat());
+        } else {
+            for (Card card : game.getPlayer2().getIntBattleCards()) {
+                if (card instanceof SoldierCard)
+                    view.show(((SoldierCard) card).toBattleFormat());
+            }
         }
     }
 
@@ -516,9 +528,8 @@ public class Controller {
                     return;
                 }
             }
-        }
-        else for (Card card : game.getPlayer2().getIntBattleCards()) {
-            if (card.getInBattleCardId().equals(request.getInBattleCardId())){
+        } else for (Card card : game.getPlayer2().getIntBattleCards()) {
+            if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                 view.show(card.toInfoString());
                 return;
             }
@@ -543,12 +554,26 @@ public class Controller {
     }
 
     public void showHand() {
+        if (game.isTurnOfPlayerOne()) {
+            view.show(game.getPlayer1().handInfo());
+        } else {
+            view.show(game.getPlayer2().handInfo());
+        }
     }
 
     public void insertCard() {
     }
 
     public void endTurn() {
+        //todo 1.cast buff, 2.check winner
+        //1
+        //2
+        if (game.isTurnOfPlayerOne()) {
+            game.getPlayer1().moveARandomCardToHand();
+        } else {
+            game.getPlayer2().moveARandomCardToHand();
+        }
+        game.changeTurn();
     }
 
     public void showGatheredCollectables() {
@@ -564,6 +589,18 @@ public class Controller {
     }
 
     public void showNextCard() {
+        Player currentPlayer;
+        if (game.isTurnOfPlayerOne()) {
+            currentPlayer = game.getPlayer1();
+        } else {
+            currentPlayer = game.getPlayer2();
+        }
+        if (currentPlayer.getNextCardId() == 0) {
+            view.show("No More Card In Your Deck!!!\n");
+        } else {
+            int cardId = currentPlayer.getNextCardId();
+            view.show(currentPlayer.getDeckCards().getCards().get(cardId).toInfoString());
+        }
     }
 
     public void showCardInfoInGraveYard() {
