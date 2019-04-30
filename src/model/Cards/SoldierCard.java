@@ -2,10 +2,8 @@ package model.Cards;
 
 import model.Buff.Buff;
 import model.Cell;
-import model.Item;
 
 import java.util.ArrayList;
-import java.util.PrimitiveIterator;
 
 public abstract class SoldierCard extends Card {
     private int ap;
@@ -13,7 +11,7 @@ public abstract class SoldierCard extends Card {
     private Cell cell;
     private SoldierTypes type;
     private ArrayList<Buff> buffs = new ArrayList<>();
-    private Item flag;
+    boolean hasFlag;
     private int attackRange;
 
     public SoldierCard() {
@@ -80,6 +78,14 @@ public abstract class SoldierCard extends Card {
         this.attackRange = attackRange;
     }
 
+    public boolean isHasFlag() {
+        return hasFlag;
+    }
+
+    public void setHasFlag(boolean hasFlag) {
+        this.hasFlag = hasFlag;
+    }
+
     public void changeAp(int number) {
         this.ap += number;
     }
@@ -94,7 +100,7 @@ public abstract class SoldierCard extends Card {
     public void counterAttack(Card opponentCard) {
     }
 
-    public String toBattleFormat() {
+    public String toBattleFormatString() {
         return getInBattleCardId() + " : "
                 + getName() + ", "
                 + "health : " + getHp() + ", "
