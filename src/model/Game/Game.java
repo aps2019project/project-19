@@ -104,13 +104,7 @@ public class Game {
         this.cells = cells;
     }
     public Cell getCell(int x, int y){
-        for (Cell[] rowCells : cells) {
-            for (Cell cell : rowCells) {
-                if(cell.getxCoordinate() == x && cell.getyCoordinate() == y)
-                    return cell;
-            }
-        }
-        return null;
+            return cells[y-1][x-1];
     }
     public boolean coordinateIsValid(int x, int y){
         return getCell(x,y) != null;

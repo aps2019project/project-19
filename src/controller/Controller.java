@@ -1,9 +1,7 @@
 package controller;
 
 import model.*;
-import model.Cards.Card;
-import model.Cards.Hero;
-import model.Cards.SoldierCard;
+import model.Cards.*;
 import view.*;
 import model.Game.*;
 
@@ -122,6 +120,7 @@ public class Controller {
                     break;
                 ///////////////////////////////// BATTLE  ////////////////////////
                 case INSERT_CARD:
+                    insertCard();
                     break;
                 case SHOW_GAME_INFO:
                     break;
@@ -159,7 +158,7 @@ public class Controller {
                 case USE_COLLECTABLE:
                     // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
                     break;
-                    /////////////////////////////////            //////////////////////
+                /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
                     break;
@@ -546,7 +545,7 @@ public class Controller {
                 return;
             }
         }
-        errorType = ErrorType.INVLID_CARD_ID;
+        errorType = ErrorType.INVALID_CARD_ID;
     }
 
     public void selectCardOrItem(Player player) {
@@ -554,16 +553,16 @@ public class Controller {
         if(player.containsCardInBattle(id)) {
             Card card = activePlayer.getInBattleCard(id);
             activePlayer.setSelectedCard(card);
-            System.err.println(card.getName()+" "+card.getCardId()+ " selected");
-        return;
-        }
-        if(player.getItems().containsKey(id)){
-            Item item = activePlayer.getItems().get(id);
-            activePlayer.setSelectedItem(item);
-            System.err.println(item.getName()+" selected");
+            System.err.println(card.getName() + " " + card.getCardId() + " selected");
             return;
         }
-        errorType = ErrorType.INVLID_CARD_ID;
+        if (player.getItems().containsKey(id)) {
+            Item item = activePlayer.getItems().get(id);
+            activePlayer.setSelectedItem(item);
+            System.err.println(item.getName() + " selected");
+            return;
+        }
+        errorType = ErrorType.INVALID_CARD_ID;
     }
 
     public void moveCard() {
@@ -584,26 +583,62 @@ public class Controller {
     }
 
     public void showHand() {
-        // TODO: 2019-04-30 duplicate
-        if (game.isTurnOfPlayerOne()) {
-            view.show(game.getPlayer1().handInfo());
-        } else {
-            view.show(game.getPlayer2().handInfo());
-        }
+        view.show(activePlayer.handInfo());
     }
 
     public void insertCard() {
+        Player player = activePlayer;
+        Card card = player.getHandCards().get(request.getCardOrItemID());
+        // TODO: 2019-04-30 be sure it wont throw nullpointer exp
+        if (card == null) {
+            errorType = ErrorType.INVALID_CARDNAME;
+            return;
+        }
+        if (game.coordinateIsValid(request.getX(),request.getY())) {
+            errorType = ErrorType.INVALID_TARGET;
+            return;
+        }
+        Cell insertionCell = game.getCell(request.getX(),request.getY());
+        if (card instanceof SpellCard) {
+            errorType = ErrorType.SPELL_NOT_IMPLEMENTABLE;
+        }
+        else if (!isInsertionPossible(player,insertionCell)) {
+            errorType = ErrorType.INVALID_TARGET;
+        }
+        else if (player.getMana() < card.getMana()) {
+            errorType = ErrorType.NOT_ENOUGH_MANA;
+        }
+        else{
+            card.setCardStatus(CardStatus.PLACED);
+            player.getInBattleCards().put(card, insertionCell);
+            insertionCell.setCard(card);
+            player.getHandCards().remove(card.getCardId(), card);
+            view.show(card.getName() + " with " + card.getInBattleCardId() +
+                    " inserted to (" + request.getX() + ", " + request.getY() + ")\n");
+        }
     }
 
+    private boolean isInsertionPossible(Player player,Cell cell) {
+        boolean flag = false;
+        for (Cell filledCell : player.getInBattleCards().values()) {
+            if (Math.abs(cell.getxCoordinate() - filledCell.getxCoordinate()) == 1 &&
+                    Math.abs(cell.getyCoordinate() - filledCell.getyCoordinate()) == 1) {
+                flag = true;
+            }
+            if (cell.getCard()!= null) {
+                return false;
+            }
+        }
+        return flag;
+    }
+
+
     public void endTurn() {
+        Player player = activePlayer;
         //todo 1.cast buff, 2.check winner
         //1
         //2
-        if (game.isTurnOfPlayerOne()) {
-            game.getPlayer1().moveARandomCardToHand();
-        } else {
-            game.getPlayer2().moveARandomCardToHand();
-        }
+        player.moveARandomCardToHand();
         game.changeTurn();
     }
 
@@ -620,12 +655,7 @@ public class Controller {
     }
 
     public void showNextCard() {
-        Player currentPlayer;
-        if (game.isTurnOfPlayerOne()) {
-            currentPlayer = game.getPlayer1();
-        } else {
-            currentPlayer = game.getPlayer2();
-        }
+        Player currentPlayer = activePlayer;
         if (currentPlayer.getNextCardId() == 0) {
             view.show("No More Card In Your Deck!!!\n");
         } else {

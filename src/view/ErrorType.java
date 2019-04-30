@@ -19,7 +19,11 @@ public enum ErrorType {
     INVALID_OPPONENT_DECK("opponent deck is not complete"),
     INVALID_OPPONENT("oponent username is invalid"),
     CARD_NOT_SELECTED("card not selected"),
-    INVLID_CARD_ID("invalid card id");
+    INVALID_CARD_ID("invalid card id"),
+    INVALID_CARDNAME("invalid card name"),
+    INVALID_TARGET("invalid target"),
+    NOT_ENOUGH_MANA("you don't have enough mana"),
+    SPELL_NOT_IMPLEMENTABLE("spell card can't be implemented on ground");
     //    LOGGED_IN("you must logout from your account before creating new account or login into another"),
 //    NOT_LOGGED_IN("you must login to your account to");
     private String message;

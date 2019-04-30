@@ -116,7 +116,8 @@ public class Player {
 
     public String handInfo() {
         StringBuilder result = new StringBuilder();
-        for (Card card : handCards.values()) {
+        ArrayList<Card> cards = new ArrayList<>(handCards.values());
+        for (Card card : cards) {
             result.append(card.toInfoString());
             result.append("\n");
         }

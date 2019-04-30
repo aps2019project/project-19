@@ -56,7 +56,7 @@ public class CardInitializer {
                 SoldierTypes.RANGED, 7, null, null, null);
         minions.add(camandareFars);
 
-        buffs.add(new StunBuff(Kind.POSITIVE, 1, false));
+        buffs.add(new StunBuff(Kind.NEGATIVE, 1, false));
         Minion shamshirZaneFars = new Minion(102, "shamshir zane fars", 400, 2, 6, 4,
                 SoldierTypes.MELEE, 0, "stun enemy for one turn", AbilityCastTime.ON_ATTACK, buffs);
         minions.add(shamshirZaneFars);
@@ -190,31 +190,31 @@ public class CardInitializer {
 
         buffs = new ArrayList<>();
         buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0, 2));
-        buffs.add(new HolyBuff(Kind.POSITIVE, 1, false, 1));
+        buffs.add(new HolyBuff(Kind.POSITIVE, 1, true, 1));
         Minion jadoogareAzam = new Minion(126, "jadoogare azam", 550, 6, 6, 6,
                 SoldierTypes.RANGED, 5, "", AbilityCastTime.PASSIVE, buffs);
         minions.add(jadoogareAzam);
 
         buffs = new ArrayList<>();
-        buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0, 1));
+        buffs.add(new PowerBuff(Kind.POSITIVE, 1, true, 0, 1));
         Minion jen = new Minion(127, "jen", 500, 5, 4, 10,
                 SoldierTypes.RANGED, 4, "", AbilityCastTime.ON_TURN, buffs);
         minions.add(jen);
 
         buffs = new ArrayList<>();
-        buffs.add(new AntiDisArmBuff(Kind.POSITIVE, 0, true));
+        buffs.add(new AntiDisArmBuff(Kind.POSITIVE, Integer.MAX_VALUE, true));
         Minion gorazeVahshi = new Minion(128, "goraze vahshi", 500, 6, 14, 10,
                 SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_DEFEND, buffs);
         minions.add(gorazeVahshi);
 
         buffs = new ArrayList<>();
-        buffs.add(new AntiPoisonBuff(Kind.POSITIVE, 0, true));
+        buffs.add(new AntiPoisonBuff(Kind.POSITIVE, Integer.MAX_VALUE, true));
         Minion piran = new Minion(129, "piran", 400, 8, 12, 20,
                 SoldierTypes.MELEE, 0, "", AbilityCastTime.ON_DEFEND, buffs);
         minions.add(piran);
 
         buffs = new ArrayList<>();
-        buffs.add(new AntiNegativeBuff(Kind.POSITIVE, 0, true));
+        buffs.add(new AntiNegativeBuff(Kind.POSITIVE, Integer.MAX_VALUE, true));
         Minion giv = new Minion(130, "giv", 450, 4, 7, 5,
                 SoldierTypes.RANGED, 5, "", AbilityCastTime.ON_DEFEND, buffs);
         minions.add(giv);
@@ -240,43 +240,43 @@ public class CardInitializer {
         minions.add(ghooleBozorg);
 
         buffs = new ArrayList<>();
-        buff = new DispellBuff(Kind.NEGATIVE,1,false);
+        buff = new DispellBuff(Kind.NEGATIVE, 1, false);
         buffs.add(buff);
         // TODO: 2019-04-29 only positive spells must be displaced
-        Minion ghooleDoSar = new Minion(135,"goole do sar",550,4,4,10,SoldierTypes.MELEE,
-                0,"displl his target's positive spells",AbilityCastTime.ON_ATTACK,buffs);
+        Minion ghooleDoSar = new Minion(135, "goole do sar", 550, 4, 4, 10, SoldierTypes.MELEE,
+                0, "displl his target's positive spells", AbilityCastTime.ON_ATTACK, buffs);
         minions.add(ghooleDoSar);
 
         buffs = new ArrayList<>();
-        buff = new StunBuff(Kind.NEGATIVE,1,false);
+        buff = new StunBuff(Kind.NEGATIVE, 1, false);
         buffs.add(buff);
-        Minion naneSarma = new Minion(136,"nane sarma",500,3,4,3,SoldierTypes.RANGED,5,
-                "stun enemies next to him for 1 turn",AbilityCastTime.ON_SPAWN,buffs);
+        Minion naneSarma = new Minion(136, "nane sarma", 500, 3, 4, 3, SoldierTypes.RANGED, 5,
+                "stun enemies next to him for 1 turn", AbilityCastTime.ON_SPAWN, buffs);
         minions.add(naneSarma);
 
         buffs = new ArrayList<>();
-        buff = new HolyBuff(Kind.POSITIVE,0,true,1);
+        buff = new HolyBuff(Kind.POSITIVE, 1, true, 1);
         for (int i = 0; i < 12; i++) {
             buffs.add(buff);
         }
-        Minion foladZereh = new Minion(137,"folad zereh",650,3,1,1,SoldierTypes.MELEE,0,
-                "has 12 holy buff",AbilityCastTime.PASSIVE,buffs);
+        Minion foladZereh = new Minion(137, "folad zereh", 650, 3, 1, 1, SoldierTypes.MELEE, 0,
+                "has 12 holy buff", AbilityCastTime.PASSIVE, buffs);
         minions.add(foladZereh);
 
         buffs = new ArrayList<>();
-        buff = new AttackBuff(Kind.NEGATIVE,0,false,6);
+        buff = new AttackBuff(Kind.NEGATIVE, 0, false, 6);
         // TODO: 2019-04-29 target not handeled
         buffs.add(buff);
-        Minion siavash = new Minion(138,"siavash",350,4,5,8,SoldierTypes.MELEE,0
-                ,"deals 6 damage to enemy hero",AbilityCastTime.ON_DEATH,buffs);
+        Minion siavash = new Minion(138, "siavash", 350, 4, 5, 8, SoldierTypes.MELEE, 0
+                , "deals 6 damage to enemy hero", AbilityCastTime.ON_DEATH, buffs);
         minions.add(siavash);
 
-        Minion shahGhol = new Minion(139,"shah ghol",600,5,4,10,SoldierTypes.MELEE,0,
-                "can attack multiple targets",AbilityCastTime.COMBO,null);
+        Minion shahGhol = new Minion(139, "shah ghol", 600, 5, 4, 10, SoldierTypes.MELEE, 0,
+                "can attack multiple targets", AbilityCastTime.COMBO, null);
         minions.add(shahGhol);
 
-        Minion arjanghDiv = new Minion(140,"arjang div",600,3,6,6,SoldierTypes.MELEE,
-                0,"can attack multiple targets",AbilityCastTime.COMBO,null);
+        Minion arjanghDiv = new Minion(140, "arjang div", 600, 3, 6, 6, SoldierTypes.MELEE,
+                0, "can attack multiple targets", AbilityCastTime.COMBO, null);
         minions.add(arjanghDiv);
 
     }
@@ -494,7 +494,7 @@ public class CardInitializer {
         buffs = new ArrayList<>();
         buffs.add(new DisArmBuff(Kind.NEGATIVE, 1, false));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO);
-        Item camaneDamol = new Item(003,"camane damol", 30000,
+        Item camaneDamol = new Item(003, "camane damol", 30000,
                 "disarm enemy for one turn", ItemTypes.USABLE, buffs, target);
         items.add(camaneDamol);
 
