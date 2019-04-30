@@ -10,6 +10,7 @@ public abstract class Card {
     private int price;
     private int mana;
     private String description;
+    private Cell cell;
 
     public Card() {
     }
@@ -85,6 +86,14 @@ public abstract class Card {
     }
 
     public void castSpell(Card targetCard) {
+    }
+
+    public Cell getCell() {
+        return cell;
+    }
+
+    public void setCell(Cell cell) {
+        this.cell = cell;
     }
 
     public abstract String toInfoString();

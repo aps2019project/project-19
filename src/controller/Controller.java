@@ -154,7 +154,7 @@ public class Controller {
                 case USE_COLLECTABLE:
                     // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
                     break;
-                    /////////////////////////////////            //////////////////////
+                /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
                     break;
@@ -511,12 +511,12 @@ public class Controller {
     public void showMinions() {
         /// TODO: 2019-04-30 duplicate code
         if (playerOneMustShow) {
-            for (Card card : game.getPlayer1().getIntBattleCards().values()) {
+            for (Card card : game.getPlayer1().getInBattleCards().values()) {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
         } else {
-            for (Card card : game.getPlayer2().getIntBattleCards().values()) {
+            for (Card card : game.getPlayer2().getInBattleCards().values()) {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
@@ -529,13 +529,13 @@ public class Controller {
     public void showCardInfoInBattle() {
         // TODO: 2019-04-30 duplicate code
         if (game.isTurnOfPlayerOne()) {
-            for (Card card : game.getPlayer1().getIntBattleCards().values()) {
+            for (Card card : game.getPlayer1().getInBattleCards().values()) {
                 if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                     view.show(card.toInfoString());
                     return;
                 }
             }
-        } else for (Card card : game.getPlayer2().getIntBattleCards().values()) {
+        } else for (Card card : game.getPlayer2().getInBattleCards().values()) {
             if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                 view.show(card.toInfoString());
                 return;
@@ -546,16 +546,16 @@ public class Controller {
 
     public void selectCardOrItem(Player player) {
         int id = request.getCardOrItemID();
-        if(player.getIntBattleCards().containsKey(id)) {
-            Card card = activePlayer.getIntBattleCards().get(id);
+        if (player.getInBattleCards().containsKey(id)) {
+            Card card = activePlayer.getInBattleCards().get(id);
             activePlayer.setSelectedCard(card);
-            System.err.println(card.getName()+" "+card.getCardId()+ " selected");
-        return;
+            System.err.println(card.getName() + " " + card.getCardId() + " selected");
+            return;
         }
-        if(player.getItems().containsKey(id)){
+        if (player.getItems().containsKey(id)) {
             Item item = activePlayer.getItems().get(id);
             activePlayer.setSelectedItem(item);
-            System.err.println(item.getName()+" selected");
+            System.err.println(item.getName() + " selected");
             return;
         }
         errorType = ErrorType.INVLID_CARD_ID;
@@ -574,13 +574,12 @@ public class Controller {
     }
 
     public void showHand() {
-        Player player = currentPlayer();
-        view.show(player.handInfo());
+        view.show(activePlayer.handInfo());
     }
 
     public void insertCard() {
-        Player player = currentPlayer();
-        Card card = player.getHandCards().get(request.getCardName());
+        Player player = activePlayer;
+        Card card = player.getHandCards().get(request.getCardOrItemID());
         if (card == null) {
             errorType = ErrorType.INVALID_CARDNAME;
         } else if (card instanceof SpellCard) {
@@ -593,8 +592,8 @@ public class Controller {
             errorType = ErrorType.NOT_ENOUGH_MANA;
         } else {
             card.setCardStatus(CardStatus.PLACED);
-            player.getInBattleCards().add((SoldierCard) card);
-            player.getHandCards().remove(card.getName(), card);
+            player.getInBattleCards().put(card.getCardId(), card);
+            player.getHandCards().remove(card.getCardId(), card);
             ((SoldierCard) card).setCell(game.getCells()[request.getX()][request.getY()]);
             //todo should we add card to cell field????
             view.show(card.getName() + " with " + card.getInBattleCardId() +
@@ -604,7 +603,7 @@ public class Controller {
 
     private boolean isImplementationPossible(Player player) {
         boolean flag = false;
-        for (SoldierCard inBattleCard : player.getInBattleCards()) {
+        for (Card inBattleCard : player.getInBattleCards().values()) {
             if (Math.abs(request.getX() - inBattleCard.getCell().getxCoordinate()) == 1 &&
                     Math.abs(request.getY() - inBattleCard.getCell().getyCoordinate()) == 1) {
                 flag = true;
@@ -622,19 +621,12 @@ public class Controller {
     }
 
     public void endTurn() {
-        Player player = currentPlayer();
+        Player player = activePlayer;
         //todo 1.cast buff, 2.check winner
         //1
         //2
         player.moveARandomCardToHand();
         game.changeTurn();
-    }
-
-    public Player currentPlayer() {
-        if (game.isTurnOfPlayerOne()) {
-            return game.getPlayer1();
-        }
-        return game.getPlayer2();
     }
 
     public void showGatheredCollectables() {
@@ -650,7 +642,7 @@ public class Controller {
     }
 
     public void showNextCard() {
-        Player currentPlayer = currentPlayer();
+        Player currentPlayer = activePlayer;
         if (currentPlayer.getNextCardId() == 0) {
             view.show("No More Card In Your Deck!!!\n");
         } else {
