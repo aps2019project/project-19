@@ -128,6 +128,12 @@ public class Controller {
                 case SHOW_CARD_INFO_IN_BATTLE:
                     showCardInfoInBattle();
                     break;
+                case SHOW_HAND:
+                    showHand();
+                    break;
+                case END_TURN:
+                    endTurn();
+                    break;
                 /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
@@ -473,14 +479,16 @@ public class Controller {
     }
 
     public void showMinions() {
-        if (playerOneMustShow)
+        if (playerOneMustShow) {
             for (Card card : game.getPlayer1().getIntBattleCards()) {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
-        else for (Card card : game.getPlayer2().getIntBattleCards()) {
-            if (card instanceof SoldierCard)
-                view.show(((SoldierCard) card).toBattleFormat());
+        } else {
+            for (Card card : game.getPlayer2().getIntBattleCards()) {
+                if (card instanceof SoldierCard)
+                    view.show(((SoldierCard) card).toBattleFormat());
+            }
         }
     }
 
@@ -488,16 +496,15 @@ public class Controller {
     }
 
     public void showCardInfoInBattle() {
-        if (game.isTurnOfPlayerOne()){
+        if (game.isTurnOfPlayerOne()) {
             for (Card card : game.getPlayer1().getIntBattleCards()) {
                 if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                     view.show(card.toInfoString());
                     return;
                 }
             }
-        }
-        else for (Card card : game.getPlayer2().getIntBattleCards()) {
-            if (card.getInBattleCardId().equals(request.getInBattleCardId())){
+        } else for (Card card : game.getPlayer2().getIntBattleCards()) {
+            if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                 view.show(card.toInfoString());
                 return;
             }
@@ -521,12 +528,26 @@ public class Controller {
     }
 
     public void showHand() {
+        if (game.isTurnOfPlayerOne()) {
+            view.show(game.getPlayer1().handInfo());
+        } else {
+            view.show(game.getPlayer2().handInfo());
+        }
     }
 
     public void insertCard() {
     }
 
     public void endTurn() {
+        //todo 1.cast buff, 2.check winner
+        //1
+        //2
+        if (game.isTurnOfPlayerOne()) {
+            game.getPlayer1().moveARandomCardToHand();
+        } else {
+            game.getPlayer2().moveARandomCardToHand();
+        }
+        game.changeTurn();
     }
 
     public void showGatheredCollectables() {

@@ -111,7 +111,7 @@ public class Request {
                 if (command.matches("use special power \\(\\d+, \\d+\\)") && isAnyCardSelected)
                     return RequestType.USE_SPECIAL_POWER;
                 //amir
-                if (command.matches("show hand"))
+                if (command.matches("show hand"))//done
                     return RequestType.SHOW_HAND;
                 if (command.matches("insert \\w+ in \\(\\d+, \\d+\\)"))
                     return RequestType.INSERT_CARD;
@@ -229,7 +229,7 @@ public class Request {
     }
 
     private void parseSelectMode() {
-        if(command.substring(22).trim().equals("death match")){
+        if (command.substring(22).trim().equals("death match")) {
             gameMode = GameMode.DEATH_MATCH;
             return;
         }
@@ -239,7 +239,7 @@ public class Request {
         }
         if (command.substring(22).trim().matches("keep the flag \\d+")) {
             gameMode = GameMode.KEEP_THE_FLAG;
-            numOfFlags =Integer.parseInt(command.split(" ")[6]);
+            numOfFlags = Integer.parseInt(command.split(" ")[6]);
             return;
         }
         errorType = ErrorType.INVALID_COMMAND;

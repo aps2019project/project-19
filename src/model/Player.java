@@ -1,8 +1,9 @@
 package model;
 
-import model.Cards.Card;
+import model.Cards.*;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
     private int mana;
@@ -12,6 +13,7 @@ public class Player {
     private ArrayList<Card> intBattleCards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private int selectedCardId;
+    private int nextCardId;
 
     public Player(Account account, Deck deckCards) {
         this.account = account;
@@ -63,10 +65,52 @@ public class Player {
         return items;
     }
 
-//    public boolean cardExistsInHand(int cardId){}
+    public void setNextCardId(int nextCardId) {
+        this.nextCardId = nextCardId;
+    }
+
+    public int getNextCardId() {
+        return nextCardId;
+    }
+
+    public void increaseMana() {
+        this.mana++;
+    }
+    //    public boolean cardExistsInHand(int cardId){}
 //
 //    public boolean myCardIsOnGround(String inBattleCardId){}
 
     public void select(String inBattleCardId) {
+    }
+
+    public String handInfo() {
+        StringBuilder result = new StringBuilder();
+        for (Card card : handCards) {
+            result.append(card.toInfoString());
+            result.append("\n");
+        }
+        result.append("next card is :\n");
+        result.append(deckCards.getCards().get(nextCardId));
+        result.append("\n");
+        return result.toString();
+    }
+
+    public void moveARandomCardToHand() {
+        if (handCards.size() < 5) {
+            Random random = new Random();
+            ArrayList<Card> cards = new ArrayList<>(deckCards.getCards().values());
+            int rand = random.nextInt(cards.size());
+            Card card = cards.get(rand);
+            Shop.generateNewId();
+            if (card instanceof Minion) {
+                Minion card1 = new Minion((Minion) card);
+                card1.setCardId(Shop.getId());
+                handCards.add(card1);
+            } else if (card instanceof SpellCard) {
+                SpellCard card1 = new SpellCard((SpellCard) card);
+                card1.setCardId(Shop.getId());
+                handCards.add(card1);
+            }
+        }
     }
 }
