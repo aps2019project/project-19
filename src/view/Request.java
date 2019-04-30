@@ -1,9 +1,12 @@
 package view;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import controller.MenuType;
 import model.Game.GameMode;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Request {
     private static Scanner scanner = new Scanner(System.in);
@@ -23,6 +26,8 @@ public class Request {
     private int itemID;
     private GameMode gameMode;
     private int numOfFlags;
+    private int destinationX;
+    private int destinationY;
 
     public void getNewCommand() {
         do {
@@ -100,7 +105,7 @@ public class Request {
                 //sajad
                 if (command.matches("select \\d+"))
                     return RequestType.SELECT_CARD_OR_COLLECTABLE;
-                if (command.matches("move to \\(\\[\\d+], \\[\\d+]\\)"))
+                if (command.matches("move to \\(\\[(?<X>\\d+)], \\[(?<Y>\\d+)]\\)"))
                     return RequestType.MOVE_CARD;
                 if (command.matches("attack \\d+"))
                     return RequestType.ATTACK;
@@ -228,6 +233,8 @@ public class Request {
             case SELECT_CARD_OR_COLLECTABLE:
                 cardOrItemID = Integer.parseInt(command.split(" ")[1]);
                 break;
+            case MOVE_CARD:
+                parseMoveCard();
         }
     }
 
@@ -254,7 +261,6 @@ public class Request {
         else searchingName = command.substring(6).trim();
     }
 
-
     public void parseEnterMenu() {
         String enteringMenuName = command.substring(5).trim();
         if ((enteringMenuName).equals("battle"))
@@ -273,81 +279,12 @@ public class Request {
             enteringMenu = MenuType.SINGLE_GAME_STORY_MODE;
     }
 
-    public void checkSyntaxOfShow() {
-    }
-
-
-    public void checkSyntaxOfSearchInCollection() {
-    }
-
-
-    public void checkSyntaxOfCreateDeck() {
-    }
-
-
-    public void checkSyntaxOfDeleteDeck() {
-    }
-
-    public void checkSyntaxOfAddToDeck() {
-    }
-
-
-    public void checkSyntaxOfRemoveCardFromDeck() {
-    }
-
-
-    public void checkSyntaxOfValidateDeck() {
-    }
-
-
-    public void checkSyntaxOfSelectMainDeck() {
-    }
-
-
-    public void checkSyntaxOfShowDeck() {
-    }
-
-    public void checkSyntaxOfBuyFromShop() {
-    }
-
-
-    public void checkSyntaxOfSellToShop() {
-    }
-
-
-    public void checkSyntaxOfShowCardInfoInBattle() {
-    }
-
-
-    public void checkSyntaxOfSelectCard() {
-    }
-
-
-    public void checkSyntaxOfMoveCard() {
-    }
-
-
-    public void checkSyntaxOfAttack() {
-    }
-
-
-    public void checkSyntaxOfComboAttack() {
-    }
-
-
-    public void checkSyntaxOfInsertCard() {
-    }
-
-
-    public void checkSyntaxOfSelectCollectable() {
-    }
-
-
-    public void checkSyntaxOfUseCollectable() {
-    }
-
-
-    public void checkSyntaxOfCardInfoInGraveYard() {
+    public void parseMoveCard(){
+        Pattern pattern = Pattern.compile("move to \\(\\[(?<X>\\d+)], \\[(?<Y>\\d+)]\\)");
+        Matcher matcher = pattern.matcher(command);
+        matcher.matches();
+        destinationX = Integer.parseInt(matcher.group("X"));
+        destinationY = Integer.parseInt(matcher.group("Y"));
     }
 
     public void setRequestType(MenuType menuType) {
@@ -462,6 +399,21 @@ public class Request {
         this.numOfFlags = numOfFlags;
     }
 
+    public int getDestinationX() {
+        return destinationX;
+    }
+
+    public void setDestinationX(int destinationX) {
+        this.destinationX = destinationX;
+    }
+
+    public int getDestinationY() {
+        return destinationY;
+    }
+
+    public void setDestinationY(int destinationY) {
+        this.destinationY = destinationY;
+    }
 }
 
 

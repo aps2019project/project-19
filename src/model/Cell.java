@@ -10,6 +10,11 @@ public class Cell {
     private Card card;
     private Buff buff;
 
+    public Cell(int xCoordinate, int yCoordinate) {
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
+    }
+
     public int getxCoordinate() {
         return xCoordinate;
     }

@@ -12,7 +12,7 @@ public class Player {
     private Account account;
     private Deck deckCards;
     private HashMap<Integer,Card> handCards = new HashMap<>();
-    private HashMap<Integer,Card> intBattleCards = new HashMap<>();
+    private HashMap<Card,Cell> inBattleCards = new HashMap<>();
     private HashMap<Integer,Item> items = new HashMap<>();
     private Card selectedCard;
     private Item selectedItem;
@@ -64,8 +64,8 @@ public class Player {
         return handCards;
     }
 
-    public HashMap<Integer,Card> getIntBattleCards() {
-        return intBattleCards;
+    public HashMap<Card,Cell> getInBattleCards() {
+        return inBattleCards;
     }
 
     public HashMap<Integer,Item> getItems() {
@@ -98,8 +98,8 @@ public class Player {
         this.handCards = handCards;
     }
 
-    public void setIntBattleCards(HashMap<Integer, Card> intBattleCards) {
-        this.intBattleCards = intBattleCards;
+    public void setInBattleCards(HashMap<Card, Cell> inBattleCards) {
+        this.inBattleCards = inBattleCards;
     }
 
     public void setItems(HashMap<Integer,Item> items) {
@@ -135,5 +135,15 @@ public class Player {
             card.setCardStatus(CardStatus.IN_HAND);
             handCards.put(card.getCardId(),card);
         }
+    }
+    public boolean containsCardInBattle(int cardId){
+        return getInBattleCard(cardId) != null;
+    }
+    public Card getInBattleCard(int cardId){
+        for (Card card : getInBattleCards().keySet()) {
+            if(card.getCardId() == cardId)
+                return card;
+        }
+        return null;
     }
 }

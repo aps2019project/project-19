@@ -11,6 +11,13 @@ public class Game {
     private final int length = 9;
     private final int width = 5;
     private Cell[][] cells = new Cell[width][length];
+    {
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                cells[i][j] = new Cell(i+1,j+1);
+            }
+        }
+    }
     private ArrayList<Item> items = new ArrayList<>();
     private int numOfFlags;
     private Player player1;
@@ -96,7 +103,18 @@ public class Game {
     public void setCells(Cell[][] cells) {
         this.cells = cells;
     }
-
+    public Cell getCell(int x, int y){
+        for (Cell[] rowCells : cells) {
+            for (Cell cell : rowCells) {
+                if(cell.getxCoordinate() == x && cell.getyCoordinate() == y)
+                    return cell;
+            }
+        }
+        return null;
+    }
+    public boolean coordinateIsValid(int x, int y){
+        return getCell(x,y) != null;
+    }
     public void setItems(ArrayList<Item> items) {
         this.items = items;
     }

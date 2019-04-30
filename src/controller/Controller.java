@@ -140,6 +140,10 @@ public class Controller {
                     selectCardOrItem(activePlayer);
                     // TODO: 2019-04-30 test
                     break;
+                case MOVE_CARD:
+                    moveCard();
+                    break;
+                // TODO: 2019-04-30 test
                 case SHOW_HAND:
                     showHand();
                     break;
@@ -512,12 +516,12 @@ public class Controller {
     public void showMinions() {
         /// TODO: 2019-04-30 duplicate code
         if (playerOneMustShow) {
-            for (Card card : game.getPlayer1().getIntBattleCards().values()) {
+            for (Card card : game.getPlayer1().getInBattleCards().keySet()) {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
         } else {
-            for (Card card : game.getPlayer2().getIntBattleCards().values()) {
+            for (Card card : game.getPlayer2().getInBattleCards().keySet()) {
                 if (card instanceof SoldierCard)
                     view.show(((SoldierCard) card).toBattleFormat());
             }
@@ -530,13 +534,13 @@ public class Controller {
     public void showCardInfoInBattle() {
         // TODO: 2019-04-30 duplicate code
         if (game.isTurnOfPlayerOne()) {
-            for (Card card : game.getPlayer1().getIntBattleCards().values()) {
+            for (Card card : game.getPlayer1().getInBattleCards().keySet()) {
                 if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                     view.show(card.toInfoString());
                     return;
                 }
             }
-        } else for (Card card : game.getPlayer2().getIntBattleCards().values()) {
+        } else for (Card card : game.getPlayer2().getInBattleCards().keySet()) {
             if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                 view.show(card.toInfoString());
                 return;
@@ -547,8 +551,8 @@ public class Controller {
 
     public void selectCardOrItem(Player player) {
         int id = request.getCardOrItemID();
-        if(player.getIntBattleCards().containsKey(id)) {
-            Card card = activePlayer.getIntBattleCards().get(id);
+        if(player.containsCardInBattle(id)) {
+            Card card = activePlayer.getInBattleCard(id);
             activePlayer.setSelectedCard(card);
             System.err.println(card.getName()+" "+card.getCardId()+ " selected");
         return;
@@ -563,6 +567,11 @@ public class Controller {
     }
 
     public void moveCard() {
+        if (!activePlayer.isAnyCardSelected()){
+            errorType = ErrorType.CARD_NOT_SELECTED;
+            return;
+        }
+        Card card = activePlayer.getSelectedCard();
     }
 
     public void attack() {

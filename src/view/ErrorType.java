@@ -18,6 +18,7 @@ public enum ErrorType {
     WRONG_MODE("wrong mode"),
     INVALID_OPPONENT_DECK("opponent deck is not complete"),
     INVALID_OPPONENT("oponent username is invalid"),
+    CARD_NOT_SELECTED("card not selected"),
     INVLID_CARD_ID("invalid card id");
     //    LOGGED_IN("you must logout from your account before creating new account or login into another"),
 //    NOT_LOGGED_IN("you must login to your account to");
