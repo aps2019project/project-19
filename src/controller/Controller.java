@@ -109,6 +109,10 @@ public class Controller {
                     // TODO: 2019-04-29 test
                     break;
                 case SELECT_MODE:
+                    break;
+                    ///////////////////////////////// BATTLE  ////////////////////////
+                case INSERT_CARD:
+                    break;
                     /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
