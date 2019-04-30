@@ -22,7 +22,8 @@ public enum ErrorType {
     INVALID_CARDNAME("invalid card name"),
     INVALID_TARGET("invalid target"),
     NOT_ENOUGH_MANA("you don't have enough mana"),
-    SPELL_NOT_IMPLEMENTABLE("spell card can't be implemented on ground");
+    SPELL_NOT_IMPLEMENTABLE("spell card can't be implemented on ground"),
+    GAME_IS_NOT_OVER("game is not over");
     //    LOGGED_IN("you must logout from your account before creating new account or login into another"),
 //    NOT_LOGGED_IN("you must login to your account to");
     private String message;

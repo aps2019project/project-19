@@ -154,6 +154,13 @@ public class Controller {
                 case USE_COLLECTABLE:
                     // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
                     break;
+                case SHOW_GATHERED_COLLECTABLES:
+                    //todo what to do????
+                    showGatheredCollectables();
+                    break;
+                case END_GAME:
+                    endGame();
+                    break;
                 /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
@@ -655,6 +662,9 @@ public class Controller {
     }
 
     public void endGame() {
+        if (game.getWinnerPlayer() != null)
+            menuType = MenuType.MAINMENU;
+        errorType = ErrorType.GAME_IS_NOT_OVER;
     }
 
     public void showMenuOptions() {
