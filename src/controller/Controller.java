@@ -106,9 +106,9 @@ public class Controller {
                     break;
                 case SELECT_OPPONENT_USER:
                     createGame();
-                    // TODO: 2019-04-29 test
                     break;
                 case SELECT_MODE:
+                    // TODO: 2019-04-29 check user must be selected before
                     break;
                     ///////////////////////////////// BATTLE  ////////////////////////
                 case INSERT_CARD:

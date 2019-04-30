@@ -1,6 +1,7 @@
 package view;
 
 import controller.MenuType;
+import model.Game.GameMode;
 
 import java.util.Scanner;
 
@@ -19,6 +20,8 @@ public class Request {
     private MenuType enteringMenu;
     private int cardOrItemID;
     private int itemID;
+    private GameMode gameMode;
+    private int numOfFlags;
     private static boolean isAnyCardSelected;
     private static boolean isAnyItemSelected;
 
@@ -204,16 +207,30 @@ public class Request {
                 /////////////////////// CREATING GAME /////////////////
             case SELECT_OPPONENT_USER:
                 userName = command.split(" ")[2];
+                break;
+            case SELECT_MODE:
+                parseSelectMode();
             case ENTER_MENU:
                 parseEnterMenu();
                 break;
         }
     }
 
-    private void parseSearchInCollection(MenuType menuType) {
-        if (menuType == MenuType.SHOP)
-            searchingName = command.split(" ")[2];
-        else searchingName = command.split(" ")[1];
+    private void parseSelectMode() {
+        if(command.substring(22).trim().equals("death match")){
+            gameMode = GameMode.DEATH_MATCH;
+            return;
+        }
+        if (command.substring(22).trim().matches("capture the flag")) {
+            gameMode = GameMode.CAPTURE_THE_FLAGS;
+            return;
+        }
+        if (command.substring(22).trim().matches("keep the flag \\d+")) {
+            gameMode = GameMode.KEEP_THE_FLAG;
+            numOfFlags =Integer.parseInt(command.split(" ")[6]);
+            return;
+        }
+        errorType = ErrorType.INVALID_COMMAND;
     }
 
     private void parseSearchInCollection() {
