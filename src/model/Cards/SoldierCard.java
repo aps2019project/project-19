@@ -10,7 +10,7 @@ public abstract class SoldierCard extends Card {
     private int hp;
     private SoldierTypes type;
     private ArrayList<Buff> buffs = new ArrayList<>();
-    boolean hasFlag;
+    private int flagNumber;
     private int attackRange;
 
     public SoldierCard() {
@@ -69,12 +69,12 @@ public abstract class SoldierCard extends Card {
         this.attackRange = attackRange;
     }
 
-    public boolean isHasFlag() {
-        return hasFlag;
+    public int getFlagNumber() {
+        return flagNumber;
     }
 
-    public void setHasFlag(boolean hasFlag) {
-        this.hasFlag = hasFlag;
+    public void setFlagNumber(int flagNumber) {
+        this.flagNumber = flagNumber;
     }
 
     public void changeAp(int number) {
@@ -91,7 +91,7 @@ public abstract class SoldierCard extends Card {
     public void counterAttack(Card opponentCard) {
     }
 
-    public String toBattleFormat(int x,int y) {
+    public String toBattleFormat(int x, int y) {
         return getInBattleCardId() + " : "
                 + getName() + ", "
                 + "health : " + getHp() + ", "

@@ -1,18 +1,18 @@
 package model.Game;
 
-import model.Cards.Card;
+import model.Cards.*;
 import model.Cell;
 import model.Item;
 import model.Player;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Game {
     private final int length = 9;
     private final int width = 5;
     private Cell[][] cells = new Cell[width][length];
-
     {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
@@ -166,4 +166,24 @@ public class Game {
         player2.getInBattleCards().put(hero2, cell2);
 
     }
+
+    public String toStringDeathMatchMode() {
+        StringBuilder toString = new StringBuilder();
+        toString.append("player one hero's health: ");
+        for (Card card : player1.getInBattleCards().keySet()) {
+            if (card instanceof Hero) {
+                toString.append(((Hero) card).getHp());
+                break;
+            }
+        }
+        toString.append("player two hero's health: ");
+        for (Card card : player2.getInBattleCards().keySet()) {
+            if (card instanceof Hero) {
+                toString.append(((Hero) card).getHp());
+                break;
+            }
+        }
+        return toString.toString();
+    }
+
 }

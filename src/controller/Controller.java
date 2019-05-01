@@ -24,7 +24,6 @@ public class Controller {
     private Request request;
     private Account loggedInAccount;
     private Game game;
-    private boolean playerOneMustShow;
     private Player activePlayer;
     private ErrorType errorType = null;
     private View view = View.getInstance();
@@ -129,11 +128,12 @@ public class Controller {
                     showGameInfo();
                     break;
                 case SHOW_MY_MINIONS:
-                    playerOneMustShow = game.isTurnOfPlayerOne();
                     showMinions();
                     break;
                 case SHOW_OPPONENT_MINIONS:
-                    playerOneMustShow = !game.isTurnOfPlayerOne();
+                    if (game.isTurnOfPlayerOne())
+                        activePlayer = game.getPlayer2();
+                    else activePlayer  = game.getPlayer1();
                     showMinions();
                     break;
                 case SHOW_CARD_INFO_IN_BATTLE:
@@ -552,15 +552,7 @@ public class Controller {
     }
 
     public void showCardInfoInBattle() {
-        // TODO: 2019-04-30 duplicate code
-        if (game.isTurnOfPlayerOne()) {
-            for (Card card : game.getPlayer1().getInBattleCards().keySet()) {
-                if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
-                    view.show(card.toInfoString());
-                    return;
-                }
-            }
-        } else for (Card card : game.getPlayer2().getInBattleCards().keySet()) {
+        for (Card card : activePlayer.getInBattleCards().keySet()) {
             if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                 view.show(card.toInfoString());
                 return;
