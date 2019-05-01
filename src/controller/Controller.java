@@ -75,7 +75,6 @@ public class Controller {
                 //////////////////////////// COLLECTION /////////////////////////
                 case SHOW_COLLECTION_ITEMS:
                     showCollectionItems();
-                    // todo: showCollection
                     break;
                 case SAVE_COLLECTION:
                     saveCollection();
@@ -123,6 +122,7 @@ public class Controller {
                     insertCard();
                     break;
                 case SHOW_GAME_INFO:
+                    showGameInfo();
                     break;
                 case SHOW_MY_MINIONS:
                     playerOneMustShow = game.isTurnOfPlayerOne();
@@ -482,7 +482,6 @@ public class Controller {
             shop.sell(request.getProductId(), loggedInAccount);
             view.show("Successful sale");
         }
-        // TODO: 2019-04-27 must remove card from decks
     }
 
     public void showShop() {

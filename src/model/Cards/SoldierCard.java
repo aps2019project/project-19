@@ -2,17 +2,15 @@ package model.Cards;
 
 import model.Buff.Buff;
 import model.Cell;
-import model.Item;
 
 import java.util.ArrayList;
-import java.util.PrimitiveIterator;
 
 public abstract class SoldierCard extends Card {
     private int ap;
     private int hp;
     private SoldierTypes type;
     private ArrayList<Buff> buffs = new ArrayList<>();
-    private Item flag;
+    boolean hasFlag;
     private int attackRange;
 
     public SoldierCard() {
@@ -69,6 +67,14 @@ public abstract class SoldierCard extends Card {
 
     public void setAttackRange(int attackRange) {
         this.attackRange = attackRange;
+    }
+
+    public boolean isHasFlag() {
+        return hasFlag;
+    }
+
+    public void setHasFlag(boolean hasFlag) {
+        this.hasFlag = hasFlag;
     }
 
     public void changeAp(int number) {

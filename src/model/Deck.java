@@ -67,4 +67,12 @@ public class Deck {
         }
         return toString.toString();
     }
+
+    public Hero getHero(){
+        for (Card card : cards.values()) {
+            if (card instanceof Hero)
+                return ((Hero) card);
+        }
+        return null;
+    }
 }
