@@ -133,7 +133,7 @@ public class Controller {
                 case SHOW_OPPONENT_MINIONS:
                     if (game.isTurnOfPlayerOne())
                         activePlayer = game.getPlayer2();
-                    else activePlayer  = game.getPlayer1();
+                    else activePlayer = game.getPlayer1();
                     showMinions();
                     break;
                 case SHOW_CARD_INFO_IN_BATTLE:
@@ -157,7 +157,7 @@ public class Controller {
                     showNextCard();
                     break;
                 case SHOW_COLLECATBLE_INFO:
-                    // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
+                    showCollectableInfo();
                     break;
                 case USE_COLLECTABLE:
                     // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
@@ -226,8 +226,8 @@ public class Controller {
             case CAPTURE_THE_FLAGS:
                 break;
         }
-        game.setHeroes(game.getPlayer1(),game.getCell(1,3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
-        game.setHeroes(game.getPlayer2(),game.getCell(9,3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
+        game.setHeroes(game.getPlayer1(), game.getCell(1, 3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
+        game.setHeroes(game.getPlayer2(), game.getCell(9, 3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
         game.getPlayer1().setFirstHand();
         game.getPlayer2().setFirstHand();
         menuType = MenuType.BATTLE;
@@ -538,6 +538,12 @@ public class Controller {
     }
 
     public void showGameInfo() {
+        if (game.getGameMode().equals(GameMode.DEATH_MATCH))
+            view.show(game.toStringDeathMatchMode());
+        else if (game.getGameMode().equals(GameMode.KEEP_THE_FLAG))
+            view.show(game.toStringKeepFlag());
+        else view.show(game.toStringCaptureFlags());
+
     }
 
     public void showMinions() {
@@ -639,6 +645,7 @@ public class Controller {
             insertionCell.setCard(card);
             player.getHandCards().remove(card.getCardId(), card);
             card.setInBattleCardId(generateInBattleCardId(card));
+            player.decreaseMana(card.getMana());
             view.show(card.getName() + " with " + card.getInBattleCardId() +
                     " inserted to (" + request.getX() + ", " + request.getY() + ")");
         }
@@ -701,6 +708,9 @@ public class Controller {
     }
 
     public void showCollectableInfo() {
+        if (activePlayer.getSelectedItem() != null)
+            view.show(activePlayer.getSelectedItem().toString());
+        else errorType =  ErrorType.NO_ITEM_SELECTED;
     }
 
     public void useCollectable() {

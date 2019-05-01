@@ -76,7 +76,8 @@ public class View {
                 break;
             case MULTI_GAME_MENU:
                 System.out.println("1. Show Players\n2. select user [user name]\n" +
-                        "2.1 start multiplayer game [Death Match|Capture The Flag|Keep The Flag] [number Of Flags In Keep The Flag Mode]\n" +
+                        "2.1 start multiplayer game [Death Match|Capture The Flag|Keep The Flag] " +
+                        "[number Of Flags In Keep The Flag Mode]\n" +
                         "3.Help \n4. Exit");
                 break;
         }
