@@ -20,8 +20,8 @@ public class Deck {
     }
     public Deck (Deck deck){
         this.name = deck.name;
-        this.cards = new HashMap<>(cards);
-        this.items = new HashMap<>(items);
+        this.cards = new HashMap<>(deck.cards);
+        this.items = new HashMap<>(deck.items);
     }
     public boolean deckHasHero(){
         ArrayList<Card> cards = new ArrayList<>(this.getCards().values());
