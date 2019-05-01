@@ -9,7 +9,7 @@ public class Cell {
     private Item item;
     private Card card;
     private Buff buff;
-    private boolean hasFlag;
+    private int flagNumber;
 
     public Cell(int xCoordinate, int yCoordinate) {
         this.xCoordinate = xCoordinate;
@@ -56,11 +56,11 @@ public class Cell {
         this.buff = buff;
     }
 
-    public boolean isHasFlag() {
-        return hasFlag;
+    public int getFlagNumber() {
+        return flagNumber;
     }
 
-    public void setHasFlag(boolean hasFlag) {
-        this.hasFlag = hasFlag;
+    public void setFlagNumber(int flagNumber) {
+        this.flagNumber = flagNumber;
     }
 }

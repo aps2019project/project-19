@@ -20,7 +20,6 @@ public class Controller {
     private Request request;
     private Account loggedInAccount;
     private Game game;
-    private boolean playerOneMustShow;
     private Player activePlayer;
     private ErrorType errorType = null;
     private View view = View.getInstance();
@@ -125,11 +124,12 @@ public class Controller {
                     showGameInfo();
                     break;
                 case SHOW_MY_MINIONS:
-                    playerOneMustShow = game.isTurnOfPlayerOne();
                     showMinions();
                     break;
                 case SHOW_OPPONENT_MINIONS:
-                    playerOneMustShow = !game.isTurnOfPlayerOne();
+                    if (game.isTurnOfPlayerOne())
+                        activePlayer = game.getPlayer2();
+                    else activePlayer  = game.getPlayer1();
                     showMinions();
                     break;
                 case SHOW_CARD_INFO_IN_BATTLE:
@@ -519,27 +519,19 @@ public class Controller {
     }
 
     public void showMinions() {
-            for (Card card : activePlayer.getInBattleCards().keySet()) {
-                if (card instanceof SoldierCard) {
-                    Cell cell = activePlayer.getInBattleCards().get(card);
-                    view.show(((SoldierCard) card).toBattleFormat(cell.getxCoordinate(),cell.getyCoordinate()));
-                }
+        for (Card card : activePlayer.getInBattleCards().keySet()) {
+            if (card instanceof SoldierCard) {
+                Cell cell = activePlayer.getInBattleCards().get(card);
+                view.show(((SoldierCard) card).toBattleFormat(cell.getxCoordinate(), cell.getyCoordinate()));
             }
+        }
     }
 
     public void showOpponentMinions() {
     }
 
     public void showCardInfoInBattle() {
-        // TODO: 2019-04-30 duplicate code
-        if (game.isTurnOfPlayerOne()) {
-            for (Card card : game.getPlayer1().getInBattleCards().keySet()) {
-                if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
-                    view.show(card.toInfoString());
-                    return;
-                }
-            }
-        } else for (Card card : game.getPlayer2().getInBattleCards().keySet()) {
+        for (Card card : activePlayer.getInBattleCards().keySet()) {
             if (card.getInBattleCardId().equals(request.getInBattleCardId())) {
                 view.show(card.toInfoString());
                 return;
@@ -550,7 +542,7 @@ public class Controller {
 
     public void selectCardOrItem(Player player) {
         int id = request.getCardOrItemID();
-        if(player.containsCardInBattle(id)) {
+        if (player.containsCardInBattle(id)) {
             Card card = activePlayer.getInBattleCard(id);
             activePlayer.setSelectedCard(card);
             System.err.println(card.getName() + " " + card.getCardId() + " selected");
@@ -566,7 +558,7 @@ public class Controller {
     }
 
     public void moveCard() {
-        if (!activePlayer.isAnyCardSelected()){
+        if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
         }
@@ -594,21 +586,18 @@ public class Controller {
             errorType = ErrorType.INVALID_CARDNAME;
             return;
         }
-        if (game.coordinateIsValid(request.getX(),request.getY())) {
+        if (game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
-        Cell insertionCell = game.getCell(request.getX(),request.getY());
+        Cell insertionCell = game.getCell(request.getX(), request.getY());
         if (card instanceof SpellCard) {
             errorType = ErrorType.SPELL_NOT_IMPLEMENTABLE;
-        }
-        else if (!isInsertionPossible(player,insertionCell)) {
+        } else if (!isInsertionPossible(player, insertionCell)) {
             errorType = ErrorType.INVALID_TARGET;
-        }
-        else if (player.getMana() < card.getMana()) {
+        } else if (player.getMana() < card.getMana()) {
             errorType = ErrorType.NOT_ENOUGH_MANA;
-        }
-        else{
+        } else {
             card.setCardStatus(CardStatus.PLACED);
             player.getInBattleCards().put(card, insertionCell);
             insertionCell.setCard(card);
@@ -618,14 +607,14 @@ public class Controller {
         }
     }
 
-    private boolean isInsertionPossible(Player player,Cell cell) {
+    private boolean isInsertionPossible(Player player, Cell cell) {
         boolean flag = false;
         for (Cell filledCell : player.getInBattleCards().values()) {
             if (Math.abs(cell.getxCoordinate() - filledCell.getxCoordinate()) == 1 &&
                     Math.abs(cell.getyCoordinate() - filledCell.getyCoordinate()) == 1) {
                 flag = true;
             }
-            if (cell.getCard()!= null) {
+            if (cell.getCard() != null) {
                 return false;
             }
         }
@@ -672,6 +661,7 @@ public class Controller {
             menuType = MenuType.MAINMENU;
         errorType = ErrorType.GAME_IS_NOT_OVER;
     }
+
     public void showMenuOptions() {
     }
 

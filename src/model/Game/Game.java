@@ -1,23 +1,30 @@
 package model.Game;
 
+import model.Cards.Card;
+import model.Cards.Hero;
+import model.Cards.Minion;
+import model.Cards.SoldierCard;
 import model.Cell;
 import model.Item;
 import model.Player;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Game {
     private final int length = 9;
     private final int width = 5;
     private Cell[][] cells = new Cell[width][length];
+
     {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                cells[i][j] = new Cell(i+1,j+1);
+                cells[i][j] = new Cell(i + 1, j + 1);
             }
         }
     }
+
     private ArrayList<Item> items = new ArrayList<>();
     private int numOfFlags;
     private Player player1;
@@ -103,12 +110,15 @@ public class Game {
     public void setCells(Cell[][] cells) {
         this.cells = cells;
     }
-    public Cell getCell(int x, int y){
-            return cells[y-1][x-1];
+
+    public Cell getCell(int x, int y) {
+        return cells[y - 1][x - 1];
     }
-    public boolean coordinateIsValid(int x, int y){
-        return getCell(x,y) != null;
+
+    public boolean coordinateIsValid(int x, int y) {
+        return getCell(x, y) != null;
     }
+
     public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
@@ -143,4 +153,24 @@ public class Game {
             currentPlayer.increaseMana();
         }
     }
+
+    public String toStringDeathMatchMode() {
+        StringBuilder toString = new StringBuilder();
+        toString.append("player one hero's health: ");
+        for (Card card : player1.getInBattleCards().keySet()) {
+            if (card instanceof Hero) {
+                toString.append(((Hero) card).getHp());
+                break;
+            }
+        }
+        toString.append("player two hero's health: ");
+        for (Card card : player2.getInBattleCards().keySet()) {
+            if (card instanceof Hero) {
+                toString.append(((Hero) card).getHp());
+                break;
+            }
+        }
+        return toString.toString();
+    }
+
 }

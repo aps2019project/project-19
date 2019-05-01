@@ -101,7 +101,7 @@ public class Request {
                     return RequestType.SHOW_MY_MINIONS;
                 if (command.matches("show opponents minions"))
                     return RequestType.SHOW_OPPONENT_MINIONS;
-                if (command.matches("show card info \\d+"))
+                if (command.matches("show card info (\\w+ ?)+"))
                     return RequestType.SHOW_CARD_INFO_IN_BATTLE;
                 //sajad
                 if (command.matches("select \\d+"))
