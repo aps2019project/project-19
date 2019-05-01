@@ -168,14 +168,12 @@ public class Player {
             this.moveARandomCardToHand();
         }
     }
-
-    public boolean containsCardInBattle(int cardId) {
+    public boolean containsCardInBattle(String cardId){
         return getInBattleCard(cardId) != null;
     }
-
-    public Card getInBattleCard(int cardId) {
+    public Card getInBattleCard(String cardId){
         for (Card card : getInBattleCards().keySet()) {
-            if (card.getCardId() == cardId)
+            if(card.getInBattleCardId().equals(cardId))
                 return card;
         }
         return null;

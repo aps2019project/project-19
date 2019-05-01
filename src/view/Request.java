@@ -26,8 +26,6 @@ public class Request {
     private int itemID;
     private GameMode gameMode;
     private int numOfFlags;
-    private int destinationX;
-    private int destinationY;
 
     public void getNewCommand() {
         do {
@@ -103,7 +101,7 @@ public class Request {
                 if (command.matches("show card info \\d+"))
                     return RequestType.SHOW_CARD_INFO_IN_BATTLE;
                 //sajad
-                if (command.matches("select \\d+"))
+                if (command.matches("select (\\w+ ?)+"))
                     return RequestType.SELECT_CARD_OR_COLLECTABLE;
                 if (command.matches("move to \\(\\[(?<X>\\d+)], \\[(?<Y>\\d+)]\\)"))
                     return RequestType.MOVE_CARD;
@@ -228,7 +226,8 @@ public class Request {
                 break;
             ////////////////////// Battle //////////////////////
             case SHOW_CARD_INFO_IN_BATTLE:
-                inBattleCardId = command.split(" ")[3];
+                inBattleCardId = command.split("_")[1];
+                itemID =Integer.parseInt(command.split(" ")[1]);
                 break;
             case INSERT_CARD:
                 parseInsertCommand();
@@ -296,8 +295,8 @@ public class Request {
         Pattern pattern = Pattern.compile("move to \\(\\[(?<X>\\d+)], \\[(?<Y>\\d+)]\\)");
         Matcher matcher = pattern.matcher(command);
         matcher.matches();
-        destinationX = Integer.parseInt(matcher.group("X"));
-        destinationY = Integer.parseInt(matcher.group("Y"));
+        x = Integer.parseInt(matcher.group("X"));
+        y = Integer.parseInt(matcher.group("Y"));
     }
 
     public void setRequestType(MenuType menuType) {
@@ -410,22 +409,6 @@ public class Request {
 
     public void setNumOfFlags(int numOfFlags) {
         this.numOfFlags = numOfFlags;
-    }
-
-    public int getDestinationX() {
-        return destinationX;
-    }
-
-    public void setDestinationX(int destinationX) {
-        this.destinationX = destinationX;
-    }
-
-    public int getDestinationY() {
-        return destinationY;
-    }
-
-    public void setDestinationY(int destinationY) {
-        this.destinationY = destinationY;
     }
 
     public int getX() {
