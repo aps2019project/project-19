@@ -16,7 +16,6 @@ public class Game {
     private final int length = 9;
     private final int width = 5;
     private Cell[][] cells = new Cell[width][length];
-
     {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
