@@ -96,7 +96,7 @@ public class Request {
                     return RequestType.SHOW_GAME_INFO;
                 if (command.matches("show my minions"))
                     return RequestType.SHOW_MY_MINIONS;
-                if (command.matches("show opponents minions"))
+                if (command.matches("show opponent minions"))
                     return RequestType.SHOW_OPPONENT_MINIONS;
                 if (command.matches("show card info (\\w+ ?)+"))
                     return RequestType.SHOW_CARD_INFO_IN_BATTLE;
@@ -227,16 +227,18 @@ public class Request {
             ////////////////////// Battle //////////////////////
             case SHOW_CARD_INFO_IN_BATTLE:
                 inBattleCardId = command.split("_")[1];
-                itemID =Integer.parseInt(command.split(" ")[1]);
+//                itemID =Integer.parseInt(command.split(" ")[1]);
+                //throws exception
                 break;
             case INSERT_CARD:
                 parseInsertCommand();
                 break;
             case SELECT_CARD_OR_COLLECTABLE:
-                cardOrItemID = Integer.parseInt(command.split(" ")[1]);
+                inBattleCardId = command.split("_")[1];
                 break;
             case MOVE_CARD:
                 parseMoveCard();
+                break;
         }
     }
 

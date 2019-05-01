@@ -54,6 +54,7 @@ public class Hero extends SoldierCard {
     @Override
     public void setInBattleCardId(String accountName) {
         String id = accountName+"_"+this.getName()+"_1";
+        id = id.replaceAll(" ","_");
         super.setInBattleCardId(id);
     }
 
