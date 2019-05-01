@@ -108,6 +108,8 @@ public class Game {
     }
 
     public Cell getCell(int x, int y) {
+        if(y-1>=width || x-1 >= length)
+            return null;
         return cells[y - 1][x - 1];
     }
 

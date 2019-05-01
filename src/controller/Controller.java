@@ -592,8 +592,12 @@ public class Controller {
             return;
         }
         Card card = activePlayer.getSelectedCard();
-        Cell targetCell = game.getCell(request.getX(), request.getY());
+        if(!game.coordinateIsValid(request.getX(),request.getY())) {
+            errorType = ErrorType.INVALID_TARGET;
+            return;
+        }
         Cell currentCell = activePlayer.getInBattleCards().get(card);
+        Cell targetCell = game.getCell(request.getX(), request.getY());
         if (targetCell.getCard() != null) {
             errorType = ErrorType.INVALID_TARGET;
         } else if (currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell, targetCell)) {
