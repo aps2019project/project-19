@@ -1,8 +1,6 @@
 package model.Game;
 
-import model.Cards.Card;
-import model.Cards.Hero;
-import model.Cards.SoldierCard;
+import model.Cards.*;
 import model.Cell;
 import model.Item;
 import model.Player;
@@ -18,7 +16,7 @@ public class Game {
     {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                cells[i][j] = new Cell(i + 1, j + 1);
+                cells[i][j] = new Cell(j + 1, i + 1);
             }
         }
     }
@@ -148,14 +146,22 @@ public class Game {
         }
         turnNumber++;
         if (turnNumber <= 14) {
-            currentPlayer.increaseMana();
+            currentPlayer.increaseMaxMana();
             currentPlayer.setMana(currentPlayer.getMaxMana());
+            System.out.println(currentPlayer.getMana());
         }
     }
 
     public boolean pathIsBlocked(Cell destCell, Cell targetCell) {
         // TODO: 2019-04-30 must be implemented
         return false;
+    }
+    public Hero setHeroes(Player player, Cell cell){
+        Card hero = player.getDeckCards().getHero();
+        player.getDeckCards().getCards().remove(hero.getCardId());
+        cell.setCard(hero);
+        player.getInBattleCards().put(hero, cell);
+        return (Hero) hero;
     }
 
     public String toStringDeathMatchMode() {
