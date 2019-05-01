@@ -1,5 +1,6 @@
 package model.Game;
 
+import model.Cards.Card;
 import model.Cell;
 import model.Item;
 import model.Player;
@@ -145,12 +146,24 @@ public class Game {
         }
         turnNumber++;
         if (turnNumber <= 14) {
-            currentPlayer.increaseMana();
+            currentPlayer.increaseMaxMana();
             currentPlayer.setMana(currentPlayer.getMaxMana());
+            System.out.println(currentPlayer.getMana());
         }
     }
     public boolean pathIsBlocked(Cell destCell,Cell targetCell){
         // TODO: 2019-04-30 must be implemented
         return false;
+    }
+    public void setHeros(){
+        Cell cell1 = getCell(1, 3);
+        Card hero1 = player1.getHeroFromDeck();
+        cell1.setCard(hero1);
+        player1.getInBattleCards().put(hero1, cell1);
+        Card hero2 = player2.getHeroFromDeck();
+        Cell cell2 = getCell(9, 3);
+        cell2.setCard(hero2);
+        player2.getInBattleCards().put(hero2, cell2);
+
     }
 }

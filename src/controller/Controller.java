@@ -228,6 +228,7 @@ public class Controller {
             case CAPTURE_THE_FLAGS:
                 break;
         }
+        game.setHeros();
         menuType = MenuType.BATTLE;
         System.err.println("game started");
     }
@@ -628,7 +629,7 @@ public class Controller {
             errorType = ErrorType.INVALID_CARDNAME;
             return;
         }
-        if (game.coordinateIsValid(request.getX(), request.getY())) {
+        if (!game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
@@ -679,8 +680,8 @@ public class Controller {
     private boolean isInsertionPossible(Player player, Cell cell) {
         boolean flag = false;
         for (Cell filledCell : player.getInBattleCards().values()) {
-            if (Math.abs(cell.getXCoordinate() - filledCell.getXCoordinate()) == 1 &&
-                    Math.abs(cell.getYCoordinate() - filledCell.getYCoordinate()) == 1) {
+            if (Math.abs(cell.getXCoordinate() - filledCell.getXCoordinate()) <= 1 &&
+                    Math.abs(cell.getYCoordinate() - filledCell.getYCoordinate()) <= 1) {
                 flag = true;
             }
             if (cell.getCard() != null) {

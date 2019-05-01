@@ -244,7 +244,7 @@ public class Request {
         Pattern pattern = Pattern.compile("insert (?<minionName>(\\w+ ?)+)in \\((?<X>\\d+), (?<Y>\\d+)\\)");
         Matcher matcher = pattern.matcher(command);
         matcher.matches();
-        cardName = matcher.group("minionName");
+        cardName = matcher.group("minionName").trim();
         x = Integer.parseInt(matcher.group("X"));
         y = Integer.parseInt(matcher.group("Y"));
     }

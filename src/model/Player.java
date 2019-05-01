@@ -24,6 +24,7 @@ public class Player {
         this.account = account;
         this.deckCards = deckCards;
         this.mana = 2;
+        this.maxMana = 2;
     }
 
     public int getHandCapacity() {
@@ -90,7 +91,7 @@ public class Player {
         return nextCardId;
     }
 
-    public void increaseMana() {
+    public void increaseMaxMana() {
         this.maxMana++;
     }
 
@@ -168,13 +169,25 @@ public class Player {
             this.moveARandomCardToHand();
         }
     }
-    public boolean containsCardInBattle(String cardId){
+
+    public boolean containsCardInBattle(String cardId) {
         return getInBattleCard(cardId) != null;
     }
-    public Card getInBattleCard(String cardId){
+
+    public Card getInBattleCard(String cardId) {
         for (Card card : getInBattleCards().keySet()) {
-            if(card.getInBattleCardId().equals(cardId))
+            if (card.getInBattleCardId().equals(cardId))
                 return card;
+        }
+        return null;
+    }
+
+    public Card getHeroFromDeck() {
+        for (Card card : deckCards.getCards().values()) {
+            if (card instanceof Hero) {
+                deckCards.getCards().remove(card.getCardId());
+                return card;
+            }
         }
         return null;
     }
