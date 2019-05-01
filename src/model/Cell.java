@@ -16,19 +16,19 @@ public class Cell {
         this.yCoordinate = yCoordinate;
     }
 
-    public int getxCoordinate() {
+    public int getXCoordinate() {
         return xCoordinate;
     }
 
-    public void setxCoordinate(int xCoordinate) {
+    public void setXCoordinate(int xCoordinate) {
         this.xCoordinate = xCoordinate;
     }
 
-    public int getyCoordinate() {
+    public int getYCoordinate() {
         return yCoordinate;
     }
 
-    public void setyCoordinate(int yCoordinate) {
+    public void setYCoordinate(int yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
 
@@ -62,5 +62,8 @@ public class Cell {
 
     public void setFlagNumber(int flagNumber) {
         this.flagNumber = flagNumber;
+    }
+    public  int getManhattanDistance(Cell cell){
+        return Math.abs(this.xCoordinate - cell.xCoordinate)+ Math.abs(this.yCoordinate- cell.yCoordinate);
     }
 }

@@ -9,14 +9,16 @@ import java.util.Random;
 public class Player {
     private final int handCapacity = 5;
     private int mana;
+    private int maxMana;
     private Account account;
     private Deck deckCards;
-    private HashMap<Integer,Card> handCards = new HashMap<>();
-    private HashMap<Card,Cell> inBattleCards = new HashMap<>();
-    private HashMap<Integer,Item> items = new HashMap<>();
+    private HashMap<Integer, Card> handCards = new HashMap<>();
+    private HashMap<Card, Cell> inBattleCards = new HashMap<>();
+    private HashMap<Integer, Item> items = new HashMap<>();
     private Card selectedCard;
     private Item selectedItem;
     private int nextCardId;
+    private HashMap<String, Integer> cardNameIdHashMap = new HashMap<>();
 
     public Player(Account account, Deck deckCards) {
         this.account = account;
@@ -56,20 +58,28 @@ public class Player {
         return selectedCard;
     }
 
+    public int getMaxMana() {
+        return maxMana;
+    }
+
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;
     }
 
-    public HashMap<Integer,Card> getHandCards() {
+    public HashMap<Integer, Card> getHandCards() {
         return handCards;
     }
 
-    public HashMap<Card,Cell> getInBattleCards() {
+    public HashMap<Card, Cell> getInBattleCards() {
         return inBattleCards;
     }
 
-    public HashMap<Integer,Item> getItems() {
+    public HashMap<Integer, Item> getItems() {
         return items;
+    }
+
+    public HashMap<String, Integer> getCardNameIdHashMap() {
+        return cardNameIdHashMap;
     }
 
     public void setNextCardId(int nextCardId) {
@@ -81,12 +91,14 @@ public class Player {
     }
 
     public void increaseMana() {
-        this.mana++;
+        this.maxMana++;
     }
-    public boolean isAnyCardSelected(){
+
+    public boolean isAnyCardSelected() {
         return getSelectedCard() != null;
     }
-    public boolean isAnyItemSelected(){
+
+    public boolean isAnyItemSelected() {
         return getSelectedItem() != null;
     }
 
@@ -102,7 +114,7 @@ public class Player {
         this.inBattleCards = inBattleCards;
     }
 
-    public void setItems(HashMap<Integer,Item> items) {
+    public void setItems(HashMap<Integer, Item> items) {
         this.items = items;
     }
 
@@ -130,19 +142,38 @@ public class Player {
     public void moveARandomCardToHand() {
         if (handCards.size() < handCapacity) {
             Random random = new Random();
+            if (nextCardId == 0) {
+                ArrayList<Card> cards = new ArrayList<>(deckCards.getCards().values());
+                int rand = random.nextInt(cards.size());
+                Card card = cards.get(rand);
+                deckCards.getCards().remove(card.getCardId());
+                card.setCardStatus(CardStatus.IN_HAND);
+                handCards.put(card.getCardId(), card);
+
+            } else {
+                Card card = deckCards.getCards().get(nextCardId);
+                deckCards.getCards().remove(card.getCardId());
+                card.setCardStatus(CardStatus.IN_HAND);
+                handCards.put(card.getCardId(), card);
+            }
             ArrayList<Card> cards = new ArrayList<>(deckCards.getCards().values());
             int rand = random.nextInt(cards.size());
             Card card = cards.get(rand);
-            card.setCardStatus(CardStatus.IN_HAND);
-            handCards.put(card.getCardId(),card);
+            nextCardId = card.getCardId();
         }
     }
-    public boolean containsCardInBattle(int cardId){
+
+    public void setFirstHand() {
+        for (int i = 0; i < 5; i++) {
+            this.moveARandomCardToHand();
+        }
+    }
+    public boolean containsCardInBattle(String cardId){
         return getInBattleCard(cardId) != null;
     }
-    public Card getInBattleCard(int cardId){
+    public Card getInBattleCard(String cardId){
         for (Card card : getInBattleCards().keySet()) {
-            if(card.getCardId() == cardId)
+            if(card.getInBattleCardId().equals(cardId))
                 return card;
         }
         return null;

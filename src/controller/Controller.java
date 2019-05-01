@@ -5,6 +5,10 @@ import model.Cards.*;
 import view.*;
 import model.Game.*;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
 public class Controller {
     private final static Controller CONTROLLER = new Controller();
 
@@ -110,7 +114,7 @@ public class Controller {
                     showAllPlayer();
                     break;
                 case SELECT_OPPONENT_USER:
-                    createGame();
+                    selectOpponent();
                     break;
                 case SELECT_MODE:
                     selectMode();
@@ -141,8 +145,8 @@ public class Controller {
                     break;
                 case MOVE_CARD:
                     moveCard();
+                    // TODO: 2019-04-30 test
                     break;
-                // TODO: 2019-04-30 test
                 case SHOW_HAND:
                     showHand();
                     break;
@@ -183,7 +187,7 @@ public class Controller {
         } while (true);
     }
 
-    private void createGame() {
+    private void selectOpponent() {
         if (!Account.userNameIsValid(request.getUserName()) || loggedInAccount.getUserName().equals(request.getUserName())) {
             errorType = ErrorType.INVALID_OPPONENT;
             return;
@@ -194,9 +198,10 @@ public class Controller {
             errorType = ErrorType.INVALID_OPPONENT_DECK;
             return;
         }
-
-        Player player1 = new Player(loggedInAccount, loggedInAccount.getCollection().getMainDeck());
-        Player player2 = new Player(opponentAccount, opponentAccount.getCollection().getMainDeck());
+        Player player1 = new Player(loggedInAccount, new Deck(loggedInAccount.getCollection().getMainDeck()));
+        Player player2 = new Player(opponentAccount, new Deck(opponentAccount.getCollection().getMainDeck()));
+        player1.setFirstHand();
+        player2.setFirstHand();
         game = new Game(player1, player2);
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
@@ -210,6 +215,21 @@ public class Controller {
         if (request.getGameMode() == GameMode.KEEP_THE_FLAG)
             game.setNumOfFlags(request.getNumOfFlags());
         System.err.println("game mode seted");
+        initNewGame(request.getGameMode());
+    }
+
+    public void initNewGame(GameMode gameMode) {
+        switch (gameMode) {
+            case DEATH_MATCH:
+                game.setDate(new Date());
+                break;
+            case KEEP_THE_FLAG:
+                break;
+            case CAPTURE_THE_FLAGS:
+                break;
+        }
+        menuType = MenuType.BATTLE;
+        System.err.println("game started");
     }
 
     public void createNewAccount() {
@@ -522,7 +542,7 @@ public class Controller {
         for (Card card : activePlayer.getInBattleCards().keySet()) {
             if (card instanceof SoldierCard) {
                 Cell cell = activePlayer.getInBattleCards().get(card);
-                view.show(((SoldierCard) card).toBattleFormat(cell.getxCoordinate(), cell.getyCoordinate()));
+                view.show(((SoldierCard) card).toBattleFormat(cell.getXCoordinate(), cell.getYCoordinate()));
             }
         }
     }
@@ -541,15 +561,16 @@ public class Controller {
     }
 
     public void selectCardOrItem(Player player) {
-        int id = request.getCardOrItemID();
+        String id = request.getInBattleCardId();
         if (player.containsCardInBattle(id)) {
             Card card = activePlayer.getInBattleCard(id);
             activePlayer.setSelectedCard(card);
             System.err.println(card.getName() + " " + card.getCardId() + " selected");
             return;
         }
-        if (player.getItems().containsKey(id)) {
-            Item item = activePlayer.getItems().get(id);
+        int itemId = request.getItemID();
+        if (player.getItems().containsKey(itemId)) {
+            Item item = activePlayer.getItems().get(itemId);
             activePlayer.setSelectedItem(item);
             System.err.println(item.getName() + " selected");
             return;
@@ -563,6 +584,19 @@ public class Controller {
             return;
         }
         Card card = activePlayer.getSelectedCard();
+        Cell targetCell = game.getCell(request.getX(), request.getY());
+        Cell currentCell = activePlayer.getInBattleCards().get(card);
+        if (targetCell.getCard() != null) {
+            errorType = ErrorType.INVALID_TARGET;
+        } else if (currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell, targetCell)) {
+            errorType = ErrorType.INVALID_TARGET;
+        } else {
+            currentCell.setCard(null);
+            targetCell.setCard(card);
+            activePlayer.getInBattleCards().replace(card, targetCell);
+            // TODO: 2019-04-30 check replace function in hashmap
+            System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
+        }
     }
 
     public void attack() {
@@ -580,8 +614,8 @@ public class Controller {
 
     public void insertCard() {
         Player player = activePlayer;
-        Card card = player.getHandCards().get(request.getCardOrItemID());
-        // TODO: 2019-04-30 be sure it wont throw nullpointer exp
+        ArrayList<Card> cards = new ArrayList<>(player.getHandCards().values());
+        Card card = findCardInHandByName(cards, request.getCardName());
         if (card == null) {
             errorType = ErrorType.INVALID_CARDNAME;
             return;
@@ -602,16 +636,43 @@ public class Controller {
             player.getInBattleCards().put(card, insertionCell);
             insertionCell.setCard(card);
             player.getHandCards().remove(card.getCardId(), card);
+            card.setInBattleCardId(generateInBattleCardId(card));
             view.show(card.getName() + " with " + card.getInBattleCardId() +
-                    " inserted to (" + request.getX() + ", " + request.getY() + ")\n");
+                    " inserted to (" + request.getX() + ", " + request.getY() + ")");
         }
+    }
+
+    private String generateInBattleCardId(Card card) {
+        StringBuilder string = new StringBuilder();
+        string.append(activePlayer.getAccount().getUserName());
+        string.append("_");
+        string.append(card.getName());
+        string.append("_");
+        HashMap<String, Integer> ids = activePlayer.getCardNameIdHashMap();
+        if (!ids.containsKey(card.getName())) {
+            ids.put(card.getName(), 0);
+        }
+        int id = ids.get(card.getName());
+        id++;
+        string.append(id);
+        ids.replace(card.getName(), id);
+        return string.toString();
+    }
+
+    private Card findCardInHandByName(ArrayList<Card> cards, String cardName) {
+        for (Card card : cards) {
+            if (card.getName().equals(cardName)) {
+                return card;
+            }
+        }
+        return null;
     }
 
     private boolean isInsertionPossible(Player player, Cell cell) {
         boolean flag = false;
         for (Cell filledCell : player.getInBattleCards().values()) {
-            if (Math.abs(cell.getxCoordinate() - filledCell.getxCoordinate()) == 1 &&
-                    Math.abs(cell.getyCoordinate() - filledCell.getyCoordinate()) == 1) {
+            if (Math.abs(cell.getXCoordinate() - filledCell.getXCoordinate()) == 1 &&
+                    Math.abs(cell.getYCoordinate() - filledCell.getYCoordinate()) == 1) {
                 flag = true;
             }
             if (cell.getCard() != null) {
@@ -646,7 +707,7 @@ public class Controller {
     public void showNextCard() {
         Player currentPlayer = activePlayer;
         if (currentPlayer.getNextCardId() == 0) {
-            view.show("No More Card In Your Deck!!!\n");
+            view.show("No More Card In Your Deck!!!");
         } else {
             int cardId = currentPlayer.getNextCardId();
             view.show(currentPlayer.getDeckCards().getCards().get(cardId).toInfoString());

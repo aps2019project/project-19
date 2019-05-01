@@ -18,7 +18,11 @@ public class Deck {
     public Deck(String name){
         this.name = name;
     }
-
+    public Deck (Deck deck){
+        this.name = deck.name;
+        this.cards = new HashMap<>(deck.cards);
+        this.items = new HashMap<>(deck.items);
+    }
     public boolean deckHasHero(){
         ArrayList<Card> cards = new ArrayList<>(this.getCards().values());
         for (Card card : cards) {
