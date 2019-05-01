@@ -141,8 +141,8 @@ public class Controller {
                     break;
                 case MOVE_CARD:
                     moveCard();
+                    // TODO: 2019-04-30 test
                     break;
-                // TODO: 2019-04-30 test
                 case SHOW_HAND:
                     showHand();
                     break;
@@ -523,7 +523,7 @@ public class Controller {
             for (Card card : activePlayer.getInBattleCards().keySet()) {
                 if (card instanceof SoldierCard) {
                     Cell cell = activePlayer.getInBattleCards().get(card);
-                    view.show(((SoldierCard) card).toBattleFormat(cell.getxCoordinate(),cell.getyCoordinate()));
+                    view.show(((SoldierCard) card).toBattleFormat(cell.getXCoordinate(),cell.getYCoordinate()));
                 }
             }
     }
@@ -550,15 +550,16 @@ public class Controller {
     }
 
     public void selectCardOrItem(Player player) {
-        int id = request.getCardOrItemID();
+        String id = request.getInBattleCardId();
         if(player.containsCardInBattle(id)) {
             Card card = activePlayer.getInBattleCard(id);
             activePlayer.setSelectedCard(card);
             System.err.println(card.getName() + " " + card.getCardId() + " selected");
             return;
         }
-        if (player.getItems().containsKey(id)) {
-            Item item = activePlayer.getItems().get(id);
+        int itemId = request.getItemID();
+        if (player.getItems().containsKey(itemId)) {
+            Item item = activePlayer.getItems().get(itemId);
             activePlayer.setSelectedItem(item);
             System.err.println(item.getName() + " selected");
             return;
@@ -572,6 +573,21 @@ public class Controller {
             return;
         }
         Card card = activePlayer.getSelectedCard();
+        Cell targetCell = game.getCell(request.getX(),request.getY());
+        Cell currentCell = activePlayer.getInBattleCards().get(card);
+        if(targetCell.getCard() != null){
+            errorType = ErrorType.INVALID_TARGET;
+        }
+        else if(currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell,targetCell)){
+            errorType = ErrorType.INVALID_TARGET;
+        }
+        else {
+            currentCell.setCard(null);
+            targetCell.setCard(card);
+            activePlayer.getInBattleCards().replace(card,targetCell);
+            // TODO: 2019-04-30 check replace function in hashmap
+            System.err.println("card"+card.getName()+" moved to "+request.getX()+","+ request.getY());
+        }
     }
 
     public void attack() {
@@ -622,8 +638,8 @@ public class Controller {
     private boolean isInsertionPossible(Player player,Cell cell) {
         boolean flag = false;
         for (Cell filledCell : player.getInBattleCards().values()) {
-            if (Math.abs(cell.getxCoordinate() - filledCell.getxCoordinate()) == 1 &&
-                    Math.abs(cell.getyCoordinate() - filledCell.getyCoordinate()) == 1) {
+            if (Math.abs(cell.getXCoordinate() - filledCell.getXCoordinate()) == 1 &&
+                    Math.abs(cell.getYCoordinate() - filledCell.getYCoordinate()) == 1) {
                 flag = true;
             }
             if (cell.getCard()!= null) {

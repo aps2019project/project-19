@@ -143,4 +143,8 @@ public class Game {
             currentPlayer.increaseMana();
         }
     }
+    public boolean pathIsBlocked(Cell destCell,Cell targetCell){
+        // TODO: 2019-04-30 must be implemented
+        return false;
+    }
 }
