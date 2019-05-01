@@ -11,12 +11,13 @@ public class Player {
     private int mana;
     private Account account;
     private Deck deckCards;
-    private HashMap<Integer,Card> handCards = new HashMap<>();
-    private HashMap<Card,Cell> inBattleCards = new HashMap<>();
-    private HashMap<Integer,Item> items = new HashMap<>();
+    private HashMap<Integer, Card> handCards = new HashMap<>();
+    private HashMap<Card, Cell> inBattleCards = new HashMap<>();
+    private HashMap<Integer, Item> items = new HashMap<>();
     private Card selectedCard;
     private Item selectedItem;
     private int nextCardId;
+    private HashMap<String, Integer> cardNameIdHashMap = new HashMap<>();
 
     public Player(Account account, Deck deckCards) {
         this.account = account;
@@ -60,16 +61,20 @@ public class Player {
         this.selectedCard = selectedCard;
     }
 
-    public HashMap<Integer,Card> getHandCards() {
+    public HashMap<Integer, Card> getHandCards() {
         return handCards;
     }
 
-    public HashMap<Card,Cell> getInBattleCards() {
+    public HashMap<Card, Cell> getInBattleCards() {
         return inBattleCards;
     }
 
-    public HashMap<Integer,Item> getItems() {
+    public HashMap<Integer, Item> getItems() {
         return items;
+    }
+
+    public HashMap<String, Integer> getCardNameIdHashMap() {
+        return cardNameIdHashMap;
     }
 
     public void setNextCardId(int nextCardId) {
@@ -83,10 +88,12 @@ public class Player {
     public void increaseMana() {
         this.mana++;
     }
-    public boolean isAnyCardSelected(){
+
+    public boolean isAnyCardSelected() {
         return getSelectedCard() != null;
     }
-    public boolean isAnyItemSelected(){
+
+    public boolean isAnyItemSelected() {
         return getSelectedItem() != null;
     }
 
@@ -102,7 +109,7 @@ public class Player {
         this.inBattleCards = inBattleCards;
     }
 
-    public void setItems(HashMap<Integer,Item> items) {
+    public void setItems(HashMap<Integer, Item> items) {
         this.items = items;
     }
 
@@ -134,7 +141,7 @@ public class Player {
             int rand = random.nextInt(cards.size());
             Card card = cards.get(rand);
             card.setCardStatus(CardStatus.IN_HAND);
-            handCards.put(card.getCardId(),card);
+            handCards.put(card.getCardId(), card);
         }
     }
     public boolean containsCardInBattle(String cardId){

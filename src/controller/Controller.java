@@ -5,6 +5,9 @@ import model.Cards.*;
 import view.*;
 import model.Game.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Controller {
     private final static Controller CONTROLLER = new Controller();
 
@@ -567,7 +570,7 @@ public class Controller {
     }
 
     public void moveCard() {
-        if (!activePlayer.isAnyCardSelected()){
+        if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
         }
@@ -604,44 +607,68 @@ public class Controller {
 
     public void insertCard() {
         Player player = activePlayer;
-        Card card = player.getHandCards().get(request.getCardOrItemID());
-        // TODO: 2019-04-30 be sure it wont throw nullpointer exp
+        ArrayList<Card> cards = new ArrayList<>(player.getHandCards().values());
+        Card card = findCardInHandByName(cards, request.getCardName());
         if (card == null) {
             errorType = ErrorType.INVALID_CARDNAME;
             return;
         }
-        if (game.coordinateIsValid(request.getX(),request.getY())) {
+        if (game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
-        Cell insertionCell = game.getCell(request.getX(),request.getY());
+        Cell insertionCell = game.getCell(request.getX(), request.getY());
         if (card instanceof SpellCard) {
             errorType = ErrorType.SPELL_NOT_IMPLEMENTABLE;
-        }
-        else if (!isInsertionPossible(player,insertionCell)) {
+        } else if (!isInsertionPossible(player, insertionCell)) {
             errorType = ErrorType.INVALID_TARGET;
-        }
-        else if (player.getMana() < card.getMana()) {
+        } else if (player.getMana() < card.getMana()) {
             errorType = ErrorType.NOT_ENOUGH_MANA;
-        }
-        else{
+        } else {
             card.setCardStatus(CardStatus.PLACED);
             player.getInBattleCards().put(card, insertionCell);
             insertionCell.setCard(card);
             player.getHandCards().remove(card.getCardId(), card);
+            card.setInBattleCardId(generateInBattleCardId(card));
             view.show(card.getName() + " with " + card.getInBattleCardId() +
                     " inserted to (" + request.getX() + ", " + request.getY() + ")\n");
         }
     }
 
-    private boolean isInsertionPossible(Player player,Cell cell) {
+    private String generateInBattleCardId(Card card) {
+        StringBuilder string = new StringBuilder();
+        string.append(activePlayer.getAccount().getUserName());
+        string.append("_");
+        string.append(card.getName());
+        string.append("_");
+        HashMap<String, Integer> ids = activePlayer.getCardNameIdHashMap();
+        if (!ids.containsKey(card.getName())) {
+            ids.put(card.getName(), 0);
+        }
+        int id = ids.get(card.getName());
+        id++;
+        string.append(id);
+        ids.replace(card.getName(), id);
+        return string.toString();
+    }
+
+    private Card findCardInHandByName(ArrayList<Card> cards, String cardName) {
+        for (Card card : cards) {
+            if (card.getName().equals(cardName)) {
+                return card;
+            }
+        }
+        return null;
+    }
+
+    private boolean isInsertionPossible(Player player, Cell cell) {
         boolean flag = false;
         for (Cell filledCell : player.getInBattleCards().values()) {
             if (Math.abs(cell.getXCoordinate() - filledCell.getXCoordinate()) == 1 &&
                     Math.abs(cell.getYCoordinate() - filledCell.getYCoordinate()) == 1) {
                 flag = true;
             }
-            if (cell.getCard()!= null) {
+            if (cell.getCard() != null) {
                 return false;
             }
         }
@@ -688,6 +715,7 @@ public class Controller {
             menuType = MenuType.MAINMENU;
         errorType = ErrorType.GAME_IS_NOT_OVER;
     }
+
     public void showMenuOptions() {
     }
 

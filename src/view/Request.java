@@ -1,6 +1,5 @@
 package view;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import controller.MenuType;
 import model.Game.GameMode;
 
@@ -17,7 +16,7 @@ public class Request {
     private String cardName;
     private String searchingName;
     private String productName;
-    private int x,y;
+    private int x, y;
     private int productId;
     private String userName;
     private String collectableName;
@@ -115,7 +114,7 @@ public class Request {
                 //amir
                 if (command.matches("show hand"))//done
                     return RequestType.SHOW_HAND;
-                if (command.matches("insert \\w+ in \\(\\d+, \\d+\\)"))//done
+                if (command.matches("insert (?<minionName>(\\w+ ?)+)in \\((?<X>\\d+), (?<Y>\\d+)\\)"))//done
                     return RequestType.INSERT_CARD;
                 if (command.matches("end turn"))//some how
                     return RequestType.END_TURN;
@@ -242,10 +241,12 @@ public class Request {
     }
 
     private void parseInsertCommand() {
-        String[] strings = command.split("[ ,()]");
-        cardName = strings[1];
-        x = Integer.parseInt(strings[4]);
-        y = Integer.parseInt(strings[6]);
+        Pattern pattern = Pattern.compile("insert (?<minionName>(\\w+ ?)+)in \\((?<X>\\d+), (?<Y>\\d+)\\)");
+        Matcher matcher = pattern.matcher(command);
+        matcher.matches();
+        cardName = matcher.group("minionName");
+        x = Integer.parseInt(matcher.group("X"));
+        y = Integer.parseInt(matcher.group("Y"));
     }
 
     private void parseSelectMode() {
@@ -290,7 +291,7 @@ public class Request {
             enteringMenu = MenuType.SINGLE_GAME_STORY_MODE;
     }
 
-    public void parseMoveCard(){
+    public void parseMoveCard() {
         Pattern pattern = Pattern.compile("move to \\(\\[(?<X>\\d+)], \\[(?<Y>\\d+)]\\)");
         Matcher matcher = pattern.matcher(command);
         matcher.matches();
