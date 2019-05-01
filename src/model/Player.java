@@ -186,4 +186,21 @@ public class Player {
         return null;
     }
 
+    public ArrayList<SoldierCard> getMinionsWithFlag(){
+        ArrayList<SoldierCard> soldierCards = new ArrayList<>();
+        for (Card card : inBattleCards.keySet()) {
+            if (card instanceof SoldierCard && ((SoldierCard) card).getFlagNumber() != 0)
+                soldierCards.add(((SoldierCard) card));
+        }
+        return soldierCards;
+    }
+
+    public String toStringFlags(){
+        StringBuilder toString = new StringBuilder();
+        toString.append("player : ").append(this.getAccount().getUserName()).append( " flags :\n");
+        for (SoldierCard card : this.getMinionsWithFlag()) {
+            toString.append(card.getInBattleCardId()).append("\n");
+        }
+        return toString.toString();
+    }
 }

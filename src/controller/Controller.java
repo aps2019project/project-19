@@ -157,7 +157,7 @@ public class Controller {
                     showNextCard();
                     break;
                 case SHOW_COLLECATBLE_INFO:
-                    // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
+                    showCollectableInfo();
                     break;
                 case USE_COLLECTABLE:
                     // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
@@ -538,6 +538,12 @@ public class Controller {
     }
 
     public void showGameInfo() {
+        if (game.getGameMode().equals(GameMode.DEATH_MATCH))
+            view.show(game.toStringDeathMatchMode());
+        else if (game.getGameMode().equals(GameMode.KEEP_THE_FLAG))
+            view.show(game.toStringKeepFlag());
+        else view.show(game.toStringCaptureFlags());
+
     }
 
     public void showMinions() {
@@ -702,6 +708,9 @@ public class Controller {
     }
 
     public void showCollectableInfo() {
+        if (activePlayer.getSelectedItem() != null)
+            view.show(activePlayer.getSelectedItem().toString());
+        else errorType =  ErrorType.NO_ITEM_SELECTED;
     }
 
     public void useCollectable() {

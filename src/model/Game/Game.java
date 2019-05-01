@@ -7,12 +7,12 @@ import model.Player;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 public class Game {
     private final int length = 9;
     private final int width = 5;
     private Cell[][] cells = new Cell[width][length];
+
     {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
@@ -151,7 +151,8 @@ public class Game {
             System.out.println(currentPlayer.getMana());
         }
     }
-    public boolean pathIsBlocked(Cell destCell,Cell targetCell){
+
+    public boolean pathIsBlocked(Cell destCell, Cell targetCell) {
         // TODO: 2019-04-30 must be implemented
         return false;
     }
@@ -164,6 +165,7 @@ public class Game {
     }
 
     public String toStringDeathMatchMode() {
+        // TODO: 5/1/2019 duplicate make it better
         StringBuilder toString = new StringBuilder();
         toString.append("player one hero's health: ");
         for (Card card : player1.getInBattleCards().keySet()) {
@@ -181,5 +183,32 @@ public class Game {
         }
         return toString.toString();
     }
+
+    public String toStringKeepFlag() {
+        // TODO: 5/1/2019 duplicate make it better
+        StringBuilder toString = new StringBuilder();
+        if (player1.getMinionsWithFlag() != null)
+            toString.append("player ").append(player1.getAccount().getUserName()).append(" has flag in coordinate: ")
+                    .append(player1.getInBattleCards().get(player1.getMinionsWithFlag().get(0)).toString());
+        else if (player2.getMinionsWithFlag() != null)
+            toString.append("player ").append(player2.getAccount().getUserName()).append(" has flag in coordinate: ")
+                    .append(player2.getInBattleCards().get(player2.getMinionsWithFlag().get(0)).toString());
+        else {
+            toString.append("no one has flag. flag is in coordinate : (");
+            for (Cell[] cellInRow : cells) {
+                for (Cell cell : cellInRow) {
+                    if (cell.getFlagNumber() != 0) {
+                        toString.append(cell.toString());
+                    }
+                }
+            }
+        }
+        return toString.toString();
+    }
+
+    public String toStringCaptureFlags(){
+        return player1.toStringFlags() + player2.toStringFlags();
+    }
+
 
 }

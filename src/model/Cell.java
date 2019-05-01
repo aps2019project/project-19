@@ -66,4 +66,9 @@ public class Cell {
     public  int getManhattanDistance(Cell cell){
         return Math.abs(this.xCoordinate - cell.xCoordinate)+ Math.abs(this.yCoordinate- cell.yCoordinate);
     }
+
+    @Override
+    public String toString() {
+        return "(" + xCoordinate + ", " + yCoordinate + ")";
+    }
 }
