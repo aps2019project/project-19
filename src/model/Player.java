@@ -9,6 +9,7 @@ import java.util.Random;
 public class Player {
     private final int handCapacity = 5;
     private int mana;
+    private int maxMana;
     private Account account;
     private Deck deckCards;
     private HashMap<Integer, Card> handCards = new HashMap<>();
@@ -57,6 +58,10 @@ public class Player {
         return selectedCard;
     }
 
+    public int getMaxMana() {
+        return maxMana;
+    }
+
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;
     }
@@ -86,7 +91,7 @@ public class Player {
     }
 
     public void increaseMana() {
-        this.mana++;
+        this.maxMana++;
     }
 
     public boolean isAnyCardSelected() {
@@ -137,11 +142,30 @@ public class Player {
     public void moveARandomCardToHand() {
         if (handCards.size() < handCapacity) {
             Random random = new Random();
+            if (nextCardId == 0) {
+                ArrayList<Card> cards = new ArrayList<>(deckCards.getCards().values());
+                int rand = random.nextInt(cards.size());
+                Card card = cards.get(rand);
+                deckCards.getCards().remove(card.getCardId());
+                card.setCardStatus(CardStatus.IN_HAND);
+                handCards.put(card.getCardId(), card);
+
+            } else {
+                Card card = deckCards.getCards().get(nextCardId);
+                deckCards.getCards().remove(card.getCardId());
+                card.setCardStatus(CardStatus.IN_HAND);
+                handCards.put(card.getCardId(), card);
+            }
             ArrayList<Card> cards = new ArrayList<>(deckCards.getCards().values());
             int rand = random.nextInt(cards.size());
             Card card = cards.get(rand);
-            card.setCardStatus(CardStatus.IN_HAND);
-            handCards.put(card.getCardId(), card);
+            nextCardId = card.getCardId();
+        }
+    }
+
+    public void setFirstHand() {
+        for (int i = 0; i < 5; i++) {
+            this.moveARandomCardToHand();
         }
     }
     public boolean containsCardInBattle(String cardId){

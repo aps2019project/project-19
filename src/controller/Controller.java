@@ -200,6 +200,8 @@ public class Controller {
         }
         Player player1 = new Player(loggedInAccount, new Deck(loggedInAccount.getCollection().getMainDeck()));
         Player player2 = new Player(opponentAccount, new Deck(opponentAccount.getCollection().getMainDeck()));
+        player1.setFirstHand();
+        player2.setFirstHand();
         game = new Game(player1, player2);
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
@@ -644,7 +646,7 @@ public class Controller {
             player.getHandCards().remove(card.getCardId(), card);
             card.setInBattleCardId(generateInBattleCardId(card));
             view.show(card.getName() + " with " + card.getInBattleCardId() +
-                    " inserted to (" + request.getX() + ", " + request.getY() + ")\n");
+                    " inserted to (" + request.getX() + ", " + request.getY() + ")");
         }
     }
 
@@ -713,7 +715,7 @@ public class Controller {
     public void showNextCard() {
         Player currentPlayer = activePlayer;
         if (currentPlayer.getNextCardId() == 0) {
-            view.show("No More Card In Your Deck!!!\n");
+            view.show("No More Card In Your Deck!!!");
         } else {
             int cardId = currentPlayer.getNextCardId();
             view.show(currentPlayer.getDeckCards().getCards().get(cardId).toInfoString());
