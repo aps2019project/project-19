@@ -16,7 +16,7 @@ public class Game {
     {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                cells[i][j] = new Cell(i + 1, j + 1);
+                cells[i][j] = new Cell(j + 1, i + 1);
             }
         }
     }
@@ -155,16 +155,12 @@ public class Game {
         // TODO: 2019-04-30 must be implemented
         return false;
     }
-    public void setHeros(){
-        Cell cell1 = getCell(1, 3);
-        Card hero1 = player1.getHeroFromDeck();
-        cell1.setCard(hero1);
-        player1.getInBattleCards().put(hero1, cell1);
-        Card hero2 = player2.getHeroFromDeck();
-        Cell cell2 = getCell(9, 3);
-        cell2.setCard(hero2);
-        player2.getInBattleCards().put(hero2, cell2);
-
+    public Hero setHeroes(Player player, Cell cell){
+        Card hero = player.getDeckCards().getHero();
+        player.getDeckCards().getCards().remove(hero.getCardId());
+        cell.setCard(hero);
+        player.getInBattleCards().put(hero, cell);
+        return (Hero) hero;
     }
 
     public String toStringDeathMatchMode() {

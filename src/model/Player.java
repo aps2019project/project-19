@@ -182,13 +182,4 @@ public class Player {
         return null;
     }
 
-    public Card getHeroFromDeck() {
-        for (Card card : deckCards.getCards().values()) {
-            if (card instanceof Hero) {
-                deckCards.getCards().remove(card.getCardId());
-                return card;
-            }
-        }
-        return null;
-    }
 }

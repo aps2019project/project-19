@@ -56,7 +56,7 @@ add 19 to deck test
 add 20 to deck test
 validate deck test
 select deck test
-exit 
+exit
 logout
 login nam
 nam
@@ -81,7 +81,7 @@ buy asb savare Fars
 buy asb savare Fars
 buy asb savare Fars
 buy asb savare Fars
-exit 
+exit
 enter collection
 create deck a
 add 21 to deck a
@@ -112,4 +112,15 @@ enter multi player
 start multiplayer game death match
 select user ali
 start multiplayer game death match
-a
+end turn
+end turn
+end turn
+end turn
+insert asb savare fars in (1, 3)
+show my minions
+insert asb savare fars in (1, 2)
+end turn
+end turn
+insert asb savare fars in (1, 2)
+insert asb savare fars in (1, 3)
+insert asb savare fars in (1, 4)

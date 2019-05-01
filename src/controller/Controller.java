@@ -200,8 +200,6 @@ public class Controller {
         }
         Player player1 = new Player(loggedInAccount, new Deck(loggedInAccount.getCollection().getMainDeck()));
         Player player2 = new Player(opponentAccount, new Deck(opponentAccount.getCollection().getMainDeck()));
-        player1.setFirstHand();
-        player2.setFirstHand();
         game = new Game(player1, player2);
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
@@ -228,7 +226,10 @@ public class Controller {
             case CAPTURE_THE_FLAGS:
                 break;
         }
-        game.setHeros();
+        game.setHeroes(game.getPlayer1(),game.getCell(1,3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
+        game.setHeroes(game.getPlayer2(),game.getCell(9,3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
+        game.getPlayer1().setFirstHand();
+        game.getPlayer2().setFirstHand();
         menuType = MenuType.BATTLE;
         System.err.println("game started");
     }

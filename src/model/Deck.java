@@ -72,10 +72,10 @@ public class Deck {
         return toString.toString();
     }
 
-    public Hero getHero(){
+    public Card getHero(){
         for (Card card : cards.values()) {
             if (card instanceof Hero)
-                return ((Hero) card);
+                return (card);
         }
         return null;
     }

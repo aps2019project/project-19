@@ -51,6 +51,11 @@ public class Hero extends SoldierCard {
     public int getCoolDown() {
         return coolDown;
     }
+    @Override
+    public void setInBattleCardId(String accountName) {
+        String id = accountName+"_"+this.getName()+"_1";
+        super.setInBattleCardId(id);
+    }
 
     public Buff getSpecialPower() {
         return specialPower;
