@@ -6,6 +6,7 @@ import view.*;
 import model.Game.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Controller {
@@ -114,7 +115,7 @@ public class Controller {
                     showAllPlayer();
                     break;
                 case SELECT_OPPONENT_USER:
-                    createGame();
+                    selectOpponent();
                     break;
                 case SELECT_MODE:
                     selectMode();
@@ -186,7 +187,7 @@ public class Controller {
         } while (true);
     }
 
-    private void createGame() {
+    private void selectOpponent() {
         if (!Account.userNameIsValid(request.getUserName()) || loggedInAccount.getUserName().equals(request.getUserName())) {
             errorType = ErrorType.INVALID_OPPONENT;
             return;
@@ -197,9 +198,8 @@ public class Controller {
             errorType = ErrorType.INVALID_OPPONENT_DECK;
             return;
         }
-
-        Player player1 = new Player(loggedInAccount, loggedInAccount.getCollection().getMainDeck());
-        Player player2 = new Player(opponentAccount, opponentAccount.getCollection().getMainDeck());
+        Player player1 = new Player(loggedInAccount, new Deck(loggedInAccount.getCollection().getMainDeck()));
+        Player player2 = new Player(opponentAccount, new Deck(opponentAccount.getCollection().getMainDeck()));
         player1.setFirstHand();
         player2.setFirstHand();
         game = new Game(player1, player2);
@@ -215,6 +215,21 @@ public class Controller {
         if (request.getGameMode() == GameMode.KEEP_THE_FLAG)
             game.setNumOfFlags(request.getNumOfFlags());
         System.err.println("game mode seted");
+        initNewGame(request.getGameMode());
+    }
+
+    public void initNewGame(GameMode gameMode) {
+        switch (gameMode) {
+            case DEATH_MATCH:
+                game.setDate(new Date());
+                break;
+            case KEEP_THE_FLAG:
+                break;
+            case CAPTURE_THE_FLAGS:
+                break;
+        }
+        menuType = MenuType.BATTLE;
+        System.err.println("game started");
     }
 
     public void createNewAccount() {
