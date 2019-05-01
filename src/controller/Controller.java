@@ -6,6 +6,7 @@ import view.*;
 import model.Game.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Controller {
@@ -114,7 +115,7 @@ public class Controller {
                     showAllPlayer();
                     break;
                 case SELECT_OPPONENT_USER:
-                    createGame();
+                    selectOpponent();
                     break;
                 case SELECT_MODE:
                     selectMode();
@@ -186,7 +187,7 @@ public class Controller {
         } while (true);
     }
 
-    private void createGame() {
+    private void selectOpponent() {
         if (!Account.userNameIsValid(request.getUserName()) || loggedInAccount.getUserName().equals(request.getUserName())) {
             errorType = ErrorType.INVALID_OPPONENT;
             return;
@@ -197,9 +198,8 @@ public class Controller {
             errorType = ErrorType.INVALID_OPPONENT_DECK;
             return;
         }
-
-        Player player1 = new Player(loggedInAccount, loggedInAccount.getCollection().getMainDeck());
-        Player player2 = new Player(opponentAccount, opponentAccount.getCollection().getMainDeck());
+        Player player1 = new Player(loggedInAccount, new Deck(loggedInAccount.getCollection().getMainDeck()));
+        Player player2 = new Player(opponentAccount, new Deck(opponentAccount.getCollection().getMainDeck()));
         game = new Game(player1, player2);
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
@@ -213,6 +213,21 @@ public class Controller {
         if (request.getGameMode() == GameMode.KEEP_THE_FLAG)
             game.setNumOfFlags(request.getNumOfFlags());
         System.err.println("game mode seted");
+        initNewGame(request.getGameMode());
+    }
+
+    public void initNewGame(GameMode gameMode) {
+        switch (gameMode) {
+            case DEATH_MATCH:
+                game.setDate(new Date());
+                break;
+            case KEEP_THE_FLAG:
+                break;
+            case CAPTURE_THE_FLAGS:
+                break;
+        }
+        menuType = MenuType.BATTLE;
+        System.err.println("game started");
     }
 
     public void createNewAccount() {
@@ -522,12 +537,12 @@ public class Controller {
     }
 
     public void showMinions() {
-            for (Card card : activePlayer.getInBattleCards().keySet()) {
-                if (card instanceof SoldierCard) {
-                    Cell cell = activePlayer.getInBattleCards().get(card);
-                    view.show(((SoldierCard) card).toBattleFormat(cell.getXCoordinate(),cell.getYCoordinate()));
-                }
+        for (Card card : activePlayer.getInBattleCards().keySet()) {
+            if (card instanceof SoldierCard) {
+                Cell cell = activePlayer.getInBattleCards().get(card);
+                view.show(((SoldierCard) card).toBattleFormat(cell.getXCoordinate(), cell.getYCoordinate()));
             }
+        }
     }
 
     public void showOpponentMinions() {
@@ -553,7 +568,7 @@ public class Controller {
 
     public void selectCardOrItem(Player player) {
         String id = request.getInBattleCardId();
-        if(player.containsCardInBattle(id)) {
+        if (player.containsCardInBattle(id)) {
             Card card = activePlayer.getInBattleCard(id);
             activePlayer.setSelectedCard(card);
             System.err.println(card.getName() + " " + card.getCardId() + " selected");
@@ -575,20 +590,18 @@ public class Controller {
             return;
         }
         Card card = activePlayer.getSelectedCard();
-        Cell targetCell = game.getCell(request.getX(),request.getY());
+        Cell targetCell = game.getCell(request.getX(), request.getY());
         Cell currentCell = activePlayer.getInBattleCards().get(card);
-        if(targetCell.getCard() != null){
+        if (targetCell.getCard() != null) {
             errorType = ErrorType.INVALID_TARGET;
-        }
-        else if(currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell,targetCell)){
+        } else if (currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell, targetCell)) {
             errorType = ErrorType.INVALID_TARGET;
-        }
-        else {
+        } else {
             currentCell.setCard(null);
             targetCell.setCard(card);
-            activePlayer.getInBattleCards().replace(card,targetCell);
+            activePlayer.getInBattleCards().replace(card, targetCell);
             // TODO: 2019-04-30 check replace function in hashmap
-            System.err.println("card"+card.getName()+" moved to "+request.getX()+","+ request.getY());
+            System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
         }
     }
 
