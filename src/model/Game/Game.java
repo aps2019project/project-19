@@ -30,6 +30,7 @@ public class Game {
     private Date date;
     private Player winnerPlayer;
     private GameMode gameMode;
+    private int prize;
 
     public Game(Player player1, Player player2) {
         this.player1 = player1;
@@ -37,6 +38,16 @@ public class Game {
         // TODO: 2019-04-29 set date
         this.isTurnOfPlayerOne = true;
         this.turnNumber = 1;
+    }
+    //todo set prize
+    public void setPrize() {
+        if (gameMode.equals(GameMode.DEATH_MATCH)) {
+            this.prize = 500;
+        } else if (gameMode.equals(GameMode.KEEP_THE_FLAG)) {
+            this.prize = 1000;
+        } else if (gameMode.equals(GameMode.CAPTURE_THE_FLAGS)) {
+            this.prize = 1500;
+        }
     }
 
     public int getLength() {
@@ -135,6 +146,10 @@ public class Game {
         return date;
     }
 
+    public int getPrize() {
+        return prize;
+    }
+
     public void changeTurn() {
         Player currentPlayer;
         if (isTurnOfPlayerOne) {
@@ -156,7 +171,8 @@ public class Game {
         // TODO: 2019-04-30 must be implemented
         return false;
     }
-    public Hero setHeroes(Player player, Cell cell){
+
+    public Hero setHeroes(Player player, Cell cell) {
         Card hero = player.getDeckCards().getHero();
         player.getDeckCards().getCards().remove(hero.getCardId());
         cell.setCard(hero);
@@ -206,7 +222,7 @@ public class Game {
         return toString.toString();
     }
 
-    public String toStringCaptureFlags(){
+    public String toStringCaptureFlags() {
         return player1.toStringFlags() + player2.toStringFlags();
     }
 

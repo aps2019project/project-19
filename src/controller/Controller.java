@@ -120,6 +120,9 @@ public class Controller {
                     selectMode();
                     // TODO: 2019-04- test
                     break;
+                case SELECT_STORY_LEVEL:
+                    selectStoryLevel();
+                    break;
                 ///////////////////////////////// BATTLE  ////////////////////////
                 case INSERT_CARD:
                     insertCard();
@@ -187,6 +190,19 @@ public class Controller {
         } while (true);
     }
 
+    private void selectStoryLevel() {
+        //todo how to create plalyers
+        if (request.getStoryLevel() == 1) {
+
+        } else if (request.getStoryLevel() == 2) {
+
+        } else if (request.getStoryLevel() == 3) {
+
+        } else {
+            errorType = ErrorType.INVALID_LEVEL;
+        }
+    }
+
     private void selectOpponent() {
         if (!Account.userNameIsValid(request.getUserName()) || loggedInAccount.getUserName().equals(request.getUserName())) {
             errorType = ErrorType.INVALID_OPPONENT;
@@ -210,6 +226,7 @@ public class Controller {
             return;
         }
         game.setGameMode(request.getGameMode());
+        game.setPrize();
         if (request.getGameMode() == GameMode.KEEP_THE_FLAG)
             game.setNumOfFlags(request.getNumOfFlags());
         System.err.println("game mode seted");
@@ -332,6 +349,8 @@ public class Controller {
                 if (request.getEnteringMenu() == MenuType.SINGLE_GAME_CUSTOM_MODE ||
                         request.getEnteringMenu() == MenuType.SINGLE_GAME_STORY_MODE) {
                     menuType = request.getEnteringMenu();
+                    if (menuType.equals(MenuType.SINGLE_GAME_STORY_MODE))
+                        view.showStoryMode();
                     return;
                 }
                 break;
@@ -710,7 +729,7 @@ public class Controller {
     public void showCollectableInfo() {
         if (activePlayer.getSelectedItem() != null)
             view.show(activePlayer.getSelectedItem().toString());
-        else errorType =  ErrorType.NO_ITEM_SELECTED;
+        else errorType = ErrorType.NO_ITEM_SELECTED;
     }
 
     public void useCollectable() {

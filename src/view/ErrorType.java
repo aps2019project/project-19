@@ -25,7 +25,8 @@ public enum ErrorType {
     NOT_ENOUGH_MANA("you don't have enough mana"),
     SPELL_NOT_IMPLEMENTABLE("spell card can't be implemented on ground"),
     GAME_IS_NOT_OVER("game is not over"),
-    NO_ITEM_SELECTED("no item selected");
+    NO_ITEM_SELECTED("no item selected"),
+    INVALID_LEVEL("invalid level");
     //    LOGGED_IN("you must logout from your account before creating new account or login into another"),
 //    NOT_LOGGED_IN("you must login to your account to");
     private String message;

@@ -26,6 +26,7 @@ public class Request {
     private int itemID;
     private GameMode gameMode;
     private int numOfFlags;
+    private int storyLevel;
 
     public void getNewCommand() {
         do {
@@ -79,6 +80,8 @@ public class Request {
             case SINGLE_GAME_MENU:
                 break;
             case SINGLE_GAME_STORY_MODE:
+                if (command.matches("enter level \\d"))
+                    return RequestType.SELECT_STORY_LEVEL;
                 break;
             case SINGLE_GAME_CUSTOM_MODE:
                 break;
@@ -215,6 +218,9 @@ public class Request {
                 deckName = command.split(" ")[2];
                 break;
             /////////////////////// CREATING GAME /////////////////
+            case SELECT_STORY_LEVEL:
+                storyLevel = Integer.parseInt(command.split(" ")[2]);
+                break;
             case SELECT_OPPONENT_USER:
                 userName = command.split(" ")[2];
                 break;
@@ -227,7 +233,7 @@ public class Request {
             ////////////////////// Battle //////////////////////
             case SHOW_CARD_INFO_IN_BATTLE:
                 inBattleCardId = command.split("_")[1];
-                itemID =Integer.parseInt(command.split(" ")[1]);
+                itemID = Integer.parseInt(command.split(" ")[1]);
                 break;
             case INSERT_CARD:
                 parseInsertCommand();
@@ -237,6 +243,7 @@ public class Request {
                 break;
             case MOVE_CARD:
                 parseMoveCard();
+                break;
         }
     }
 
@@ -417,6 +424,10 @@ public class Request {
 
     public int getY() {
         return y;
+    }
+
+    public int getStoryLevel() {
+        return storyLevel;
     }
 }
 
