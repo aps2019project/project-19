@@ -237,23 +237,27 @@ public class Game {
     }
 
     public boolean gameIsOver() {
-        if (gameMode.equals(GameMode.DEATH_MATCH)) {
-            if (draw()){
-                return true;
-            }
-            winnerPlayer = deathMatchWinner();
+        switch (gameMode){
+            case CAPTURE_THE_FLAGS:
+                winnerPlayer = captureTheFlagsWinner();
+                break;
+            case KEEP_THE_FLAG:
+                winnerPlayer = keepTheFlagWinner();
+                break;
+            case DEATH_MATCH:
+                if (draw()){
+                    return true;
+                }
+                winnerPlayer = deathMatchWinner();
+                break;
         }
-        if (gameMode.equals(GameMode.KEEP_THE_FLAG))
-            winnerPlayer = keepTheFlagWinner();
-        if (gameMode.equals(GameMode.CAPTURE_THE_FLAGS))
-            winnerPlayer = captureTheFlagsWinner();
         return !(winnerPlayer == null);
     }
 
     private Player deathMatchWinner() {
-        if (player1.getDeckCards().getHero().getHp() <= 0)
+        if (player1.heroIsDead())
             return player2;
-        if (player2.getDeckCards().getHero().getHp() <= 0)
+        if (player2.heroIsDead())
             return player1;
         return null;
     }
@@ -275,7 +279,7 @@ public class Game {
     }
 
     private boolean draw() {
-        return player1.getDeckCards().getHero().getHp() <= 0 && player2.getDeckCards().getHero().getHp() <=0;
+        return player1.heroIsDead()&& player2.heroIsDead();
     }
 }
 

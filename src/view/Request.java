@@ -84,13 +84,19 @@ public class Request {
                     return RequestType.SELECT_STORY_LEVEL;
                 break;
             case SINGLE_GAME_CUSTOM_MODE:
+                if (command.matches("take (?<heroName>(\\w+ ?)+)"))
+                    return RequestType.CHOOSE_HERO;
+                if (command.matches("start game (?<deckname>(\\w+ ?)+) " +
+                        "(death match|capture the flag|keep the flag) (\\d+)?"))
+                    return RequestType.SELECT_SINGLE_PLAYER_GAMEMODE;
                 break;
             case MULTI_GAME_MENU:
                 if (command.matches("show players"))
                     return RequestType.SHOW_ALL_PLAYERS;
                 if (command.matches("select user \\w+"))
                     return RequestType.SELECT_OPPONENT_USER;
-                if (command.matches("start multiplayer game (\\w+ ?)+(\\d+)?"))
+                if (command.matches("start multiplayer game " +
+                        "(death match|capture the flag|keep the flag) (\\d+)?"))
                     return RequestType.SELECT_MODE;
                 break;
             case BATTLE:
@@ -215,6 +221,12 @@ public class Request {
                 deckName = command.split(" ")[2];
                 break;
             /////////////////////// CREATING GAME /////////////////
+            case SELECT_SINGLE_PLAYER_GAMEMODE:
+                parseSinglePlayerMode();
+                break;
+            case CHOOSE_HERO:
+                cardName = command.substring(5).trim();
+                break;
             case SELECT_STORY_LEVEL:
                 storyLevel = Integer.parseInt(command.split(" ")[2]);
                 break;
@@ -240,7 +252,7 @@ public class Request {
                 inBattleCardId = command.split(" ")[1];
                 try {
                     itemID = Integer.parseInt(command.split(" ")[1]);
-                }catch (Exception e){
+                } catch (Exception e) {
                     return;
                 }
                 break;
@@ -256,13 +268,38 @@ public class Request {
         }
     }
 
+    private void parseSinglePlayerMode() {
+        Pattern pattern = Pattern.compile("start game (?<deckName>(\\w+ ?)+)" +
+                " (?<gameMode>death match|capture the flag|keep the flag) (?<flags>\\d+)");
+        Matcher matcher = pattern.matcher(command);
+        if (matcher.matches()) {
+            deckName = matcher.group("deckName");
+            switch (deckName) {
+                case "death match":
+                    gameMode = GameMode.DEATH_MATCH;
+                    break;
+                case "capture the flag":
+                    gameMode = GameMode.CAPTURE_THE_FLAGS;
+                    numOfFlags = Integer.parseInt(matcher.group("flags"));
+                    break;
+                case "keep the flag":
+                    gameMode = GameMode.KEEP_THE_FLAG;
+                    break;
+                default:
+                    errorType = ErrorType.INVALID_COMMAND;
+                    break;
+            }
+        }
+    }
+
     private void parseInsertCommand() {
         Pattern pattern = Pattern.compile("insert (?<minionName>(\\w+ ?)+)in \\((?<X>\\d+), (?<Y>\\d+)\\)");
         Matcher matcher = pattern.matcher(command);
-        matcher.matches();
-        cardName = matcher.group("minionName").trim();
-        x = Integer.parseInt(matcher.group("X"));
-        y = Integer.parseInt(matcher.group("Y"));
+        if (matcher.matches()) {
+            cardName = matcher.group("minionName").trim();
+            x = Integer.parseInt(matcher.group("X"));
+            y = Integer.parseInt(matcher.group("Y"));
+        }
     }
 
     private void parseSelectMode() {
@@ -272,11 +309,11 @@ public class Request {
         }
         if (command.substring(22).trim().matches("capture the flag")) {
             gameMode = GameMode.CAPTURE_THE_FLAGS;
+            numOfFlags = Integer.parseInt(command.split(" ")[6]);
             return;
         }
         if (command.substring(22).trim().matches("keep the flag \\d+")) {
             gameMode = GameMode.KEEP_THE_FLAG;
-            numOfFlags = Integer.parseInt(command.split(" ")[6]);
             return;
         }
         errorType = ErrorType.INVALID_COMMAND;

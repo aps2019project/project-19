@@ -72,8 +72,8 @@ public class Account implements Comparable<Account> {
         return money;
     }
 
-    public void setMoney(long money) {
-        this.money = money;
+    public void increaseMoney(long money) {
+        this.money += money;
     }
 
     public Collection getCollection() {

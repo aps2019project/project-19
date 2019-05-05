@@ -29,8 +29,8 @@ public class Main {
         Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new BuffAdapter()).create();
 //        URL url = Main.class.getResource("data/minions.json");
 //        Reader reader = new FileReader(url.getPath());
-//        ArrayList<Minion> readedminions = gson.fromJson(reader, new TypeToken<List<Minion>>(){}.getType());
-//        System.out.println(readedminions.get(0).getName());
+//        ArrayList<Minion> readMinions = gson.fromJson(reader, new TypeToken<List<Minion>>(){}.getType());
+//        System.out.println(readMinions.get(0).getName());
         CardInitializer cardInitializer = CardInitializer.getInstance();
         cardInitializer.createCards();
         //todo: write description
