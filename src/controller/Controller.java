@@ -27,6 +27,7 @@ public class Controller {
     private Player activePlayer;
     private ErrorType errorType = null;
     private View view = View.getInstance();
+    private Deck enemyDeck;
 
     public void run() {
         //mainLoop:
@@ -123,6 +124,12 @@ public class Controller {
                 case SELECT_STORY_LEVEL:
                     selectStoryLevel();
                     break;
+                case CHOOSE_HERO:
+                    chooseHero();
+                    break;
+                case SELECT_SINGLE_PLAYER_GAMEMODE:
+                    createSinglePlayerGame();
+                    break;
                 ///////////////////////////////// BATTLE  ////////////////////////
                 case INSERT_CARD:
                     insertCard();
@@ -188,6 +195,34 @@ public class Controller {
                 errorType = null;
             }
         } while (true);
+    }
+
+    private void createSinglePlayerGame() {
+        if (enemyDeck == null) {
+            errorType = ErrorType.OPPONENT_HERO_NOT_SELECTED;
+        } else {
+            if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
+                Player player1 = new Player(loggedInAccount,
+                        loggedInAccount.getCollection().getDecks().get(request.getDeckName()));
+                //todo ai
+                Player player2 = new Player(new Account("", ""), enemyDeck);
+                game = new Game(player1, player2);
+                game.setGameMode(request.getGameMode());
+                initNewGame(game.getGameMode());
+            } else {
+                errorType = ErrorType.DECK_NOT_EXISTS;
+            }
+        }
+    }
+
+    private void chooseHero() {
+        Card card = shop.findCard(request.getCardName());
+        if (card == null)
+            errorType = ErrorType.WRONG_HERO_NAME;
+        else {
+            //todo get a random deck and add hero to it
+            //enemyDeck =
+        }
     }
 
     private void selectStoryLevel() {
@@ -351,6 +386,9 @@ public class Controller {
                     menuType = request.getEnteringMenu();
                     if (menuType.equals(MenuType.SINGLE_GAME_STORY_MODE))
                         view.showStoryMode();
+                    else if (menuType.equals(MenuType.SINGLE_GAME_CUSTOM_MODE)) {
+                        view.showHeros();
+                    }
                     return;
                 }
                 break;
@@ -611,7 +649,7 @@ public class Controller {
             return;
         }
         Card card = activePlayer.getSelectedCard();
-        if(!game.coordinateIsValid(request.getX(),request.getY())) {
+        if (!game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
@@ -688,7 +726,7 @@ public class Controller {
         id++;
         string.append(id);
         ids.replace(card.getName(), id);
-        return string.toString().replaceAll(" ","_");
+        return string.toString().replaceAll(" ", "_");
     }
 
     private Card findCardInHandByName(ArrayList<Card> cards, String cardName) {
@@ -753,8 +791,11 @@ public class Controller {
     }
 
     public void endGame() {
-        if (game.getWinnerPlayer() != null)
+        if (game.getWinnerPlayer() != null) {
             menuType = MenuType.MAINMENU;
+            game = null;
+            enemyDeck = null;
+        }
         errorType = ErrorType.GAME_IS_NOT_OVER;
     }
 

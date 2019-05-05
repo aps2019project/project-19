@@ -1,6 +1,7 @@
 package view;
 
 import controller.MenuType;
+import model.Shop;
 
 public class View {
     private static final View VIEW = new View();
@@ -63,16 +64,18 @@ public class View {
                         "7. Help\n8. Exit");
                 break;
             case START_NEW_GAME:
-                System.out.println("1. Single player\n2. Multi player\n3. elp\n4. Exit");
+                System.out.println("1. enter Single player\n2. enter Multi player\n3. elp\n4. Exit");
                 break;
             case SINGLE_GAME_MENU:
-                System.out.println("1. Story Mode\n2. Custom Game\n3. Help\n4. Exit");
+                System.out.println("1. enter Story Mode\n2. enter Custom Game\n3. Help\n4. Exit");
                 break;
             case SINGLE_GAME_STORY_MODE:
                 System.out.println("1. enter level [1 | 2 | 3]\n2. Help\n3. Exit");
                 break;
             case SINGLE_GAME_CUSTOM_MODE:
-                System.out.println("options");
+                System.out.println("1. take [hero name]\n2. start game [deck name]" +
+                        " [Death Match|Capture The Flag|Keep The Flag] [number of flags In Keep The Flag Mode]\n" +
+                        "3. Help\n4. Exit");
                 break;
             case MULTI_GAME_MENU:
                 System.out.println("1. Show Players\n2. select user [user name]\n" +
@@ -88,5 +91,10 @@ public class View {
         System.out.println("Level: 1 Hero: Dive Sepid Mode: Death match Prize: 500 dricks\n" +
                 "Level: 2 Hero: Zahhack Mode: Keep the flag Prize: 1000 dricks\n" +
                 "Level: 3 Hero: Arash Mode: Capture the flags Prize: 1500 dricks");
+    }
+
+    public void showHeros() {
+        System.out.println("1. dive sepid\n2. simorgh\n3. ezhdeha ye haft sar\n4. rakhsh\n" +
+                "5. zahack\n6. kaveh\n7.arash\n8. afsaneh\n9. esfandiar\n10. rostam");
     }
 }

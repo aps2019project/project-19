@@ -26,12 +26,13 @@ public class Shop {
         return items;
     }
 
-//    public boolean cardExistsInShop(String cardName) {
-//        for (Card card : cards)
-//            if (card.getName().equals(cardName))
-//                return true;
-//        return false;
-//    }
+    public Card findCard(String cardName) {
+        for (Card card : cards) {
+            if (card.getName().equals(cardName))
+                return card;
+        }
+        return null;
+    }
 
     private Shop() {
     }
@@ -128,5 +129,18 @@ public class Shop {
 
     public void generateNewId() {
         id++;
+    }
+
+    public Deck getStoryModeDecks(int number) {
+        Deck deck = new Deck();
+        switch (number) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+        return null;
     }
 }

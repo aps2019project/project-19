@@ -26,7 +26,9 @@ public enum ErrorType {
     SPELL_NOT_IMPLEMENTABLE("spell card can't be implemented on ground"),
     GAME_IS_NOT_OVER("game is not over"),
     NO_ITEM_SELECTED("no item selected"),
-    INVALID_LEVEL("invalid level");
+    INVALID_LEVEL("invalid level"),
+    WRONG_HERO_NAME("hero doesn't exist with this name"),
+    OPPONENT_HERO_NOT_SELECTED("opponent hero is not selected");
     //    LOGGED_IN("you must logout from your account before creating new account or login into another"),
 //    NOT_LOGGED_IN("you must login to your account to");
     private String message;
