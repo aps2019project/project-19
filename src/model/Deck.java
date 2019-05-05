@@ -15,15 +15,20 @@ public class Deck {
         return name;
     }
 
-    public Deck(String name){
+    public Deck() {
+    }
+
+    public Deck(String name) {
         this.name = name;
     }
-    public Deck (Deck deck){
+
+    public Deck(Deck deck) {
         this.name = deck.name;
         this.cards = new HashMap<>(deck.cards);
         this.items = new HashMap<>(deck.items);
     }
-    public boolean deckHasHero(){
+
+    public boolean deckHasHero() {
         ArrayList<Card> cards = new ArrayList<>(this.getCards().values());
         for (Card card : cards) {
             if (card instanceof Hero)
@@ -32,7 +37,7 @@ public class Deck {
         return false;
     }
 
-    public boolean deckIsValid(){
+    public boolean deckIsValid() {
         if (cards.size() == 20 && deckHasHero())
             return true;
         return false;
@@ -52,7 +57,7 @@ public class Deck {
         StringBuilder toString = new StringBuilder();
         toString.append(this.getName()).append(" : ").append("\n");
         toString.append("\tHeroes :\n");
-        for (Card card : this.getCards().values()){
+        for (Card card : this.getCards().values()) {
             if (card instanceof Hero)
                 toString.append("\t\t").append(number).append(" : ").append(card.toString()).append("\n");
         }
