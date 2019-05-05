@@ -168,10 +168,11 @@ public class Player {
         }
     }
 
-    public void setFirstHand() {
+    public Player setFirstHand() {
         for (int i = 0; i < 5; i++) {
             this.moveARandomCardToHand();
         }
+        return this;
     }
 
     public boolean containsCardInBattle(String cardId) {
@@ -202,5 +203,13 @@ public class Player {
             toString.append(card.getInBattleCardId()).append("\n");
         }
         return toString.toString();
+    }
+    public Player resetCardsAttackAndMoveAbility(){
+        for (Card card :getInBattleCards().keySet()) {
+            card = (SoldierCard) card;
+            ((SoldierCard) card).setMovedThisTurn(false).setAttackedThisTurn(false);
+
+        }
+        return this;
     }
 }
