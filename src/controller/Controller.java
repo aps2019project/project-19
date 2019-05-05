@@ -25,6 +25,7 @@ public class Controller {
     private Account loggedInAccount;
     private Game game;
     private Player activePlayer;
+    private Player deactivePlayer;
     private ErrorType errorType = null;
     private View view = View.getInstance();
     private Deck enemyDeck;
@@ -38,10 +39,13 @@ public class Controller {
             request.setRequestType(menuType);
             request.parseCommand();
             if (game != null) {
-                if (game.isTurnOfPlayerOne())
+                if (game.isTurnOfPlayerOne()) {
                     activePlayer = game.getPlayer1();
-                else
+                    deactivePlayer = game.getPlayer2();
+                } else {
                     activePlayer = game.getPlayer2();
+                    deactivePlayer = game.getPlayer1();
+                }
             }
             switch (request.getRequestType()) {
                 case ERROR:
@@ -157,6 +161,9 @@ public class Controller {
                     moveCard();
                     // TODO: 2019-04-30 test
                     break;
+                case ATTACK:
+                    attack();
+                    break;
                 case SHOW_HAND:
                     showHand();
                     break;
@@ -175,6 +182,12 @@ public class Controller {
                 case SHOW_GATHERED_COLLECTABLES:
                     //todo what to do????
                     showGatheredCollectables();
+                    break;
+                case SHOW_CARD_INFO_IN_GRAVEYARD:
+                    showCardInfoInGraveYard();
+                    break;
+                case SHOW_All_CARDS_IN_GRAVEYARD:
+                    showAllCardsInGraveYard();
                     break;
                 case END_GAME:
                     endGame();
@@ -280,8 +293,8 @@ public class Controller {
         }
         game.setHeroes(game.getPlayer1(), game.getCell(1, 3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
         game.setHeroes(game.getPlayer2(), game.getCell(9, 3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
-        game.getPlayer1().setFirstHand();
-        game.getPlayer2().setFirstHand();
+        game.getPlayer1().setFirstHand().resetCardsAttackAndMoveAbility();
+        game.getPlayer2().setFirstHand().resetCardsAttackAndMoveAbility();
         menuType = MenuType.BATTLE;
         System.err.println("game started");
     }
@@ -348,6 +361,11 @@ public class Controller {
             case MULTI_GAME_MENU:
                 menuType = MenuType.START_NEW_GAME;
                 break;
+            case GRAVEYARD:
+                menuType = MenuType.BATTLE;
+                break;
+            case BATTLE:
+                break;
             default:
                 menuType = MenuType.MAINMENU;
                 break;
@@ -391,6 +409,10 @@ public class Controller {
                     }
                     return;
                 }
+                break;
+            case BATTLE:
+                if(request.getEnteringMenu() == MenuType.GRAVEYARD)
+                    menuType = MenuType.GRAVEYARD;
                 break;
         }
         errorType = ErrorType.INVALID_COMMAND;
@@ -648,7 +670,11 @@ public class Controller {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
         }
-        Card card = activePlayer.getSelectedCard();
+        SoldierCard card = (SoldierCard) activePlayer.getSelectedCard();
+        if (card.isMovedThisTurn()) {
+            errorType = ErrorType.CAN_NOT_MOVE_AGAIN;
+            return;
+        }
         if (!game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return;
@@ -665,13 +691,41 @@ public class Controller {
             activePlayer.getInBattleCards().replace(card, targetCell);
             // TODO: 2019-04-30 check replace function in hashmap
             System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
+            card.setMovedThisTurn(true);
         }
     }
 
     public void attack() {
-    }
-
-    public void comboAttack() {
+        if (!activePlayer.isAnyCardSelected()) {
+            errorType = ErrorType.CARD_NOT_SELECTED;
+            return;
+        }
+        SoldierCard attacker = (SoldierCard) activePlayer.getSelectedCard();
+        if (attacker.isAttackedThisTurn()) {
+            errorType = ErrorType.CAN_NOT_ATTACK_AGAIN;
+            return;
+        }
+        String defenderId = request.getInBattleCardId();
+        if (!deactivePlayer.containsCardInBattle(defenderId)) {
+            errorType = ErrorType.INVALID_CARD_ID;
+            return;
+        }
+        SoldierCard defender = (SoldierCard) deactivePlayer.getInBattleCard(defenderId);
+        Cell attackerCell = activePlayer.getInBattleCards().get(attacker);
+        Cell defenderCell = deactivePlayer.getInBattleCards().get(defender);
+        if (!attacker.targetIsInRange(attackerCell, defenderCell)) {
+            errorType = ErrorType.TARGET_NOT_IN_RANGE;
+            return;
+        }
+        attacker.attack(defender);
+        attacker.setAttackedThisTurn(true);
+        System.err.println("attacked");
+        if (defender.targetIsInRange(defenderCell, attackerCell)) {
+            defender.counterAttack(attacker);
+            System.err.println("counter attaacked");
+            checkDeadCard(activePlayer,attacker);
+        }
+        checkDeadCard(deactivePlayer,defender);
     }
 
     public void useSpecialPower() {
@@ -702,6 +756,7 @@ public class Controller {
             errorType = ErrorType.NOT_ENOUGH_MANA;
         } else {
             card.setCardStatus(CardStatus.PLACED);
+            ((SoldierCard) card).setAttackedThisTurn(false).setMovedThisTurn(false);
             player.getInBattleCards().put(card, insertionCell);
             insertionCell.setCard(card);
             player.getHandCards().remove(card.getCardId(), card);
@@ -754,12 +809,17 @@ public class Controller {
 
 
     public void endTurn() {
+        activePlayer.setSelectedItem(null);
+        activePlayer.setSelectedCard(null);
         Player player = activePlayer;
-        //todo 1.cast buff, 2.check winner
+        //todo 1.cast buff
         //1
         //2
+        player.resetCardsAttackAndMoveAbility();
         player.moveARandomCardToHand();
-        game.changeTurn();
+        if (!game.gameIsOver())
+            game.changeTurn();
+        //todo: change menu
     }
 
     public void showGatheredCollectables() {
@@ -788,6 +848,13 @@ public class Controller {
     }
 
     public void showCardInfoInGraveYard() {
+        view.show(activePlayer.getGraveYard().get(request.getInBattleCardId()).toString());
+    }
+
+    public void showAllCardsInGraveYard() {
+        for (Card card : activePlayer.getGraveYard().values()) {
+            view.show(card.toString());
+        }
     }
 
     public void endGame() {
@@ -804,5 +871,20 @@ public class Controller {
 
     public Game getGame() {
         return game;
+    }
+    public void checkDeadCard(Player player,SoldierCard card){
+        if(card.getHp()<=0){
+            Cell cell = player.getInBattleCards().get(card);
+            cell.setCard(null);
+            player.getInBattleCards().remove(card);
+            player.getGraveYard().put(card.getInBattleCardId(),card);
+            card.setCardStatus(CardStatus.IN_GRAVEYARD);
+            System.out.println(card.getInBattleCardId() + " died in battle!");
+        }
+    }
+    public void checkDeadCards(Player player){
+        for (Card card : player.getInBattleCards().keySet()) {
+            checkDeadCard(player,(SoldierCard) card);
+        }
     }
 }

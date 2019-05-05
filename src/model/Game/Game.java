@@ -169,6 +169,16 @@ public class Game {
         }
     }
 
+    public int totalGameFlagsNmber() {
+        int result = 0;
+        for (Cell[] inRowCell : cells) {
+            for (Cell cell : inRowCell) {
+                result += cell.getFlagNumber();
+            }
+        }
+        return result;
+    }
+
     public boolean pathIsBlocked(Cell destCell, Cell targetCell) {
         // TODO: 2019-04-30 must be implemented
         return false;
@@ -183,7 +193,6 @@ public class Game {
     }
 
     public String toStringDeathMatchMode() {
-        // TODO: 5/1/2019 duplicate make it better
         StringBuilder toString = new StringBuilder();
         toString.append("player one hero's health: ");
         for (Card card : player1.getInBattleCards().keySet()) {
@@ -203,7 +212,6 @@ public class Game {
     }
 
     public String toStringKeepFlag() {
-        // TODO: 5/1/2019 duplicate make it better
         StringBuilder toString = new StringBuilder();
         if (player1.getMinionsWithFlag() != null)
             toString.append("player ").append(player1.getAccount().getUserName()).append(" has flag in coordinate: ")
@@ -212,7 +220,7 @@ public class Game {
             toString.append("player ").append(player2.getAccount().getUserName()).append(" has flag in coordinate: ")
                     .append(player2.getInBattleCards().get(player2.getMinionsWithFlag().get(0)).toString());
         else {
-            toString.append("no one has flag. flag is in coordinate : (");
+            toString.append("no one has flag. flag is in coordinate : ");
             for (Cell[] cellInRow : cells) {
                 for (Cell cell : cellInRow) {
                     if (cell.getFlagNumber() != 0) {
@@ -228,5 +236,46 @@ public class Game {
         return player1.toStringFlags() + player2.toStringFlags();
     }
 
+    public boolean gameIsOver() {
+        if (gameMode.equals(GameMode.DEATH_MATCH)) {
+            if (draw()){
+                return true;
+            }
+            winnerPlayer = deathMatchWinner();
+        }
+        if (gameMode.equals(GameMode.KEEP_THE_FLAG))
+            winnerPlayer = keepTheFlagWinner();
+        if (gameMode.equals(GameMode.CAPTURE_THE_FLAGS))
+            winnerPlayer = captureTheFlagsWinner();
+        return !(winnerPlayer == null);
+    }
 
+    private Player deathMatchWinner() {
+        if (player1.getDeckCards().getHero().getHp() <= 0)
+            return player2;
+        if (player2.getDeckCards().getHero().getHp() <= 0)
+            return player1;
+        return null;
+    }
+
+    private Player keepTheFlagWinner() {
+        if (player1.getNumberOFTurnsWithFlag() == 6)
+            return player1;
+        if (player2.getNumberOFTurnsWithFlag() == 6)
+            return player2;
+        return null;
+    }
+
+    private Player captureTheFlagsWinner() {
+         if (2 * player1.totalPlyerFlagsNumber() > totalGameFlagsNmber())
+             return player1;
+         if (2 * player2.totalPlyerFlagsNumber() > totalGameFlagsNmber())
+             return player2;
+         return null;
+    }
+
+    private boolean draw() {
+        return player1.getDeckCards().getHero().getHp() <= 0 && player2.getDeckCards().getHero().getHp() <=0;
+    }
 }
+

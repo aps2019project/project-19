@@ -15,9 +15,11 @@ public class Player {
     private HashMap<Integer, Card> handCards = new HashMap<>();
     private HashMap<Card, Cell> inBattleCards = new HashMap<>();
     private HashMap<Integer, Item> items = new HashMap<>();
+    private HashMap<String, Card> graveYard = new HashMap<>();
     private Card selectedCard;
     private Item selectedItem;
     private int nextCardId;
+    private int numberOfTurnsWithFlag;
     private HashMap<String, Integer> cardNameIdHashMap = new HashMap<>();
 
     public Player(Account account, Deck deckCards) {
@@ -131,6 +133,22 @@ public class Player {
         this.selectedItem = selectedItem;
     }
 
+    public HashMap<String, Card> getGraveYard() {
+        return graveYard;
+    }
+
+    public void increaseNumberOfTurnsWithFlag() {
+        numberOfTurnsWithFlag ++;
+    }
+
+    public void setNumberOfTurnsWithFlag(int numberOfTurnsWithFlag) {
+        this.numberOfTurnsWithFlag = numberOfTurnsWithFlag;
+    }
+
+    public int getNumberOFTurnsWithFlag() {
+        return numberOfTurnsWithFlag;
+    }
+
     public String handInfo() {
         StringBuilder result = new StringBuilder();
         ArrayList<Card> cards = new ArrayList<>(handCards.values());
@@ -168,10 +186,20 @@ public class Player {
         }
     }
 
-    public void setFirstHand() {
+    public Player setFirstHand() {
         for (int i = 0; i < 5; i++) {
             this.moveARandomCardToHand();
         }
+        return this;
+    }
+
+    public int totalPlyerFlagsNumber() {
+        int result  = 0;
+        for (Card card : inBattleCards.keySet()) {
+            if (card instanceof SoldierCard)
+                result += ((SoldierCard) card).getFlagNumber();
+        }
+        return result;
     }
 
     public boolean containsCardInBattle(String cardId) {
@@ -202,5 +230,13 @@ public class Player {
             toString.append(card.getInBattleCardId()).append("\n");
         }
         return toString.toString();
+    }
+    public Player resetCardsAttackAndMoveAbility(){
+        for (Card card :getInBattleCards().keySet()) {
+            card = (SoldierCard) card;
+            ((SoldierCard) card).setMovedThisTurn(false).setAttackedThisTurn(false);
+
+        }
+        return this;
     }
 }

@@ -87,6 +87,6 @@ public abstract class Card {
     public void castSpell(Card targetCard) {
     }
 
-
     public abstract String toInfoString();
+
 }

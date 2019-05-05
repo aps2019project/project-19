@@ -137,9 +137,6 @@ public class Request {
                     return RequestType.USE_COLLECTABLE;
                 if (command.matches("show next card"))//done
                     return RequestType.SHOW_NEXT_CARD;
-                //sajad
-                if (command.matches("enter graveyard"))
-                    return RequestType.ENTER_GRAVEYARD;
                 //
                 if (command.matches("show my choices"))
                     return RequestType.SHOW_MY_CHOICES;
@@ -148,7 +145,7 @@ public class Request {
                     return RequestType.END_GAME;
                 break;
             case GRAVEYARD:
-                if (command.matches("show info \\d+"))
+                if (command.matches("show info \\w+"))
                     return RequestType.SHOW_CARD_INFO_IN_GRAVEYARD;
                 if (command.matches("show cards"))
                     return RequestType.SHOW_All_CARDS_IN_GRAVEYARD;
@@ -259,8 +256,14 @@ public class Request {
                     return;
                 }
                 break;
+            case ATTACK:
+                inBattleCardId = command.split(" ")[1];
+                break;
             case MOVE_CARD:
                 parseMoveCard();
+                break;
+            case SHOW_CARD_INFO_IN_GRAVEYARD:
+                inBattleCardId = command.split(" ")[2];
                 break;
         }
     }
@@ -339,6 +342,8 @@ public class Request {
             enteringMenu = MenuType.SINGLE_GAME_CUSTOM_MODE;
         else if (enteringMenuName.equals("story mode"))
             enteringMenu = MenuType.SINGLE_GAME_STORY_MODE;
+        else if( enteringMenuName.equals("graveyard"))
+            enteringMenu = MenuType.GRAVEYARD;
     }
 
     public void parseMoveCard() {

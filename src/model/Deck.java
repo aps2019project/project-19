@@ -55,32 +55,32 @@ public class Deck {
     public String toString() {
         int number = 1;
         StringBuilder toString = new StringBuilder();
-        toString.append(this.getName() + " : " + "\n");
+        toString.append(this.getName()).append(" : ").append("\n");
         toString.append("\tHeroes :\n");
         for (Card card : this.getCards().values()) {
             if (card instanceof Hero)
-                toString.append("\t\t" + number + " : " + card.toString() + "\n");
+                toString.append("\t\t").append(number).append(" : ").append(card.toString()).append("\n");
         }
         toString.append("\tItems :\n");
         for (Item item : this.getItems().values()) {
-            toString.append("\t\t" + number + " : " + item.toString() + "\n");
+            toString.append("\t\t").append(number).append(" : ").append(item.toString()).append("\n");
             number++;
         }
         number = 1;
         toString.append("\tCards :\n");
         for (Card card : this.getCards().values()) {
-            if (!(card instanceof Hero)) {
-                toString.append("\t\t" + number + " : " + card.toString() + "\n");
+            if (!(card instanceof Hero)){
+                toString.append("\t\t").append(number).append(" : ").append(card.toString()).append("\n");
                 number++;
             }
         }
         return toString.toString();
     }
 
-    public Card getHero() {
+    public Hero getHero(){
         for (Card card : cards.values()) {
             if (card instanceof Hero)
-                return (card);
+                return (((Hero) card));
         }
         return null;
     }
