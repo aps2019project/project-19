@@ -92,7 +92,7 @@ public class Shop {
                     card1.setCardId(id);
                     account.getCollection().getCards().add(card1);
                 }
-                account.setMoney(account.getMoney() - card.getPrice());
+                account.increaseMoney(-card.getPrice());
                 return;
             }
         }
@@ -101,7 +101,7 @@ public class Shop {
                 Item item1 = new Item(item);
                 item1.setItemId(id);
                 account.getCollection().getItems().add(item1);
-                account.setMoney(account.getMoney() - item.getPrice());
+                account.increaseMoney( - item.getPrice());
             }
         }
     }
@@ -109,11 +109,11 @@ public class Shop {
     public void sell(int productId, Account account) {
         for (Card card : account.getCollection().getCards()) {
             if (card.getCardId() == productId)
-                account.setMoney(account.getMoney() + card.getPrice());
+                account.increaseMoney( card.getPrice());
         }
         for (Item item : account.getCollection().getItems()) {
             if (item.getItemId() == productId)
-                account.setMoney(account.getMoney() + item.getPrice());
+                account.increaseMoney(item.getPrice());
         }
         for (Deck deck : account.getCollection().getDecks().values()) {
             deck.getCards().remove(productId);

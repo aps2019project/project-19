@@ -373,7 +373,7 @@ public class Controller {
                 }
                 break;
             case BATTLE:
-                if(request.getEnteringMenu() == MenuType.GRAVEYARD)
+                if (request.getEnteringMenu() == MenuType.GRAVEYARD)
                     menuType = MenuType.GRAVEYARD;
                 break;
         }
@@ -685,9 +685,11 @@ public class Controller {
         if (defender.targetIsInRange(defenderCell, attackerCell)) {
             defender.counterAttack(attacker);
             System.err.println("counter attaacked");
-            checkDeadCard(activePlayer,attacker);
+            checkDeadCard(activePlayer, attacker);
         }
-        checkDeadCard(deactivePlayer,defender);
+        checkDeadCard(deactivePlayer, defender);
+        if (game.gameIsOver())
+            endTurn();
     }
 
     public void useSpecialPower() {
@@ -781,7 +783,8 @@ public class Controller {
         player.moveARandomCardToHand();
         if (!game.gameIsOver())
             game.changeTurn();
-        //todo: change menu
+        else
+            endGame();
     }
 
     public void showGatheredCollectables() {
@@ -820,9 +823,19 @@ public class Controller {
     }
 
     public void endGame() {
-        if (game.getWinnerPlayer() != null)
-            menuType = MenuType.MAINMENU;
-        errorType = ErrorType.GAME_IS_NOT_OVER;
+        if(game.getWinnerPlayer() == null){
+            view.show("draw!");
+        }
+        else{
+            view.show(game.getWinnerPlayer().getAccount().getUserName()+" won the game and his prize is: "+ game.getPrize());
+            game.getWinnerPlayer().getAccount().increaseMoney(game.getPrize());
+        }
+        do {
+            request = new Request();
+            request.getNewCommand();
+        } while (!request.getCommand().equals("end game"));
+        // todo add prize
+        menuType = MenuType.MAINMENU;
     }
 
     public void showMenuOptions() {
@@ -831,19 +844,21 @@ public class Controller {
     public Game getGame() {
         return game;
     }
-    public void checkDeadCard(Player player,SoldierCard card){
-        if(card.getHp()<=0){
+
+    public void checkDeadCard(Player player, SoldierCard card) {
+        if (card.getHp() <= 0) {
             Cell cell = player.getInBattleCards().get(card);
             cell.setCard(null);
             player.getInBattleCards().remove(card);
-            player.getGraveYard().put(card.getInBattleCardId(),card);
+            player.getGraveYard().put(card.getInBattleCardId(), card);
             card.setCardStatus(CardStatus.IN_GRAVEYARD);
             System.out.println(card.getInBattleCardId() + " died in battle!");
         }
     }
-    public void checkDeadCards(Player player){
+
+    public void checkDeadCards(Player player) {
         for (Card card : player.getInBattleCards().keySet()) {
-            checkDeadCard(player,(SoldierCard) card);
+            checkDeadCard(player, (SoldierCard) card);
         }
     }
 }

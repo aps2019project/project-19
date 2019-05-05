@@ -30,6 +30,7 @@ buy asb savare Fars
 buy asb savare Fars
 buy asb savare Fars
 buy dive sepid
+show collection
 exit
 enter collection
 create deck test
