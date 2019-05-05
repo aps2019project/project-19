@@ -50,8 +50,8 @@ public abstract class SoldierCard extends Card {
         return hp;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    public void decreaseHP(int amount) {
+        this.hp -= amount;
     }
 
     public SoldierTypes getType() {
@@ -107,9 +107,13 @@ public abstract class SoldierCard extends Card {
         return this;
     }
 
-    public void counterAttack(Card opponentCard) {
+    public void counterAttack(SoldierCard target) {
+        target.decreaseHP(this.getAp());
     }
-
+    public void attack (SoldierCard terget){
+        terget.decreaseHP(this.getAp());
+        // TODO: 2019-05-05 cast buff
+    }
     public String toBattleFormat(int x, int y) {
         return getInBattleCardId() + " : "
                 + getName() + ", "
@@ -120,6 +124,21 @@ public abstract class SoldierCard extends Card {
 
     public abstract String toInfoString();
     public boolean targetIsInRange(Cell attackerCell,Cell targetCell){
-        switch ()
+        switch (this.getType()){
+            case MELEE:
+                return (Math.abs(attackerCell.getYCoordinate()-targetCell.getYCoordinate()) <= 1 &&
+                Math.abs(attackerCell.getXCoordinate() - targetCell.getXCoordinate()) <= 1 );
+            case RANGED:
+                if(Math.abs(attackerCell.getYCoordinate()-targetCell.getYCoordinate()) <= 1 &&
+                        Math.abs(attackerCell.getXCoordinate() - targetCell.getXCoordinate()) <= 1)
+                    return false;
+                else
+                    return (Math.abs(attackerCell.getYCoordinate()-targetCell.getYCoordinate()) <= this.getAttackRange() &&
+                        Math.abs(attackerCell.getXCoordinate() - targetCell.getXCoordinate()) <= this.getAttackRange());
+            case HYBRID:
+                return (Math.abs(attackerCell.getYCoordinate()-targetCell.getYCoordinate()) <= this.getAttackRange() &&
+                        Math.abs(attackerCell.getXCoordinate() - targetCell.getXCoordinate()) <= this.getAttackRange());
+        }
+        return false;
     }
 }

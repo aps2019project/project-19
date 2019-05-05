@@ -28,6 +28,7 @@ public enum ErrorType {
     NO_ITEM_SELECTED("no item selected"),
     INVALID_LEVEL("invalid level"),
     CAN_NOT_MOVE_AGAIN("this card can't move again"),
+    TARGET_NOT_IN_RANGE("target not in range"),
     CAN_NOT_ATTACK_AGAIN("this card can't attack again");
     //    LOGGED_IN("you must logout from your account before creating new account or login into another"),
 //    NOT_LOGGED_IN("you must login to your account to");

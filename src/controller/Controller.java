@@ -155,6 +155,9 @@ public class Controller {
                     moveCard();
                     // TODO: 2019-04-30 test
                     break;
+                case ATTACK:
+                    attack();
+                    break;
                 case SHOW_HAND:
                     showHand();
                     break;
@@ -662,10 +665,17 @@ public class Controller {
             return;
         }
         SoldierCard defender = (SoldierCard) deactivePlayer.getInBattleCard(defenderId);
-
-    }
-
-    public void comboAttack() {
+        Cell attackerCell = activePlayer.getInBattleCards().get(attacker);
+        Cell defenderCell = deactivePlayer.getInBattleCards().get(defender);
+        if(!attacker.targetIsInRange(attackerCell,defenderCell)) {
+            errorType = ErrorType.TARGET_NOT_IN_RANGE;
+            return;
+        }
+        attacker.attack(defender);
+        attacker.setAttackedThisTurn(true);
+        if(defender.targetIsInRange(defenderCell,attackerCell))
+            defender.counterAttack(attacker);
+        System.err.println("attacked");
     }
 
     public void useSpecialPower() {
@@ -749,6 +759,8 @@ public class Controller {
 
 
     public void endTurn() {
+        activePlayer.setSelectedItem(null);
+        activePlayer.setSelectedCard(null);
         Player player = activePlayer;
         //todo 1.cast buff, 2.check winner
         //1

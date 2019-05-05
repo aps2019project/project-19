@@ -88,4 +88,5 @@ public abstract class Card {
     }
 
     public abstract String toInfoString();
+
 }
