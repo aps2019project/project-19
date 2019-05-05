@@ -41,8 +41,7 @@ public class Controller {
                 if (game.isTurnOfPlayerOne()) {
                     activePlayer = game.getPlayer1();
                     deactivePlayer = game.getPlayer2();
-                }
-                else {
+                } else {
                     activePlayer = game.getPlayer2();
                     deactivePlayer = game.getPlayer1();
                 }
@@ -624,12 +623,12 @@ public class Controller {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
         }
-        SoldierCard card =( SoldierCard) activePlayer.getSelectedCard();
-        if(card.isMovedThisTurn()){
+        SoldierCard card = (SoldierCard) activePlayer.getSelectedCard();
+        if (card.isMovedThisTurn()) {
             errorType = ErrorType.CAN_NOT_MOVE_AGAIN;
             return;
         }
-        if(!game.coordinateIsValid(request.getX(),request.getY())) {
+        if (!game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
@@ -650,32 +649,36 @@ public class Controller {
     }
 
     public void attack() {
-        if(!activePlayer.isAnyCardSelected()){
+        if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
         }
-        SoldierCard attacker =(SoldierCard ) activePlayer.getSelectedCard();
-        if(attacker.isAttackedThisTurn()){
+        SoldierCard attacker = (SoldierCard) activePlayer.getSelectedCard();
+        if (attacker.isAttackedThisTurn()) {
             errorType = ErrorType.CAN_NOT_ATTACK_AGAIN;
             return;
         }
         String defenderId = request.getInBattleCardId();
-        if(!deactivePlayer.containsCardInBattle(defenderId)){
+        if (!deactivePlayer.containsCardInBattle(defenderId)) {
             errorType = ErrorType.INVALID_CARD_ID;
             return;
         }
         SoldierCard defender = (SoldierCard) deactivePlayer.getInBattleCard(defenderId);
         Cell attackerCell = activePlayer.getInBattleCards().get(attacker);
         Cell defenderCell = deactivePlayer.getInBattleCards().get(defender);
-        if(!attacker.targetIsInRange(attackerCell,defenderCell)) {
+        if (!attacker.targetIsInRange(attackerCell, defenderCell)) {
             errorType = ErrorType.TARGET_NOT_IN_RANGE;
             return;
         }
         attacker.attack(defender);
         attacker.setAttackedThisTurn(true);
-        if(defender.targetIsInRange(defenderCell,attackerCell))
-            defender.counterAttack(attacker);
         System.err.println("attacked");
+        if (defender.targetIsInRange(defenderCell, attackerCell)) {
+            defender.counterAttack(attacker);
+            System.err.println("counter attaacked");
+            checkDeadCard(activePlayer,attacker);
+        }
+        checkDeadCard(deactivePlayer,defender);
     }
 
     public void useSpecialPower() {
@@ -816,5 +819,20 @@ public class Controller {
 
     public Game getGame() {
         return game;
+    }
+    public void checkDeadCard(Player player,SoldierCard card){
+        if(card.getHp()<=0){
+            Cell cell = player.getInBattleCards().get(card);
+            cell.setCard(null);
+            player.getInBattleCards().remove(card);
+            player.getGraveYard().put(card.getInBattleCardId(),card);
+            card.setCardStatus(CardStatus.IN_GRAVEYARD);
+            System.out.println(card.getInBattleCardId() + " died in battle!");
+        }
+    }
+    public void checkDeadCards(Player player){
+        for (Card card : player.getInBattleCards().keySet()) {
+            checkDeadCard(player,(SoldierCard) card);
+        }
     }
 }
