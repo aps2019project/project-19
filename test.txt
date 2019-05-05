@@ -112,25 +112,12 @@ enter multi player
 start multiplayer game death match
 select user ali
 start multiplayer game death match
+insert camandare farse in (2, 3)
+select nam_camandare_farse_1
+move to (4, 3)
+attack ali_dive_sepid_1
 end turn
-end turn
-end turn
-end turn
-show my minions
-insert asb savare fars in (1, 2)
-select nam_asb_savare_fars_1
-move to (3, 2)
-end turn
-insert asb savare fars in (9, 2)
-select ali_dive_sepid_1
-move to (7, 3)
-end turn
-move to (5, 2)
-select nam_asb_savare_fars_1
-move to (5, 2)
-end turn
-select ali_dive_sepid_1
-move to (5, 3)
-attack nam_asb_savare_fars_1
-show my minions
-show opponent minions
+insert neyzedare farse in (8, 3)
+select ali_neyzedare_farse_1
+move to (6, 3)
+attack nam_camandare_farse_1

@@ -326,6 +326,11 @@ public class Controller {
             case MULTI_GAME_MENU:
                 menuType = MenuType.START_NEW_GAME;
                 break;
+            case GRAVEYARD:
+                menuType = MenuType.BATTLE;
+                break;
+            case BATTLE:
+                break;
             default:
                 menuType = MenuType.MAINMENU;
                 break;
@@ -366,6 +371,10 @@ public class Controller {
                         view.showStoryMode();
                     return;
                 }
+                break;
+            case BATTLE:
+                if(request.getEnteringMenu() == MenuType.GRAVEYARD)
+                    menuType = MenuType.GRAVEYARD;
                 break;
         }
         errorType = ErrorType.INVALID_COMMAND;

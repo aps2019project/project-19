@@ -52,7 +52,7 @@ public class CardInitializer {
     }
 
     public void createMinions(ArrayList<Minion> minions, ArrayList<Buff> buffs) {
-        Minion camandareFars = new Minion(101, "camandare Farse", 300, 2, 4, 6,
+        Minion camandareFars = new Minion(101, "camandare Farse", 300, 2, 49, 6,
                 SoldierTypes.RANGED, 7, null, null, null);
         minions.add(camandareFars);
 
