@@ -154,6 +154,9 @@ public class Controller {
                     moveCard();
                     // TODO: 2019-04-30 test
                     break;
+                case ATTACK:
+                    attack();
+                    break;
                 case SHOW_HAND:
                     showHand();
                     break;
@@ -323,6 +326,11 @@ public class Controller {
             case MULTI_GAME_MENU:
                 menuType = MenuType.START_NEW_GAME;
                 break;
+            case GRAVEYARD:
+                menuType = MenuType.BATTLE;
+                break;
+            case BATTLE:
+                break;
             default:
                 menuType = MenuType.MAINMENU;
                 break;
@@ -363,6 +371,10 @@ public class Controller {
                         view.showStoryMode();
                     return;
                 }
+                break;
+            case BATTLE:
+                if(request.getEnteringMenu() == MenuType.GRAVEYARD)
+                    menuType = MenuType.GRAVEYARD;
                 break;
         }
         errorType = ErrorType.INVALID_COMMAND;
@@ -661,10 +673,21 @@ public class Controller {
             return;
         }
         SoldierCard defender = (SoldierCard) deactivePlayer.getInBattleCard(defenderId);
-
-    }
-
-    public void comboAttack() {
+        Cell attackerCell = activePlayer.getInBattleCards().get(attacker);
+        Cell defenderCell = deactivePlayer.getInBattleCards().get(defender);
+        if (!attacker.targetIsInRange(attackerCell, defenderCell)) {
+            errorType = ErrorType.TARGET_NOT_IN_RANGE;
+            return;
+        }
+        attacker.attack(defender);
+        attacker.setAttackedThisTurn(true);
+        System.err.println("attacked");
+        if (defender.targetIsInRange(defenderCell, attackerCell)) {
+            defender.counterAttack(attacker);
+            System.err.println("counter attaacked");
+            checkDeadCard(activePlayer,attacker);
+        }
+        checkDeadCard(deactivePlayer,defender);
     }
 
     public void useSpecialPower() {
@@ -748,6 +771,8 @@ public class Controller {
 
 
     public void endTurn() {
+        activePlayer.setSelectedItem(null);
+        activePlayer.setSelectedCard(null);
         Player player = activePlayer;
         //todo 1.cast buff
         //1
@@ -805,5 +830,20 @@ public class Controller {
 
     public Game getGame() {
         return game;
+    }
+    public void checkDeadCard(Player player,SoldierCard card){
+        if(card.getHp()<=0){
+            Cell cell = player.getInBattleCards().get(card);
+            cell.setCard(null);
+            player.getInBattleCards().remove(card);
+            player.getGraveYard().put(card.getInBattleCardId(),card);
+            card.setCardStatus(CardStatus.IN_GRAVEYARD);
+            System.out.println(card.getInBattleCardId() + " died in battle!");
+        }
+    }
+    public void checkDeadCards(Player player){
+        for (Card card : player.getInBattleCards().keySet()) {
+            checkDeadCard(player,(SoldierCard) card);
+        }
     }
 }
