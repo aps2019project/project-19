@@ -239,4 +239,12 @@ public class Player {
         }
         return this;
     }
+    public boolean heroIsDead(){
+        for (Card card : this.getGraveYard().values()) {
+            if(card instanceof Hero){
+                return true;
+            }
+        }
+        return false;
+    }
 }

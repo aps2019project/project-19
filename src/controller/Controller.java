@@ -726,6 +726,8 @@ public class Controller {
             checkDeadCard(activePlayer, attacker);
         }
         checkDeadCard(deactivePlayer, defender);
+        if (game.gameIsOver())
+            endTurn();
     }
 
     public void useSpecialPower() {
@@ -819,7 +821,8 @@ public class Controller {
         player.moveARandomCardToHand();
         if (!game.gameIsOver())
             game.changeTurn();
-        //todo: change menu
+        else
+            endGame();
     }
 
     public void showGatheredCollectables() {
@@ -858,12 +861,21 @@ public class Controller {
     }
 
     public void endGame() {
-        if (game.getWinnerPlayer() != null) {
-            menuType = MenuType.MAINMENU;
-            game = null;
-            enemyDeck = null;
+        if(game.getWinnerPlayer() == null){
+            view.show("draw!");
         }
-        errorType = ErrorType.GAME_IS_NOT_OVER;
+        else{
+            view.show(game.getWinnerPlayer().getAccount().getUserName()+" won the game and his prize is: "+ game.getPrize());
+            game.getWinnerPlayer().getAccount().increaseMoney(game.getPrize());
+        }
+        do {
+            request = new Request();
+            request.getNewCommand();
+        } while (!request.getCommand().equals("end game"));
+        // todo add prize
+        menuType = MenuType.MAINMENU;
+        game = null;
+        enemyDeck = null;
     }
 
     public void showMenuOptions() {
