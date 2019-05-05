@@ -185,7 +185,7 @@ public class CardInitializer {
         buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0, 2));
         buffs.add(new WeaknessBuff(Kind.NEGATIVE, 1, false, 1, 0));
         Minion jadoogar = new Minion(125, "jadoogar", 550, 4, 4, 5,
-                SoldierTypes.RANGED, 3, "increase it self and every friendly minion in 8 adjacent cell power by 2 and decrease health by 1", AbilityCastTime.PASSIVE, buffs);
+                SoldierTypes.RANGED, 3, "", AbilityCastTime.PASSIVE, buffs);
         minions.add(jadoogar);
 
         buffs = new ArrayList<>();

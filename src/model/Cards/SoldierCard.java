@@ -119,7 +119,7 @@ public abstract class SoldierCard extends Card {
     }
 
     public abstract String toInfoString();
-    public boolean targetIsInRange(Cell attackerCell,Cell targetCell){
-        switch ()
-    }
+//    public boolean targetIsInRange(Cell attackerCell,Cell targetCell){
+//        switch ()
+//    }
 }

@@ -19,6 +19,7 @@ public class Player {
     private Card selectedCard;
     private Item selectedItem;
     private int nextCardId;
+    private int numberOfTurnsWithFlag;
     private HashMap<String, Integer> cardNameIdHashMap = new HashMap<>();
 
     public Player(Account account, Deck deckCards) {
@@ -136,6 +137,18 @@ public class Player {
         return graveYard;
     }
 
+    public void increaseNumberOfTurnsWithFlag() {
+        numberOfTurnsWithFlag ++;
+    }
+
+    public void setNumberOfTurnsWithFlag(int numberOfTurnsWithFlag) {
+        this.numberOfTurnsWithFlag = numberOfTurnsWithFlag;
+    }
+
+    public int getNumberOFTurnsWithFlag() {
+        return numberOfTurnsWithFlag;
+    }
+
     public String handInfo() {
         StringBuilder result = new StringBuilder();
         ArrayList<Card> cards = new ArrayList<>(handCards.values());
@@ -178,6 +191,15 @@ public class Player {
             this.moveARandomCardToHand();
         }
         return this;
+    }
+
+    public int totalPlyerFlagsNumber() {
+        int result  = 0;
+        for (Card card : inBattleCards.keySet()) {
+            if (card instanceof SoldierCard)
+                result += ((SoldierCard) card).getFlagNumber();
+        }
+        return result;
     }
 
     public boolean containsCardInBattle(String cardId) {

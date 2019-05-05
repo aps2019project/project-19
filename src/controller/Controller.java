@@ -41,8 +41,7 @@ public class Controller {
                 if (game.isTurnOfPlayerOne()) {
                     activePlayer = game.getPlayer1();
                     deactivePlayer = game.getPlayer2();
-                }
-                else {
+                } else {
                     activePlayer = game.getPlayer2();
                     deactivePlayer = game.getPlayer1();
                 }
@@ -621,12 +620,12 @@ public class Controller {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
         }
-        SoldierCard card =( SoldierCard) activePlayer.getSelectedCard();
-        if(card.isMovedThisTurn()){
+        SoldierCard card = (SoldierCard) activePlayer.getSelectedCard();
+        if (card.isMovedThisTurn()) {
             errorType = ErrorType.CAN_NOT_MOVE_AGAIN;
             return;
         }
-        if(!game.coordinateIsValid(request.getX(),request.getY())) {
+        if (!game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
@@ -647,17 +646,17 @@ public class Controller {
     }
 
     public void attack() {
-        if(!activePlayer.isAnyCardSelected()){
+        if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
         }
-        SoldierCard attacker =(SoldierCard ) activePlayer.getSelectedCard();
-        if(attacker.isAttackedThisTurn()){
+        SoldierCard attacker = (SoldierCard) activePlayer.getSelectedCard();
+        if (attacker.isAttackedThisTurn()) {
             errorType = ErrorType.CAN_NOT_ATTACK_AGAIN;
             return;
         }
         String defenderId = request.getInBattleCardId();
-        if(!deactivePlayer.containsCardInBattle(defenderId)){
+        if (!deactivePlayer.containsCardInBattle(defenderId)) {
             errorType = ErrorType.INVALID_CARD_ID;
             return;
         }
@@ -750,12 +749,14 @@ public class Controller {
 
     public void endTurn() {
         Player player = activePlayer;
-        //todo 1.cast buff, 2.check winner
+        //todo 1.cast buff
         //1
         //2
         player.resetCardsAttackAndMoveAbility();
         player.moveARandomCardToHand();
-        game.changeTurn();
+        if (!game.gameIsOver())
+            game.changeTurn();
+        //todo: change menu
     }
 
     public void showGatheredCollectables() {
