@@ -274,7 +274,6 @@ public class Controller {
             return;
         }
         game.setGameMode(request.getGameMode());
-        game.setPrize();
         if (request.getGameMode() == GameMode.KEEP_THE_FLAG)
             game.setNumOfFlags(request.getNumOfFlags());
         System.err.println("game mode seted");
@@ -291,6 +290,7 @@ public class Controller {
             case CAPTURE_THE_FLAGS:
                 break;
         }
+        game.setPrize();
         game.setHeroes(game.getPlayer1(), game.getCell(1, 3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
         game.setHeroes(game.getPlayer2(), game.getCell(9, 3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
         game.getPlayer1().setFirstHand().resetCardsAttackAndMoveAbility();
@@ -411,7 +411,7 @@ public class Controller {
                 }
                 break;
             case BATTLE:
-                if(request.getEnteringMenu() == MenuType.GRAVEYARD)
+                if (request.getEnteringMenu() == MenuType.GRAVEYARD)
                     menuType = MenuType.GRAVEYARD;
                 break;
         }
@@ -723,9 +723,9 @@ public class Controller {
         if (defender.targetIsInRange(defenderCell, attackerCell)) {
             defender.counterAttack(attacker);
             System.err.println("counter attaacked");
-            checkDeadCard(activePlayer,attacker);
+            checkDeadCard(activePlayer, attacker);
         }
-        checkDeadCard(deactivePlayer,defender);
+        checkDeadCard(deactivePlayer, defender);
     }
 
     public void useSpecialPower() {
@@ -872,19 +872,21 @@ public class Controller {
     public Game getGame() {
         return game;
     }
-    public void checkDeadCard(Player player,SoldierCard card){
-        if(card.getHp()<=0){
+
+    public void checkDeadCard(Player player, SoldierCard card) {
+        if (card.getHp() <= 0) {
             Cell cell = player.getInBattleCards().get(card);
             cell.setCard(null);
             player.getInBattleCards().remove(card);
-            player.getGraveYard().put(card.getInBattleCardId(),card);
+            player.getGraveYard().put(card.getInBattleCardId(), card);
             card.setCardStatus(CardStatus.IN_GRAVEYARD);
             System.out.println(card.getInBattleCardId() + " died in battle!");
         }
     }
-    public void checkDeadCards(Player player){
+
+    public void checkDeadCards(Player player) {
         for (Card card : player.getInBattleCards().keySet()) {
-            checkDeadCard(player,(SoldierCard) card);
+            checkDeadCard(player, (SoldierCard) card);
         }
     }
 }
