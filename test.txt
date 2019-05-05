@@ -124,3 +124,7 @@ end turn
 insert asb savare fars in (1, 2)
 insert asb savare fars in (1, 3)
 insert asb savare fars in (1, 4)
+select nam_dive_sepid_1
+move to (1, 6)
+move to (1, 2)
+move to (2, 4)

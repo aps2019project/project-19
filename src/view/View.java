@@ -40,7 +40,7 @@ public class View {
                         "5. Sell [item id | card id]\n6. Show\n7. Help\n8. Exit");
                 break;
             case BATTLE:
-                System.out.println("1. enter single player\n2. enter multi player\n" +
+                System.out.println("1. single player\n2. multi player\n" +
                         "3. Game Info\n4. Show My Minions\n5. Show Opponent Minions\n" +
                         "6. Show Card Info [card id]\n7. Select [Card id]\n\t7.1 Move to ([x], [y])\n" +
                         "\t7.2 Attack [opponent card id]\n\t7.3 Use Special Power ([x], [y])\n" +
@@ -69,17 +69,24 @@ public class View {
                 System.out.println("1. Story Mode\n2. Custom Game\n3. Help\n4. Exit");
                 break;
             case SINGLE_GAME_STORY_MODE:
-                System.out.println("options");
+                System.out.println("1. enter level [1 | 2 | 3]\n2. Help\n3. Exit");
                 break;
             case SINGLE_GAME_CUSTOM_MODE:
                 System.out.println("options");
                 break;
             case MULTI_GAME_MENU:
                 System.out.println("1. Show Players\n2. select user [user name]\n" +
-                        "2.1 start multiplayer game [Death Match|Capture The Flag|Keep The Flag] [number Of Flags In Keep The Flag Mode]\n" +
+                        "2.1 start multiplayer game [Death Match|Capture The Flag|Keep The Flag] " +
+                        "[number Of Flags In Keep The Flag Mode]\n" +
                         "3.Help \n4. Exit");
                 break;
         }
 
+    }
+
+    public void showStoryMode() {
+        System.out.println("Level: 1 Hero: Dive Sepid Mode: Death match Prize: 500 dricks\n" +
+                "Level: 2 Hero: Zahhack Mode: Keep the flag Prize: 1000 dricks\n" +
+                "Level: 3 Hero: Arash Mode: Capture the flags Prize: 1500 dricks");
     }
 }

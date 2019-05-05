@@ -120,6 +120,9 @@ public class Controller {
                     selectMode();
                     // TODO: 2019-04- test
                     break;
+                case SELECT_STORY_LEVEL:
+                    selectStoryLevel();
+                    break;
                 ///////////////////////////////// BATTLE  ////////////////////////
                 case INSERT_CARD:
                     insertCard();
@@ -133,7 +136,7 @@ public class Controller {
                 case SHOW_OPPONENT_MINIONS:
                     if (game.isTurnOfPlayerOne())
                         activePlayer = game.getPlayer2();
-                    else activePlayer  = game.getPlayer1();
+                    else activePlayer = game.getPlayer1();
                     showMinions();
                     break;
                 case SHOW_CARD_INFO_IN_BATTLE:
@@ -187,6 +190,19 @@ public class Controller {
         } while (true);
     }
 
+    private void selectStoryLevel() {
+        //todo how to create plalyers
+        if (request.getStoryLevel() == 1) {
+
+        } else if (request.getStoryLevel() == 2) {
+
+        } else if (request.getStoryLevel() == 3) {
+
+        } else {
+            errorType = ErrorType.INVALID_LEVEL;
+        }
+    }
+
     private void selectOpponent() {
         if (!Account.userNameIsValid(request.getUserName()) || loggedInAccount.getUserName().equals(request.getUserName())) {
             errorType = ErrorType.INVALID_OPPONENT;
@@ -210,6 +226,7 @@ public class Controller {
             return;
         }
         game.setGameMode(request.getGameMode());
+        game.setPrize();
         if (request.getGameMode() == GameMode.KEEP_THE_FLAG)
             game.setNumOfFlags(request.getNumOfFlags());
         System.err.println("game mode seted");
@@ -226,8 +243,8 @@ public class Controller {
             case CAPTURE_THE_FLAGS:
                 break;
         }
-        game.setHeroes(game.getPlayer1(),game.getCell(1,3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
-        game.setHeroes(game.getPlayer2(),game.getCell(9,3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
+        game.setHeroes(game.getPlayer1(), game.getCell(1, 3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
+        game.setHeroes(game.getPlayer2(), game.getCell(9, 3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
         game.getPlayer1().setFirstHand();
         game.getPlayer2().setFirstHand();
         menuType = MenuType.BATTLE;
@@ -332,6 +349,8 @@ public class Controller {
                 if (request.getEnteringMenu() == MenuType.SINGLE_GAME_CUSTOM_MODE ||
                         request.getEnteringMenu() == MenuType.SINGLE_GAME_STORY_MODE) {
                     menuType = request.getEnteringMenu();
+                    if (menuType.equals(MenuType.SINGLE_GAME_STORY_MODE))
+                        view.showStoryMode();
                     return;
                 }
                 break;
@@ -592,8 +611,12 @@ public class Controller {
             return;
         }
         Card card = activePlayer.getSelectedCard();
-        Cell targetCell = game.getCell(request.getX(), request.getY());
+        if(!game.coordinateIsValid(request.getX(),request.getY())) {
+            errorType = ErrorType.INVALID_TARGET;
+            return;
+        }
         Cell currentCell = activePlayer.getInBattleCards().get(card);
+        Cell targetCell = game.getCell(request.getX(), request.getY());
         if (targetCell.getCard() != null) {
             errorType = ErrorType.INVALID_TARGET;
         } else if (currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell, targetCell)) {
@@ -645,6 +668,7 @@ public class Controller {
             insertionCell.setCard(card);
             player.getHandCards().remove(card.getCardId(), card);
             card.setInBattleCardId(generateInBattleCardId(card));
+            player.decreaseMana(card.getMana());
             view.show(card.getName() + " with " + card.getInBattleCardId() +
                     " inserted to (" + request.getX() + ", " + request.getY() + ")");
         }
@@ -664,7 +688,7 @@ public class Controller {
         id++;
         string.append(id);
         ids.replace(card.getName(), id);
-        return string.toString();
+        return string.toString().replaceAll(" ","_");
     }
 
     private Card findCardInHandByName(ArrayList<Card> cards, String cardName) {
@@ -709,7 +733,7 @@ public class Controller {
     public void showCollectableInfo() {
         if (activePlayer.getSelectedItem() != null)
             view.show(activePlayer.getSelectedItem().toString());
-        else errorType =  ErrorType.NO_ITEM_SELECTED;
+        else errorType = ErrorType.NO_ITEM_SELECTED;
     }
 
     public void useCollectable() {

@@ -27,6 +27,10 @@ public class Player {
         this.maxMana = 2;
     }
 
+    public void decreaseMana(int number) {
+        this.mana -= number;
+    }
+
     public int getHandCapacity() {
         return handCapacity;
     }

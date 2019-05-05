@@ -26,6 +26,7 @@ public class Request {
     private int itemID;
     private GameMode gameMode;
     private int numOfFlags;
+    private int storyLevel;
 
     public void getNewCommand() {
         do {
@@ -79,6 +80,8 @@ public class Request {
             case SINGLE_GAME_MENU:
                 break;
             case SINGLE_GAME_STORY_MODE:
+                if (command.matches("enter level \\d"))
+                    return RequestType.SELECT_STORY_LEVEL;
                 break;
             case SINGLE_GAME_CUSTOM_MODE:
                 break;
@@ -96,16 +99,16 @@ public class Request {
                     return RequestType.SHOW_GAME_INFO;
                 if (command.matches("show my minions"))
                     return RequestType.SHOW_MY_MINIONS;
-                if (command.matches("show opponents minions"))
+                if (command.matches("show opponent minions"))
                     return RequestType.SHOW_OPPONENT_MINIONS;
-                if (command.matches("show card info (\\w+ ?)+"))
+                if (command.matches("show card info (\\w+)"))
                     return RequestType.SHOW_CARD_INFO_IN_BATTLE;
                 //sajad
-                if (command.matches("select (\\w+ ?)+"))
+                if (command.matches("select (\\w+)"))
                     return RequestType.SELECT_CARD_OR_COLLECTABLE;
-                if (command.matches("move to \\(\\[(?<X>\\d+)], \\[(?<Y>\\d+)]\\)"))
+                if (command.matches("move to \\((?<X>\\d+), (?<Y>\\d+)\\)"))
                     return RequestType.MOVE_CARD;
-                if (command.matches("attack \\d+"))
+                if (command.matches("attack (\\w+)"))
                     return RequestType.ATTACK;
                 if (command.matches("attack combo( \\d+ \\d+)+"))
                     return RequestType.COMBO_ATTACK;
@@ -215,6 +218,9 @@ public class Request {
                 deckName = command.split(" ")[2];
                 break;
             /////////////////////// CREATING GAME /////////////////
+            case SELECT_STORY_LEVEL:
+                storyLevel = Integer.parseInt(command.split(" ")[2]);
+                break;
             case SELECT_OPPONENT_USER:
                 userName = command.split(" ")[2];
                 break;
@@ -226,17 +232,24 @@ public class Request {
                 break;
             ////////////////////// Battle //////////////////////
             case SHOW_CARD_INFO_IN_BATTLE:
-                inBattleCardId = command.split("_")[1];
-                itemID =Integer.parseInt(command.split(" ")[1]);
+                inBattleCardId = command.split(" ")[3];
+//                itemID =Integer.parseInt(command.split(" ")[1]);
+                //throws exception
                 break;
             case INSERT_CARD:
                 parseInsertCommand();
                 break;
             case SELECT_CARD_OR_COLLECTABLE:
-                cardOrItemID = Integer.parseInt(command.split(" ")[1]);
+                inBattleCardId = command.split(" ")[1];
+                try {
+                    itemID = Integer.parseInt(command.split(" ")[1]);
+                }catch (Exception e){
+                    return;
+                }
                 break;
             case MOVE_CARD:
                 parseMoveCard();
+                break;
         }
     }
 
@@ -292,7 +305,7 @@ public class Request {
     }
 
     public void parseMoveCard() {
-        Pattern pattern = Pattern.compile("move to \\(\\[(?<X>\\d+)], \\[(?<Y>\\d+)]\\)");
+        Pattern pattern = Pattern.compile("move to \\((?<X>\\d+), (?<Y>\\d+)\\)");
         Matcher matcher = pattern.matcher(command);
         matcher.matches();
         x = Integer.parseInt(matcher.group("X"));
@@ -417,6 +430,10 @@ public class Request {
 
     public int getY() {
         return y;
+    }
+
+    public int getStoryLevel() {
+        return storyLevel;
     }
 }
 
