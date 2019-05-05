@@ -53,7 +53,7 @@ public class CardInitializer {
 
     public void createMinions(ArrayList<Minion> minions, ArrayList<Buff> buffs) {
         Minion camandareFars = new Minion(101, "camandare Farse", 300, 2, 49, 6,
-                SoldierTypes.RANGED, 7, null, null, null);
+                SoldierTypes.RANGED, 7, "", null, null);
         minions.add(camandareFars);
 
         buffs.add(new StunBuff(Kind.NEGATIVE, 1, false));
@@ -62,11 +62,11 @@ public class CardInitializer {
         minions.add(shamshirZaneFars);
 
         Minion neyzeDareFars = new Minion(103, "neyzedare Farse", 500, 1, 3, 5,
-                SoldierTypes.HYBRID, 3, null, null, null);
+                SoldierTypes.HYBRID, 3, "", null, null);
         minions.add(neyzeDareFars);
 
         Minion asbSavarFars = new Minion(104, "asb savare Fars", 200, 4, 6, 10,
-                SoldierTypes.MELEE, 1, null, null, null);
+                SoldierTypes.MELEE, 1, "", null, null);
         minions.add(asbSavarFars);
 
 //        buffs = new ArrayList<>();
@@ -155,7 +155,7 @@ public class CardInitializer {
         minions.add(shireDarandeh);
 
         buffs = new ArrayList<>();
-        buffs.add(new HolyInverseBuff(Kind.NEGATIVE, 0, true, 1));
+        buffs.add(new HolyBuff(Kind.NEGATIVE, 0, true, -2));
         Minion mareGhoolPeykar = new Minion(121, "mare ghool peykar", 500, 8, 7, 14,
                 SoldierTypes.RANGED, 5, "minion ha ta 2 khane mojaver be tor daem yek vahed bishtar zarbeh mikhorand", AbilityCastTime.ON_SPAWN, buffs);
         minions.add(mareGhoolPeykar);
@@ -201,22 +201,19 @@ public class CardInitializer {
                 SoldierTypes.RANGED, 4, "be hameye minion haye khody 1 vahed afzayeshe ghodrat be soorate continuous midahad", AbilityCastTime.ON_TURN, buffs);
         minions.add(jen);
 
-        buffs = new ArrayList<>();
-        buffs.add(new AntiDisArmBuff(Kind.POSITIVE, Integer.MAX_VALUE, true));
         Minion gorazeVahshi = new Minion(128, "goraze vahshi", 500, 6, 14, 10,
-                SoldierTypes.MELEE, 1, "disarm nemishavad", AbilityCastTime.ON_DEFEND, buffs);
+                SoldierTypes.MELEE, 1, "disarm nemishavad", AbilityCastTime.ON_DEFEND, null);
+        gorazeVahshi.setAntiDisArm(true);
         minions.add(gorazeVahshi);
 
-        buffs = new ArrayList<>();
-        buffs.add(new AntiPoisonBuff(Kind.POSITIVE, Integer.MAX_VALUE, true));
         Minion piran = new Minion(129, "piran", 400, 8, 12, 20,
-                SoldierTypes.MELEE, 1, "masmoom nemishavad", AbilityCastTime.ON_DEFEND, buffs);
+                SoldierTypes.MELEE, 1, "masmoom nemishavad", AbilityCastTime.ON_DEFEND, null);
+        piran.setAntiPoison(true);
         minions.add(piran);
 
-        buffs = new ArrayList<>();
-        buffs.add(new AntiNegativeBuff(Kind.POSITIVE, Integer.MAX_VALUE, true));
         Minion giv = new Minion(130, "giv", 450, 4, 7, 5,
-                SoldierTypes.RANGED, 5, "az cart ha asar manfy nemibinad", AbilityCastTime.ON_DEFEND, buffs);
+                SoldierTypes.RANGED, 5, "az cart ha asar manfy nemibinad", AbilityCastTime.ON_DEFEND, null);
+        giv.setAntiNegative(true);
         minions.add(giv);
 
         buffs = new ArrayList<>();
@@ -225,10 +222,9 @@ public class CardInitializer {
                 SoldierTypes.MELEE, 1, "tasadofy az 1 minion 16 vahed joon kam mikonad", AbilityCastTime.ON_SPAWN, buffs);
         minions.add(bahman);
 
-        buffs = new ArrayList<>();
-        buffs.add(new ApStatus(Kind.POSITIVE, 0, true));
         Minion ashkboos = new Minion(132, "ashkboos", 400, 7, 8, 14,
                 SoldierTypes.MELEE, 1, "az nirooha ba ghodrat zarbeye kamtar attack nemikhorad", AbilityCastTime.ON_DEFEND, buffs);
+        ashkboos.setStrongerAp(true);
         minions.add(ashkboos);
 
         Minion iraj = new Minion(133, "iraj", 500, 4, 20, 6,

@@ -14,6 +14,11 @@ public abstract class SoldierCard extends Card {
     private int attackRange;
     private boolean isAttackedThisTurn;
     private boolean isMovedThisTurn;
+    private boolean antiDisArm;
+    private boolean antiPoison;
+    private boolean antiNegative;
+    private boolean strongerAp;
+
     public SoldierCard() {
         super();
     }
@@ -24,6 +29,10 @@ public abstract class SoldierCard extends Card {
         this.hp = hp;
         this.type = type;
         this.attackRange = attackRange;
+        antiDisArm = false;
+        antiPoison = false;
+        antiNegative = false;
+        strongerAp = false;
     }
 
     public SoldierCard(SoldierCard soldierCard) {
@@ -32,6 +41,22 @@ public abstract class SoldierCard extends Card {
         this.hp = soldierCard.hp;
         this.type = soldierCard.type;
         this.attackRange = soldierCard.attackRange;
+    }
+
+    public boolean isAntiDisArm() {
+        return antiDisArm;
+    }
+
+    public boolean isAntiPoison() {
+        return antiPoison;
+    }
+
+    public boolean isAntiNegative() {
+        return antiNegative;
+    }
+
+    public boolean isStrongerAp() {
+        return strongerAp;
     }
 
     public ArrayList<Buff> getBuffs() {
@@ -86,6 +111,22 @@ public abstract class SoldierCard extends Card {
         this.hp += number;
     }
 
+    public void setAntiDisArm(boolean antiDisArm) {
+        this.antiDisArm = antiDisArm;
+    }
+
+    public void setAntiPoison(boolean antiPoison) {
+        this.antiPoison = antiPoison;
+    }
+
+    public void setAntiNegative(boolean antiNegative) {
+        this.antiNegative = antiNegative;
+    }
+
+    public void setStrongerAp(boolean strongerAp) {
+        this.strongerAp = strongerAp;
+    }
+
     public void attack(Card opponentCard) {
     }
 
@@ -110,10 +151,12 @@ public abstract class SoldierCard extends Card {
     public void counterAttack(SoldierCard target) {
         target.decreaseHP(this.getAp());
     }
-    public void attack (SoldierCard terget){
+
+    public void attack(SoldierCard terget) {
         terget.decreaseHP(this.getAp());
         // TODO: 2019-05-05 cast buff
     }
+
     public String toBattleFormat(int x, int y) {
         return getInBattleCardId() + " : "
                 + getName() + ", "
@@ -123,20 +166,21 @@ public abstract class SoldierCard extends Card {
     }
 
     public abstract String toInfoString();
-    public boolean targetIsInRange(Cell attackerCell,Cell targetCell){
-        switch (this.getType()){
+
+    public boolean targetIsInRange(Cell attackerCell, Cell targetCell) {
+        switch (this.getType()) {
             case MELEE:
-                return (Math.abs(attackerCell.getYCoordinate()-targetCell.getYCoordinate()) <= 1 &&
-                Math.abs(attackerCell.getXCoordinate() - targetCell.getXCoordinate()) <= 1 );
+                return (Math.abs(attackerCell.getYCoordinate() - targetCell.getYCoordinate()) <= 1 &&
+                        Math.abs(attackerCell.getXCoordinate() - targetCell.getXCoordinate()) <= 1);
             case RANGED:
-                if(Math.abs(attackerCell.getYCoordinate()-targetCell.getYCoordinate()) <= 1 &&
+                if (Math.abs(attackerCell.getYCoordinate() - targetCell.getYCoordinate()) <= 1 &&
                         Math.abs(attackerCell.getXCoordinate() - targetCell.getXCoordinate()) <= 1)
                     return false;
                 else
-                    return (Math.abs(attackerCell.getYCoordinate()-targetCell.getYCoordinate()) <= this.getAttackRange() &&
-                        Math.abs(attackerCell.getXCoordinate() - targetCell.getXCoordinate()) <= this.getAttackRange());
+                    return (Math.abs(attackerCell.getYCoordinate() - targetCell.getYCoordinate()) <= this.getAttackRange() &&
+                            Math.abs(attackerCell.getXCoordinate() - targetCell.getXCoordinate()) <= this.getAttackRange());
             case HYBRID:
-                return (Math.abs(attackerCell.getYCoordinate()-targetCell.getYCoordinate()) <= this.getAttackRange() &&
+                return (Math.abs(attackerCell.getYCoordinate() - targetCell.getYCoordinate()) <= this.getAttackRange() &&
                         Math.abs(attackerCell.getXCoordinate() - targetCell.getXCoordinate()) <= this.getAttackRange());
         }
         return false;

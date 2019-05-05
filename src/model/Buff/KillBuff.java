@@ -10,5 +10,6 @@ public class KillBuff extends Buff {
 
     public KillBuff(Kind kind, int duration, boolean isContinuous) {
         super(kind, duration, isContinuous);
+        this.setOnMoment(true);
     }
 }

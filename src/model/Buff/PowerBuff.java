@@ -16,5 +16,6 @@ public class PowerBuff extends Buff{
         super(kind, duration, isContinuous);
         this.hpIncrease = hpIncrease;
         this.apIncrease = apIncrease;
+        this.setOnMoment(true);
     }
 }
