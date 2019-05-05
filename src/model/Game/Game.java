@@ -165,7 +165,6 @@ public class Game {
     }
 
     public String toStringDeathMatchMode() {
-        // TODO: 5/1/2019 duplicate make it better
         StringBuilder toString = new StringBuilder();
         toString.append("player one hero's health: ");
         for (Card card : player1.getInBattleCards().keySet()) {
@@ -185,7 +184,6 @@ public class Game {
     }
 
     public String toStringKeepFlag() {
-        // TODO: 5/1/2019 duplicate make it better
         StringBuilder toString = new StringBuilder();
         if (player1.getMinionsWithFlag() != null)
             toString.append("player ").append(player1.getAccount().getUserName()).append(" has flag in coordinate: ")
@@ -209,6 +207,4 @@ public class Game {
     public String toStringCaptureFlags(){
         return player1.toStringFlags() + player2.toStringFlags();
     }
-
-
 }
