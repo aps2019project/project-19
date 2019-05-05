@@ -250,6 +250,9 @@ public class Request {
             case MOVE_CARD:
                 parseMoveCard();
                 break;
+            case SHOW_CARD_INFO_IN_GRAVEYARD:
+                inBattleCardId = command.split(" ")[2];
+                break;
         }
     }
 

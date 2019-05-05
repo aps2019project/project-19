@@ -15,6 +15,7 @@ public class Player {
     private HashMap<Integer, Card> handCards = new HashMap<>();
     private HashMap<Card, Cell> inBattleCards = new HashMap<>();
     private HashMap<Integer, Item> items = new HashMap<>();
+    private HashMap<String, Card> graveYard = new HashMap<>();
     private Card selectedCard;
     private Item selectedItem;
     private int nextCardId;
@@ -129,6 +130,10 @@ public class Player {
 
     public void setSelectedItem(Item selectedItem) {
         this.selectedItem = selectedItem;
+    }
+
+    public HashMap<String, Card> getGraveYard() {
+        return graveYard;
     }
 
     public String handInfo() {

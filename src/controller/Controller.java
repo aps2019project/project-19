@@ -169,6 +169,12 @@ public class Controller {
                     //todo what to do????
                     showGatheredCollectables();
                     break;
+                case SHOW_CARD_INFO_IN_GRAVEYARD:
+                    showCardInfoInGraveYard();
+                    break;
+                case SHOW_All_CARDS_IN_GRAVEYARD:
+                    showAllCardsInGraveYard();
+                    break;
                 case END_GAME:
                     endGame();
                     break;
@@ -611,7 +617,7 @@ public class Controller {
             return;
         }
         Card card = activePlayer.getSelectedCard();
-        if(!game.coordinateIsValid(request.getX(),request.getY())) {
+        if (!game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
@@ -688,7 +694,7 @@ public class Controller {
         id++;
         string.append(id);
         ids.replace(card.getName(), id);
-        return string.toString().replaceAll(" ","_");
+        return string.toString().replaceAll(" ", "_");
     }
 
     private Card findCardInHandByName(ArrayList<Card> cards, String cardName) {
@@ -750,6 +756,13 @@ public class Controller {
     }
 
     public void showCardInfoInGraveYard() {
+        view.show(activePlayer.getGraveYard().get(request.getInBattleCardId()).toString());
+    }
+
+    public void showAllCardsInGraveYard() {
+        for (Card card : activePlayer.getGraveYard().values()) {
+            view.show(card.toString());
+        }
     }
 
     public void endGame() {
