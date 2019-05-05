@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+
 import model.Buff.Buff;
 import model.Target.Target;
 
@@ -26,8 +27,8 @@ public class Item {
         this.decription = item.decription;
     }
 
-    public Item(int itemId, String name, int price,String description, ItemTypes type, ArrayList<Buff> buffs, Target target){
-        this.itemId =itemId;
+    public Item(int itemId, String name, int price, String description, ItemTypes type, ArrayList<Buff> buffs, Target target) {
+        this.itemId = itemId;
         this.name = name.toLowerCase();
         this.price = price;
         this.type = type;

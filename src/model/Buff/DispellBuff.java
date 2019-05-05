@@ -5,9 +5,13 @@ import model.Cards.SoldierCard;
 import java.util.ArrayList;
 
 public class DispellBuff extends Buff {
+    private boolean negative;
+    private boolean positive;
 
-    public DispellBuff(Kind kind, int duration, boolean isContinuous) {
+    public DispellBuff(Kind kind, int duration, boolean isContinuous, boolean negative, boolean positive) {
         super(kind, duration, isContinuous);
+        this.negative = negative;
+        this.positive = positive;
         this.setOnMoment(true);
     }
 
@@ -22,5 +26,13 @@ public class DispellBuff extends Buff {
                 buffs.remove(i);
             }
         }
+    }
+
+    public boolean isNegative() {
+        return negative;
+    }
+
+    public boolean isPositive() {
+        return positive;
     }
 }

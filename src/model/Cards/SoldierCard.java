@@ -2,6 +2,7 @@ package model.Cards;
 
 import model.Buff.Buff;
 import model.Cell;
+import model.Target.Target;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,8 @@ public abstract class SoldierCard extends Card {
     private boolean antiPoison;
     private boolean antiNegative;
     private boolean strongerAp;
+    private boolean notAcceptingHolyBuff;
+    private Target target;
 
     public SoldierCard() {
         super();
@@ -41,6 +44,23 @@ public abstract class SoldierCard extends Card {
         this.hp = soldierCard.hp;
         this.type = soldierCard.type;
         this.attackRange = soldierCard.attackRange;
+        this.target = soldierCard.target;
+    }
+
+    public Target getTarget() {
+        return target;
+    }
+
+    public void setTarget(Target target) {
+        this.target = target;
+    }
+
+    public void setNotAcceptingHolyBuff(boolean notAcceptingHolyBuff) {
+        this.notAcceptingHolyBuff = notAcceptingHolyBuff;
+    }
+
+    public boolean isNotAcceptingHolyBuff() {
+        return notAcceptingHolyBuff;
     }
 
     public boolean isAntiDisArm() {

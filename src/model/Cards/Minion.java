@@ -52,4 +52,7 @@ public class Minion extends SoldierCard {
         return abilities;
     }
 
+    public AbilityCastTime getAbilityCastTime() {
+        return abilityCastTime;
+    }
 }
