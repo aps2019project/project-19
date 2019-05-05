@@ -12,7 +12,8 @@ public abstract class SoldierCard extends Card {
     private ArrayList<Buff> buffs = new ArrayList<>();
     private int flagNumber;
     private int attackRange;
-
+    private boolean isAttackedThisTurn;
+    private boolean isMovedThisTurn;
     public SoldierCard() {
         super();
     }
@@ -88,6 +89,24 @@ public abstract class SoldierCard extends Card {
     public void attack(Card opponentCard) {
     }
 
+    public boolean isAttackedThisTurn() {
+        return isAttackedThisTurn;
+    }
+
+    public SoldierCard setAttackedThisTurn(boolean attackedThisTurn) {
+        isAttackedThisTurn = attackedThisTurn;
+        return this;
+    }
+
+    public boolean isMovedThisTurn() {
+        return isMovedThisTurn;
+    }
+
+    public SoldierCard setMovedThisTurn(boolean movedThisTurn) {
+        isMovedThisTurn = movedThisTurn;
+        return this;
+    }
+
     public void counterAttack(Card opponentCard) {
     }
 
@@ -100,4 +119,7 @@ public abstract class SoldierCard extends Card {
     }
 
     public abstract String toInfoString();
+    public boolean targetIsInRange(Cell attackerCell,Cell targetCell){
+        switch ()
+    }
 }

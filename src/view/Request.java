@@ -247,6 +247,9 @@ public class Request {
                     return;
                 }
                 break;
+            case ATTACK:
+                inBattleCardId = command.split(" ")[1];
+                break;
             case MOVE_CARD:
                 parseMoveCard();
                 break;

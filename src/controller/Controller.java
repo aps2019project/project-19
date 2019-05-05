@@ -25,6 +25,7 @@ public class Controller {
     private Account loggedInAccount;
     private Game game;
     private Player activePlayer;
+    private Player deactivePlayer;
     private ErrorType errorType = null;
     private View view = View.getInstance();
 
@@ -37,10 +38,14 @@ public class Controller {
             request.setRequestType(menuType);
             request.parseCommand();
             if (game != null) {
-                if (game.isTurnOfPlayerOne())
+                if (game.isTurnOfPlayerOne()) {
                     activePlayer = game.getPlayer1();
-                else
+                    deactivePlayer = game.getPlayer2();
+                }
+                else {
                     activePlayer = game.getPlayer2();
+                    deactivePlayer = game.getPlayer1();
+                }
             }
             switch (request.getRequestType()) {
                 case ERROR:
@@ -251,8 +256,8 @@ public class Controller {
         }
         game.setHeroes(game.getPlayer1(), game.getCell(1, 3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
         game.setHeroes(game.getPlayer2(), game.getCell(9, 3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
-        game.getPlayer1().setFirstHand();
-        game.getPlayer2().setFirstHand();
+        game.getPlayer1().setFirstHand().resetCardsAttackAndMoveAbility();
+        game.getPlayer2().setFirstHand().resetCardsAttackAndMoveAbility();
         menuType = MenuType.BATTLE;
         System.err.println("game started");
     }
@@ -616,8 +621,12 @@ public class Controller {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
         }
-        Card card = activePlayer.getSelectedCard();
-        if (!game.coordinateIsValid(request.getX(), request.getY())) {
+        SoldierCard card =( SoldierCard) activePlayer.getSelectedCard();
+        if(card.isMovedThisTurn()){
+            errorType = ErrorType.CAN_NOT_MOVE_AGAIN;
+            return;
+        }
+        if(!game.coordinateIsValid(request.getX(),request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
@@ -633,10 +642,27 @@ public class Controller {
             activePlayer.getInBattleCards().replace(card, targetCell);
             // TODO: 2019-04-30 check replace function in hashmap
             System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
+            card.setMovedThisTurn(true);
         }
     }
 
     public void attack() {
+        if(!activePlayer.isAnyCardSelected()){
+            errorType = ErrorType.CARD_NOT_SELECTED;
+            return;
+        }
+        SoldierCard attacker =(SoldierCard ) activePlayer.getSelectedCard();
+        if(attacker.isAttackedThisTurn()){
+            errorType = ErrorType.CAN_NOT_ATTACK_AGAIN;
+            return;
+        }
+        String defenderId = request.getInBattleCardId();
+        if(!deactivePlayer.containsCardInBattle(defenderId)){
+            errorType = ErrorType.INVALID_CARD_ID;
+            return;
+        }
+        SoldierCard defender = (SoldierCard) deactivePlayer.getInBattleCard(defenderId);
+
     }
 
     public void comboAttack() {
@@ -670,6 +696,7 @@ public class Controller {
             errorType = ErrorType.NOT_ENOUGH_MANA;
         } else {
             card.setCardStatus(CardStatus.PLACED);
+            ((SoldierCard) card).setAttackedThisTurn(false).setMovedThisTurn(false);
             player.getInBattleCards().put(card, insertionCell);
             insertionCell.setCard(card);
             player.getHandCards().remove(card.getCardId(), card);
@@ -726,6 +753,7 @@ public class Controller {
         //todo 1.cast buff, 2.check winner
         //1
         //2
+        player.resetCardsAttackAndMoveAbility();
         player.moveARandomCardToHand();
         game.changeTurn();
     }
