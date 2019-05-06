@@ -9,8 +9,12 @@ public class PowerBuff extends Buff {
 
     @Override
     public void castBuff(SoldierCard soldier) {
-        soldier.changeHp(this.hpIncrease);
-        soldier.changeAp(this.apIncrease);
+        if (!hasCasted) {
+            soldier.changeHp(this.hpIncrease);
+            soldier.changeAp(this.apIncrease);
+            hasCasted = true;
+            this.increaseNumberOfUsage();
+        }
     }
 
     public void cancelEffect(SoldierCard soldier) {

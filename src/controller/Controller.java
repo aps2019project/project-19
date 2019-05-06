@@ -769,7 +769,8 @@ public class Controller {
         }
         Cell insertionCell = game.getCell(request.getX(), request.getY());
         if (card instanceof SpellCard) {
-            if (!((SpellCard) card).getTargetArea().checkTargetValidation(game.getCells(), activePlayer, deactivePlayer)) {
+            if (!((SpellCard) card).getTargetArea().checkTargetValidation(game.getCells(),
+                    activePlayer, deactivePlayer, request.getX(), request.getY())) {
                 errorType = ErrorType.INVALID_TARGET;
             }
             //todo cast spell

@@ -8,6 +8,7 @@ public class FireBuff extends Buff {
     @Override
     public void castBuff(SoldierCard soldier) {
         soldier.changeHp(-this.hpDecrease);
+        this.increaseNumberOfUsage();
     }
 
     public FireBuff(Kind kind, int duration, boolean isContinuous, int hpDecrease){

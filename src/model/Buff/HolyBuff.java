@@ -9,6 +9,8 @@ public class HolyBuff extends Buff {
     @Override
     public void castBuff(SoldierCard soldier) {
         soldier.changeHp(this.lessDamage);
+        hasCasted = true;
+        this.increaseNumberOfUsage();
     }
     public void cancelEffect(SoldierCard soldier) {
         soldier.changeHp(-this.lessDamage);

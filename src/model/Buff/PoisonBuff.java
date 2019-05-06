@@ -8,6 +8,7 @@ public class PoisonBuff extends Buff {
     @Override
     public void castBuff(SoldierCard soldier) {
         soldier.changeAp(-this.hpDecrease);
+        this.increaseNumberOfUsage();
     }
 
     public PoisonBuff(Kind kind, int duration, boolean isContinuous, int hpDecrease) {

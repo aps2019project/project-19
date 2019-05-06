@@ -221,8 +221,6 @@ public abstract class SoldierCard extends Card {
         for (Buff buff : target.getBuffs()) {
             if (buff instanceof HolyBuff) {
                 buff.castBuff(target);
-                buff.increaseNumberOfUsage();
-                ((HolyBuff) buff).setHasCasted(true);
             }
         }
     }
@@ -230,7 +228,13 @@ public abstract class SoldierCard extends Card {
     public void checkBUffTiming(SoldierCard soldier, boolean isEndOfTurn) {
         for (int i = soldier.getBuffs().size() - 1; i >= 0; i--) {
             Buff buff = soldier.getBuffs().get(i);
-            if (buff.getNumberOfUsage() == buff.getDuration()) {
+            if (buff instanceof StunBuff || buff instanceof DisArmBuff) {
+                if (buff.getDuration() + 1 == buff.getCurrnetTurn()) {
+                    soldier.getBuffs().remove(i);
+                } else {
+                    buff.increaseCurrentTurn();
+                }
+            } else if (buff.getNumberOfUsage() == buff.getDuration()) {
                 if (buff instanceof WeaknessBuff) {
                     ((WeaknessBuff) buff).cancelEffect(soldier);
                 }
@@ -245,31 +249,9 @@ public abstract class SoldierCard extends Card {
 
     private void castOnMomentBUffs(SoldierCard soldier) {
         for (Buff buff : soldier.getBuffs()) {
-            if (buff.getCastTurn() == buff.getCurrnetTurn() && buff.isOnMoment()) {
-                if (buff instanceof DispellBuff) {
-                    if (((DispellBuff) buff).isNegative()) {
-                        ((DispellBuff) buff).cancelNegativeBuffs(soldier);
-                    }
-                    if (((DispellBuff) buff).isPositive()) {
-                        ((DispellBuff) buff).cancelPositiveBuffs(soldier);
-                    }
-                } else {
-                    if (buff instanceof PowerBuff) {
-                        if (!((PowerBuff) buff).isHasCasted()) {
-                            buff.castBuff(soldier);
-                            ((PowerBuff) buff).setHasCasted(true);
-                            buff.increaseNumberOfUsage();
-                        }
-                    } else if (buff instanceof WeaknessBuff) {
-                        buff.castBuff(soldier);
-                        ((WeaknessBuff) buff).setHasCasted(true);
-                        buff.increaseNumberOfUsage();
-                    } else {
-                        buff.castBuff(soldier);
-                        buff.increaseNumberOfUsage();
-                    }
-                }
-
+            if (buff.getCastTurn() == buff.getCurrnetTurn() &&
+                    buff.isOnMoment() && buff.getDuration() > buff.getNumberOfUsage()) {
+                buff.castBuff(soldier);
             }
         }
     }

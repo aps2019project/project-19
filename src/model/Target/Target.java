@@ -26,7 +26,7 @@ public class Target {
         return soldierTargetType;
     }
 
-    public boolean checkTargetValidation(Cell[][] cells, Player activePlayer, Player deactivePlayer) {
+    public boolean checkTargetValidation(Cell[][] cells, Player activePlayer, Player deactivePlayer, int x, int y) {
         return true;
     }
 }
