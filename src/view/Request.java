@@ -117,7 +117,7 @@ public class Request {
                     return RequestType.ATTACK;
                 if (command.matches("attack combo( \\d+ \\d+)+"))
                     return RequestType.COMBO_ATTACK;
-                if (command.matches("use special power \\(\\d+, \\d+\\)"))
+                if (command.matches("use special power( \\((?<X>\\d+), (?<Y>\\d+)\\))?"))
                     return RequestType.USE_SPECIAL_POWER;
                 if (command.matches("show hand"))
                     return RequestType.SHOW_HAND;
@@ -259,7 +259,23 @@ public class Request {
             case SHOW_CARD_INFO_IN_GRAVEYARD:
                 inBattleCardId = command.split(" ")[2];
                 break;
+            case USE_SPECIAL_POWER:
+                parseUseSpecialPower();
         }
+    }
+
+    private void parseUseSpecialPower() {
+        Pattern pattern = Pattern.compile("use special power( \\((?<X>\\d+), (?<Y>\\d+)\\))?");
+        Matcher matcher = pattern.matcher(command);
+        try {
+            x = Integer.parseInt(matcher.group("X"));
+            y = Integer.parseInt(matcher.group("Y"));
+        } catch (Exception e) {
+        }
+        pattern = Pattern.compile("use special power \\((?<X>\\d+), (?<Y>\\d+)\\)");
+        matcher = pattern.matcher(command);
+        hasXY = matcher.matches();
+
     }
 
     private void parseCustomGameMode() {

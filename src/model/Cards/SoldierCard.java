@@ -180,12 +180,17 @@ public abstract class SoldierCard extends Card {
         if (!target.isAntiDisArm()) {
             target.decreaseHP(this.getAp());
             if (this.getAbilityCastTime() != null && this.abilityCastTime.equals(AbilityCastTime.ON_DEFEND)) {
-                castBuffsOnTarget(this, target);
+                if (this instanceof Minion) {
+                    castBuffsOnTarget(this, target);
+                } else {
+                    castBuffsOnTargetWithTargets(this, target);
+                }
                 castOnMomentBUffs(target);
                 checkBUffTiming(target, false);
             }
         }
     }
+
 
     public void attack(SoldierCard target) {
         if (!target.isAntiNegative()) {
@@ -203,7 +208,11 @@ public abstract class SoldierCard extends Card {
             if (hasAttacked) {
                 checkHolyBuff(target);
                 if (this.getAbilityCastTime() != null && this.getAbilityCastTime().equals(AbilityCastTime.ON_ATTACK)) {
-                    castBuffsOnTarget(this, target);
+                    if (this instanceof Hero) {
+                        castBuffsOnTargetWithTargets(this, target);
+                    } else {
+                        castBuffsOnTarget(this, target);
+                    }
                     castOnMomentBUffs(target);
                     checkBUffTiming(target, false);
                 }
@@ -211,12 +220,23 @@ public abstract class SoldierCard extends Card {
         }
     }
 
+    private void castBuffsOnTargetWithTargets(SoldierCard hero, SoldierCard target) {
+        switch (hero.getTarget().getSoldierTargetType()) {
+            case FRIENDLY_HERO:
+                hero.getBuffs().add(((Hero) hero).getSpecialPower());
+                break;
+            case ONE_ENEMY:
+                target.getBuffs().add(((Hero) hero).getSpecialPower());
+                break;
+        }
+    }
+
     public void castFirstTurnBuffs() {
         for (Buff buff : this.getBuffs()) {
-            if(buff.getCurrnetTurn() == buff.getCastTurn() && buff.getDuration() > buff.getNumberOfUsage()){
+            if (buff.getCurrnetTurn() == buff.getCastTurn() && buff.getDuration() > buff.getNumberOfUsage()) {
                 buff.castBuff(this);
             }
-            if(buff instanceof KillBuff){
+            if (buff instanceof KillBuff) {
                 break;
             }
         }
@@ -258,7 +278,7 @@ public abstract class SoldierCard extends Card {
                     buff.isOnMoment() && buff.getDuration() > buff.getNumberOfUsage()) {
                 buff.castBuff(soldier);
             }
-            if(buff instanceof KillBuff){
+            if (buff instanceof KillBuff) {
                 break;
             }
         }
