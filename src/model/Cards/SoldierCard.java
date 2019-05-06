@@ -222,6 +222,7 @@ public abstract class SoldierCard extends Card {
             if (buff instanceof HolyBuff) {
                 buff.castBuff(target);
                 buff.increaseNumberOfUsage();
+                ((HolyBuff) buff).setHasCasted(true);
             }
         }
     }
