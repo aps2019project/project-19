@@ -1,6 +1,7 @@
 package model;
 
 import model.Cards.*;
+import model.Game.Game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -137,10 +138,6 @@ public class Player {
         return graveYard;
     }
 
-    public void increaseNumberOfTurnsWithFlag() {
-        numberOfTurnsWithFlag ++;
-    }
-
     public void setNumberOfTurnsWithFlag(int numberOfTurnsWithFlag) {
         this.numberOfTurnsWithFlag = numberOfTurnsWithFlag;
     }
@@ -148,6 +145,8 @@ public class Player {
     public int getNumberOFTurnsWithFlag() {
         return numberOfTurnsWithFlag;
     }
+
+    public void increaseNumberOfTurnWithFlag() { numberOfTurnsWithFlag ++;}
 
     public String handInfo() {
         StringBuilder result = new StringBuilder();
@@ -193,7 +192,7 @@ public class Player {
         return this;
     }
 
-    public int totalPlyerFlagsNumber() {
+    public int totalPlayersFlagsNumber() {
         int result  = 0;
         for (Card card : inBattleCards.keySet()) {
             if (card instanceof SoldierCard)

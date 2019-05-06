@@ -109,17 +109,13 @@ validate deck a
 select deck a
 exit
 enter battle
-enter single player
-enter custom game
-take rostam
-start game a death match
 enter multi player
 start multiplayer game death match
 select user ali
 start multiplayer game death match
 insert camandare farse in (2, 3)
 select nam_camandare_farse_1
-move to (4, 3)
+move to (3, 3)
 attack ali_dive_sepid_1
 end turn
 insert neyzedare farse in (8, 3)

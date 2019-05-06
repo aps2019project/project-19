@@ -329,7 +329,7 @@ public abstract class SoldierCard extends Card {
         return false;
     }
 
-    public void pickUpflags(Cell cell) {
+    public void pickUpFlags(Cell cell) {
         flagNumber += cell.getFlagNumber();
         cell.setFlagNumber(0);
     }
