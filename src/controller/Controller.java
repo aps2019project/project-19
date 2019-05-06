@@ -28,14 +28,18 @@ public class Controller {
     private Player deactivePlayer;
     private ErrorType errorType = null;
     private View view = View.getInstance();
-    private Deck enemyDeck;
-
+    private Deck aiDeck;
+    private Ai ai;
     public void run() {
         //mainLoop:
         do {
             System.out.println("Menu: " + menuType);
             request = new Request();
-            request.getNewCommand();
+            if(ai != null && !game.isTurnOfPlayerOne()){
+                request.setCommand(ai.sendRandomRequest());
+                System.err.println("ai requested: "+ request.getCommand());
+            }
+            else request.getNewCommand();
             request.setRequestType(menuType);
             request.parseCommand();
             if (game != null) {
@@ -131,7 +135,7 @@ public class Controller {
                 case CHOOSE_HERO:
                     chooseHero();
                     break;
-                case SELECT_SINGLE_PLAYER_GAMEMODE:
+                case SELECT_CUSTOM_GAME_GAMEMODE:
                     createSinglePlayerGame();
                     break;
                 ///////////////////////////////// BATTLE  ////////////////////////
@@ -211,17 +215,17 @@ public class Controller {
     }
 
     private void createSinglePlayerGame() {
-        if (enemyDeck == null) {
+        if (aiDeck == null) {
             errorType = ErrorType.OPPONENT_HERO_NOT_SELECTED;
         } else {
             if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
                 Player player1 = new Player(loggedInAccount,
                         loggedInAccount.getCollection().getDecks().get(request.getDeckName()));
-                //todo ai
-                Player player2 = new Player(new Account("", ""), enemyDeck);
-                game = new Game(player1, player2);
+                ai = new Ai(new Player(new Account("ai","ai"),aiDeck));
+                game = new Game(player1,ai.getPlayer());
                 game.setGameMode(request.getGameMode());
                 initNewGame(game.getGameMode());
+
             } else {
                 errorType = ErrorType.DECK_NOT_EXISTS;
             }
@@ -229,12 +233,14 @@ public class Controller {
     }
 
     private void chooseHero() {
-        Card card = shop.findCard(request.getCardName());
-        if (card == null)
+        Card newHero = shop.findCard(request.getCardName());
+        if (newHero == null || !(newHero instanceof Hero))
             errorType = ErrorType.WRONG_HERO_NAME;
         else {
-            //todo get a random deck and add hero to it
-            //enemyDeck =
+            aiDeck = new Deck(loggedInAccount.getCollection().getMainDeck());
+            Card postHero = aiDeck.getHero();
+            aiDeck.getCards().remove(postHero.getCardId());
+            aiDeck.getCards().put(postHero.getCardId(), newHero);
         }
     }
 
@@ -344,7 +350,6 @@ public class Controller {
     }
 
     public void exitMenu() {
-        //todo: maybe it need some changes
         switch (menuType) {
             case MAINMENU:
                 System.exit(0);
@@ -403,7 +408,7 @@ public class Controller {
                         request.getEnteringMenu() == MenuType.SINGLE_GAME_STORY_MODE) {
                     menuType = request.getEnteringMenu();
                     if (menuType.equals(MenuType.SINGLE_GAME_STORY_MODE))
-                        view.showStoryMode();
+                        view.showStoryModes();
                     else if (menuType.equals(MenuType.SINGLE_GAME_CUSTOM_MODE)) {
                         view.showHeros();
                     }
@@ -861,11 +866,10 @@ public class Controller {
     }
 
     public void endGame() {
-        if(game.getWinnerPlayer() == null){
+        if (game.getWinnerPlayer() == null) {
             view.show("draw!");
-        }
-        else{
-            view.show(game.getWinnerPlayer().getAccount().getUserName()+" won the game and his prize is: "+ game.getPrize());
+        } else {
+            view.show(game.getWinnerPlayer().getAccount().getUserName() + " won the game and his prize is: " + game.getPrize());
             game.getWinnerPlayer().getAccount().increaseMoney(game.getPrize());
         }
         do {
@@ -875,7 +879,8 @@ public class Controller {
         // todo add prize
         menuType = MenuType.MAINMENU;
         game = null;
-        enemyDeck = null;
+        ai = null;
+        aiDeck = null;
     }
 
     public void showMenuOptions() {

@@ -87,8 +87,8 @@ public class Request {
                 if (command.matches("take (?<heroName>(\\w+ ?)+)"))
                     return RequestType.CHOOSE_HERO;
                 if (command.matches("start game (?<deckname>(\\w+ ?)+) " +
-                        "(death match|capture the flag|keep the flag) (\\d+)?"))
-                    return RequestType.SELECT_SINGLE_PLAYER_GAMEMODE;
+                        "(death match|capture the flags|keep the flag)( \\d+)?"))
+                    return RequestType.SELECT_CUSTOM_GAME_GAMEMODE;
                 break;
             case MULTI_GAME_MENU:
                 if (command.matches("show players"))
@@ -96,7 +96,7 @@ public class Request {
                 if (command.matches("select user \\w+"))
                     return RequestType.SELECT_OPPONENT_USER;
                 if (command.matches("start multiplayer game " +
-                        "(death match|capture the flag|keep the flag) (\\d+)?"))
+                        "(death match|capture the flags|keep the flag)( \\d+)?"))
                     return RequestType.SELECT_MODE;
                 break;
             case BATTLE:
@@ -221,8 +221,8 @@ public class Request {
                 deckName = command.split(" ")[2];
                 break;
             /////////////////////// CREATING GAME /////////////////
-            case SELECT_SINGLE_PLAYER_GAMEMODE:
-                parseSinglePlayerMode();
+            case SELECT_CUSTOM_GAME_GAMEMODE:
+                parseCustomGameMode();
                 break;
             case CHOOSE_HERO:
                 cardName = command.substring(5).trim();
@@ -268,13 +268,14 @@ public class Request {
         }
     }
 
-    private void parseSinglePlayerMode() {
-        Pattern pattern = Pattern.compile("start game (?<deckName>(\\w+ ?)+)" +
-                " (?<gameMode>death match|capture the flag|keep the flag) (?<flags>\\d+)");
+    private void parseCustomGameMode() {
+        Pattern pattern = Pattern.compile("start game (?<deckName>\\w+) " +
+                "(?<gameMode>death match|capture the flags|keep the flag)(?<flags> \\d+)?");
         Matcher matcher = pattern.matcher(command);
         if (matcher.matches()) {
             deckName = matcher.group("deckName");
-            switch (deckName) {
+            String gameModeName = matcher.group("gameMode");
+            switch (gameModeName) {
                 case "death match":
                     gameMode = GameMode.DEATH_MATCH;
                     break;
@@ -307,7 +308,7 @@ public class Request {
             gameMode = GameMode.DEATH_MATCH;
             return;
         }
-        if (command.substring(22).trim().matches("capture the flag")) {
+        if (command.substring(22).trim().matches("capture the flags")) {
             gameMode = GameMode.CAPTURE_THE_FLAGS;
             numOfFlags = Integer.parseInt(command.split(" ")[6]);
             return;
@@ -472,6 +473,10 @@ public class Request {
 
     public int getY() {
         return y;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
     }
 
     public int getStoryLevel() {

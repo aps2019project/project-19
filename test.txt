@@ -109,6 +109,10 @@ validate deck a
 select deck a
 exit
 enter battle
+enter single player
+enter custom game
+take rostam
+start game a death match
 enter multi player
 start multiplayer game death match
 select user ali
