@@ -1,12 +1,12 @@
 package model.Cards;
 
-import model.AbilityCastTime;
 import model.Buff.Buff;
 import model.Target.Target;
 
 public class Hero extends SoldierCard {
     private Buff specialPower;
     private int coolDown;
+    private int coolDownWaiting;
 
 
     public Hero() {
@@ -19,6 +19,7 @@ public class Hero extends SoldierCard {
         this.specialPower = specialPower;
         this.coolDown = coolDown;
         this.setTarget(target);
+        this.coolDownWaiting = coolDown;
     }
 
     public Hero(Hero hero) {
@@ -26,6 +27,7 @@ public class Hero extends SoldierCard {
         this.specialPower = hero.specialPower;
         this.coolDown = hero.coolDown;
     }
+
     public Hero(Hero hero, int cardId) {
         super(hero);
         this.specialPower = hero.specialPower;
@@ -63,6 +65,18 @@ public class Hero extends SoldierCard {
 
     public Buff getSpecialPower() {
         return specialPower;
+    }
+
+    public int getCoolDownWaiting() {
+        return coolDownWaiting;
+    }
+
+    public void setCoolDownWaiting(int coolDownWaiting) {
+        this.coolDownWaiting = coolDownWaiting;
+    }
+
+    public void increaseCoolDownWating() {
+        this.coolDownWaiting++;
     }
 
     public void setSpecialPower(Buff specialPower) {

@@ -33,7 +33,9 @@ public class DispellBuff extends Buff {
                 if (buffs.get(i) instanceof WeaknessBuff) {
                     ((WeaknessBuff) buffs.get(i)).cancelEffect(soldier);
                 }
-                buffs.remove(i);
+                if (!buffs.get(i).isContinuous()) {
+                    buffs.remove(i);
+                }
             }
         }
     }
@@ -51,7 +53,7 @@ public class DispellBuff extends Buff {
                         ((HolyBuff) buff).cancelEffect(soldier);
                     }
                 }
-                if (buffs.get(i).getDuration() == buffs.get(i).getNumberOfUsage()) {
+                if (buffs.get(i).getDuration() == buffs.get(i).getNumberOfUsage() && !buffs.get(i).isContinuous()) {
                     buffs.remove(i);
                 }
             }

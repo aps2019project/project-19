@@ -223,10 +223,10 @@ public abstract class SoldierCard extends Card {
     private void castBuffsOnTargetWithTargets(SoldierCard hero, SoldierCard target) {
         switch (hero.getTarget().getSoldierTargetType()) {
             case FRIENDLY_HERO:
-                hero.getBuffs().add(((Hero) hero).getSpecialPower());
+                hero.addBuffToTarget(((Hero) hero).getSpecialPower(), hero);
                 break;
             case ONE_ENEMY:
-                target.getBuffs().add(((Hero) hero).getSpecialPower());
+                hero.addBuffToTarget(((Hero) hero).getSpecialPower(), target);
                 break;
         }
     }
