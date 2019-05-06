@@ -179,7 +179,7 @@ public abstract class SoldierCard extends Card {
     public void counterAttack(SoldierCard target) {
         if (!target.isAntiDisArm()) {
             target.decreaseHP(this.getAp());
-            if (this.abilityCastTime.equals(AbilityCastTime.ON_DEFEND)) {
+            if (this.getAbilityCastTime() != null && this.abilityCastTime.equals(AbilityCastTime.ON_DEFEND)) {
                 castBuffsOnTarget(this, target);
                 castOnMomentBUffs(target);
                 checkBUffTiming(target, false);
@@ -202,7 +202,7 @@ public abstract class SoldierCard extends Card {
             //casting buff
             if (hasAttacked) {
                 checkHolyBuff(target);
-                if (this.getAbilityCastTime().equals(AbilityCastTime.ON_ATTACK)) {
+                if (this.getAbilityCastTime() != null && this.getAbilityCastTime().equals(AbilityCastTime.ON_ATTACK)) {
                     castBuffsOnTarget(this, target);
                     castOnMomentBUffs(target);
                     checkBUffTiming(target, false);
@@ -217,7 +217,7 @@ public abstract class SoldierCard extends Card {
         }
     }
 
-    private void checkHolyBuff(SoldierCard target) {
+    public void checkHolyBuff(SoldierCard target) {
         for (Buff buff : target.getBuffs()) {
             if (buff instanceof HolyBuff) {
                 buff.castBuff(target);
@@ -247,16 +247,17 @@ public abstract class SoldierCard extends Card {
         }
     }
 
-    private void castOnMomentBUffs(SoldierCard soldier) {
+    public void castOnMomentBUffs(SoldierCard soldier) {
         for (Buff buff : soldier.getBuffs()) {
             if (buff.getCastTurn() == buff.getCurrnetTurn() &&
                     buff.isOnMoment() && buff.getDuration() > buff.getNumberOfUsage()) {
                 buff.castBuff(soldier);
             }
+            //todo handle kill buff
         }
     }
 
-    private void castBuffsOnTarget(SoldierCard attacker, SoldierCard target) {
+    public void castBuffsOnTarget(SoldierCard attacker, SoldierCard target) {
         if (attacker instanceof Minion) {
             for (Buff buff : ((Minion) attacker).getAbilities()) {
                 addBuffToTarget(buff, target);
@@ -267,7 +268,7 @@ public abstract class SoldierCard extends Card {
         }
     }
 
-    private void addBuffToTarget(Buff buff, SoldierCard target) {
+    public void addBuffToTarget(Buff buff, SoldierCard target) {
         boolean isPermitted = true;
         if (buff instanceof PoisonBuff && target.isAntiPoison()) {
             isPermitted = false;

@@ -194,9 +194,10 @@ public class Game {
     public boolean pathIsBlocked(Cell srcCell, Cell targetCell) {
         int xDeffrence = targetCell.getXCoordinate() - srcCell.getXCoordinate();
         int yDeffrence = targetCell.getYCoordinate() - srcCell.getYCoordinate();
-        if (xDeffrence != 0 && yDeffrence != 0)
-            return false;
-        while (xDeffrence != 0) {
+        if (xDeffrence != 0 && yDeffrence != 0) {
+            return cells[targetCell.getYCoordinate() - 1][targetCell.getXCoordinate() - 1].getCard() != null;
+        }
+        while (xDeffrence != 0){
             if (cells[srcCell.getYCoordinate() - 1][srcCell.getXCoordinate() + xDeffrence - 1].getCard() != null)
                 return true;
             if (xDeffrence < 0)

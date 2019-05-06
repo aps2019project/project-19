@@ -1,7 +1,10 @@
 package controller;
 
 import model.*;
+import model.Buff.Buff;
+import model.Buff.DispellBuff;
 import model.Cards.*;
+import model.Target.Type;
 import view.*;
 import model.Game.*;
 
@@ -182,6 +185,7 @@ public class Controller {
                     break;
                 case USE_COLLECTABLE:
                     // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
+                    useCollectable();
                     break;
                 case SHOW_GATHERED_COLLECTABLES:
                     //todo what to do????
@@ -261,7 +265,8 @@ public class Controller {
     }
 
     private void selectOpponent() {
-        if (!Account.userNameIsValid(request.getUserName()) || loggedInAccount.getUserName().equals(request.getUserName())) {
+        if (!Account.userNameIsValid(request.getUserName()) ||
+                loggedInAccount.getUserName().equals(request.getUserName())) {
             errorType = ErrorType.INVALID_OPPONENT;
             return;
         }
@@ -760,7 +765,7 @@ public class Controller {
             errorType = ErrorType.INVALID_CARDNAME;
             return;
         }
-        if (!game.coordinateIsValid(request.getX(), request.getY())) {
+        if (request.isHasXY() && !game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
@@ -770,11 +775,12 @@ public class Controller {
         }
         Cell insertionCell = game.getCell(request.getX(), request.getY());
         if (card instanceof SpellCard) {
-            if (!((SpellCard) card).getTargetArea().checkTargetValidation(game.getCells(),
+            if (!((SpellCard) card).getTargetArea().checkTargetValidation(game,
                     activePlayer, deactivePlayer, request.getX(), request.getY())) {
                 errorType = ErrorType.INVALID_TARGET;
+                return;
             }
-            //todo cast spell
+            castSpell((SpellCard) card);
         } else {
             if (!isInsertionPossible(player, insertionCell)) {
                 errorType = ErrorType.INVALID_TARGET;
@@ -790,6 +796,94 @@ public class Controller {
                         " inserted to (" + request.getX() + ", " + request.getY() + ")");
             }
         }
+    }
+
+    private void castSpell(SpellCard card) {
+        Cell cell = game.getCell(request.getX(), request.getY());
+        if (card.getTargetArea().getType().equals(Type.AREA)) {
+            int areaSize = card.getTargetArea().getAreaSize();
+            for (int i = request.getX(); i < request.getX() + areaSize; i++) {
+                for (int j = request.getY(); j < request.getY() + areaSize; j++) {
+                    if (game.coordinateIsValid(i, j)) {
+                        if (card.getTargetArea().isIsaffectingCell()) {
+                            game.getCell(i, j).setBuff(card.getBuff().get(0));
+                        } else if (game.getCell(i, j).getCard() != null) {
+                            if (card.getName().equals("Area Dispel")) {
+                                DispellBuff buff = (DispellBuff) card.getBuff().get(0);
+                                Card soldier = game.getCell(i, j).getCard();
+                                ((SoldierCard) soldier).getBuffs().add(buff);
+                                if (activePlayer.getInBattleCards().containsKey(soldier))
+                                    buff.cancelNegativeBuffs((SoldierCard) soldier);
+                                else
+                                    buff.cancelPositiveBuffs((SoldierCard) soldier);
+                            } else {
+                                castSpellBuffsOnTarget(card, (SoldierCard) cell.getCard());
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            switch (card.getTargetArea().getSoldierTargetType()) {
+                //cases are handled with break points
+                case ONE_ENEMY_MINION:
+                case ONE_FRIENDLY_MINION:
+                case ONE_SOLDIER:
+                case ONE_FRIENDLY_SOLDIER:
+                case ONE_ENEMY:
+                    castSpellBuffsOnTarget(card, (SoldierCard) cell.getCard());
+                    break;
+                case ENEMY_HERO:
+                    castSpellBuffsOnTarget(card, (SoldierCard) deactivePlayer.getHero());
+                    break;
+                case ALL_ENEMIES:
+                    for (Card soldier : deactivePlayer.getInBattleCards().keySet()) {
+                        castSpellBuffsOnTarget(card, (SoldierCard) soldier);
+                    }
+                    break;
+                case FRIENDLY_HERO:
+                    castSpellBuffsOnTarget(card, (SoldierCard) activePlayer.getHero());
+                    break;
+                case ALL_FRIENDLY_SOLDIERS:
+                    castSpellBuffsOnTarget(card, (SoldierCard) activePlayer.getHero());
+                    //don't add break
+                case ALL_FRIENDLY_MINIONS:
+                    for (Card minion : activePlayer.getInBattleCards().keySet()) {
+                        if (!(minion instanceof Hero)) {
+                            castSpellBuffsOnTarget(card, (SoldierCard) minion);
+                        }
+                    }
+                    break;
+                case ONE_RANDOM_MINION_AROUND_FRIENDLY_HERO:
+                    Cell heroCell = activePlayer.getInBattleCards().get(activePlayer.getHero());
+                    for (int i = heroCell.getXCoordinate() - 1; i <= heroCell.getXCoordinate() + 1; i++) {
+                        for (int j = heroCell.getYCoordinate() - 1; j <= heroCell.getYCoordinate() + 1; j++) {
+                            if (game.coordinateIsValid(i, j) && i != heroCell.getXCoordinate() &&
+                                    j != heroCell.getYCoordinate() &&
+                                    activePlayer.getInBattleCards().containsKey(game.getCell(i, j).getCard())) {
+                                castSpellBuffsOnTarget(card, (SoldierCard) game.getCell(i, j).getCard());
+                            }
+                        }
+                    }
+                    break;
+                case ALL_ENEMIES_IN_A_COLUMN:
+                    for (int i = 1; i <= 5; i++) {
+                        Card soldier = game.getCell(request.getX(), i).getCard();
+                        if (soldier != null && deactivePlayer.getInBattleCards().containsKey(soldier)) {
+                            castSpellBuffsOnTarget(card, (SoldierCard) soldier);
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void castSpellBuffsOnTarget(SpellCard card, SoldierCard target) {
+        for (Buff buff : card.getBuff()) {
+            target.addBuffToTarget(buff, target);
+        }
+        target.castOnMomentBUffs(target);
+        target.checkBUffTiming(target, false);
     }
 
     private String generateInBattleCardId(Card card) {
@@ -859,6 +953,11 @@ public class Controller {
     }
 
     public void showGatheredCollectables() {
+        for (Item item : activePlayer.getDeckCards().getItems().values()) {
+            if (item.getType().equals(ItemTypes.COLLECTABLE)){
+                view.show(item.toString());
+            }
+        }
     }
 
     public void selectCollectables() {
@@ -871,6 +970,11 @@ public class Controller {
     }
 
     public void useCollectable() {
+        if (!activePlayer.isAnyItemSelected()){
+            errorType = ErrorType.NO_ITEM_SELECTED;
+            return;
+        }
+        //todo:must completed
     }
 
     public void showNextCard() {
@@ -897,7 +1001,8 @@ public class Controller {
         if (game.getWinnerPlayer() == null) {
             view.show("draw!");
         } else {
-            view.show(game.getWinnerPlayer().getAccount().getUserName() + " won the game and his prize is: " + game.getPrize());
+            view.show(game.getWinnerPlayer().getAccount().getUserName()
+                    + " won the game and his prize is: " + game.getPrize());
             game.getWinnerPlayer().getAccount().increaseMoney(game.getPrize());
         }
         do {
