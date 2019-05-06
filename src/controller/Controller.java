@@ -764,7 +764,7 @@ public class Controller {
             errorType = ErrorType.INVALID_CARDNAME;
             return;
         }
-        if (!game.coordinateIsValid(request.getX(), request.getY())) {
+        if (request.isHasXY() && !game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }

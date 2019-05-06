@@ -179,7 +179,7 @@ public abstract class SoldierCard extends Card {
     public void counterAttack(SoldierCard target) {
         if (!target.isAntiDisArm()) {
             target.decreaseHP(this.getAp());
-            if (this.abilityCastTime.equals(AbilityCastTime.ON_DEFEND)) {
+            if (this.getAbilityCastTime() != null && this.abilityCastTime.equals(AbilityCastTime.ON_DEFEND)) {
                 castBuffsOnTarget(this, target);
                 castOnMomentBUffs(target);
                 checkBUffTiming(target, false);
@@ -202,7 +202,7 @@ public abstract class SoldierCard extends Card {
             //casting buff
             if (hasAttacked) {
                 checkHolyBuff(target);
-                if (this.getAbilityCastTime().equals(AbilityCastTime.ON_ATTACK)) {
+                if (this.getAbilityCastTime() != null && this.getAbilityCastTime().equals(AbilityCastTime.ON_ATTACK)) {
                     castBuffsOnTarget(this, target);
                     castOnMomentBUffs(target);
                     checkBUffTiming(target, false);

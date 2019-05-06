@@ -272,9 +272,9 @@ public class CardInitializer {
         siavash.setTarget(new Target(Type.SOLDIER, 0, SoldierTargetType.ENEMY_HERO));
         minions.add(siavash);
 
-        Minion shahGhol = new Minion(139, "shah ghol", 600, 5, 4, 10, SoldierTypes.MELEE, 1,
+        Minion shahGhool = new Minion(139, "shah ghool", 600, 5, 4, 10, SoldierTypes.MELEE, 1,
                 "can attack multiple targets", AbilityCastTime.COMBO, null);
-        minions.add(shahGhol);
+        minions.add(shahGhool);
 
         Minion arzhanghDiv = new Minion(140, "arzhang div", 600, 3, 6, 6, SoldierTypes.MELEE,
                 1, "combo", AbilityCastTime.COMBO, null);

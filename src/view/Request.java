@@ -27,6 +27,7 @@ public class Request {
     private GameMode gameMode;
     private int numOfFlags;
     private int storyLevel;
+    private boolean hasXY;
 
     public void getNewCommand() {
         do {
@@ -120,7 +121,7 @@ public class Request {
                     return RequestType.USE_SPECIAL_POWER;
                 if (command.matches("show hand"))
                     return RequestType.SHOW_HAND;
-                if (command.matches("insert (?<minionName>(\\w+ ?)+)in \\((?<X>\\d+), (?<Y>\\d+)\\)"))
+                if (command.matches("insert (?<minionName>(\\w+ ?)+)(in \\((?<X>\\d+), (?<Y>\\d+)\\))?"))
                     return RequestType.INSERT_CARD;
                 if (command.matches("end turn"))
                     return RequestType.END_TURN;
@@ -287,12 +288,18 @@ public class Request {
     }
 
     private void parseInsertCommand() {
-        Pattern pattern = Pattern.compile("insert (?<minionName>(\\w+ ?)+)in \\((?<X>\\d+), (?<Y>\\d+)\\)");
+        Pattern pattern = Pattern.compile("insert (?<minionName>(\\w+ ?)+)(in \\((?<X>\\d+), (?<Y>\\d+)\\))?");
         Matcher matcher = pattern.matcher(command);
         if (matcher.matches()) {
             cardName = matcher.group("minionName").trim();
-            x = Integer.parseInt(matcher.group("X"));
-            y = Integer.parseInt(matcher.group("Y"));
+            try {
+                x = Integer.parseInt(matcher.group("X"));
+                y = Integer.parseInt(matcher.group("Y"));
+            } catch (Exception e) {
+            }
+            pattern = Pattern.compile("insert (?<minionName>(\\w+ ?)+) in \\((?<X>\\d+), (?<Y>\\d+)\\)");
+            matcher = pattern.matcher(command);
+            hasXY = matcher.matches();
         }
     }
 
@@ -474,6 +481,10 @@ public class Request {
 
     public int getStoryLevel() {
         return storyLevel;
+    }
+
+    public boolean isHasXY() {
+        return hasXY;
     }
 }
 
