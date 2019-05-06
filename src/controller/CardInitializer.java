@@ -52,7 +52,7 @@ public class CardInitializer {
     }
 
     public void createMinions(ArrayList<Minion> minions, ArrayList<Buff> buffs) {
-        Minion camandareFars = new Minion(101, "camandare Farse", 300, 2, 49, 6,
+        Minion camandareFars = new Minion(101, "camandare Farse", 300, 2, 4, 6,
                 SoldierTypes.RANGED, 7, "", null, null);
         minions.add(camandareFars);
 
@@ -83,7 +83,7 @@ public class CardInitializer {
         Minion camandareTorani = new Minion(107, "camandare torani", 500, 1, 4, 3,
                 SoldierTypes.RANGED, 5, "be carefull!he will shot your head from miles away!",
                 null, null);
-        minions.add(camandareFars);
+        minions.add(camandareTorani);
 
         Minion gholabSanghDareTorani = new Minion(108, "gholabsangdare torani", 600, 1, 2, 4,
                 SoldierTypes.RANGED, 7, "get away,his rocks will smash your head!", null,

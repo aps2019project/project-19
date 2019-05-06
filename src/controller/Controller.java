@@ -2,8 +2,6 @@ package controller;
 
 import model.*;
 import model.Cards.*;
-import model.Target.Target;
-import model.Target.Type;
 import view.*;
 import model.Game.*;
 
@@ -127,8 +125,8 @@ public class Controller {
                 case SELECT_OPPONENT_USER:
                     selectOpponent();
                     break;
-                case SELECT_MODE:
-                    selectMode();
+                case SELECT_MULTI_PLAYER_MODE:
+                    selectMultiPlayerMode();
                     // TODO: 2019-04- test
                     break;
                 case SELECT_STORY_LEVEL:
@@ -138,7 +136,7 @@ public class Controller {
                     chooseHero();
                     break;
                 case SELECT_CUSTOM_GAME_GAMEMODE:
-                    createSinglePlayerGame();
+                    createCustomGame();
                     break;
                 ///////////////////////////////// BATTLE  ////////////////////////
                 case INSERT_CARD:
@@ -216,7 +214,7 @@ public class Controller {
         } while (true);
     }
 
-    private void createSinglePlayerGame() {
+    private void createCustomGame() {
         if (aiDeck == null) {
             errorType = ErrorType.OPPONENT_HERO_NOT_SELECTED;
         } else {
@@ -227,7 +225,7 @@ public class Controller {
                 game = new Game(player1, ai.getPlayer());
                 game.setGameMode(request.getGameMode());
                 initNewGame(game.getGameMode());
-
+                game.setPrize(1000);
             } else {
                 errorType = ErrorType.DECK_NOT_EXISTS;
             }
@@ -247,16 +245,19 @@ public class Controller {
     }
 
     private void selectStoryLevel() {
-        //todo how to create plalyers
-        if (request.getStoryLevel() == 1) {
-
-        } else if (request.getStoryLevel() == 2) {
-
-        } else if (request.getStoryLevel() == 3) {
-
-        } else {
+        Player player1 = new Player(loggedInAccount,loggedInAccount.getCollection().getMainDeck());
+        if (request.getStoryLevel()>4 || request.getStoryLevel()<1){
             errorType = ErrorType.INVALID_LEVEL;
+            return;
         }
+        game = new Game();
+        game.initStoryDecks(shop);
+        aiDeck = game.getStoyLevelDecks().get(request.getStoryLevel());
+        ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
+        game = new Game(player1,ai.getPlayer());
+        game.setGameMode(GameMode.DEATH_MATCH);
+        initNewGame(game.getGameMode());
+        game.setStoryPrize(request.getStoryLevel());
     }
 
     private void selectOpponent() {
@@ -276,7 +277,7 @@ public class Controller {
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
 
-    private void selectMode() {
+    private void selectMultiPlayerMode() {
         if (game == null) {
             errorType = ErrorType.INVALID_COMMAND;
             return;
@@ -285,14 +286,13 @@ public class Controller {
         if (request.getGameMode() == GameMode.CAPTURE_THE_FLAGS)
             game.setNumOfFlags(request.getNumOfFlags());
         System.err.println("game mode seted");
-        game.setPrize();
+        game.setPrize(1000);
         initNewGame(request.getGameMode());
     }
 
     public void initNewGame(GameMode gameMode) {
         switch (gameMode) {
             case DEATH_MATCH:
-                game.setDate(new Date());
                 break;
             case KEEP_THE_FLAG:
                 game.getCell(5, 3).setFlagNumber(1);
@@ -301,6 +301,7 @@ public class Controller {
                 game.initFlags();
                 break;
         }
+        game.setDate(new Date());
         game.setHeroes(game.getPlayer1(), game.getCell(1, 3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
         game.setHeroes(game.getPlayer2(), game.getCell(9, 3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
         game.getPlayer1().setFirstHand().resetCardsAttackAndMoveAbility();

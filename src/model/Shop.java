@@ -34,6 +34,20 @@ public class Shop {
         return null;
     }
 
+    public Card findCard(int cardId) {
+        for (Card card : cards) {
+            if (card.getCardId()==(cardId))
+                return card;
+        }
+        return null;
+    }
+    public Item findItem(int itemid) {
+        for (Item item : items) {
+            if (item.getItemId()==(itemid))
+                return item;
+        }
+        return null;
+    }
     private Shop() {
     }
 
@@ -131,16 +145,4 @@ public class Shop {
         id++;
     }
 
-    public Deck getStoryModeDecks(int number) {
-        Deck deck = new Deck();
-        switch (number) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-        }
-        return null;
-    }
 }
