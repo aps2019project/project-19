@@ -87,7 +87,7 @@ public class View {
 
     }
 
-    public void showStoryMode() {
+    public void showStoryModes() {
         System.out.println("Level: 1 Hero: Dive Sepid Mode: Death match Prize: 500 dricks\n" +
                 "Level: 2 Hero: Zahhack Mode: Keep the flag Prize: 1000 dricks\n" +
                 "Level: 3 Hero: Arash Mode: Capture the flags Prize: 1500 dricks");

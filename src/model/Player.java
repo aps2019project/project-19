@@ -12,7 +12,7 @@ public class Player {
     private int maxMana;
     private Account account;
     private Deck deckCards;
-    private HashMap<Integer, Card> handCards = new HashMap<>();
+    private HashMap<Integer, Card> handCards = new HashMap<>();//todo no need for hashmap
     private HashMap<Card, Cell> inBattleCards = new HashMap<>();
     private HashMap<Integer, Item> items = new HashMap<>();
     private HashMap<String, Card> graveYard = new HashMap<>();
