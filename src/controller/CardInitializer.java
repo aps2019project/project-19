@@ -496,7 +496,7 @@ public class CardInitializer {
         buffs.add(new HolyBuff(Kind.POSITIVE, 1, false, 12));
         Target target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO);
         Item namooseSepar = new Item(2, "Namoose Separ", 400,
-                "", ItemTypes.USABLE, buffs, target);
+                "active 12 holly buff in hero", ItemTypes.USABLE, buffs, target);
         items.add(namooseSepar);
 
         buffs = new ArrayList<>();

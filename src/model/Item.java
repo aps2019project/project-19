@@ -15,6 +15,7 @@ public class Item {
     private Target target;
     private String description;
 
+
     public Item() {
     }
 
@@ -80,15 +81,6 @@ public class Item {
     public String getDescription() {
         return description;
     }
-
-//    @Override
-//    public String toString() {
-//        return "Item{" +
-//                "itemId=" + itemId +
-//                ", name='" + name + '\'' +
-//                ", price=" + price +
-//                '}';
-//    }
 
     @Override
     public String toString() {

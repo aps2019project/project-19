@@ -182,6 +182,7 @@ public class Controller {
                     break;
                 case USE_COLLECTABLE:
                     // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
+                    useCollectable();
                     break;
                 case SHOW_GATHERED_COLLECTABLES:
                     //todo what to do????
@@ -847,6 +848,11 @@ public class Controller {
     }
 
     public void showGatheredCollectables() {
+        for (Item item : activePlayer.getDeckCards().getItems().values()) {
+            if (item.getType().equals(ItemTypes.COLLECTABLE)){
+                view.show(item.toString());
+            }
+        }
     }
 
     public void selectCollectables() {
@@ -859,6 +865,11 @@ public class Controller {
     }
 
     public void useCollectable() {
+        if (!activePlayer.isAnyItemSelected()){
+            errorType = ErrorType.NO_ITEM_SELECTED;
+            return;
+        }
+        //todo:must completed
     }
 
     public void showNextCard() {
