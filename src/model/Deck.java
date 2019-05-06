@@ -38,7 +38,7 @@ public class Deck {
     }
 
     public boolean deckIsValid() {
-        if (cards.size() == 20 && deckHasHero())
+        if (cards.size() == 21 && deckHasHero())
             return true;
         return false;
     }

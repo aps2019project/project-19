@@ -179,13 +179,18 @@ public abstract class SoldierCard extends Card {
     public void counterAttack(SoldierCard target) {
         if (!target.isAntiDisArm()) {
             target.decreaseHP(this.getAp());
-            if (this.abilityCastTime.equals(AbilityCastTime.ON_DEFEND)) {
-                castBuffsOnTarget(this, target);
+            if (this.getAbilityCastTime() != null && this.abilityCastTime.equals(AbilityCastTime.ON_DEFEND)) {
+                if (this instanceof Minion) {
+                    castBuffsOnTarget(this, target);
+                } else {
+                    castBuffsOnTargetWithTargets(this, target);
+                }
                 castOnMomentBUffs(target);
                 checkBUffTiming(target, false);
             }
         }
     }
+
 
     public void attack(SoldierCard target) {
         if (!target.isAntiNegative()) {
@@ -202,8 +207,12 @@ public abstract class SoldierCard extends Card {
             //casting buff
             if (hasAttacked) {
                 checkHolyBuff(target);
-                if (this.getAbilityCastTime().equals(AbilityCastTime.ON_ATTACK)) {
-                    castBuffsOnTarget(this, target);
+                if (this.getAbilityCastTime() != null && this.getAbilityCastTime().equals(AbilityCastTime.ON_ATTACK)) {
+                    if (this instanceof Hero) {
+                        castBuffsOnTargetWithTargets(this, target);
+                    } else {
+                        castBuffsOnTarget(this, target);
+                    }
                     castOnMomentBUffs(target);
                     checkBUffTiming(target, false);
                 }
@@ -211,13 +220,29 @@ public abstract class SoldierCard extends Card {
         }
     }
 
-    public void castFirstTurnBuffs() {
-        for (Buff buff : this.getBuffs()) {
-
+    private void castBuffsOnTargetWithTargets(SoldierCard hero, SoldierCard target) {
+        switch (hero.getTarget().getSoldierTargetType()) {
+            case FRIENDLY_HERO:
+                hero.getBuffs().add(((Hero) hero).getSpecialPower());
+                break;
+            case ONE_ENEMY:
+                target.getBuffs().add(((Hero) hero).getSpecialPower());
+                break;
         }
     }
 
-    private void checkHolyBuff(SoldierCard target) {
+    public void castFirstTurnBuffs() {
+        for (Buff buff : this.getBuffs()) {
+            if (buff.getCurrnetTurn() == buff.getCastTurn() && buff.getDuration() > buff.getNumberOfUsage()) {
+                buff.castBuff(this);
+            }
+            if (buff instanceof KillBuff) {
+                break;
+            }
+        }
+    }
+
+    public void checkHolyBuff(SoldierCard target) {
         for (Buff buff : target.getBuffs()) {
             if (buff instanceof HolyBuff) {
                 buff.castBuff(target);
@@ -247,16 +272,19 @@ public abstract class SoldierCard extends Card {
         }
     }
 
-    private void castOnMomentBUffs(SoldierCard soldier) {
+    public void castOnMomentBUffs(SoldierCard soldier) {
         for (Buff buff : soldier.getBuffs()) {
             if (buff.getCastTurn() == buff.getCurrnetTurn() &&
                     buff.isOnMoment() && buff.getDuration() > buff.getNumberOfUsage()) {
                 buff.castBuff(soldier);
             }
+            if (buff instanceof KillBuff) {
+                break;
+            }
         }
     }
 
-    private void castBuffsOnTarget(SoldierCard attacker, SoldierCard target) {
+    public void castBuffsOnTarget(SoldierCard attacker, SoldierCard target) {
         if (attacker instanceof Minion) {
             for (Buff buff : ((Minion) attacker).getAbilities()) {
                 addBuffToTarget(buff, target);
@@ -267,7 +295,7 @@ public abstract class SoldierCard extends Card {
         }
     }
 
-    private void addBuffToTarget(Buff buff, SoldierCard target) {
+    public void addBuffToTarget(Buff buff, SoldierCard target) {
         boolean isPermitted = true;
         if (buff instanceof PoisonBuff && target.isAntiPoison()) {
             isPermitted = false;
@@ -319,5 +347,9 @@ public abstract class SoldierCard extends Card {
     public void dropFlags(Cell cell) {
         cell.setFlagNumber(this.flagNumber);
         this.setFlagNumber(0);
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 }

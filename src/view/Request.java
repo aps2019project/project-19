@@ -27,6 +27,7 @@ public class Request {
     private GameMode gameMode;
     private int numOfFlags;
     private int storyLevel;
+    private boolean hasXY;
 
     public void getNewCommand() {
         do {
@@ -97,7 +98,7 @@ public class Request {
                     return RequestType.SELECT_OPPONENT_USER;
                 if (command.matches("start multiplayer game " +
                         "(death match|capture the flags|keep the flag)( \\d+)?"))
-                    return RequestType.SELECT_MODE;
+                    return RequestType.SELECT_MULTI_PLAYER_MODE;
                 break;
             case BATTLE:
                 if (command.matches("game info"))
@@ -116,11 +117,11 @@ public class Request {
                     return RequestType.ATTACK;
                 if (command.matches("attack combo( \\d+ \\d+)+"))
                     return RequestType.COMBO_ATTACK;
-                if (command.matches("use special power \\(\\d+, \\d+\\)"))
+                if (command.matches("use special power( \\((?<X>\\d+), (?<Y>\\d+)\\))?"))
                     return RequestType.USE_SPECIAL_POWER;
                 if (command.matches("show hand"))
                     return RequestType.SHOW_HAND;
-                if (command.matches("insert (?<minionName>(\\w+ ?)+)in \\((?<X>\\d+), (?<Y>\\d+)\\)"))
+                if (command.matches("insert (?<minionName>(\\w+ ?)+)(in \\((?<X>\\d+), (?<Y>\\d+)\\))?"))
                     return RequestType.INSERT_CARD;
                 if (command.matches("end turn"))
                     return RequestType.END_TURN;
@@ -226,7 +227,7 @@ public class Request {
             case SELECT_OPPONENT_USER:
                 userName = command.split(" ")[2];
                 break;
-            case SELECT_MODE:
+            case SELECT_MULTI_PLAYER_MODE:
                 parseSelectMode();
                 break;
             case ENTER_MENU:
@@ -258,7 +259,23 @@ public class Request {
             case SHOW_CARD_INFO_IN_GRAVEYARD:
                 inBattleCardId = command.split(" ")[2];
                 break;
+            case USE_SPECIAL_POWER:
+                parseUseSpecialPower();
         }
+    }
+
+    private void parseUseSpecialPower() {
+        Pattern pattern = Pattern.compile("use special power( \\((?<X>\\d+), (?<Y>\\d+)\\))?");
+        Matcher matcher = pattern.matcher(command);
+        try {
+            x = Integer.parseInt(matcher.group("X"));
+            y = Integer.parseInt(matcher.group("Y"));
+        } catch (Exception e) {
+        }
+        pattern = Pattern.compile("use special power \\((?<X>\\d+), (?<Y>\\d+)\\)");
+        matcher = pattern.matcher(command);
+        hasXY = matcher.matches();
+
     }
 
     private void parseCustomGameMode() {
@@ -287,12 +304,18 @@ public class Request {
     }
 
     private void parseInsertCommand() {
-        Pattern pattern = Pattern.compile("insert (?<minionName>(\\w+ ?)+)in \\((?<X>\\d+), (?<Y>\\d+)\\)");
+        Pattern pattern = Pattern.compile("insert (?<minionName>(\\w+ ?)+)(in \\((?<X>\\d+), (?<Y>\\d+)\\))?");
         Matcher matcher = pattern.matcher(command);
         if (matcher.matches()) {
             cardName = matcher.group("minionName").trim();
-            x = Integer.parseInt(matcher.group("X"));
-            y = Integer.parseInt(matcher.group("Y"));
+            try {
+                x = Integer.parseInt(matcher.group("X"));
+                y = Integer.parseInt(matcher.group("Y"));
+            } catch (Exception e) {
+            }
+            pattern = Pattern.compile("insert (?<minionName>(\\w+ ?)+) in \\((?<X>\\d+), (?<Y>\\d+)\\)");
+            matcher = pattern.matcher(command);
+            hasXY = matcher.matches();
         }
     }
 
@@ -474,6 +497,10 @@ public class Request {
 
     public int getStoryLevel() {
         return storyLevel;
+    }
+
+    public boolean isHasXY() {
+        return hasXY;
     }
 }
 

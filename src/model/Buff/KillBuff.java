@@ -5,7 +5,8 @@ import model.Cards.SoldierCard;
 public class KillBuff extends Buff {
     @Override
     public void castBuff(SoldierCard soldier) {
-
+        soldier.setHp(0);
+        increaseNumberOfUsage();
     }
 
     public KillBuff(Kind kind, int duration, boolean isContinuous) {

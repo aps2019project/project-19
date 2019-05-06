@@ -21,11 +21,13 @@ import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        Random random = new Random();
         Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new BuffAdapter()).create();
 //        URL url = Main.class.getResource("data/minions.json");
 //        Reader reader = new FileReader(url.getPath());

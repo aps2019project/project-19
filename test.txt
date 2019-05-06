@@ -29,13 +29,12 @@ buy camandare Farse
 buy asb savare Fars
 buy asb savare Fars
 buy asb savare Fars
-buy dive sepid
+buy asb savare Fars
 show collection
 exit
 enter collection
 create deck test
 add 1 to deck test
-add 22 to deck test
 add 2 to deck test
 add 3 to deck test
 add 4 to deck test
@@ -55,6 +54,7 @@ add 17 to deck test
 add 18 to deck test
 add 19 to deck test
 add 20 to deck test
+add 21 to deck test
 validate deck test
 select deck test
 exit
@@ -82,10 +82,11 @@ buy camandare Farse
 buy asb savare Fars
 buy asb savare Fars
 buy asb savare Fars
+buy asb savare Fars
+
 exit
 enter collection
 create deck a
-add 21 to deck a
 add 22 to deck a
 add 23 to deck a
 add 24 to deck a
@@ -105,20 +106,15 @@ add 37 to deck a
 add 38 to deck a
 add 39 to deck a
 add 40 to deck a
+add 41 to deck a
+add 42 to deck a
 validate deck a
 select deck a
 exit
 enter battle
-enter multi player
-start multiplayer game death match
-select user ali
-start multiplayer game death match
+enter single player
+enter story mode
+enter level 1
 insert camandare farse in (2, 3)
 select nam_camandare_farse_1
-move to (3, 3)
-attack ali_dive_sepid_1
-end turn
-insert neyzedare farse in (8, 3)
-select ali_neyzedare_farse_1
-move to (6, 3)
-attack nam_camandare_farse_1
+move to (4, 3)

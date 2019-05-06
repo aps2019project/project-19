@@ -26,6 +26,13 @@ public class Hero extends SoldierCard {
         this.specialPower = hero.specialPower;
         this.coolDown = hero.coolDown;
     }
+    public Hero(Hero hero, int cardId) {
+        super(hero);
+        this.specialPower = hero.specialPower;
+        this.coolDown = hero.coolDown;
+        this.setCardId(cardId);
+    }
+
 
     @Override
     public String toString() {

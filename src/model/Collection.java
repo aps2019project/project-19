@@ -70,7 +70,7 @@ public class Collection {
 
     public boolean deckIsFull(String deckName, int id) {
         for (Card card : cards) {
-            if (card.getCardId() == id && decks.get(deckName).getCards().size() >= 20)
+            if (card.getCardId() == id && decks.get(deckName).getCards().size() >= 21)
                 return true;
         }
         return false;
