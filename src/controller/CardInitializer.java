@@ -325,7 +325,7 @@ public class CardInitializer {
                 new Target(Type.SOLDIER, 0, SoldierTargetType.ALL_SOLDIERS_IN_A_ROW));
         heroes.add(arash);
 
-        buff = new DispellBuff(Kind.NEGATIVE, 1, false, true, true);
+        buff = new DispellBuff(Kind.NEGATIVE, 1, false, false, true);
         Hero afsaneh = new Hero(308, "afsaneh", 11000, 1, 3, 40,
                 SoldierTypes.RANGED, 3, "dispel one enemy force", buff, 2,
                 new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY));
@@ -423,7 +423,7 @@ public class CardInitializer {
         spellCards.add(allPoison);
 
         buffs = new ArrayList<>();
-        buffs.add(new AntiNegativeBuff(Kind.POSITIVE, 1, false));
+        buffs.add(new DispellBuff(Kind.POSITIVE, 1, false, true, true));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_SOLDIER);
         SpellCard dispel = new SpellCard(212, "Dispel", 2100, 0,
                 "eliminate enemy's positive buffs and friendly negatives buffs", buffs, target);

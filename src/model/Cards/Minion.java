@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class Minion extends SoldierCard {
     private ArrayList<Buff> abilities = new ArrayList<>();
-    private AbilityCastTime abilityCastTime;
 
     public Minion() {
         super();
@@ -18,7 +17,7 @@ public class Minion extends SoldierCard {
                   AbilityCastTime abilityCastTime, ArrayList<Buff> abilities) {
         super(cardId, name, price, mana, ap, hp, type, attackRange, descrption);
         this.abilities = abilities;
-        this.abilityCastTime = abilityCastTime;
+        this.setAbilityCastTime(abilityCastTime);
     }
 
     public Minion(Minion minion) {
@@ -47,12 +46,7 @@ public class Minion extends SoldierCard {
                 + "Desc: " + getDescription();
     }
 
-    @Override
-    public ArrayList<Buff> getBuffs() {
+    public ArrayList<Buff> getAbilities() {
         return abilities;
-    }
-
-    public AbilityCastTime getAbilityCastTime() {
-        return abilityCastTime;
     }
 }

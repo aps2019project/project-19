@@ -17,11 +17,27 @@ public class DispellBuff extends Buff {
 
     @Override
     public void castBuff(SoldierCard soldier) {
+
+    }
+
+    public void cancelNegativeBuffs(SoldierCard soldier) {
         ArrayList<Buff> buffs = soldier.getBuffs();
         for (int i = buffs.size() - 1; i >= 0; i--) {
             if (buffs.get(i).getKind().equals(Kind.NEGATIVE)) {
                 if (buffs.get(i) instanceof WeaknessBuff) {
                     ((WeaknessBuff) buffs.get(i)).cancelEffect(soldier);
+                }
+                buffs.remove(i);
+            }
+        }
+    }
+
+    public void cancelPositiveBuffs(SoldierCard soldier) {
+        ArrayList<Buff> buffs = soldier.getBuffs();
+        for (int i = buffs.size() - 1; i >= 0; i--) {
+            if (buffs.get(i).getKind().equals(Kind.POSITIVE)) {
+                if (buffs.get(i) instanceof PowerBuff) {
+                    ((PowerBuff) buffs.get(i)).cancelEffect(soldier);
                 }
                 buffs.remove(i);
             }

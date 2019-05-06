@@ -1,6 +1,7 @@
 package model.Cards;
 
-import model.Buff.Buff;
+import model.AbilityCastTime;
+import model.Buff.*;
 import model.Cell;
 import model.Target.Target;
 
@@ -21,6 +22,7 @@ public abstract class SoldierCard extends Card {
     private boolean strongerAp;
     private boolean notAcceptingHolyBuff;
     private Target target;
+    private AbilityCastTime abilityCastTime;
 
     public SoldierCard() {
         super();
@@ -45,6 +47,15 @@ public abstract class SoldierCard extends Card {
         this.type = soldierCard.type;
         this.attackRange = soldierCard.attackRange;
         this.target = soldierCard.target;
+        this.abilityCastTime = soldierCard.getAbilityCastTime();
+    }
+
+    public AbilityCastTime getAbilityCastTime() {
+        return abilityCastTime;
+    }
+
+    public void setAbilityCastTime(AbilityCastTime abilityCastTime) {
+        this.abilityCastTime = abilityCastTime;
     }
 
     public Target getTarget() {
@@ -166,12 +177,104 @@ public abstract class SoldierCard extends Card {
     }
 
     public void counterAttack(SoldierCard target) {
-        target.decreaseHP(this.getAp());
+        if (!target.isAntiDisArm()) {
+            target.decreaseHP(this.getAp());
+
+        }
     }
 
-    public void attack(SoldierCard terget) {
-        terget.decreaseHP(this.getAp());
-        // TODO: 2019-05-05 cast buff
+    public void attack(SoldierCard target) {
+        if (!target.isAntiNegative()) {
+            boolean hasAttacked = true;
+            if (!target.isStrongerAp()) {
+                target.decreaseHP(this.getAp());
+            } else {
+                if (this.getAp() > target.getAp()) {
+                    target.decreaseHP(this.getAp());
+                } else {
+                    hasAttacked = false;
+                }
+            }
+            //casting buff
+            if (hasAttacked) {
+                if (this.getAbilityCastTime().equals(AbilityCastTime.ON_ATTACK)) {
+                    castBuffsOnTarget(this, target);
+                    castOnMomentBUffs(target);
+                    checkBUffTiming(target);
+                }
+            }
+        }
+    }
+
+    private void checkBUffTiming(SoldierCard soldier) {
+        for (int i = soldier.getBuffs().size() - 1; i >= 0; i--) {
+            Buff buff = soldier.getBuffs().get(i);
+            if (buff.getNumberOfUsage() == buff.getDuration()) {
+                if (buff instanceof WeaknessBuff) {
+                    ((WeaknessBuff) buff).cancelEffect(soldier);
+                }
+                if (buff.getKind().equals(Kind.NEGATIVE)) {
+                    soldier.getBuffs().remove(i);
+                }
+            }
+        }
+    }
+
+    private void castOnMomentBUffs(SoldierCard soldier) {
+        for (Buff buff : soldier.getBuffs()) {
+            if (buff.getCastTurn() == buff.getCurrnetTurn() && buff.isOnMoment()) {
+                if (buff instanceof DispellBuff) {
+                    if (((DispellBuff) buff).isNegative()) {
+                        ((DispellBuff) buff).cancelNegativeBuffs(soldier);
+                    }
+                    if (((DispellBuff) buff).isPositive()) {
+                        ((DispellBuff) buff).cancelPositiveBuffs(soldier);
+                    }
+                } else {
+                    if (buff instanceof PowerBuff) {
+                        if (!((PowerBuff) buff).isHasCasted()) {
+                            buff.castBuff(soldier);
+                            ((PowerBuff) buff).setHasCasted(true);
+                            buff.increaseNumberOfUsage();
+                        }
+                    } else if (buff instanceof WeaknessBuff) {
+                        buff.castBuff(soldier);
+                        ((WeaknessBuff) buff).setHasCasted(true);
+                        buff.increaseNumberOfUsage();
+                    } else {
+                        buff.castBuff(soldier);
+                        buff.increaseNumberOfUsage();
+                    }
+                }
+
+            }
+        }
+    }
+
+    private void castBuffsOnTarget(SoldierCard attacker, SoldierCard target) {
+        if (attacker instanceof Minion) {
+            for (Buff buff : ((Minion) attacker).getAbilities()) {
+                addBuffToTarget(buff, target);
+            }
+        }
+        if (attacker instanceof Hero) {
+            addBuffToTarget(((Hero) attacker).getSpecialPower(), target);
+        }
+    }
+
+    private void addBuffToTarget(Buff buff, SoldierCard target) {
+        boolean isPermitted = true;
+        if (buff instanceof PoisonBuff && target.isAntiPoison()) {
+            isPermitted = false;
+        } else if (buff instanceof HolyBuff && target.isNotAcceptingHolyBuff()) {
+            isPermitted = false;
+        }
+        if (target.isAntiNegative()) {
+            isPermitted = false;
+        }
+        if (isPermitted) {
+            target.getBuffs().add(buff);
+        }
     }
 
     public String toBattleFormat(int x, int y) {
