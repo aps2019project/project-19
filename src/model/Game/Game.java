@@ -179,6 +179,16 @@ public class Game {
             currentPlayer.setMana(currentPlayer.getMaxMana());
             System.err.println(currentPlayer.getMana());
         }
+        checkBuffsAtTheStartOfTurn(player1);
+        checkBuffsAtTheStartOfTurn(player2);
+    }
+
+    private void checkBuffsAtTheStartOfTurn(Player player1) {
+        for (Card card : player1.getInBattleCards().keySet()) {
+            if (card instanceof SoldierCard) {
+                ((SoldierCard) card).castFirstTurnBuffs();
+            }
+        }
     }
 
     public int totalGameFlagsNmber() {
@@ -197,7 +207,7 @@ public class Game {
         if (xDeffrence != 0 && yDeffrence != 0) {
             return cells[targetCell.getYCoordinate() - 1][targetCell.getXCoordinate() - 1].getCard() != null;
         }
-        while (xDeffrence != 0){
+        while (xDeffrence != 0) {
             if (cells[srcCell.getYCoordinate() - 1][srcCell.getXCoordinate() + xDeffrence - 1].getCard() != null)
                 return true;
             if (xDeffrence < 0)
@@ -420,4 +430,5 @@ public class Game {
         return stoyLevelDecks;
     }
 }
+
 

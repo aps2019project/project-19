@@ -781,6 +781,8 @@ public class Controller {
                 return;
             }
             castSpell((SpellCard) card);
+            card.setCardStatus(CardStatus.IN_GRAVEYARD);
+            activePlayer.getGraveYard().put(card.getInBattleCardId(), card);
         } else {
             if (!isInsertionPossible(player, insertionCell)) {
                 errorType = ErrorType.INVALID_TARGET;
@@ -789,12 +791,12 @@ public class Controller {
                 ((SoldierCard) card).setAttackedThisTurn(false).setMovedThisTurn(false);
                 player.getInBattleCards().put(card, insertionCell);
                 insertionCell.setCard(card);
-                player.getHandCards().remove(card.getCardId(), card);
                 card.setInBattleCardId(generateInBattleCardId(card));
-                player.decreaseMana(card.getMana());
                 view.show(card.getName() + " with " + card.getInBattleCardId() +
                         " inserted to (" + request.getX() + ", " + request.getY() + ")");
             }
+            player.getHandCards().remove(card.getCardId(), card);
+            player.decreaseMana(card.getMana());
         }
     }
 
@@ -935,10 +937,13 @@ public class Controller {
         checkBuffsAtTheEndOfTurn(deactivePlayer);
         player.resetCardsAttackAndMoveAbility();
         player.moveARandomCardToHand();
+        checkDeadCards(activePlayer);
+        checkDeadCards(deactivePlayer);
         if (game.playerWithFlag() != null)
             game.playerWithFlag().increaseNumberOfTurnWithFlag();
         if (!game.gameIsOver())
             game.changeTurn();
+
         else
             endGame();
     }
@@ -954,7 +959,7 @@ public class Controller {
 
     public void showGatheredCollectables() {
         for (Item item : activePlayer.getDeckCards().getItems().values()) {
-            if (item.getType().equals(ItemTypes.COLLECTABLE)){
+            if (item.getType().equals(ItemTypes.COLLECTABLE)) {
                 view.show(item.toString());
             }
         }
@@ -970,7 +975,7 @@ public class Controller {
     }
 
     public void useCollectable() {
-        if (!activePlayer.isAnyItemSelected()){
+        if (!activePlayer.isAnyItemSelected()) {
             errorType = ErrorType.NO_ITEM_SELECTED;
             return;
         }

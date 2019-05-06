@@ -213,7 +213,12 @@ public abstract class SoldierCard extends Card {
 
     public void castFirstTurnBuffs() {
         for (Buff buff : this.getBuffs()) {
-
+            if(buff.getCurrnetTurn() == buff.getCastTurn() && buff.getDuration() > buff.getNumberOfUsage()){
+                buff.castBuff(this);
+            }
+            if(buff instanceof KillBuff){
+                break;
+            }
         }
     }
 
@@ -253,7 +258,9 @@ public abstract class SoldierCard extends Card {
                     buff.isOnMoment() && buff.getDuration() > buff.getNumberOfUsage()) {
                 buff.castBuff(soldier);
             }
-            //todo handle kill buff
+            if(buff instanceof KillBuff){
+                break;
+            }
         }
     }
 
@@ -320,5 +327,9 @@ public abstract class SoldierCard extends Card {
     public void dropFlags(Cell cell) {
         cell.setFlagNumber(this.flagNumber);
         this.setFlagNumber(0);
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 }
