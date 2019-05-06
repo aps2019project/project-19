@@ -25,6 +25,12 @@ public class SpellCard extends Card {
         this.buffs = spellCard.buffs;
         this.targetArea = spellCard.targetArea;
     }
+    public SpellCard(SpellCard spellCard,int cardId) {
+        super(spellCard);
+        this.buffs = spellCard.buffs;
+        this.targetArea = spellCard.targetArea;
+        this.setCardId(cardId);
+    }
 
     public ArrayList<Buff> getBuff() {
         return buffs;

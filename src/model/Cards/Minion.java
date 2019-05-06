@@ -24,7 +24,11 @@ public class Minion extends SoldierCard {
         super(minion);
         this.abilities = minion.abilities;
     }
-
+    public Minion(Minion minion, int cardId) {
+        super(minion);
+        this.abilities = minion.abilities;
+        this.setCardId(cardId);
+    }
     @Override
     public String toString() {
         return "Type : Minion - "
