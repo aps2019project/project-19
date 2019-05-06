@@ -100,7 +100,6 @@ public class Request {
                     return RequestType.SELECT_MODE;
                 break;
             case BATTLE:
-                //roham
                 if (command.matches("game info"))
                     return RequestType.SHOW_GAME_INFO;
                 if (command.matches("show my minions"))
@@ -109,7 +108,6 @@ public class Request {
                     return RequestType.SHOW_OPPONENT_MINIONS;
                 if (command.matches("show card info (\\w+)"))
                     return RequestType.SHOW_CARD_INFO_IN_BATTLE;
-                //sajad
                 if (command.matches("select (\\w+)"))
                     return RequestType.SELECT_CARD_OR_COLLECTABLE;
                 if (command.matches("move to \\((?<X>\\d+), (?<Y>\\d+)\\)"))
@@ -120,28 +118,23 @@ public class Request {
                     return RequestType.COMBO_ATTACK;
                 if (command.matches("use special power \\(\\d+, \\d+\\)"))
                     return RequestType.USE_SPECIAL_POWER;
-                //amir
-                if (command.matches("show hand"))//done
+                if (command.matches("show hand"))
                     return RequestType.SHOW_HAND;
-                if (command.matches("insert (?<minionName>(\\w+ ?)+)in \\((?<X>\\d+), (?<Y>\\d+)\\)"))//done
+                if (command.matches("insert (?<minionName>(\\w+ ?)+)in \\((?<X>\\d+), (?<Y>\\d+)\\)"))
                     return RequestType.INSERT_CARD;
-                if (command.matches("end turn"))//some how
+                if (command.matches("end turn"))
                     return RequestType.END_TURN;
                 if (command.matches("show collectables"))
                     return RequestType.SHOW_GATHERED_COLLECTABLES;
-                //roham
                 if (command.matches("show info"))
                     return RequestType.SHOW_COLLECATBLE_INFO;
-                //amir
                 if (command.matches("use location \\[\\d+, \\d+]"))
                     return RequestType.USE_COLLECTABLE;
-                if (command.matches("show next card"))//done
+                if (command.matches("show next card"))
                     return RequestType.SHOW_NEXT_CARD;
-                //
                 if (command.matches("show my choices"))
                     return RequestType.SHOW_MY_CHOICES;
-                //amir
-                if (command.matches("end game"))//done
+                if (command.matches("end game"))
                     return RequestType.END_GAME;
                 break;
             case GRAVEYARD:
@@ -342,7 +335,7 @@ public class Request {
             enteringMenu = MenuType.SINGLE_GAME_CUSTOM_MODE;
         else if (enteringMenuName.equals("story mode"))
             enteringMenu = MenuType.SINGLE_GAME_STORY_MODE;
-        else if( enteringMenuName.equals("graveyard"))
+        else if (enteringMenuName.equals("graveyard"))
             enteringMenu = MenuType.GRAVEYARD;
     }
 

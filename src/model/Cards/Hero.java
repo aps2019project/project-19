@@ -7,7 +7,6 @@ import model.Target.Target;
 public class Hero extends SoldierCard {
     private Buff specialPower;
     private int coolDown;
-    private AbilityCastTime abilityCastTime;
 
 
     public Hero() {
@@ -63,11 +62,4 @@ public class Hero extends SoldierCard {
         this.specialPower = specialPower;
     }
 
-    public void setAbilityCastTime(AbilityCastTime abilityCastTime) {
-        this.abilityCastTime = abilityCastTime;
-    }
-
-    public AbilityCastTime getAbilityCastTime() {
-        return abilityCastTime;
-    }
 }

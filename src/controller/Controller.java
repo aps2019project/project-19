@@ -265,6 +265,7 @@ public class Controller {
         Player player1 = new Player(loggedInAccount, new Deck(loggedInAccount.getCollection().getMainDeck()));
         Player player2 = new Player(opponentAccount, new Deck(opponentAccount.getCollection().getMainDeck()));
         game = new Game(player1, player2);
+        game.setPrize();
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
 
@@ -290,7 +291,6 @@ public class Controller {
             case CAPTURE_THE_FLAGS:
                 break;
         }
-        game.setPrize();
         game.setHeroes(game.getPlayer1(), game.getCell(1, 3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
         game.setHeroes(game.getPlayer2(), game.getCell(9, 3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
         game.getPlayer1().setFirstHand().resetCardsAttackAndMoveAbility();
@@ -861,11 +861,10 @@ public class Controller {
     }
 
     public void endGame() {
-        if(game.getWinnerPlayer() == null){
+        if (game.getWinnerPlayer() == null) {
             view.show("draw!");
-        }
-        else{
-            view.show(game.getWinnerPlayer().getAccount().getUserName()+" won the game and his prize is: "+ game.getPrize());
+        } else {
+            view.show(game.getWinnerPlayer().getAccount().getUserName() + " won the game and his prize is: " + game.getPrize());
             game.getWinnerPlayer().getAccount().increaseMoney(game.getPrize());
         }
         do {
