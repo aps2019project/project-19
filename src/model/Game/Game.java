@@ -233,10 +233,10 @@ public class Game {
 
     public String toStringKeepFlag() {
         StringBuilder toString = new StringBuilder();
-        if (player1.getMinionsWithFlag() != null)
+        if (player1.getMinionsWithFlag().size() != 0)
             toString.append("player ").append(player1.getAccount().getUserName()).append(" has flag in coordinate: ")
                     .append(player1.getInBattleCards().get(player1.getMinionsWithFlag().get(0)).toString());
-        else if (player2.getMinionsWithFlag() != null)
+        else if (player2.getMinionsWithFlag().size() != 0)
             toString.append("player ").append(player2.getAccount().getUserName()).append(" has flag in coordinate: ")
                     .append(player2.getInBattleCards().get(player2.getMinionsWithFlag().get(0)).toString());
         else {
@@ -298,9 +298,9 @@ public class Game {
     }
 
     private Player captureTheFlagsWinner() {
-         if (2 * player1.totalPlyerFlagsNumber() > totalGameFlagsNmber())
+         if (2 * player1.totalPlayersFlagsNumber() > totalGameFlagsNmber())
              return player1;
-         if (2 * player2.totalPlyerFlagsNumber() > totalGameFlagsNmber())
+         if (2 * player2.totalPlayersFlagsNumber() > totalGameFlagsNmber())
              return player2;
          return null;
     }
@@ -317,5 +317,12 @@ public class Game {
             cells[y][x].setFlagNumber(cells[y][x].getFlagNumber() + 1);
         }
     }
+     public Player playerWithFlag() {
+        if (player1.getMinionsWithFlag().size() != 0)
+            return player1;
+        else if (player2.getMinionsWithFlag().size() != 0)
+            return player2;
+        else return null;
+     }
 }
 

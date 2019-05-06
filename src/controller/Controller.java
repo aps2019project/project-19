@@ -271,7 +271,6 @@ public class Controller {
         Player player1 = new Player(loggedInAccount, new Deck(loggedInAccount.getCollection().getMainDeck()));
         Player player2 = new Player(opponentAccount, new Deck(opponentAccount.getCollection().getMainDeck()));
         game = new Game(player1, player2);
-        game.setPrize();
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
 
@@ -284,6 +283,7 @@ public class Controller {
         if (request.getGameMode() == GameMode.CAPTURE_THE_FLAGS)
             game.setNumOfFlags(request.getNumOfFlags());
         System.err.println("game mode seted");
+        game.setPrize();
         initNewGame(request.getGameMode());
     }
 
@@ -293,8 +293,7 @@ public class Controller {
                 game.setDate(new Date());
                 break;
             case KEEP_THE_FLAG:
-                game.setNumOfFlags(1);
-                game.initFlags();
+                game.getCell(5, 3).setFlagNumber(1);
                 break;
             case CAPTURE_THE_FLAGS:
                 game.initFlags();
@@ -699,7 +698,7 @@ public class Controller {
             activePlayer.getInBattleCards().replace(card, targetCell);
             // TODO: 2019-04-30 check replace function in hashmap
             if (!game.getGameMode().equals(GameMode.DEATH_MATCH))
-                card.pickUpflags(targetCell);
+                card.pickUpFlags(targetCell);
             System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
             card.setMovedThisTurn(true);
         }
@@ -774,6 +773,8 @@ public class Controller {
             player.getHandCards().remove(card.getCardId(), card);
             card.setInBattleCardId(generateInBattleCardId(card));
             player.decreaseMana(card.getMana());
+            if (!game.getGameMode().equals(GameMode.DEATH_MATCH))
+                ((SoldierCard) card).pickUpFlags(insertionCell);
             view.show(card.getName() + " with " + card.getInBattleCardId() +
                     " inserted to (" + request.getX() + ", " + request.getY() + ")");
         }
@@ -829,6 +830,8 @@ public class Controller {
         //2
         player.resetCardsAttackAndMoveAbility();
         player.moveARandomCardToHand();
+        if (game.playerWithFlag() != null)
+            game.playerWithFlag().increaseNumberOfTurnWithFlag();
         if (!game.gameIsOver())
             game.changeTurn();
         else
@@ -898,6 +901,8 @@ public class Controller {
     public void checkDeadCard(Player player, SoldierCard card) {
         if (card.getHp() <= 0) {
             Cell cell = player.getInBattleCards().get(card);
+            if (game.getGameMode().equals(GameMode.KEEP_THE_FLAG) && card.getFlagNumber() != 0)
+                player.setNumberOfTurnsWithFlag(0);
             card.dropFlags(cell);
             cell.setCard(null);
             player.getInBattleCards().remove(card);
