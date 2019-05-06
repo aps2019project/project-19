@@ -197,6 +197,8 @@ public class Controller {
                 case SHOW_All_CARDS_IN_GRAVEYARD:
                     showAllCardsInGraveYard();
                     break;
+                case USE_SPECIAL_POWER:
+                    useSpecialPower();
                 case END_GAME:
                     endGame();
                     break;
@@ -751,6 +753,7 @@ public class Controller {
     }
 
     public void useSpecialPower() {
+
     }
 
     public void showHand() {
