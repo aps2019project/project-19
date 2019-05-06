@@ -98,7 +98,7 @@ public class Request {
                     return RequestType.SELECT_OPPONENT_USER;
                 if (command.matches("start multiplayer game " +
                         "(death match|capture the flags|keep the flag)( \\d+)?"))
-                    return RequestType.SELECT_MODE;
+                    return RequestType.SELECT_MULTI_PLAYER_MODE;
                 break;
             case BATTLE:
                 if (command.matches("game info"))
@@ -227,7 +227,7 @@ public class Request {
             case SELECT_OPPONENT_USER:
                 userName = command.split(" ")[2];
                 break;
-            case SELECT_MODE:
+            case SELECT_MULTI_PLAYER_MODE:
                 parseSelectMode();
                 break;
             case ENTER_MENU:

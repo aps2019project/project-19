@@ -1,9 +1,7 @@
 package model.Game;
 
+import model.*;
 import model.Cards.*;
-import model.Cell;
-import model.Item;
-import model.Player;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +30,8 @@ public class Game {
     private Player winnerPlayer;
     private GameMode gameMode;
     private int prize;
+    private ArrayList<Deck> stoyLevelDecks = new ArrayList<>(
+    );
 
     public Game(Player player1, Player player2) {
         this.player1 = player1;
@@ -41,15 +41,25 @@ public class Game {
         this.turnNumber = 1;
     }
 
+    public Game() {
+    }
+
     //todo set prize
-    public void setPrize() {
-        if (gameMode.equals(GameMode.DEATH_MATCH)) {
-            this.prize = 500;
-        } else if (gameMode.equals(GameMode.KEEP_THE_FLAG)) {
-            this.prize = 1000;
-        } else if (gameMode.equals(GameMode.CAPTURE_THE_FLAGS)) {
-            this.prize = 1500;
+    public void setStoryPrize(int level) {
+        switch (level) {
+            case 1:
+                this.prize = 500;
+                break;
+            case 2:
+                this.prize = 1000;
+                break;
+            case 3:
+                this.prize = 1500;
         }
+    }
+
+    public void setPrize(int prize) {
+        this.prize = prize;
     }
 
     public int getLength() {
@@ -337,5 +347,88 @@ public class Game {
             return player2;
         else return null;
     }
+
+    public void initStoryDecks(Shop shop) {
+        Deck level1 = new Deck("level1");
+        level1.getCards().put(1, new Minion((Minion) shop.findCard(101)));
+        level1.getCards().put(2, new Minion((Minion) shop.findCard(109)));
+        level1.getCards().put(3, new Minion((Minion) shop.findCard(111)));
+        level1.getCards().put(4, new Minion((Minion) shop.findCard(111)));
+        level1.getCards().put(5, new Minion((Minion) shop.findCard(113)));
+        level1.getCards().put(6, new Minion((Minion) shop.findCard(117)));
+        level1.getCards().put(7, new Minion((Minion) shop.findCard(118)));
+        level1.getCards().put(8, new Minion((Minion) shop.findCard(121)));
+        level1.getCards().put(9, new Minion((Minion) shop.findCard(122)));
+        level1.getCards().put(10, new Minion((Minion) shop.findCard(126)));
+        level1.getCards().put(11, new Minion((Minion) shop.findCard(138)));
+        level1.getCards().put(12, new Minion((Minion) shop.findCard(136)));
+        level1.getCards().put(13, new Minion((Minion) shop.findCard(140)));
+        level1.getCards().put(14, new SpellCard((SpellCard) shop.findCard(201)));
+        level1.getCards().put(15, new SpellCard((SpellCard) shop.findCard(207)));
+        level1.getCards().put(16, new SpellCard((SpellCard) shop.findCard(210)));
+        level1.getCards().put(17, new SpellCard((SpellCard) shop.findCard(211)));
+        level1.getCards().put(18, new SpellCard((SpellCard) shop.findCard(212)));
+        level1.getCards().put(19, new SpellCard((SpellCard) shop.findCard(218)));
+        level1.getCards().put(20, new SpellCard((SpellCard) shop.findCard(220)));
+        level1.getCards().put(21, new Hero((Hero) shop.findCard(301)));
+        level1.getItems().put(22, new Item(shop.findItem(4)));
+
+        Deck level2 = new Deck("level2");
+        level2.getCards().put(1, new Minion((Minion) shop.findCard(102)));
+        level2.getCards().put(2, new Minion((Minion) shop.findCard(103)));
+        level2.getCards().put(3, new Minion((Minion) shop.findCard(105)));
+        level2.getCards().put(4, new Minion((Minion) shop.findCard(108)));
+        level2.getCards().put(5, new Minion((Minion) shop.findCard(112)));
+        level2.getCards().put(6, new Minion((Minion) shop.findCard(115)));
+        level2.getCards().put(7, new Minion((Minion) shop.findCard(115)));
+        level2.getCards().put(8, new Minion((Minion) shop.findCard(119)));
+        level2.getCards().put(9, new Minion((Minion) shop.findCard(123)));
+        level2.getCards().put(10, new Minion((Minion) shop.findCard(127)));
+        level2.getCards().put(11, new Minion((Minion) shop.findCard(130)));
+        level2.getCards().put(12, new Minion((Minion) shop.findCard(133)));
+        level2.getCards().put(13, new Minion((Minion) shop.findCard(139)));
+        level2.getCards().put(14, new SpellCard((SpellCard) shop.findCard(202)));
+        level2.getCards().put(15, new SpellCard((SpellCard) shop.findCard(203)));
+        level2.getCards().put(16, new SpellCard((SpellCard) shop.findCard(205)));
+        level2.getCards().put(17, new SpellCard((SpellCard) shop.findCard(209)));
+        level2.getCards().put(18, new SpellCard((SpellCard) shop.findCard(208)));
+        level2.getCards().put(19, new SpellCard((SpellCard) shop.findCard(213)));
+        level2.getCards().put(20, new SpellCard((SpellCard) shop.findCard(219)));
+        level2.getCards().put(21, new Hero((Hero) shop.findCard(305)));
+        level2.getItems().put(22, new Item(shop.findItem(2)));
+
+        Deck level3 = new Deck("level3");
+        level3.getCards().put(1, new Minion((Minion) shop.findCard(106)));
+        level3.getCards().put(2, new Minion((Minion) shop.findCard(107)));
+        level3.getCards().put(3, new Minion((Minion) shop.findCard(110)));
+        level3.getCards().put(4, new Minion((Minion) shop.findCard(114)));
+        level3.getCards().put(5, new Minion((Minion) shop.findCard(116)));
+        level3.getCards().put(6, new Minion((Minion) shop.findCard(116)));
+        level3.getCards().put(7, new Minion((Minion) shop.findCard(120)));
+        level3.getCards().put(8, new Minion((Minion) shop.findCard(124)));
+        level3.getCards().put(9, new Minion((Minion) shop.findCard(125)));
+        level3.getCards().put(10, new Minion((Minion) shop.findCard(128)));
+        level3.getCards().put(11, new Minion((Minion) shop.findCard(129)));
+        level3.getCards().put(12, new Minion((Minion) shop.findCard(131)));
+        level3.getCards().put(13, new Minion((Minion) shop.findCard(134)));
+        level3.getCards().put(14, new SpellCard((SpellCard) shop.findCard(206)));
+        level3.getCards().put(15, new SpellCard((SpellCard) shop.findCard(210)));
+        level3.getCards().put(16, new SpellCard((SpellCard) shop.findCard(212)));
+        level3.getCards().put(17, new SpellCard((SpellCard) shop.findCard(214)));
+        level3.getCards().put(18, new SpellCard((SpellCard) shop.findCard(215)));
+        level3.getCards().put(19, new SpellCard((SpellCard) shop.findCard(216)));
+        level3.getCards().put(20, new SpellCard((SpellCard) shop.findCard(217)));
+        level3.getCards().put(21, new Hero((Hero) shop.findCard(307)));
+        level3.getItems().put(22, new Item(shop.findItem(3)));
+
+        stoyLevelDecks.add(level1);
+        stoyLevelDecks.add(level2);
+        stoyLevelDecks.add(level3);
+    }
+
+    public ArrayList<Deck> getStoyLevelDecks() {
+        return stoyLevelDecks;
+    }
 }
+
 
