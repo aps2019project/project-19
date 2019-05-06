@@ -30,16 +30,16 @@ public class Controller {
     private View view = View.getInstance();
     private Deck aiDeck;
     private Ai ai;
+
     public void run() {
         //mainLoop:
         do {
             System.out.println("Menu: " + menuType);
             request = new Request();
-            if(ai != null && !game.isTurnOfPlayerOne()){
+            if (ai != null && !game.isTurnOfPlayerOne()) {
                 request.setCommand(ai.sendRandomRequest());
-                System.err.println("ai requested: "+ request.getCommand());
-            }
-            else request.getNewCommand();
+                System.err.println("ai requested: " + request.getCommand());
+            } else request.getNewCommand();
             request.setRequestType(menuType);
             request.parseCommand();
             if (game != null) {
@@ -221,8 +221,8 @@ public class Controller {
             if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
                 Player player1 = new Player(loggedInAccount,
                         loggedInAccount.getCollection().getDecks().get(request.getDeckName()));
-                ai = new Ai(new Player(new Account("ai","ai"),aiDeck));
-                game = new Game(player1,ai.getPlayer());
+                ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
+                game = new Game(player1, ai.getPlayer());
                 game.setGameMode(request.getGameMode());
                 initNewGame(game.getGameMode());
 
@@ -825,9 +825,8 @@ public class Controller {
         activePlayer.setSelectedItem(null);
         activePlayer.setSelectedCard(null);
         Player player = activePlayer;
-        //todo 1.cast buff
-        //1
-        //2
+        checkBuffsAtTheEndOfTurn(activePlayer);
+        checkBuffsAtTheEndOfTurn(deactivePlayer);
         player.resetCardsAttackAndMoveAbility();
         player.moveARandomCardToHand();
         if (game.playerWithFlag() != null)
@@ -836,6 +835,15 @@ public class Controller {
             game.changeTurn();
         else
             endGame();
+    }
+
+    private void checkBuffsAtTheEndOfTurn(Player player) {
+        ArrayList<Card> cards = new ArrayList<>(player.getInBattleCards().keySet());
+        for (Card card : cards) {
+            if (card instanceof SoldierCard) {
+                ((SoldierCard) card).checkBUffTiming((SoldierCard) card, true);
+            }
+        }
     }
 
     public void showGatheredCollectables() {

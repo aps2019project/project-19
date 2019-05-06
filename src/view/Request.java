@@ -272,7 +272,7 @@ public class Request {
                 case "death match":
                     gameMode = GameMode.DEATH_MATCH;
                     break;
-                case "capture the flag":
+                case "capture the flags":
                     gameMode = GameMode.CAPTURE_THE_FLAGS;
                     numOfFlags = Integer.parseInt(matcher.group("flags"));
                     break;
