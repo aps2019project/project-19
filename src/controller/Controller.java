@@ -867,6 +867,8 @@ public class Controller {
     }
 
     public void selectCollectables() {
+        Item item = activePlayer.getItems().get(request.getItemID());
+        activePlayer.setSelectedItem(item);
     }
 
     public void showCollectableInfo() {

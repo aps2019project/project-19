@@ -11,11 +11,12 @@ public class Item {
     private int price;
     private Cell cell;
     private ArrayList<Buff> buffs = new ArrayList<>();
+    private int hpChanges;
+    private int apChanges;
     private ItemTypes type;
     private Target target;
     private String description;
-
-
+    private WhenToUse whenToUse;
     public Item() {
     }
 
@@ -24,15 +25,22 @@ public class Item {
         this.price = item.price;
         this.type = item.type;
         this.buffs = item.buffs;
+        this.apChanges = item.apChanges;
+        this.hpChanges = item.hpChanges;
+        this.whenToUse = item.whenToUse;
         this.target = item.target;
         this.description = item.description;
     }
 
-    public Item(int itemId, String name, int price, String description, ItemTypes type, ArrayList<Buff> buffs, Target target) {
+    public Item(int itemId, String name, int price, String description,
+                ItemTypes type,int hpChanges, int apChanges,WhenToUse whenToUse, ArrayList<Buff> buffs, Target target) {
         this.itemId = itemId;
         this.name = name.toLowerCase();
         this.price = price;
         this.type = type;
+        this.hpChanges = hpChanges;
+        this.apChanges = apChanges;
+        this.whenToUse = whenToUse;
         this.buffs = buffs;
         this.target = target;
         this.description = description;
