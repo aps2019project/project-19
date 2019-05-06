@@ -382,6 +382,7 @@ public class CardInitializer {
         buffs = new ArrayList<>();
         buffs.add(new FireBuff(Kind.NEGATIVE, 2, false, 2));
         target = new Target(Type.AREA, 2, null);
+        target.setIsaffectingCell(true);
         SpellCard hellFire = new SpellCard(206, "Hell Fire", 600, 3,
                 "create fire effect on target cells for 2 turns", buffs, target);
         spellCards.add(hellFire);
@@ -396,6 +397,7 @@ public class CardInitializer {
         buffs = new ArrayList<>();
         buffs.add(new PoisonBuff(Kind.NEGATIVE, 1, false, 1));
         target = new Target(Type.AREA, 3, null);
+        target.setIsaffectingCell(true);
         SpellCard poisonLake = new SpellCard(208, "Poison Lake", 900, 5,
                 "create poison effect on target cells for 1 turn", buffs, target);
         spellCards.add(poisonLake);
@@ -475,7 +477,7 @@ public class CardInitializer {
 
         buffs = new ArrayList<>();
         buffs.add(new KillBuff(Kind.NEGATIVE, 1, false));
-        target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO);
+        target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_RANDOM_MINION_AROUND_FRIENDLY_HERO);
         SpellCard kingsGuard = new SpellCard(219, "Kings Guard", 1750, 9,
                 "kill enemy", buffs, target);
         spellCards.add(kingsGuard);

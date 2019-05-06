@@ -1,7 +1,6 @@
 package model;
 
 import model.Cards.*;
-import model.Game.Game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -146,7 +145,9 @@ public class Player {
         return numberOfTurnsWithFlag;
     }
 
-    public void increaseNumberOfTurnWithFlag() { numberOfTurnsWithFlag ++;}
+    public void increaseNumberOfTurnWithFlag() {
+        numberOfTurnsWithFlag++;
+    }
 
     public String handInfo() {
         StringBuilder result = new StringBuilder();
@@ -193,7 +194,7 @@ public class Player {
     }
 
     public int totalPlayersFlagsNumber() {
-        int result  = 0;
+        int result = 0;
         for (Card card : inBattleCards.keySet()) {
             if (card instanceof SoldierCard)
                 result += ((SoldierCard) card).getFlagNumber();
@@ -213,7 +214,7 @@ public class Player {
         return null;
     }
 
-    public ArrayList<SoldierCard> getMinionsWithFlag(){
+    public ArrayList<SoldierCard> getMinionsWithFlag() {
         ArrayList<SoldierCard> soldierCards = new ArrayList<>();
         for (Card card : inBattleCards.keySet()) {
             if (card instanceof SoldierCard && ((SoldierCard) card).getFlagNumber() != 0)
@@ -222,25 +223,36 @@ public class Player {
         return soldierCards;
     }
 
-    public String toStringFlags(){
+    public String toStringFlags() {
         StringBuilder toString = new StringBuilder();
-        toString.append("player : ").append(this.getAccount().getUserName()).append( " flags :\n");
+        toString.append("player : ").append(this.getAccount().getUserName()).append(" flags :\n");
         for (SoldierCard card : this.getMinionsWithFlag()) {
             toString.append("\t").append(card.getInBattleCardId()).append("\n");
         }
         return toString.toString();
     }
-    public Player resetCardsAttackAndMoveAbility(){
-        for (Card card :getInBattleCards().keySet()) {
+
+    public Player resetCardsAttackAndMoveAbility() {
+        for (Card card : getInBattleCards().keySet()) {
             card = (SoldierCard) card;
             ((SoldierCard) card).setMovedThisTurn(false).setAttackedThisTurn(false);
 
         }
         return this;
     }
-    public boolean heroIsDead(){
+
+    public Card getHero() {
+        for (Card card : inBattleCards.keySet()) {
+            if (card instanceof Hero) {
+                return card;
+            }
+        }
+        return null;
+    }
+
+    public boolean heroIsDead() {
         for (Card card : this.getGraveYard().values()) {
-            if(card instanceof Hero){
+            if (card instanceof Hero) {
                 return true;
             }
         }
