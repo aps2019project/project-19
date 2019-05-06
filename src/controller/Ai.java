@@ -23,20 +23,22 @@ public class Ai {
     public void setPlayer(Player player) {
         this.player = player;
     }
-    public String sendRandomRequest(){
+    public String sendRandomRequest(Player opponent){
         counter++;
             switch (counter) {
                 case 0:
                     return insertRandomCard();
                 case 1:
-                    return moveRandomCard();
+                    return selectRandomCard();
                 case 2:
-                    return attackRandomCard();
+                    return moveRandomCard();
                 case 3:
-                    return "show hand";
+                    return attackRandomCard(opponent);
                 case 4:
-                    return "end turn";
+                    return "show hand";
                 case 5:
+                    return "end turn";
+                case 6:
                     counter = -1;
             }
         return "chert";
@@ -54,10 +56,29 @@ public class Ai {
         }
         return "chert";
     }
-    private String attackRandomCard(){
-       return  "chert attack random";
+    private String attackRandomCard(Player opponent){
+        Card card = player.getSelectedCard();
+        if (card == null)
+            return "i don't have any card ://";
+        ArrayList<Card> opponentInBattleCards = new ArrayList<>(opponent.getInBattleCards().keySet());
+        if(opponentInBattleCards.size() == 0)
+            return "enemy has no card";
+        Card opponentCard = opponentInBattleCards.get(random.nextInt(opponentInBattleCards.size()));
+        return "attack "+opponentCard.getInBattleCardId();
+
     }
     private String moveRandomCard(){
-       return  "chert move random";
+        Card card = player.getSelectedCard();
+        if (card == null)
+            return "i don't have any card ://";
+        Cell cell = player.getInBattleCards().get(card);
+        return "move to ("+(cell.getXCoordinate()-2)+", "+cell.getYCoordinate()+")";
+    }
+    private String selectRandomCard(){
+        ArrayList<Card> inBattleCards = new ArrayList<>(player.getInBattleCards().keySet());
+        if(inBattleCards.size()==0)
+            return "i don't have any card ://";
+        Card card = inBattleCards.get(random.nextInt(inBattleCards.size()));
+        return "select "+card.getInBattleCardId();
     }
 }

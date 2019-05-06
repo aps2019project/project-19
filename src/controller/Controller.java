@@ -40,7 +40,7 @@ public class Controller {
             System.out.println("Menu: " + menuType);
             request = new Request();
             if (ai != null && !game.isTurnOfPlayerOne()) {
-                request.setCommand(ai.sendRandomRequest());
+                request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
                 System.err.println("ai requested: " + request.getCommand());
             } else request.getNewCommand();
             request.setRequestType(menuType);
@@ -1087,6 +1087,8 @@ public class Controller {
     }
 
     public void selectCollectables() {
+        Item item = activePlayer.getItems().get(request.getItemID());
+        activePlayer.setSelectedItem(item);
     }
 
     public void showCollectableInfo() {
