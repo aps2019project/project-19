@@ -39,7 +39,15 @@ public class DispellBuff extends Buff {
                 if (buffs.get(i) instanceof PowerBuff) {
                     ((PowerBuff) buffs.get(i)).cancelEffect(soldier);
                 }
-                buffs.remove(i);
+                if (buffs.get(i) instanceof HolyBuff) {
+                    Buff buff = buffs.get(i);
+                    if (((HolyBuff) buff).isHasCasted()) {
+                        ((HolyBuff) buff).cancelEffect(soldier);
+                    }
+                }
+                if (buffs.get(i).getDuration() == buffs.get(i).getNumberOfUsage()) {
+                    buffs.remove(i);
+                }
             }
         }
     }

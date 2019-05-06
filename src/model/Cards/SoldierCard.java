@@ -179,7 +179,11 @@ public abstract class SoldierCard extends Card {
     public void counterAttack(SoldierCard target) {
         if (!target.isAntiDisArm()) {
             target.decreaseHP(this.getAp());
-
+            if (this.abilityCastTime.equals(AbilityCastTime.ON_DEFEND)) {
+                castBuffsOnTarget(this, target);
+                castOnMomentBUffs(target);
+                checkBUffTiming(target, false);
+            }
         }
     }
 
@@ -197,16 +201,32 @@ public abstract class SoldierCard extends Card {
             }
             //casting buff
             if (hasAttacked) {
+                checkHolyBuff(target);
                 if (this.getAbilityCastTime().equals(AbilityCastTime.ON_ATTACK)) {
                     castBuffsOnTarget(this, target);
                     castOnMomentBUffs(target);
-                    checkBUffTiming(target);
+                    checkBUffTiming(target, false);
                 }
             }
         }
     }
 
-    private void checkBUffTiming(SoldierCard soldier) {
+    public void castFirstTurnBuffs() {
+        for (Buff buff : this.getBuffs()) {
+
+        }
+    }
+
+    private void checkHolyBuff(SoldierCard target) {
+        for (Buff buff : target.getBuffs()) {
+            if (buff instanceof HolyBuff) {
+                buff.castBuff(target);
+                buff.increaseNumberOfUsage();
+            }
+        }
+    }
+
+    public void checkBUffTiming(SoldierCard soldier, boolean isEndOfTurn) {
         for (int i = soldier.getBuffs().size() - 1; i >= 0; i--) {
             Buff buff = soldier.getBuffs().get(i);
             if (buff.getNumberOfUsage() == buff.getDuration()) {
@@ -216,6 +236,8 @@ public abstract class SoldierCard extends Card {
                 if (buff.getKind().equals(Kind.NEGATIVE)) {
                     soldier.getBuffs().remove(i);
                 }
+            } else if (isEndOfTurn) {
+                buff.increaseCurrentTurn();
             }
         }
     }
@@ -311,7 +333,7 @@ public abstract class SoldierCard extends Card {
         cell.setFlagNumber(0);
     }
 
-    public void dropFlags(Cell cell){
+    public void dropFlags(Cell cell) {
         cell.setFlagNumber(this.flagNumber);
         this.setFlagNumber(0);
     }
