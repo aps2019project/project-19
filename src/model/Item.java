@@ -27,6 +27,15 @@ public class Item {
         this.target = item.target;
         this.description = item.description;
     }
+    public Item(Item item,int itemId) {
+        this.name = item.name;
+        this.price = item.price;
+        this.type = item.type;
+        this.buffs = item.buffs;
+        this.target = item.target;
+        this.description = item.description;
+        this.itemId = itemId;
+    }
 
     public Item(int itemId, String name, int price, String description, ItemTypes type, ArrayList<Buff> buffs, Target target) {
         this.itemId = itemId;
