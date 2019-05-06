@@ -40,6 +40,7 @@ public class Game {
         this.isTurnOfPlayerOne = true;
         this.turnNumber = 1;
     }
+
     //todo set prize
     public void setPrize() {
         if (gameMode.equals(GameMode.DEATH_MATCH)) {
@@ -120,7 +121,7 @@ public class Game {
     }
 
     public Cell getCell(int x, int y) {
-        if(y-1>=width || x-1 >= length)
+        if (y - 1 >= width || x - 1 >= length)
             return null;
         return cells[y - 1][x - 1];
     }
@@ -168,6 +169,16 @@ public class Game {
             currentPlayer.setMana(currentPlayer.getMaxMana());
             System.err.println(currentPlayer.getMana());
         }
+        checkBuffsAtTheStartOfTurn(player1);
+        checkBuffsAtTheStartOfTurn(player2);
+    }
+
+    private void checkBuffsAtTheStartOfTurn(Player player1) {
+        for (Card card : player1.getInBattleCards().keySet()) {
+            if (card instanceof SoldierCard) {
+                ((SoldierCard) card).castFirstTurnBuffs();
+            }
+        }
     }
 
     public int totalGameFlagsNmber() {
@@ -186,21 +197,21 @@ public class Game {
         if (xDeffrence != 0 && yDeffrence != 0) {
             return cells[targetCell.getYCoordinate() - 1][targetCell.getXCoordinate() - 1].getCard() != null;
         }
-        while (xDeffrence != 0){
+        while (xDeffrence != 0) {
             if (cells[srcCell.getYCoordinate() - 1][srcCell.getXCoordinate() + xDeffrence - 1].getCard() != null)
                 return true;
             if (xDeffrence < 0)
-                xDeffrence ++;
+                xDeffrence++;
             if (xDeffrence > 0)
-                xDeffrence --;
+                xDeffrence--;
         }
-        while (yDeffrence != 0){
+        while (yDeffrence != 0) {
             if (cells[srcCell.getYCoordinate() + yDeffrence - 1][srcCell.getXCoordinate() - 1].getCard() != null)
                 return true;
             if (yDeffrence < 0)
-                yDeffrence ++;
+                yDeffrence++;
             if (yDeffrence > 0)
-                yDeffrence --;
+                yDeffrence--;
         }
         return false;
     }
@@ -265,7 +276,7 @@ public class Game {
     }
 
     public boolean gameIsOver() {
-        switch (gameMode){
+        switch (gameMode) {
             case CAPTURE_THE_FLAGS:
                 winnerPlayer = captureTheFlagsWinner();
                 break;
@@ -273,7 +284,7 @@ public class Game {
                 winnerPlayer = keepTheFlagWinner();
                 break;
             case DEATH_MATCH:
-                if (draw()){
+                if (draw()) {
                     return true;
                 }
                 winnerPlayer = deathMatchWinner();
@@ -299,15 +310,15 @@ public class Game {
     }
 
     private Player captureTheFlagsWinner() {
-         if (2 * player1.totalPlayersFlagsNumber() > totalGameFlagsNmber())
-             return player1;
-         if (2 * player2.totalPlayersFlagsNumber() > totalGameFlagsNmber())
-             return player2;
-         return null;
+        if (2 * player1.totalPlayersFlagsNumber() > totalGameFlagsNmber())
+            return player1;
+        if (2 * player2.totalPlayersFlagsNumber() > totalGameFlagsNmber())
+            return player2;
+        return null;
     }
 
     private boolean draw() {
-        return player1.heroIsDead()&& player2.heroIsDead();
+        return player1.heroIsDead() && player2.heroIsDead();
     }
 
     public void initFlags() {
@@ -318,12 +329,13 @@ public class Game {
             cells[y][x].setFlagNumber(cells[y][x].getFlagNumber() + 1);
         }
     }
-     public Player playerWithFlag() {
+
+    public Player playerWithFlag() {
         if (player1.getMinionsWithFlag().size() != 0)
             return player1;
         else if (player2.getMinionsWithFlag().size() != 0)
             return player2;
         else return null;
-     }
+    }
 }
 
