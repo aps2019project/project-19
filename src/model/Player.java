@@ -227,7 +227,7 @@ public class Player {
         StringBuilder toString = new StringBuilder();
         toString.append("player : ").append(this.getAccount().getUserName()).append( " flags :\n");
         for (SoldierCard card : this.getMinionsWithFlag()) {
-            toString.append(card.getInBattleCardId()).append("\n");
+            toString.append("\t").append(card.getInBattleCardId()).append("\n");
         }
         return toString.toString();
     }

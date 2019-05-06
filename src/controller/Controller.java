@@ -274,7 +274,7 @@ public class Controller {
             return;
         }
         game.setGameMode(request.getGameMode());
-        if (request.getGameMode() == GameMode.KEEP_THE_FLAG)
+        if (request.getGameMode() == GameMode.CAPTURE_THE_FLAGS)
             game.setNumOfFlags(request.getNumOfFlags());
         System.err.println("game mode seted");
         initNewGame(request.getGameMode());
@@ -286,8 +286,11 @@ public class Controller {
                 game.setDate(new Date());
                 break;
             case KEEP_THE_FLAG:
+                game.setNumOfFlags(1);
+                game.initFlags();
                 break;
             case CAPTURE_THE_FLAGS:
+                game.initFlags();
                 break;
         }
         game.setPrize();
@@ -690,6 +693,8 @@ public class Controller {
             targetCell.setCard(card);
             activePlayer.getInBattleCards().replace(card, targetCell);
             // TODO: 2019-04-30 check replace function in hashmap
+            if (!game.getGameMode().equals(GameMode.DEATH_MATCH))
+                card.pickUpflags(targetCell);
             System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
             card.setMovedThisTurn(true);
         }
@@ -888,6 +893,7 @@ public class Controller {
     public void checkDeadCard(Player player, SoldierCard card) {
         if (card.getHp() <= 0) {
             Cell cell = player.getInBattleCards().get(card);
+            card.dropFlags(cell);
             cell.setCard(null);
             player.getInBattleCards().remove(card);
             player.getGraveYard().put(card.getInBattleCardId(), card);

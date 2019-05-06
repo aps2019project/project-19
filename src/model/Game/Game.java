@@ -7,6 +7,7 @@ import model.Player;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 public class Game {
     private final int length = 9;
@@ -165,7 +166,7 @@ public class Game {
         if (turnNumber <= 14) {
             currentPlayer.increaseMaxMana();
             currentPlayer.setMana(currentPlayer.getMaxMana());
-            System.out.println(currentPlayer.getMana());
+            System.err.println(currentPlayer.getMana());
         }
     }
 
@@ -179,8 +180,27 @@ public class Game {
         return result;
     }
 
-    public boolean pathIsBlocked(Cell destCell, Cell targetCell) {
-        // TODO: 2019-04-30 must be implemented
+    public boolean pathIsBlocked(Cell srcCell, Cell targetCell) {
+        int xDeffrence = targetCell.getXCoordinate() - srcCell.getXCoordinate();
+        int yDeffrence = targetCell.getYCoordinate() - srcCell.getYCoordinate();
+        if (xDeffrence != 0 && yDeffrence != 0)
+            return false;
+        while (xDeffrence != 0){
+            if (cells[srcCell.getYCoordinate() - 1][srcCell.getXCoordinate() + xDeffrence - 1].getCard() != null)
+                return true;
+            if (xDeffrence < 0)
+                xDeffrence ++;
+            if (xDeffrence > 0)
+                xDeffrence --;
+        }
+        while (yDeffrence != 0){
+            if (cells[srcCell.getYCoordinate() + yDeffrence - 1][srcCell.getXCoordinate() - 1].getCard() != null)
+                return true;
+            if (yDeffrence < 0)
+                yDeffrence ++;
+            if (yDeffrence > 0)
+                yDeffrence --;
+        }
         return false;
     }
 
@@ -197,7 +217,7 @@ public class Game {
         toString.append("player one hero's health: ");
         for (Card card : player1.getInBattleCards().keySet()) {
             if (card instanceof Hero) {
-                toString.append(((Hero) card).getHp());
+                toString.append(((Hero) card).getHp()).append("\n");
                 break;
             }
         }
@@ -221,19 +241,26 @@ public class Game {
                     .append(player2.getInBattleCards().get(player2.getMinionsWithFlag().get(0)).toString());
         else {
             toString.append("no one has flag. flag is in coordinate : ");
-            for (Cell[] cellInRow : cells) {
-                for (Cell cell : cellInRow) {
-                    if (cell.getFlagNumber() != 0) {
-                        toString.append(cell.toString());
-                    }
-                }
-            }
+            toString.append(toStringFlagsGame());
         }
         return toString.toString();
     }
 
     public String toStringCaptureFlags() {
-        return player1.toStringFlags() + player2.toStringFlags();
+        return player1.toStringFlags() + player2.toStringFlags() +
+                "free flags are in coordinates: " + toStringFlagsGame();
+    }
+
+    private String toStringFlagsGame() {
+        StringBuilder toString = new StringBuilder();
+        for (Cell[] cellInRow : cells) {
+            for (Cell cell : cellInRow) {
+                if (cell.getFlagNumber() != 0) {
+                    toString.append("\t").append(cell.toString());
+                }
+            }
+        }
+        return toString.toString();
     }
 
     public boolean gameIsOver() {
@@ -280,6 +307,15 @@ public class Game {
 
     private boolean draw() {
         return player1.heroIsDead()&& player2.heroIsDead();
+    }
+
+    public void initFlags() {
+        Random random = new Random();
+        for (int i = 0; i < numOfFlags; i++) {
+            int x = random.nextInt(length);
+            int y = random.nextInt(width);
+            cells[y][x].setFlagNumber(cells[y][x].getFlagNumber() + 1);
+        }
     }
 }
 

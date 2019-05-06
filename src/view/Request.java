@@ -87,7 +87,7 @@ public class Request {
                 if (command.matches("take (?<heroName>(\\w+ ?)+)"))
                     return RequestType.CHOOSE_HERO;
                 if (command.matches("start game (?<deckname>(\\w+ ?)+) " +
-                        "(death match|capture the flag|keep the flag) (\\d+)?"))
+                        "(death match|capture the flags|keep the flag) (\\d+)?"))
                     return RequestType.SELECT_SINGLE_PLAYER_GAMEMODE;
                 break;
             case MULTI_GAME_MENU:
@@ -96,7 +96,7 @@ public class Request {
                 if (command.matches("select user \\w+"))
                     return RequestType.SELECT_OPPONENT_USER;
                 if (command.matches("start multiplayer game " +
-                        "(death match|capture the flag|keep the flag) (\\d+)?"))
+                        "(death match|capture the flags|keep the flag)( \\d+)?"))
                     return RequestType.SELECT_MODE;
                 break;
             case BATTLE:
@@ -270,7 +270,7 @@ public class Request {
 
     private void parseSinglePlayerMode() {
         Pattern pattern = Pattern.compile("start game (?<deckName>(\\w+ ?)+)" +
-                " (?<gameMode>death match|capture the flag|keep the flag) (?<flags>\\d+)");
+                " (?<gameMode>death match|capture the flag|keep the flag)(?<flags> \\d+)");
         Matcher matcher = pattern.matcher(command);
         if (matcher.matches()) {
             deckName = matcher.group("deckName");
@@ -307,12 +307,12 @@ public class Request {
             gameMode = GameMode.DEATH_MATCH;
             return;
         }
-        if (command.substring(22).trim().matches("capture the flag")) {
+        if (command.substring(22).trim().matches("capture the flags \\d+")) {
             gameMode = GameMode.CAPTURE_THE_FLAGS;
             numOfFlags = Integer.parseInt(command.split(" ")[6]);
             return;
         }
-        if (command.substring(22).trim().matches("keep the flag \\d+")) {
+        if (command.substring(22).trim().matches("keep the flag")) {
             gameMode = GameMode.KEEP_THE_FLAG;
             return;
         }

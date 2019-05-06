@@ -64,7 +64,7 @@ public class View {
                         "7. Help\n8. Exit");
                 break;
             case START_NEW_GAME:
-                System.out.println("1. enter Single player\n2. enter Multi player\n3. elp\n4. Exit");
+                System.out.println("1. enter Single player\n2. enter Multi player\n3. Help\n4. Exit");
                 break;
             case SINGLE_GAME_MENU:
                 System.out.println("1. enter Story Mode\n2. enter Custom Game\n3. Help\n4. Exit");
@@ -74,13 +74,13 @@ public class View {
                 break;
             case SINGLE_GAME_CUSTOM_MODE:
                 System.out.println("1. take [hero name]\n2. start game [deck name]" +
-                        " [Death Match|Capture The Flag|Keep The Flag] [number of flags In Keep The Flag Mode]\n" +
+                        " [Death Match|keep The Flag|capture The Flags] [number of flags In Keep The Flag Mode]\n" +
                         "3. Help\n4. Exit");
                 break;
             case MULTI_GAME_MENU:
                 System.out.println("1. Show Players\n2. select user [user name]\n" +
-                        "2.1 start multiplayer game [Death Match|Capture The Flag|Keep The Flag] " +
-                        "[number Of Flags In Keep The Flag Mode]\n" +
+                        "2.1 start multiplayer game [Death Match|keep The Flag|capture The Flags] " +
+                        "[number Of Flags In capture The Flags Mode]\n" +
                         "3.Help \n4. Exit");
                 break;
         }

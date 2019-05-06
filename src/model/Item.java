@@ -13,7 +13,7 @@ public class Item {
     private ArrayList<Buff> buffs = new ArrayList<>();
     private ItemTypes type;
     private Target target;
-    private String decription;
+    private String description;
 
     public Item() {
     }
@@ -24,7 +24,7 @@ public class Item {
         this.type = item.type;
         this.buffs = item.buffs;
         this.target = item.target;
-        this.decription = item.decription;
+        this.description = item.description;
     }
 
     public Item(int itemId, String name, int price, String description, ItemTypes type, ArrayList<Buff> buffs, Target target) {
@@ -34,7 +34,7 @@ public class Item {
         this.type = type;
         this.buffs = buffs;
         this.target = target;
-        this.decription = description;
+        this.description = description;
     }
 
     public int getItemId() {
@@ -78,7 +78,7 @@ public class Item {
     }
 
     public String getDescription() {
-        return decription;
+        return description;
     }
 
 //    @Override

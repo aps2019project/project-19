@@ -147,9 +147,6 @@ public abstract class SoldierCard extends Card {
         this.strongerAp = strongerAp;
     }
 
-    public void attack(Card opponentCard) {
-    }
-
     public boolean isAttackedThisTurn() {
         return isAttackedThisTurn;
     }
@@ -204,5 +201,15 @@ public abstract class SoldierCard extends Card {
                         Math.abs(attackerCell.getXCoordinate() - targetCell.getXCoordinate()) <= this.getAttackRange());
         }
         return false;
+    }
+
+    public void pickUpflags(Cell cell) {
+        flagNumber += cell.getFlagNumber();
+        cell.setFlagNumber(0);
+    }
+
+    public void dropFlags(Cell cell){
+        cell.setFlagNumber(this.flagNumber);
+        this.setFlagNumber(0);
     }
 }
