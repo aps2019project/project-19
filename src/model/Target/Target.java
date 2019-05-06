@@ -1,5 +1,8 @@
 package model.Target;
 
+import model.Cell;
+import model.Player;
+
 public class Target {
     private Type type;
     private int areaSize;
@@ -21,5 +24,9 @@ public class Target {
 
     public SoldierTargetType getSoldierTargetType() {
         return soldierTargetType;
+    }
+
+    public boolean checkTargetValidation(Cell[][] cells, Player activePlayer, Player deactivePlayer, int x, int y) {
+        return true;
     }
 }

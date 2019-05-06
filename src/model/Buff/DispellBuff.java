@@ -17,7 +17,13 @@ public class DispellBuff extends Buff {
 
     @Override
     public void castBuff(SoldierCard soldier) {
-
+        if (this.isPositive()) {
+            cancelPositiveBuffs(soldier);
+        }
+        if (this.isNegative()) {
+            cancelNegativeBuffs(soldier);
+        }
+        increaseNumberOfUsage();
     }
 
     public void cancelNegativeBuffs(SoldierCard soldier) {

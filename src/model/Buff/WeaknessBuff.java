@@ -9,8 +9,12 @@ public class WeaknessBuff extends Buff {
 
     @Override
     public void castBuff(SoldierCard soldier) {
-        soldier.changeAp(-this.apDecrease);
-        soldier.changeHp(-this.hpDecrease);
+        if(!hasCasted) {
+            soldier.changeAp(-this.apDecrease);
+            soldier.changeHp(-this.hpDecrease);
+            hasCasted = true;
+            this.increaseNumberOfUsage();
+        }
     }
 
     public void cancelEffect(SoldierCard soldier) {

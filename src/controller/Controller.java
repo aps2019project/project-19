@@ -2,6 +2,8 @@ package controller;
 
 import model.*;
 import model.Cards.*;
+import model.Target.Target;
+import model.Target.Type;
 import view.*;
 import model.Game.*;
 
@@ -355,6 +357,9 @@ public class Controller {
     public void exitMenu() {
         switch (menuType) {
             case MAINMENU:
+                System.exit(0);
+                break;
+            case ACCOUNT:
                 System.exit(0);
                 break;
             case SINGLE_GAME_CUSTOM_MODE:
@@ -759,25 +764,31 @@ public class Controller {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
+        if (player.getMana() < card.getMana()) {
+            errorType = ErrorType.NOT_ENOUGH_MANA;
+            return;
+        }
         Cell insertionCell = game.getCell(request.getX(), request.getY());
         if (card instanceof SpellCard) {
-            errorType = ErrorType.SPELL_NOT_IMPLEMENTABLE;
-        } else if (!isInsertionPossible(player, insertionCell)) {
-            errorType = ErrorType.INVALID_TARGET;
-        } else if (player.getMana() < card.getMana()) {
-            errorType = ErrorType.NOT_ENOUGH_MANA;
+            if (!((SpellCard) card).getTargetArea().checkTargetValidation(game.getCells(),
+                    activePlayer, deactivePlayer, request.getX(), request.getY())) {
+                errorType = ErrorType.INVALID_TARGET;
+            }
+            //todo cast spell
         } else {
-            card.setCardStatus(CardStatus.PLACED);
-            ((SoldierCard) card).setAttackedThisTurn(false).setMovedThisTurn(false);
-            player.getInBattleCards().put(card, insertionCell);
-            insertionCell.setCard(card);
-            player.getHandCards().remove(card.getCardId(), card);
-            card.setInBattleCardId(generateInBattleCardId(card));
-            player.decreaseMana(card.getMana());
-            if (!game.getGameMode().equals(GameMode.DEATH_MATCH))
-                ((SoldierCard) card).pickUpFlags(insertionCell);
-            view.show(card.getName() + " with " + card.getInBattleCardId() +
-                    " inserted to (" + request.getX() + ", " + request.getY() + ")");
+            if (!isInsertionPossible(player, insertionCell)) {
+                errorType = ErrorType.INVALID_TARGET;
+            } else {
+                card.setCardStatus(CardStatus.PLACED);
+                ((SoldierCard) card).setAttackedThisTurn(false).setMovedThisTurn(false);
+                player.getInBattleCards().put(card, insertionCell);
+                insertionCell.setCard(card);
+                player.getHandCards().remove(card.getCardId(), card);
+                card.setInBattleCardId(generateInBattleCardId(card));
+                player.decreaseMana(card.getMana());
+                view.show(card.getName() + " with " + card.getInBattleCardId() +
+                        " inserted to (" + request.getX() + ", " + request.getY() + ")");
+            }
         }
     }
 

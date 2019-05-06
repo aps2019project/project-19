@@ -8,6 +8,7 @@ public class AttackBuff extends Buff {
     @Override
     public void castBuff(SoldierCard soldier) {
         soldier.changeHp(-this.damage);
+        increaseNumberOfUsage();
     }
 
     public AttackBuff(Kind kind, int duration, boolean isContinuous, int damage) {
