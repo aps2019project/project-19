@@ -3,6 +3,8 @@ package view;
 import controller.MenuType;
 import model.Game.GameMode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,6 +29,7 @@ public class Request {
     private GameMode gameMode;
     private int numOfFlags;
     private int storyLevel;
+    private ArrayList<String> comboAttackers = new ArrayList<>();
     private boolean hasXY;
 
     public void getNewCommand() {
@@ -115,7 +118,7 @@ public class Request {
                     return RequestType.MOVE_CARD;
                 if (command.matches("attack (\\w+)"))
                     return RequestType.ATTACK;
-                if (command.matches("attack combo( \\d+ \\d+)+"))
+                if (command.matches("attack combo( \\w+)+"))
                     return RequestType.COMBO_ATTACK;
                 if (command.matches("use special power( \\((?<X>\\d+), (?<Y>\\d+)\\))?"))
                     return RequestType.USE_SPECIAL_POWER;
@@ -253,6 +256,11 @@ public class Request {
             case ATTACK:
                 inBattleCardId = command.split(" ")[1];
                 break;
+            case COMBO_ATTACK:
+                inBattleCardId = command.split(" ")[2];
+                comboAttackers = new ArrayList<String>(Arrays.asList(command.substring(12).split(" ")));
+                comboAttackers.remove(0);
+                break;
             case MOVE_CARD:
                 parseMoveCard();
                 break;
@@ -377,6 +385,10 @@ public class Request {
 
     public void setErrorType(ErrorType errorType) {
         this.errorType = errorType;
+    }
+
+    public ArrayList<String> getComboAttackers() {
+        return comboAttackers;
     }
 
     public void setDeckName(String deckName) {

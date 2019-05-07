@@ -164,14 +164,15 @@ public class Controller {
                     break;
                 case SELECT_CARD_OR_COLLECTABLE:
                     selectCardOrItem(activePlayer);
-                    // TODO: 2019-04-30 test
                     break;
                 case MOVE_CARD:
                     moveCard();
-                    // TODO: 2019-04-30 test
                     break;
                 case ATTACK:
                     attack();
+                    break;
+                case COMBO_ATTACK:
+                    comboAttack();
                     break;
                 case SHOW_HAND:
                     showHand();
@@ -186,7 +187,6 @@ public class Controller {
                     showCollectableInfo();
                     break;
                 case USE_COLLECTABLE:
-                    // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
                     useCollectable();
                     break;
                 case SHOW_GATHERED_COLLECTABLES:
@@ -318,6 +318,8 @@ public class Controller {
                 game.getCell(9, 3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
         game.getPlayer1().setFirstHand().resetCardsAttackAndMoveAbility();
         game.getPlayer2().setFirstHand().resetCardsAttackAndMoveAbility();
+        useUsable(game.getPlayer1(), WhenToUse.ON_GAME_START);
+        useUsable(game.getPlayer2(), WhenToUse.ON_GAME_START);
         menuType = MenuType.BATTLE;
         System.err.println("game started");
     }
@@ -351,7 +353,7 @@ public class Controller {
     }
 
     public void showLeaderBoard() {
-        view.show(Account.sortAccounts());
+        view.show(Account.printAccounts());
     }
 
     public void save() {
@@ -720,14 +722,26 @@ public class Controller {
             currentCell.setCard(null);
             targetCell.setCard(card);
             activePlayer.getInBattleCards().replace(card, targetCell);
-            // TODO: 2019-04-30 check replace function in hashmap
             if (!game.getGameMode().equals(GameMode.DEATH_MATCH))
                 card.pickUpFlags(targetCell);
             System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
             card.setMovedThisTurn(true);
         }
     }
-
+    public void comboAttack(){
+        for (String comboAttackerId : request.getComboAttackers()) {
+            if(!activePlayer.containsCardInBattle(comboAttackerId)){
+                errorType = ErrorType.INVALID_CARD_ID;
+                return;
+            }
+            SoldierCard attacker = ( SoldierCard) activePlayer.getInBattleCard(comboAttackerId);
+            if(!attacker.getAbilityCastTime().equals(AbilityCastTime.COMBO)){
+                continue;
+            }
+            activePlayer.setSelectedCard(attacker);
+            attack();
+        }
+    }
     public void attack() {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
@@ -751,6 +765,7 @@ public class Controller {
             return;
         }
         attacker.attack(defender);
+        useUsable(activePlayer, WhenToUse.ON_ATTACK);
         attacker.setAttackedThisTurn(true);
         System.err.println("attacked");
         if (defender.targetIsInRange(defenderCell, attackerCell)) {
@@ -962,6 +977,7 @@ public class Controller {
                 view.show(card.getName() + " with " + card.getInBattleCardId() +
                         " inserted to (" + request.getX() + ", " + request.getY() + ")");
             }
+            useUsable(activePlayer, WhenToUse.ON_SPAWN);
             player.getHandCards().remove(card.getCardId(), card);
             player.decreaseMana(card.getMana());
             checkDeadCards(activePlayer);
@@ -1168,7 +1184,7 @@ public class Controller {
         }
         if (findTarget(activePlayer.getSelectedItem()) == null)
             errorType = ErrorType.INVALID_TARGET;
-        else activePlayer.getSelectedItem().useCollectable(findTarget(activePlayer.getSelectedItem()));
+        else activePlayer.getSelectedItem().castItemsSpell(findTarget(activePlayer.getSelectedItem()));
     }
 
     public void showNextCard() {
@@ -1204,7 +1220,8 @@ public class Controller {
                 request.getNewCommand();
             } while (!request.getCommand().equals("end game"));
         }
-        // todo add prize
+        game.getPlayer1().getAccount().getMatchHistory().add(game);
+        game.getPlayer2().getAccount().getMatchHistory().add(game);
         menuType = MenuType.MAINMENU;
         game = null;
         ai = null;
@@ -1225,24 +1242,30 @@ public class Controller {
                 if (card.getAbilityCastTime() != null && card.getAbilityCastTime().equals(AbilityCastTime.ON_DEATH)) {
                     castMinionSpecialPower((Minion) card);
                 }
-            Cell cell = player.getInBattleCards().get(card);
-            if (game.getGameMode().equals(GameMode.KEEP_THE_FLAG) && card.getFlagNumber() != 0)
-                player.setNumberOfTurnsWithFlag(0);
-            card.dropFlags(cell);
-            cell.setCard(null);
-            player.getInBattleCards().remove(card);
-            player.getGraveYard().put(card.getInBattleCardId(), card);
-            card.setCardStatus(CardStatus.IN_GRAVEYARD);
-            System.out.println(card.getInBattleCardId() + " died in battle!");
+            if (card.getHp() <= 0) {
+                if (card.getAbilityCastTime() != null && card.getAbilityCastTime().equals(AbilityCastTime.ON_DEATH)) {
+                    castMinionSpecialPower((Minion) card);
+                }
+                useUsable(activePlayer, WhenToUse.ON_DEATH);
+                Cell cell = player.getInBattleCards().get(card);
+                if (game.getGameMode().equals(GameMode.KEEP_THE_FLAG) && card.getFlagNumber() != 0)
+                    player.setNumberOfTurnsWithFlag(0);
+                card.dropFlags(cell);
+                cell.setCard(null);
+                player.getInBattleCards().remove(card);
+                player.getGraveYard().put(card.getInBattleCardId(), card);
+                card.setCardStatus(CardStatus.IN_GRAVEYARD);
+                System.out.println(card.getInBattleCardId() + " died in battle!");
+            }
         }
     }
 
-    public void checkDeadCards(Player player) {
-        ArrayList<Card> cards = new ArrayList<>(player.getInBattleCards().keySet());
-        for (int i = cards.size() - 1; i >= 0; i--) {
-            checkDeadCard(player, (SoldierCard) cards.get(i));
+        public void checkDeadCards (Player player){
+            ArrayList<Card> cards = new ArrayList<>(player.getInBattleCards().keySet());
+            for (int i = cards.size() - 1; i >= 0; i--) {
+                checkDeadCard(player, (SoldierCard) cards.get(i));
+            }
         }
-    }
 
     public SoldierCard findTarget(Item item) {
         ArrayList<Card> myInBattleCards = new ArrayList<>(activePlayer.getInBattleCards().keySet());
@@ -1290,7 +1313,51 @@ public class Controller {
                     }
                 }
                 break;
+            case FRIENDLY_HERO:
+                for (Card card : myInBattleCards) {
+                    if (card instanceof Hero)
+                        return ((Hero) card);
+                }
+                break;
+            case FRIENDLY_HERO_RANGED_AND_HYBRID:
+                for (Card card : myInBattleCards) {
+                    if (card instanceof Hero && (((Hero) card).getType().equals(SoldierTypes.HYBRID) ||
+                            ((Hero) card).getType().equals(SoldierTypes.RANGED)))
+                        return ((Hero) card);
+                }
+                break;
+            case ONE_ENEMY:
+                Collections.shuffle(opponentInBattleCards);
+                for (Card card : opponentInBattleCards) {
+                    if (card instanceof SoldierCard)
+                        return ((SoldierCard) card);
+                }
+                break;
+            case ENEMY_HERO:
+                for (Card card : opponentInBattleCards) {
+                    if (card instanceof Hero)
+                        return ((Hero) card);
+                }
+                break;
+            case ONE_SOLDIER:
+                Collections.shuffle(myInBattleCards);
+                for (Card card : myInBattleCards) {
+                    if (card instanceof SoldierCard)
+                        return ((SoldierCard) card);
+                }
+                break;
+            case ITSELF:
+                return ((SoldierCard) activePlayer.getSelectedCard());
         }
         return null;
+    }
+
+    public void useUsable(Player player, WhenToUse whenToUse){
+        for (Item item : player.getItems().values()) {
+            if (item.getWhenToUse().equals(whenToUse)) {
+                    item.castItemsSpell(findTarget(item));
+            }
+        }
+
     }
 }
