@@ -2,10 +2,12 @@ package controller;
 
 import model.Cards.Card;
 import model.Cell;
+import model.Collection;
 import model.Player;
 import view.Request;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Ai {
@@ -40,6 +42,7 @@ public class Ai {
                     return "end turn";
                 case 6:
                     counter = -1;
+                    return "";
             }
         return "chert";
     }
@@ -48,6 +51,7 @@ public class Ai {
         Cell randomInsertionCell = cardCells.get(random.nextInt(cardCells.size()));
         ArrayList<Card> handCards = new ArrayList<>(player.getHandCards().values());
         Card randomCard ;
+        Collections.shuffle(handCards);
         outer:
         for (Card handCard : handCards) {
             if (handCard.getMana()<player.getMana()) {

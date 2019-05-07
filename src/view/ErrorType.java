@@ -23,7 +23,6 @@ public enum ErrorType {
     INVALID_CARDNAME("invalid card name"),
     INVALID_TARGET("invalid target"),
     NOT_ENOUGH_MANA("you don't have enough mana"),
-    SPELL_NOT_IMPLEMENTABLE("spell card can't be implemented on ground"),
     GAME_IS_NOT_OVER("game is not over"),
     NO_ITEM_SELECTED("no item selected"),
     INVALID_LEVEL("invalid level"),
@@ -33,7 +32,8 @@ public enum ErrorType {
     WRONG_HERO_NAME("hero doesn't exist with this name"),
     OPPONENT_HERO_NOT_SELECTED("opponent hero is not selected"),
     NO_SPECIAL_POWER("card doesn't have special power"),
-    NOT_ENOUGH_COOLDOWN("hero is waiting for cooldown");
+    NOT_ENOUGH_COOLDOWN("hero is waiting for cooldown"),
+    CARD_IS_STUNNED("this card is stunned");
     //    LOGGED_IN("you must logout from your account before creating new account or login into another"),
 //    NOT_LOGGED_IN("you must login to your account to");
     private String message;

@@ -19,13 +19,13 @@ buy neyzedare Farse
 buy neyzedare Farse
 buy neyzedare Farse
 buy asb savare Fars
-buy camandare Farse
-buy camandare Farse
-buy camandare Farse
-buy camandare Farse
-buy camandare Farse
+buy shamshir zane fars
+buy shamshir zane fars
+buy shamshir zane fars
+buy shamshir zane fars
+buy shamshir zane fars
 buy asb savare Fars
-buy camandare Farse
+buy shamshir zane fars
 buy asb savare Fars
 buy asb savare Fars
 buy asb savare Fars
@@ -112,9 +112,26 @@ validate deck a
 select deck a
 exit
 enter battle
-enter single player
-enter story mode
-enter level 1
-insert camandare farse in (2, 3)
-select nam_camandare_farse_1
+enter multi player
+select user ali
+start multiplayer game death match
+end turn
+end turn
+end turn
+end turn
+insert asb savare Fars in (2, 3)
+select nam_asb_savare_fars_1
 move to (4, 3)
+end turn
+insert shamshir zane fars in (8, 3)
+select ali_shamshir_zane_fars_1
+move to (6, 3)
+end turn
+select nam_asb_savare_fars_1
+move to (5, 3)
+end turn
+select ali_shamshir_zane_fars_1
+attack nam_asb_savare_fars_1
+end turn
+select nam_asb_savare_fars_1
+move to (5, 2)
