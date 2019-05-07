@@ -795,7 +795,11 @@ public class Controller {
     }
 
     private void castMinionSpecialPower(Minion card) {
+        Cell cell = game.FindCardCellInGame(card);
         switch (card.getTarget().getSoldierTargetType()) {
+            case ITSELF:
+                addMinionSpecialPowersToTarget(card, card);
+                break;
             case ALL_MINIONS_TO_2_CELLS_FURTHER:
             case ALL_FRIENDLY_MINIONS:
                 for (Card target : activePlayer.getInBattleCards().keySet()) {
@@ -805,16 +809,34 @@ public class Controller {
                 }
                 break;
             case ALL_ENEMY_MINIONS_AROUND:
-                Cell cell = activePlayer.getInBattleCards().get(card);
+                findAroundMinons(card, cell, deactivePlayer);
+                break;
+            case ALL_FRIENDLY_MINIONS_AROUND_AND_ITSELF:
+                findAroundMinons(card, cell, activePlayer);
+                break;
+            case ALL_MINIONS_AROUND:
                 for (int i = cell.getXCoordinate() - 1; i <= cell.getXCoordinate() + 1; i++) {
                     for (int j = cell.getYCoordinate() - 1; j <= cell.getYCoordinate() + 1; j++) {
                         if (game.coordinateIsValid(i, j) && game.getCell(i, j).getCard() != null
                                 && game.getCell(i, j).getCard() instanceof Minion &&
-                                deactivePlayer.getInBattleCards().containsKey(game.getCell(i, j).getCard())) {
+                                game.getCell(i, j).getCard() != card) {
                             addMinionSpecialPowersToTarget(card, (SoldierCard) game.getCell(i, j).getCard());
                         }
                     }
                 }
+                break;
+        }
+    }
+
+    private void findAroundMinons(Minion card, Cell cell, Player player) {
+        for (int i = cell.getXCoordinate() - 1; i <= cell.getXCoordinate() + 1; i++) {
+            for (int j = cell.getYCoordinate() - 1; j <= cell.getYCoordinate() + 1; j++) {
+                if (game.coordinateIsValid(i, j) && game.getCell(i, j).getCard() != null
+                        && game.getCell(i, j).getCard() instanceof Minion &&
+                        player.getInBattleCards().containsKey(game.getCell(i, j).getCard())) {
+                    addMinionSpecialPowersToTarget(card, (SoldierCard) game.getCell(i, j).getCard());
+                }
+            }
         }
     }
 
@@ -918,6 +940,8 @@ public class Controller {
             }
             player.getHandCards().remove(card.getCardId(), card);
             player.decreaseMana(card.getMana());
+            checkDeadCards(activePlayer);
+            checkDeadCards(deactivePlayer);
         }
     }
 
@@ -1062,11 +1086,26 @@ public class Controller {
         checkDeadCards(deactivePlayer);
         if (game.playerWithFlag() != null)
             game.playerWithFlag().increaseNumberOfTurnWithFlag();
-        if (!game.gameIsOver())
+        if (!game.gameIsOver()) {
             game.changeTurn();
-
-        else
+            castPassiveBuffs();
+        } else
             endGame();
+    }
+
+    private void castPassiveBuffs() {
+        for (Card card : activePlayer.getInBattleCards().keySet()) {
+            if (((SoldierCard) card).getAbilityCastTime() != null &&
+                    ((SoldierCard) card).getAbilityCastTime().equals(AbilityCastTime.PASSIVE)) {
+                castMinionSpecialPower((Minion) card);
+            }
+        }
+        for (Card card : deactivePlayer.getInBattleCards().keySet()) {
+            if (((SoldierCard) card).getAbilityCastTime() != null &&
+                    ((SoldierCard) card).getAbilityCastTime().equals(AbilityCastTime.PASSIVE)) {
+                castMinionSpecialPower((Minion) card);
+            }
+        }
     }
 
     private void checkBuffsAtTheEndOfTurn(Player player) {
@@ -1153,6 +1192,9 @@ public class Controller {
 
     public void checkDeadCard(Player player, SoldierCard card) {
         if (card.getHp() <= 0) {
+            if (card.getAbilityCastTime() != null && card.getAbilityCastTime().equals(AbilityCastTime.ON_DEATH)) {
+                castMinionSpecialPower((Minion) card);
+            }
             Cell cell = player.getInBattleCards().get(card);
             if (game.getGameMode().equals(GameMode.KEEP_THE_FLAG) && card.getFlagNumber() != 0)
                 player.setNumberOfTurnsWithFlag(0);

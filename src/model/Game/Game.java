@@ -438,6 +438,16 @@ public class Game {
     public ArrayList<Deck> getStoyLevelDecks() {
         return stoyLevelDecks;
     }
+
+    public Cell FindCardCellInGame(Minion card) {
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                if (cells[i][j].getCard() == card)
+                    return cells[i][j];
+            }
+        }
+        return null;
+    }
 }
 
 

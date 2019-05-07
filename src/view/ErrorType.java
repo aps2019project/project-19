@@ -23,7 +23,6 @@ public enum ErrorType {
     INVALID_CARDNAME("invalid card name"),
     INVALID_TARGET("invalid target"),
     NOT_ENOUGH_MANA("you don't have enough mana"),
-    SPELL_NOT_IMPLEMENTABLE("spell card can't be implemented on ground"),
     GAME_IS_NOT_OVER("game is not over"),
     NO_ITEM_SELECTED("no item selected"),
     INVALID_LEVEL("invalid level"),
