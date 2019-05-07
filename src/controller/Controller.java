@@ -800,7 +800,7 @@ public class Controller {
             case ALL_FRIENDLY_MINIONS:
                 for (Card target : activePlayer.getInBattleCards().keySet()) {
                     if (target instanceof Minion) {
-                        addMinionSpecialPowersToTarget(card, target);
+                        addMinionSpecialPowersToTarget(card, ((SoldierCard) target));
                     }
                 }
                 break;
