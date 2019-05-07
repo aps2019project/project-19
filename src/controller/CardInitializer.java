@@ -498,93 +498,128 @@ public class CardInitializer {
         buffs.add(new HolyBuff(Kind.POSITIVE, 1, false, 12));
         Target target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO);
         Item namooseSepar = new Item(2, "Namoose Separ", 400,
-                "active 12 holly buff in hero", ItemTypes.USABLE,0, 0,WhenToUse.ON_GAME_START, buffs, target);
+                "active 12 holly buff in hero",
+                ItemTypes.USABLE,0, 0,WhenToUse.ON_GAME_START, buffs, target);
         items.add(namooseSepar);
 
         buffs = new ArrayList<>();
         buffs.add(new DisArmBuff(Kind.NEGATIVE, 1, false));
-        target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_RANGED_AND_HYBRID);
+        target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO_RANGED_AND_HYBRID);
         Item camaneDamol = new Item(3, "camane damol", 30000,
-                "disarm enemy for one turn", ItemTypes.USABLE,0, 0,WhenToUse.ON_ATTACK, buffs, target);
+                "disarm enemy for one turn",
+                ItemTypes.USABLE,0, 0,WhenToUse.ON_ATTACK, buffs, target);
         items.add(camaneDamol);
 
         buffs = new ArrayList<>();
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_SOLDIER);
         Item nooshDaroo = new Item(4, "noosh Daroo", 0,
-                "one randomly minion healths increase by 6", ItemTypes.COLLECTABLE,6, 0,WhenToUse.ON_MOMENT, buffs, target);
+                "one randomly minion healths increase by 6",
+                ItemTypes.COLLECTABLE,6, 0,WhenToUse.ON_MOMENT, buffs, target);
         items.add(nooshDaroo);
 
         buffs = new ArrayList<>();
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_RANGED_AND_HYBRID);
         Item tireDoShakh = new Item(5, "tire do shakh", 0,
-                "increase randomly ranged or hybrid force power by 2", ItemTypes.COLLECTABLE,0, 2, WhenToUse.ON_MOMENT, buffs, target);
+                "increase randomly ranged or hybrid force power by 2",
+                ItemTypes.COLLECTABLE,0, 2, WhenToUse.ON_MOMENT, buffs, target);
         items.add(tireDoShakh);
 
         buffs = new ArrayList<>();
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ENEMY_HERO_RANGED_AND_HYBRID);
         Item pareSimorhg = new Item(6, "pare simorhg", 3500,
-                "decrease enemy's hero power by 2 if it be ranged or hybrid", ItemTypes.USABLE,0, -2, WhenToUse.ON_MOMENT, buffs, target);
+                "decrease enemy's hero power by 2 if it be ranged or hybrid",
+                ItemTypes.USABLE,0, -2, WhenToUse.ON_MOMENT, buffs, target);
         items.add(pareSimorhg);
 
         buffs = new ArrayList<>();
         buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0, 3));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_MINION);
         Item exir = new Item(7, "exir", 0,
-                "increase health by 3 and power buff with increasing power by 3", ItemTypes.COLLECTABLE,3, 0, WhenToUse.ON_MOMENT, buffs, target);
+                "increase health by 3 and power buff with increasing power by 3",
+                ItemTypes.COLLECTABLE,3, 0, WhenToUse.ON_MOMENT, buffs, target);
         items.add(exir);
 
         buffs = new ArrayList<>();
         buffs.add(new HolyBuff(Kind.POSITIVE, 2, false, 10));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_SOLDIER);
         Item maajooneRooyeenTani = new Item(9, "maajoone rooyeen tani", 0,
-                "10 holy buff for randomly force for 2 turns", ItemTypes.COLLECTABLE,0, 0, WhenToUse.ON_MOMENT, buffs, target);
+                "10 holy buff for randomly force for 2 turns",
+                ItemTypes.COLLECTABLE,0, 0, WhenToUse.ON_MOMENT, buffs, target);
         items.add(maajooneRooyeenTani);
 
         buffs = new ArrayList<>();
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY);
         Item nefrineMarg = new Item(10, "nefrine marg", 0,
-                "on death deacrease one randomly enemy's health by 8", ItemTypes.COLLECTABLE,-8, 0, WhenToUse.ON_DEATH, buffs, target);
+                "on death deacrease one randomly enemy's health by 8",
+                ItemTypes.COLLECTABLE,-8, 0, WhenToUse.ON_DEATH, buffs, target);
         items.add(nefrineMarg);
 
         buffs = new ArrayList<>();
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY);
         Item randomDamage = new Item(11, "random damage", 0,
-                "decrease one enemy's health by 2", ItemTypes.COLLECTABLE,0, -2, WhenToUse.ON_MOMENT, buffs, target);
+                "decrease one enemy's health by 2",
+                ItemTypes.COLLECTABLE,0, -2, WhenToUse.ON_MOMENT, buffs, target);
         items.add(randomDamage);
 
         buffs = new ArrayList<>();
         buffs.add(new WeaknessBuff(Kind.NEGATIVE, 1, false, 0, 2));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY);
         Item terrorHood = new Item(12, "terror hood", 5000,
-                "on attack give one random enemy weakness buff with decreasing power by 2", ItemTypes.USABLE,0, 0, WhenToUse.ON_ATTACK, buffs, target);
+                "on attack give one random enemy weakness buff with decreasing power by 2",
+                ItemTypes.USABLE,0, 0, WhenToUse.ON_ATTACK, buffs, target);
         items.add(terrorHood);
 
         buffs = new ArrayList<>();
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_SOLDIER);
         Item bladesOfAgility = new Item(13, "blades of agility", 0,
-                "increase one randomly friend soldier's power by 6", ItemTypes.COLLECTABLE,0, 6, WhenToUse.ON_MOMENT, buffs, target);
+                "increase one randomly friend soldier's power by 6",
+                ItemTypes.COLLECTABLE,0, 6, WhenToUse.ON_MOMENT, buffs, target);
         items.add(bladesOfAgility);
 
         buffs = new ArrayList<>();
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ENEMY_HERO);
         Item assassinationDagger = new Item(15, "assassination dagger", 1500,
-                "on spawn attack one damage to enemy's hero", ItemTypes.COLLECTABLE,-1, 0, WhenToUse.ON_SPAWN, buffs, target);
+                "on spawn attack one damage to enemy's hero",
+                ItemTypes.COLLECTABLE,-1, 0, WhenToUse.ON_SPAWN, buffs, target);
         items.add(assassinationDagger);
 
         buffs = new ArrayList<>();
         buffs.add(new PoisonBuff(Kind.NEGATIVE, 1, false, 1));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY);
         Item poisonousDagger = new Item(16, "poisonous dagger", 7000,
-                "on attack give one random enemy's force poison buff for 1 turn", ItemTypes.USABLE,0, 0, WhenToUse.ON_ATTACK, buffs, target);
+                "on attack give one random enemy's force poison buff for 1 turn",
+                ItemTypes.USABLE,0, 0, WhenToUse.ON_ATTACK, buffs, target);
         items.add(poisonousDagger);
 
         buffs = new ArrayList<>();
         buffs.add(new DisArmBuff(Kind.NEGATIVE, 1, false));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO);
         Item shockHammer = new Item(17, "shock hammer", 15000,
-                "when hero attack enemy stun it for 1 turn", ItemTypes.USABLE,0, 0, WhenToUse.ON_ATTACK, buffs, target);
+                "when hero attack enemy stun it for 1 turn",
+                ItemTypes.USABLE,0, 0, WhenToUse.ON_ATTACK, buffs, target);
         items.add(shockHammer);
 
+        buffs = new ArrayList<>();
+        buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0,1));
+        target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_SOLDIER);
+        Item soulEater = new Item(18, "soul eater", 25000,
+                "when on soldier die it give one friendly soldier a power buff with increasing power by 1",
+                ItemTypes.USABLE,0, 0, WhenToUse.ON_DEATH, buffs, target);
+        items.add(soulEater);
 
+        buffs = new ArrayList<>();
+        buffs.add(new HolyBuff(Kind.POSITIVE, 2, false, 1));
+        target = new Target(Type.SOLDIER, 0, SoldierTargetType.ITSELF);
+        Item ghosleTaamid = new Item(19, "ghosle taamid", 20000,
+                "every minion on spawning  have holy buff for 2 turns",
+                ItemTypes.USABLE,0, 0, WhenToUse.ON_SPAWN, buffs, target);
+        items.add(ghosleTaamid);
+
+        buffs = new ArrayList<>();
+        target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_MELEE);
+        Item shamshireChini = new Item(20, "shamshire chini", 0,
+                "increase melee's attack by 5",
+                ItemTypes.COLLECTABLE,0, 5, WhenToUse.ON_MOMENT, buffs, target);
+        items.add(shamshireChini);
     }
 }
