@@ -317,12 +317,13 @@ public class CardInitializer {
         Hero kaveh = new Hero(306, "kaveh", 8000, 1, 4, 50,
                 SoldierTypes.MELEE, 1, "make one cell holy for 3 turn", buff, 3,
                 new Target(Type.AREA, 1, null));
+        kaveh.getTarget().setIsaffectingCell(true);
         heroes.add(kaveh);
 
         buff = new AttackBuff(Kind.NEGATIVE, 1, false, 4);
         Hero arash = new Hero(307, "arash", 10000, 2, 2, 30,
                 SoldierTypes.RANGED, 6, "give all enemy force in row with it 4 damage", buff, 2,
-                new Target(Type.SOLDIER, 0, SoldierTargetType.ALL_SOLDIERS_IN_A_ROW));
+                new Target(Type.SOLDIER, 0, SoldierTargetType.ALL_SOLDIERS_IN_THE_ROW_OF_FRIENDLY_HERO));
         heroes.add(arash);
 
         buff = new DispellBuff(Kind.NEGATIVE, 1, false, false, true);
@@ -331,7 +332,7 @@ public class CardInitializer {
                 new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY));
         heroes.add(afsaneh);
 
-        buff = new HolyBuff(Kind.POSITIVE, 3, false, 1);
+        buff = new HolyBuff(Kind.POSITIVE, 3, true, 1);
         Hero esfandiar = new Hero(309, "esfandiar", 12000, 0, 3, 35,
                 SoldierTypes.HYBRID, 3, "have 3 holy buff continuously", buff, 0,
                 new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO));

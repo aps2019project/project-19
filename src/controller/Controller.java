@@ -251,8 +251,8 @@ public class Controller {
     }
 
     private void selectStoryLevel() {
-        Player player1 = new Player(loggedInAccount,loggedInAccount.getCollection().getMainDeck());
-        if (request.getStoryLevel()>4 || request.getStoryLevel()<1){
+        Player player1 = new Player(loggedInAccount, loggedInAccount.getCollection().getMainDeck());
+        if (request.getStoryLevel() > 4 || request.getStoryLevel() < 1) {
             errorType = ErrorType.INVALID_LEVEL;
             return;
         }
@@ -260,7 +260,7 @@ public class Controller {
         game.initStoryDecks(shop);
         aiDeck = game.getStoyLevelDecks().get(request.getStoryLevel());
         ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
-        game = new Game(player1,ai.getPlayer());
+        game = new Game(player1, ai.getPlayer());
         game.setGameMode(GameMode.DEATH_MATCH);
         initNewGame(game.getGameMode());
         game.setStoryPrize(request.getStoryLevel());
@@ -309,8 +309,10 @@ public class Controller {
                 break;
         }
         game.setDate(new Date());
-        game.setHeroes(game.getPlayer1(), game.getCell(1, 3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
-        game.setHeroes(game.getPlayer2(), game.getCell(9, 3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
+        game.setHeroes(game.getPlayer1(),
+                game.getCell(1, 3)).setInBattleCardId(game.getPlayer1().getAccount().getUserName());
+        game.setHeroes(game.getPlayer2(),
+                game.getCell(9, 3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
         game.getPlayer1().setFirstHand().resetCardsAttackAndMoveAbility();
         game.getPlayer2().setFirstHand().resetCardsAttackAndMoveAbility();
         menuType = MenuType.BATTLE;
@@ -753,7 +755,123 @@ public class Controller {
     }
 
     public void useSpecialPower() {
+        if (!activePlayer.isAnyCardSelected()) {
+            errorType = ErrorType.CARD_NOT_SELECTED;
+            return;
+        }
+        SoldierCard card = (SoldierCard) activePlayer.getSelectedCard();
+        if (card instanceof Hero) {
+            if (((Hero) card).getSpecialPower() == null || ((Hero) card).getCoolDown() == 0) {
+                errorType = ErrorType.NO_SPECIAL_POWER;
+            } else if (!card.getTarget().checkTargetValidation(game, activePlayer, deactivePlayer,
+                    request.getX(), request.getY())) {
+                errorType = ErrorType.INVALID_TARGET;
+            } else if (activePlayer.getMana() < card.getMana()) {
+                errorType = ErrorType.NOT_ENOUGH_MANA;
+            } else if (((Hero) card).getCoolDownWaiting() < ((Hero) card).getCoolDown()) {
+                errorType = ErrorType.NOT_ENOUGH_COOLDOWN;
+            } else {
+                castHeroSpecialPower((Hero) card);
+                ((Hero) card).setCoolDownWaiting(0);
+            }
+        }
+        if (card instanceof Minion) {
+            if (((Minion) card).getAbilities() == null) {
+                errorType = ErrorType.NO_SPECIAL_POWER;
+                return;
+            }
+            if (!card.getTarget().checkTargetValidation(game, activePlayer,
+                    deactivePlayer, request.getX(), request.getY())) {
+                errorType = ErrorType.INVALID_TARGET;
+                return;
+            }
+            if (card.getAbilityCastTime() != null && (
+                    card.getAbilityCastTime().equals(AbilityCastTime.ON_SPAWN) ||
+                            card.getAbilityCastTime().equals(AbilityCastTime.ON_TURN))
+                    && !card.isAttackedThisTurn()) {
+                castMinionSpecialPower((Minion) card);
+            }
+        }
+    }
 
+    private void castMinionSpecialPower(Minion card) {
+        switch (card.getTarget().getSoldierTargetType()) {
+            case ALL_MINIONS_TO_2_CELLS_FURTHER:
+            case ALL_FRIENDLY_MINIONS:
+                for (Card target : activePlayer.getInBattleCards().keySet()) {
+                    if (target instanceof Minion) {
+                        addMinionSpecialPowersToTarget(card, target);
+                    }
+                }
+                break;
+            case ALL_ENEMY_MINIONS_AROUND:
+                Cell cell = activePlayer.getInBattleCards().get(card);
+                for (int i = cell.getXCoordinate() - 1; i <= cell.getXCoordinate() + 1; i++) {
+                    for (int j = cell.getYCoordinate() - 1; j <= cell.getYCoordinate() + 1; j++) {
+                        if (game.coordinateIsValid(i, j) && game.getCell(i, j).getCard() != null
+                                && game.getCell(i, j).getCard() instanceof Minion &&
+                                deactivePlayer.getInBattleCards().containsKey(game.getCell(i, j).getCard())) {
+                            addMinionSpecialPowersToTarget(card, (SoldierCard) game.getCell(i, j).getCard());
+                        }
+                    }
+                }
+        }
+    }
+
+    private void castHeroSpecialPower(Hero card) {
+        Cell cell = game.getCell(request.getX(), request.getY());
+        if (card.getTarget().getType().equals(Type.AREA)) {
+            int areaSize = card.getTarget().getAreaSize();
+            for (int i = request.getX(); i < request.getX() + areaSize; i++) {
+                for (int j = request.getY(); j < request.getY() + areaSize; j++) {
+                    if (game.coordinateIsValid(i, j)) {
+                        if (card.getTarget().isIsaffectingCell()) {
+                            game.getCell(i, j).setBuff(card.getSpecialPower());
+                        }
+                    }
+                }
+            }
+
+        } else {
+            switch (card.getTarget().getSoldierTargetType()) {
+                case FRIENDLY_HERO:
+                case ITSELF:
+                    addHeroSpecialPowerToTarget(card, card);
+                    break;
+                case ALL_ENEMIES:
+                    for (Card soldier : deactivePlayer.getInBattleCards().keySet()) {
+                        addHeroSpecialPowerToTarget(card, (SoldierCard) soldier);
+                    }
+                    break;
+                case ONE_ENEMY:
+                case ONE_SOLDIER:
+                    addHeroSpecialPowerToTarget(card, (SoldierCard) cell.getCard());
+                    break;
+                case ALL_SOLDIERS_IN_THE_ROW_OF_FRIENDLY_HERO:
+                    for (int i = 1; i <= 9; i++) {
+                        int j = activePlayer.getInBattleCards().get(activePlayer.getHero()).getYCoordinate();
+                        int x = activePlayer.getInBattleCards().get(activePlayer.getHero()).getXCoordinate();
+                        if (game.getCell(i, j) != null && i != x) {
+                            addHeroSpecialPowerToTarget(card, (SoldierCard) game.getCell(i, j).getCard());
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void addMinionSpecialPowersToTarget(Minion minion, SoldierCard target) {
+        for (Buff buff : minion.getAbilities()) {
+            minion.addBuffToTarget(buff, target);
+        }
+        target.castOnMomentBUffs(target);
+        target.checkBUffTiming(target, false);
+    }
+
+    private void addHeroSpecialPowerToTarget(Hero hero, SoldierCard target) {
+        hero.addBuffToTarget(hero.getSpecialPower(), target);
+        target.castOnMomentBUffs(target);
+        target.checkBUffTiming(target, false);
     }
 
     public void showHand() {
