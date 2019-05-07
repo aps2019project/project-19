@@ -1181,11 +1181,12 @@ public class Controller {
             view.show(game.getWinnerPlayer().getAccount().getUserName()
                     + " won the game and his prize is: " + game.getPrize());
             game.getWinnerPlayer().getAccount().increaseMoney(game.getPrize());
+
+            do {
+                request = new Request();
+                request.getNewCommand();
+            } while (!request.getCommand().equals("end game"));
         }
-        do {
-            request = new Request();
-            request.getNewCommand();
-        } while (!request.getCommand().equals("end game"));
         // todo add prize
         menuType = MenuType.MAINMENU;
         game = null;

@@ -154,10 +154,10 @@ public class Player {
         ArrayList<Card> cards = new ArrayList<>(handCards.values());
         for (Card card : cards) {
             result.append(card.toInfoString());
-            result.append("\n");
+            result.append("\n\n");
         }
         result.append("next card is :\n");
-        result.append(deckCards.getCards().get(nextCardId));
+        result.append(deckCards.getCards().get(nextCardId).toInfoString());
         result.append("\n");
         return result.toString();
     }

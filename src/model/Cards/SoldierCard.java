@@ -177,7 +177,7 @@ public abstract class SoldierCard extends Card {
     }
 
     public void counterAttack(SoldierCard target) {
-        if (!target.isAntiDisArm()) {
+        if (!this.isAntiDisArm() || !this.isDirarmed()) {
             target.decreaseHP(this.getAp());
             if (this.getAbilityCastTime() != null && this.abilityCastTime.equals(AbilityCastTime.ON_DEFEND)) {
                 if (this instanceof Minion) {
@@ -308,6 +308,14 @@ public abstract class SoldierCard extends Card {
         if (isPermitted) {
             target.getBuffs().add(buff);
         }
+    }
+
+    public boolean isDirarmed() {
+        for (Buff buff : this.getBuffs()) {
+            if (buff instanceof DisArmBuff)
+                return true;
+        }
+        return false;
     }
 
     public String toBattleFormat(int x, int y) {
