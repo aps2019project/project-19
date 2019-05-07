@@ -3,6 +3,8 @@ package view;
 import controller.MenuType;
 import model.Game.GameMode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,7 +29,7 @@ public class Request {
     private GameMode gameMode;
     private int numOfFlags;
     private int storyLevel;
-    private String[] comboAttackers;
+    private ArrayList<String> comboAttackers = new ArrayList<>();
     private boolean hasXY;
 
     public void getNewCommand() {
@@ -256,8 +258,8 @@ public class Request {
                 break;
             case COMBO_ATTACK:
                 inBattleCardId = command.split(" ")[2];
-                comboAttackers = command.substring(12).split(" ");
-                comboAttackers[0] = "null";
+                comboAttackers = new ArrayList<String>(Arrays.asList(command.substring(12).split(" ")));
+                comboAttackers.remove(0);
                 break;
             case MOVE_CARD:
                 parseMoveCard();
@@ -385,7 +387,7 @@ public class Request {
         this.errorType = errorType;
     }
 
-    public String[] getComboAttackers() {
+    public ArrayList<String> getComboAttackers() {
         return comboAttackers;
     }
 
