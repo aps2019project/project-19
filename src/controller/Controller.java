@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import model.Buff.Buff;
 import model.Buff.DispellBuff;
+import model.Buff.StunBuff;
 import model.Cards.*;
 import model.Target.Type;
 import view.*;
@@ -693,6 +694,12 @@ public class Controller {
             return;
         }
         SoldierCard card = (SoldierCard) activePlayer.getSelectedCard();
+        for (Buff buff : card.getBuffs()) {
+            if(buff instanceof StunBuff){
+                errorType = ErrorType.CARD_IS_STUNNED;
+                return;
+            }
+        }
         if (card.isMovedThisTurn()) {
             errorType = ErrorType.CAN_NOT_MOVE_AGAIN;
             return;
