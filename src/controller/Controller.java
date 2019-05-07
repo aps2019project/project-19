@@ -5,11 +5,13 @@ import model.Buff.Buff;
 import model.Buff.DispellBuff;
 import model.Buff.StunBuff;
 import model.Cards.*;
+import model.Target.SoldierTargetType;
 import model.Target.Type;
 import view.*;
 import model.Game.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -1148,7 +1150,57 @@ public class Controller {
             errorType = ErrorType.NO_ITEM_SELECTED;
             return;
         }
-        //todo:must completed
+        ArrayList<Card> myInbattleCards = new ArrayList<>(activePlayer.getInBattleCards().keySet());
+        ArrayList<Card> opponentInbattleCards = new ArrayList<>(deactivePlayer.getInBattleCards().keySet());
+        switch (activePlayer.getSelectedItem().getTarget().getSoldierTargetType()){
+            case ONE_FRIENDLY_SOLDIER:
+                Collections.shuffle(myInbattleCards);
+                for (Card card : myInbattleCards) {
+                    if (card instanceof SoldierCard){
+                        activePlayer.getSelectedItem().useCollectable(((SoldierCard) card));
+                        return;
+                    }
+                }
+                break;
+            case FRIENDLY_RANGED_AND_HYBRID:
+                Collections.shuffle(myInbattleCards);
+                for (Card card : myInbattleCards) {
+                    if (card instanceof SoldierCard && (((SoldierCard) card).getType().equals(SoldierTypes.HYBRID) ||
+                            ((SoldierCard) card).getType().equals(SoldierTypes.RANGED))){
+                        activePlayer.getSelectedItem().useCollectable(((SoldierCard) card));
+                        return;
+                    }
+                }
+                break;
+            case ENEMY_HERO_RANGED_AND_HYBRID:
+                Collections.shuffle(opponentInbattleCards);
+                for (Card card : opponentInbattleCards) {
+                    if (card instanceof Hero && (((Hero) card).getType().equals(SoldierTypes.RANGED) ||
+                            ((Hero) card).getType().equals(SoldierTypes.HYBRID))){
+                        activePlayer.getSelectedItem().useCollectable(((Hero) card));
+                        return;
+                    }
+                }
+                break;
+            case ONE_FRIENDLY_MINION:
+                Collections.shuffle(myInbattleCards);
+                for (Card card : myInbattleCards) {
+                    if (card instanceof Minion){
+                        activePlayer.getSelectedItem().useCollectable(((Minion) card));
+                        return;
+                    }
+                }
+                break;
+            case FRIENDLY_MELEE:
+                Collections.shuffle(myInbattleCards);
+                for (Card card : myInbattleCards) {
+                    if (card instanceof SoldierCard && ((SoldierCard) card).getType().equals(SoldierTypes.MELEE)){
+                        activePlayer.getSelectedItem().useCollectable(((SoldierCard) card));
+                        return;
+                    }
+                }
+        }
+        errorType = ErrorType.INVALID_TARGET;
     }
 
     public void showNextCard() {

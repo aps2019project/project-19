@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import model.Buff.Buff;
+import model.Cards.SoldierCard;
 import model.Target.Target;
 
 public class Item {
@@ -99,10 +100,32 @@ public class Item {
         return description;
     }
 
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public int getHpChanges() {
+        return hpChanges;
+    }
+
+    public int getApChanges() {
+        return apChanges;
+    }
+
+    public Target getTarget() {
+        return target;
+    }
+
     @Override
     public String toString() {
         return "Name : " + getName() + " - "
                 + "Desc : " + getDescription();
+    }
+
+    public void useCollectable(SoldierCard target) {
+        target.getBuffs().addAll(getBuffs());
+        target.changeHp(getHpChanges());
+        target.changeAp(getApChanges());
     }
 
 }
