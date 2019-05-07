@@ -36,7 +36,6 @@ public class Game {
     public Game(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
-        // TODO: 2019-04-29 set date
         this.isTurnOfPlayerOne = true;
         this.turnNumber = 1;
     }
@@ -44,7 +43,6 @@ public class Game {
     public Game() {
     }
 
-    //todo set prize
     public void setStoryPrize(int level) {
         switch (level) {
             case 1:

@@ -27,6 +27,7 @@ public class Request {
     private GameMode gameMode;
     private int numOfFlags;
     private int storyLevel;
+    private String[] comboAttackers;
     private boolean hasXY;
 
     public void getNewCommand() {
@@ -115,7 +116,7 @@ public class Request {
                     return RequestType.MOVE_CARD;
                 if (command.matches("attack (\\w+)"))
                     return RequestType.ATTACK;
-                if (command.matches("attack combo( \\d+ \\d+)+"))
+                if (command.matches("attack combo( \\w+)+"))
                     return RequestType.COMBO_ATTACK;
                 if (command.matches("use special power( \\((?<X>\\d+), (?<Y>\\d+)\\))?"))
                     return RequestType.USE_SPECIAL_POWER;
@@ -253,6 +254,11 @@ public class Request {
             case ATTACK:
                 inBattleCardId = command.split(" ")[1];
                 break;
+            case COMBO_ATTACK:
+                inBattleCardId = command.split(" ")[2];
+                comboAttackers = command.substring(12).split(" ");
+                comboAttackers[0] = "null";
+                break;
             case MOVE_CARD:
                 parseMoveCard();
                 break;
@@ -377,6 +383,10 @@ public class Request {
 
     public void setErrorType(ErrorType errorType) {
         this.errorType = errorType;
+    }
+
+    public String[] getComboAttackers() {
+        return comboAttackers;
     }
 
     public void setDeckName(String deckName) {

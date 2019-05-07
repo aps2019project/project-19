@@ -164,14 +164,15 @@ public class Controller {
                     break;
                 case SELECT_CARD_OR_COLLECTABLE:
                     selectCardOrItem(activePlayer);
-                    // TODO: 2019-04-30 test
                     break;
                 case MOVE_CARD:
                     moveCard();
-                    // TODO: 2019-04-30 test
                     break;
                 case ATTACK:
                     attack();
+                    break;
+                case COMBO_ATTACK:
+                    comboAttack();
                     break;
                 case SHOW_HAND:
                     showHand();
@@ -186,7 +187,6 @@ public class Controller {
                     showCollectableInfo();
                     break;
                 case USE_COLLECTABLE:
-                    // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
                     useCollectable();
                     break;
                 case SHOW_GATHERED_COLLECTABLES:
@@ -351,7 +351,7 @@ public class Controller {
     }
 
     public void showLeaderBoard() {
-        view.show(Account.sortAccounts());
+        view.show(Account.printAccounts());
     }
 
     public void save() {
@@ -720,14 +720,26 @@ public class Controller {
             currentCell.setCard(null);
             targetCell.setCard(card);
             activePlayer.getInBattleCards().replace(card, targetCell);
-            // TODO: 2019-04-30 check replace function in hashmap
             if (!game.getGameMode().equals(GameMode.DEATH_MATCH))
                 card.pickUpFlags(targetCell);
             System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
             card.setMovedThisTurn(true);
         }
     }
-
+    public void comboAttack(){
+        for (String comboAttackerId : request.getComboAttackers()) {
+            if(!activePlayer.containsCardInBattle(comboAttackerId)){
+                errorType = ErrorType.INVALID_CARD_ID;
+                return;
+            }
+            SoldierCard attacker = ( SoldierCard) activePlayer.getInBattleCard(comboAttackerId);
+            if(!attacker.getAbilityCastTime().equals(AbilityCastTime.COMBO)){
+                continue;
+            }
+            activePlayer.setSelectedCard(attacker);
+            attack();
+        }
+    }
     public void attack() {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
@@ -1204,7 +1216,8 @@ public class Controller {
                 request.getNewCommand();
             } while (!request.getCommand().equals("end game"));
         }
-        // todo add prize
+        game.getPlayer1().getAccount().getMatchHistory().add(game);
+        game.getPlayer2().getAccount().getMatchHistory().add(game);
         menuType = MenuType.MAINMENU;
         game = null;
         ai = null;

@@ -12,7 +12,6 @@ public class Account implements Comparable<Account> {
     private String userName;
     private String password;
     private int numberOfWins;
-    //todo: when a player wins add to wins
     private long money;
     private ArrayList<Game> matchHistory = new ArrayList<>();
     private Collection collection = new Collection();
@@ -23,8 +22,7 @@ public class Account implements Comparable<Account> {
         this.money = 15000;
     }
 
-    public static String sortAccounts() {
-        //todo:change function name
+    public static String printAccounts() {
         ArrayList<Account> accounts = new ArrayList<>(Account.getAccounts().values());
         Collections.sort(accounts);
         String output = new String("");
@@ -105,4 +103,9 @@ public class Account implements Comparable<Account> {
         return this.numberOfWins != account.numberOfWins ? -Integer.compare(this.numberOfWins, account.numberOfWins) :
                 this.userName.compareTo(account.userName);
     }
+
+    public void setMatchHistory(ArrayList<Game> matchHistory) {
+        this.matchHistory = matchHistory;
+    }
+
 }
