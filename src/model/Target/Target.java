@@ -41,9 +41,6 @@ public class Target {
     public boolean checkTargetValidation(Game game, Player activePlayer, Player deactivePlayer, int x, int y) {
         if (this.getType().equals(Type.SOLDIER)) {
             switch (this.getSoldierTargetType()) {
-                //case ALL_FRIENDLY_MINIONS_AROUND_AND_ITSELF:
-                //case ALL_MINIONS_TO_2_CELLS_FURTHER:
-                // case ALL_MINIONS_AROUND:
                 case ONE_FRIENDLY_SOLDIER:
                     return (game.getCell(x, y) != null) && (game.getCell(x, y).getCard() != null) &&
                             (activePlayer.getInBattleCards().containsKey(game.getCell(x, y).getCard()));

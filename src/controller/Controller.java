@@ -202,6 +202,7 @@ public class Controller {
                     break;
                 case USE_SPECIAL_POWER:
                     useSpecialPower();
+                    break;
                 case END_GAME:
                     endGame();
                     break;
@@ -810,6 +811,21 @@ public class Controller {
                 addMinionSpecialPowersToTarget(card, card);
                 break;
             case ALL_MINIONS_TO_2_CELLS_FURTHER:
+                for (int i = cell.getXCoordinate() - 2; i < cell.getXCoordinate() + 2; i++) {
+                    if (game.getCell(i, cell.getYCoordinate()) != null && i != cell.getXCoordinate() &&
+                            game.getCell(i, cell.getYCoordinate()).getCard() instanceof Minion) {
+                        addMinionSpecialPowersToTarget(card,
+                                (SoldierCard) game.getCell(i, cell.getYCoordinate()).getCard());
+                    }
+                }
+                for (int i = cell.getYCoordinate() - 2; i < cell.getYCoordinate() + 2; i++) {
+                    if (game.getCell(cell.getXCoordinate(), i) != null && i != cell.getYCoordinate() &&
+                            game.getCell(cell.getXCoordinate(), i).getCard() instanceof Minion) {
+                        addMinionSpecialPowersToTarget(card,
+                                (SoldierCard) game.getCell(cell.getXCoordinate(), i).getCard());
+                    }
+                }
+                break;
             case ALL_FRIENDLY_MINIONS:
                 for (Card target : activePlayer.getInBattleCards().keySet()) {
                     if (target instanceof Minion) {
@@ -850,7 +866,6 @@ public class Controller {
     }
 
     private void castHeroSpecialPower(Hero card) {
-        Cell cell = game.getCell(request.getX(), request.getY());
         if (card.getTarget().getType().equals(Type.AREA)) {
             int areaSize = card.getTarget().getAreaSize();
             for (int i = request.getX(); i < request.getX() + areaSize; i++) {
@@ -876,6 +891,7 @@ public class Controller {
                     break;
                 case ONE_ENEMY:
                 case ONE_SOLDIER:
+                    Cell cell = game.getCell(request.getX(), request.getY());
                     addHeroSpecialPowerToTarget(card, (SoldierCard) cell.getCard());
                     break;
                 case ALL_SOLDIERS_IN_THE_ROW_OF_FRIENDLY_HERO:
@@ -955,7 +971,6 @@ public class Controller {
     }
 
     private void castSpell(SpellCard card) {
-        Cell cell = game.getCell(request.getX(), request.getY());
         if (card.getTargetArea().getType().equals(Type.AREA)) {
             int areaSize = card.getTargetArea().getAreaSize();
             for (int i = request.getX(); i < request.getX() + areaSize; i++) {
@@ -973,6 +988,7 @@ public class Controller {
                                 else
                                     buff.cancelPositiveBuffs((SoldierCard) soldier);
                             } else {
+                                Cell cell = game.getCell(request.getX(), request.getY());
                                 castSpellBuffsOnTarget(card, (SoldierCard) cell.getCard());
                             }
                         }
@@ -987,6 +1003,7 @@ public class Controller {
                 case ONE_SOLDIER:
                 case ONE_FRIENDLY_SOLDIER:
                 case ONE_ENEMY:
+                    Cell cell = game.getCell(request.getX(), request.getY());
                     castSpellBuffsOnTarget(card, (SoldierCard) cell.getCard());
                     break;
                 case ENEMY_HERO:
@@ -1152,11 +1169,11 @@ public class Controller {
         }
         ArrayList<Card> myInbattleCards = new ArrayList<>(activePlayer.getInBattleCards().keySet());
         ArrayList<Card> opponentInbattleCards = new ArrayList<>(deactivePlayer.getInBattleCards().keySet());
-        switch (activePlayer.getSelectedItem().getTarget().getSoldierTargetType()){
+        switch (activePlayer.getSelectedItem().getTarget().getSoldierTargetType()) {
             case ONE_FRIENDLY_SOLDIER:
                 Collections.shuffle(myInbattleCards);
                 for (Card card : myInbattleCards) {
-                    if (card instanceof SoldierCard){
+                    if (card instanceof SoldierCard) {
                         activePlayer.getSelectedItem().useCollectable(((SoldierCard) card));
                         return;
                     }
@@ -1166,7 +1183,7 @@ public class Controller {
                 Collections.shuffle(myInbattleCards);
                 for (Card card : myInbattleCards) {
                     if (card instanceof SoldierCard && (((SoldierCard) card).getType().equals(SoldierTypes.HYBRID) ||
-                            ((SoldierCard) card).getType().equals(SoldierTypes.RANGED))){
+                            ((SoldierCard) card).getType().equals(SoldierTypes.RANGED))) {
                         activePlayer.getSelectedItem().useCollectable(((SoldierCard) card));
                         return;
                     }
@@ -1176,7 +1193,7 @@ public class Controller {
                 Collections.shuffle(opponentInbattleCards);
                 for (Card card : opponentInbattleCards) {
                     if (card instanceof Hero && (((Hero) card).getType().equals(SoldierTypes.RANGED) ||
-                            ((Hero) card).getType().equals(SoldierTypes.HYBRID))){
+                            ((Hero) card).getType().equals(SoldierTypes.HYBRID))) {
                         activePlayer.getSelectedItem().useCollectable(((Hero) card));
                         return;
                     }
@@ -1185,7 +1202,7 @@ public class Controller {
             case ONE_FRIENDLY_MINION:
                 Collections.shuffle(myInbattleCards);
                 for (Card card : myInbattleCards) {
-                    if (card instanceof Minion){
+                    if (card instanceof Minion) {
                         activePlayer.getSelectedItem().useCollectable(((Minion) card));
                         return;
                     }
@@ -1194,7 +1211,7 @@ public class Controller {
             case FRIENDLY_MELEE:
                 Collections.shuffle(myInbattleCards);
                 for (Card card : myInbattleCards) {
-                    if (card instanceof SoldierCard && ((SoldierCard) card).getType().equals(SoldierTypes.MELEE)){
+                    if (card instanceof SoldierCard && ((SoldierCard) card).getType().equals(SoldierTypes.MELEE)) {
                         activePlayer.getSelectedItem().useCollectable(((SoldierCard) card));
                         return;
                     }
@@ -1251,10 +1268,12 @@ public class Controller {
     }
 
     public void checkDeadCard(Player player, SoldierCard card) {
-        if (card.getHp() <= 0) {
-            if (card.getAbilityCastTime() != null && card.getAbilityCastTime().equals(AbilityCastTime.ON_DEATH)) {
-                castMinionSpecialPower((Minion) card);
-            }
+        if ((card.getName().equals("oghab") && card.getHp() < 0) ||
+                (card.getHp() <= 0 && !card.getName().equals("oghab"))) {
+            if (card.getName().equals("oghab") && card.getHp() < 0)
+                if (card.getAbilityCastTime() != null && card.getAbilityCastTime().equals(AbilityCastTime.ON_DEATH)) {
+                    castMinionSpecialPower((Minion) card);
+                }
             Cell cell = player.getInBattleCards().get(card);
             if (game.getGameMode().equals(GameMode.KEEP_THE_FLAG) && card.getFlagNumber() != 0)
                 player.setNumberOfTurnsWithFlag(0);
@@ -1268,8 +1287,9 @@ public class Controller {
     }
 
     public void checkDeadCards(Player player) {
-        for (Card card : player.getInBattleCards().keySet()) {
-            checkDeadCard(player, (SoldierCard) card);
+        ArrayList<Card> cards = new ArrayList<>(player.getInBattleCards().keySet());
+        for (int i = cards.size() - 1; i >= 0; i--) {
+            checkDeadCard(player, (SoldierCard) cards.get(i));
         }
     }
 }
