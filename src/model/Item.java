@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+import controller.Controller;
 import model.Buff.Buff;
 import model.Cards.SoldierCard;
 import model.Target.Target;
