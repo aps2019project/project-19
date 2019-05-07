@@ -695,7 +695,7 @@ public class Controller {
         }
         SoldierCard card = (SoldierCard) activePlayer.getSelectedCard();
         for (Buff buff : card.getBuffs()) {
-            if(buff instanceof StunBuff){
+            if (buff instanceof StunBuff) {
                 errorType = ErrorType.CARD_IS_STUNNED;
                 return;
             }
@@ -1178,11 +1178,12 @@ public class Controller {
             view.show(game.getWinnerPlayer().getAccount().getUserName()
                     + " won the game and his prize is: " + game.getPrize());
             game.getWinnerPlayer().getAccount().increaseMoney(game.getPrize());
+
+            do {
+                request = new Request();
+                request.getNewCommand();
+            } while (!request.getCommand().equals("end game"));
         }
-        do {
-            request = new Request();
-            request.getNewCommand();
-        } while (!request.getCommand().equals("end game"));
         // todo add prize
         menuType = MenuType.MAINMENU;
         game = null;
