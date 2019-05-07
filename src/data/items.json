@@ -1,0 +1,424 @@
+[
+  {
+    "itemId": 2,
+    "name": "namoose separ",
+    "price": 400,
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.HolyBuff",
+        "INSTANCE": {
+          "lessDamage": 12,
+          "hasCasted": false,
+          "kind": "POSITIVE",
+          "duration": 1,
+          "isContinuous": false,
+          "numberOfUsage": 0,
+          "onMoment": false,
+          "currnetTurn": 1,
+          "castTurn": 1
+        }
+      }
+    ],
+    "hpChanges": 0,
+    "apChanges": 0,
+    "type": "USABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "FRIENDLY_HERO",
+      "isaffectingCell": false
+    },
+    "description": "active 12 holly buff in hero",
+    "whenToUse": "ON_GAME_START"
+  },
+  {
+    "itemId": 3,
+    "name": "camane damol",
+    "price": 30000,
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.DisArmBuff",
+        "INSTANCE": {
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false,
+          "numberOfUsage": 0,
+          "onMoment": false,
+          "currnetTurn": 1,
+          "castTurn": 1
+        }
+      }
+    ],
+    "hpChanges": 0,
+    "apChanges": 0,
+    "type": "USABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "FRIENDLY_HERO_RANGED_AND_HYBRID",
+      "isaffectingCell": false
+    },
+    "description": "disarm enemy for one turn",
+    "whenToUse": "ON_ATTACK"
+  },
+  {
+    "itemId": 4,
+    "name": "noosh daroo",
+    "price": 0,
+    "buffs": [],
+    "hpChanges": 6,
+    "apChanges": 0,
+    "type": "COLLECTABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_FRIENDLY_SOLDIER",
+      "isaffectingCell": false
+    },
+    "description": "one randomly minion healths increase by 6",
+    "whenToUse": "ON_MOMENT"
+  },
+  {
+    "itemId": 5,
+    "name": "tire do shakh",
+    "price": 0,
+    "buffs": [],
+    "hpChanges": 0,
+    "apChanges": 2,
+    "type": "COLLECTABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "FRIENDLY_RANGED_AND_HYBRID",
+      "isaffectingCell": false
+    },
+    "description": "increase randomly ranged or hybrid force power by 2",
+    "whenToUse": "ON_MOMENT"
+  },
+  {
+    "itemId": 6,
+    "name": "pare simorhg",
+    "price": 3500,
+    "buffs": [],
+    "hpChanges": 0,
+    "apChanges": -2,
+    "type": "USABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ENEMY_HERO_RANGED_AND_HYBRID",
+      "isaffectingCell": false
+    },
+    "description": "decrease enemy\u0027s hero power by 2 if it be ranged or hybrid",
+    "whenToUse": "ON_GAME_START"
+  },
+  {
+    "itemId": 7,
+    "name": "exir",
+    "price": 0,
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.PowerBuff",
+        "INSTANCE": {
+          "hpIncrease": 0,
+          "apIncrease": 3,
+          "hasCasted": false,
+          "kind": "POSITIVE",
+          "duration": 1,
+          "isContinuous": false,
+          "numberOfUsage": 0,
+          "onMoment": true,
+          "currnetTurn": 1,
+          "castTurn": 1
+        }
+      }
+    ],
+    "hpChanges": 3,
+    "apChanges": 0,
+    "type": "COLLECTABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_FRIENDLY_MINION",
+      "isaffectingCell": false
+    },
+    "description": "increase health by 3 and power buff with increasing power by 3",
+    "whenToUse": "ON_MOMENT"
+  },
+  {
+    "itemId": 9,
+    "name": "maajoone rooyeen tani",
+    "price": 0,
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.HolyBuff",
+        "INSTANCE": {
+          "lessDamage": 10,
+          "hasCasted": false,
+          "kind": "POSITIVE",
+          "duration": 2,
+          "isContinuous": false,
+          "numberOfUsage": 0,
+          "onMoment": false,
+          "currnetTurn": 1,
+          "castTurn": 1
+        }
+      }
+    ],
+    "hpChanges": 0,
+    "apChanges": 0,
+    "type": "COLLECTABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_FRIENDLY_SOLDIER",
+      "isaffectingCell": false
+    },
+    "description": "10 holy buff for randomly force for 2 turns",
+    "whenToUse": "ON_MOMENT"
+  },
+  {
+    "itemId": 10,
+    "name": "nefrine marg",
+    "price": 0,
+    "buffs": [],
+    "hpChanges": -8,
+    "apChanges": 0,
+    "type": "COLLECTABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_ENEMY",
+      "isaffectingCell": false
+    },
+    "description": "on death deacrease one randomly enemy\u0027s health by 8",
+    "whenToUse": "ON_DEATH"
+  },
+  {
+    "itemId": 11,
+    "name": "random damage",
+    "price": 0,
+    "buffs": [],
+    "hpChanges": 0,
+    "apChanges": -2,
+    "type": "COLLECTABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_ENEMY",
+      "isaffectingCell": false
+    },
+    "description": "decrease one enemy\u0027s health by 2",
+    "whenToUse": "ON_MOMENT"
+  },
+  {
+    "itemId": 12,
+    "name": "terror hood",
+    "price": 5000,
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.WeaknessBuff",
+        "INSTANCE": {
+          "hpDecrease": 0,
+          "apDecrease": 2,
+          "hasCasted": false,
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false,
+          "numberOfUsage": 0,
+          "onMoment": true,
+          "currnetTurn": 1,
+          "castTurn": 1
+        }
+      }
+    ],
+    "hpChanges": 0,
+    "apChanges": 0,
+    "type": "USABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_ENEMY",
+      "isaffectingCell": false
+    },
+    "description": "on attack give one random enemy weakness buff with decreasing power by 2",
+    "whenToUse": "ON_ATTACK"
+  },
+  {
+    "itemId": 13,
+    "name": "blades of agility",
+    "price": 0,
+    "buffs": [],
+    "hpChanges": 0,
+    "apChanges": 6,
+    "type": "COLLECTABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_FRIENDLY_SOLDIER",
+      "isaffectingCell": false
+    },
+    "description": "increase one randomly friend soldier\u0027s power by 6",
+    "whenToUse": "ON_MOMENT"
+  },
+  {
+    "itemId": 15,
+    "name": "assassination dagger",
+    "price": 1500,
+    "buffs": [],
+    "hpChanges": -1,
+    "apChanges": 0,
+    "type": "COLLECTABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ENEMY_HERO",
+      "isaffectingCell": false
+    },
+    "description": "on spawn attack one damage to enemy\u0027s hero",
+    "whenToUse": "ON_SPAWN"
+  },
+  {
+    "itemId": 16,
+    "name": "poisonous dagger",
+    "price": 7000,
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.PoisonBuff",
+        "INSTANCE": {
+          "hpDecrease": 1,
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false,
+          "numberOfUsage": 0,
+          "onMoment": false,
+          "currnetTurn": 1,
+          "castTurn": 1
+        }
+      }
+    ],
+    "hpChanges": 0,
+    "apChanges": 0,
+    "type": "USABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_ENEMY",
+      "isaffectingCell": false
+    },
+    "description": "on attack give one random enemy\u0027s force poison buff for 1 turn",
+    "whenToUse": "ON_ATTACK"
+  },
+  {
+    "itemId": 17,
+    "name": "shock hammer",
+    "price": 15000,
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.DisArmBuff",
+        "INSTANCE": {
+          "kind": "NEGATIVE",
+          "duration": 1,
+          "isContinuous": false,
+          "numberOfUsage": 0,
+          "onMoment": false,
+          "currnetTurn": 1,
+          "castTurn": 1
+        }
+      }
+    ],
+    "hpChanges": 0,
+    "apChanges": 0,
+    "type": "USABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "FRIENDLY_HERO",
+      "isaffectingCell": false
+    },
+    "description": "when hero attack enemy stun it for 1 turn",
+    "whenToUse": "ON_ATTACK"
+  },
+  {
+    "itemId": 18,
+    "name": "soul eater",
+    "price": 25000,
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.PowerBuff",
+        "INSTANCE": {
+          "hpIncrease": 0,
+          "apIncrease": 1,
+          "hasCasted": false,
+          "kind": "POSITIVE",
+          "duration": 1,
+          "isContinuous": false,
+          "numberOfUsage": 0,
+          "onMoment": true,
+          "currnetTurn": 1,
+          "castTurn": 1
+        }
+      }
+    ],
+    "hpChanges": 0,
+    "apChanges": 0,
+    "type": "USABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_FRIENDLY_SOLDIER",
+      "isaffectingCell": false
+    },
+    "description": "when on soldier die it give one friendly soldier a power buff with increasing power by 1",
+    "whenToUse": "ON_DEATH"
+  },
+  {
+    "itemId": 19,
+    "name": "ghosle taamid",
+    "price": 20000,
+    "buffs": [
+      {
+        "CLASSNAME": "model.Buff.HolyBuff",
+        "INSTANCE": {
+          "lessDamage": 1,
+          "hasCasted": false,
+          "kind": "POSITIVE",
+          "duration": 2,
+          "isContinuous": false,
+          "numberOfUsage": 0,
+          "onMoment": false,
+          "currnetTurn": 1,
+          "castTurn": 1
+        }
+      }
+    ],
+    "hpChanges": 0,
+    "apChanges": 0,
+    "type": "USABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ITSELF",
+      "isaffectingCell": false
+    },
+    "description": "every minion on spawning  have holy buff for 2 turns",
+    "whenToUse": "ON_SPAWN"
+  },
+  {
+    "itemId": 20,
+    "name": "shamshire chini",
+    "price": 0,
+    "buffs": [],
+    "hpChanges": 0,
+    "apChanges": 5,
+    "type": "COLLECTABLE",
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "FRIENDLY_MELEE",
+      "isaffectingCell": false
+    },
+    "description": "increase melee\u0027s attack by 5",
+    "whenToUse": "ON_MOMENT"
+  }
+]

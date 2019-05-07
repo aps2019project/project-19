@@ -5,27 +5,42 @@
       "INSTANCE": {
         "hpIncrease": 0,
         "apIncrease": 4,
+        "hasCasted": false,
         "kind": "POSITIVE",
-        "duration": 0,
-        "isContinuous": true
+        "duration": 1,
+        "isContinuous": true,
+        "numberOfUsage": 0,
+        "onMoment": true,
+        "currnetTurn": 1,
+        "castTurn": 1
       }
     },
     "coolDown": 2,
-    "target": {
-      "type": "SOLDIER",
-      "areaSize": 0,
-      "soldierTargetType": "FRIENDLY_HERO"
-    },
+    "coolDownWaiting": 2,
     "ap": 4,
     "hp": 50,
     "type": "MELEE",
     "buffs": [],
-    "attackRange": 0,
+    "flagNumber": 0,
+    "attackRange": 1,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ITSELF",
+      "isaffectingCell": false
+    },
     "cardId": 301,
     "name": "dive sepid",
     "price": 8000,
     "mana": 1,
-    "description": ""
+    "description": "give itself power buff with increasing power by 4 continuously"
   },
   {
     "specialPower": {
@@ -33,25 +48,39 @@
       "INSTANCE": {
         "kind": "POSITIVE",
         "duration": 1,
-        "isContinuous": false
+        "isContinuous": false,
+        "numberOfUsage": 0,
+        "onMoment": false,
+        "currnetTurn": 1,
+        "castTurn": 1
       }
     },
     "coolDown": 8,
-    "target": {
-      "type": "SOLDIER",
-      "areaSize": 0,
-      "soldierTargetType": "ALL_ENEMIES"
-    },
+    "coolDownWaiting": 8,
     "ap": 4,
     "hp": 50,
     "type": "MELEE",
     "buffs": [],
-    "attackRange": 0,
+    "flagNumber": 0,
+    "attackRange": 1,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ALL_ENEMIES",
+      "isaffectingCell": false
+    },
     "cardId": 302,
     "name": "simorgh",
     "price": 9000,
     "mana": 5,
-    "description": ""
+    "description": "stun all enemy\u0027s forces for 1 turn"
   },
   {
     "specialPower": {
@@ -59,25 +88,39 @@
       "INSTANCE": {
         "kind": "NEGATIVE",
         "duration": 1,
-        "isContinuous": false
+        "isContinuous": false,
+        "numberOfUsage": 0,
+        "onMoment": false,
+        "currnetTurn": 1,
+        "castTurn": 1
       }
     },
     "coolDown": 1,
-    "target": {
-      "type": "SOLDIER",
-      "areaSize": 0,
-      "soldierTargetType": "ONE_SOLDIER"
-    },
+    "coolDownWaiting": 1,
     "ap": 4,
     "hp": 50,
     "type": "MELEE",
     "buffs": [],
-    "attackRange": 0,
+    "flagNumber": 0,
+    "attackRange": 1,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_SOLDIER",
+      "isaffectingCell": false
+    },
     "cardId": 303,
     "name": "ezhdeha ye haft sar",
     "price": 8000,
     "mana": 0,
-    "description": ""
+    "description": "disarm one enemy"
   },
   {
     "specialPower": {
@@ -85,25 +128,39 @@
       "INSTANCE": {
         "kind": "NEGATIVE",
         "duration": 1,
-        "isContinuous": false
+        "isContinuous": false,
+        "numberOfUsage": 0,
+        "onMoment": false,
+        "currnetTurn": 1,
+        "castTurn": 1
       }
     },
     "coolDown": 2,
-    "target": {
-      "type": "SOLDIER",
-      "areaSize": 0,
-      "soldierTargetType": "ONE_ENEMY"
-    },
+    "coolDownWaiting": 2,
     "ap": 4,
     "hp": 50,
     "type": "MELEE",
     "buffs": [],
-    "attackRange": 0,
+    "flagNumber": 0,
+    "attackRange": 1,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_ENEMY",
+      "isaffectingCell": false
+    },
     "cardId": 304,
     "name": "rakhsh",
     "price": 8000,
     "mana": 1,
-    "description": ""
+    "description": "stun one enemy for 1 turn"
   },
   {
     "specialPower": {
@@ -112,140 +169,230 @@
         "hpDecrease": 1,
         "kind": "NEGATIVE",
         "duration": 3,
-        "isContinuous": false
+        "isContinuous": false,
+        "numberOfUsage": 0,
+        "onMoment": false,
+        "currnetTurn": 1,
+        "castTurn": 1
       }
     },
     "coolDown": 0,
-    "target": {
-      "type": "SOLDIER",
-      "areaSize": 0,
-      "soldierTargetType": "ONE_ENEMY"
-    },
+    "coolDownWaiting": 0,
     "ap": 2,
     "hp": 50,
     "type": "MELEE",
     "buffs": [],
-    "attackRange": 0,
+    "flagNumber": 0,
+    "attackRange": 1,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_ENEMY",
+      "isaffectingCell": false
+    },
+    "abilityCastTime": "ON_ATTACK",
     "cardId": 305,
     "name": "zahack",
     "price": 10000,
     "mana": 0,
-    "description": ""
+    "description": "on attack poison enemy for 3 turn"
   },
   {
     "specialPower": {
       "CLASSNAME": "model.Buff.HolyBuff",
       "INSTANCE": {
         "lessDamage": 1,
+        "hasCasted": false,
         "kind": "POSITIVE",
         "duration": 3,
-        "isContinuous": false
+        "isContinuous": false,
+        "numberOfUsage": 0,
+        "onMoment": false,
+        "currnetTurn": 1,
+        "castTurn": 1
       }
     },
     "coolDown": 3,
-    "target": {
-      "type": "AREA",
-      "areaSize": 1
-    },
+    "coolDownWaiting": 3,
     "ap": 4,
     "hp": 50,
     "type": "MELEE",
     "buffs": [],
-    "attackRange": 0,
+    "flagNumber": 0,
+    "attackRange": 1,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "target": {
+      "type": "AREA",
+      "areaSize": 1,
+      "isaffectingCell": true
+    },
     "cardId": 306,
     "name": "kaveh",
     "price": 8000,
     "mana": 1,
-    "description": ""
+    "description": "make one cell holy for 3 turn"
   },
   {
     "specialPower": {
-      "CLASSNAME": "model.Buff.WeaknessBuff",
+      "CLASSNAME": "model.Buff.AttackBuff",
       "INSTANCE": {
-        "hpDecrease": 4,
-        "apDecrease": 0,
+        "damage": 4,
         "kind": "NEGATIVE",
         "duration": 1,
-        "isContinuous": false
+        "isContinuous": false,
+        "numberOfUsage": 0,
+        "onMoment": true,
+        "currnetTurn": 1,
+        "castTurn": 1
       }
     },
     "coolDown": 2,
-    "target": {
-      "type": "SOLDIER",
-      "areaSize": 0,
-      "soldierTargetType": "ALL_SOLDIERS_IN_A_ROW"
-    },
+    "coolDownWaiting": 2,
     "ap": 2,
     "hp": 30,
     "type": "RANGED",
     "buffs": [],
+    "flagNumber": 0,
     "attackRange": 6,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ALL_SOLDIERS_IN_THE_ROW_OF_FRIENDLY_HERO",
+      "isaffectingCell": false
+    },
     "cardId": 307,
     "name": "arash",
     "price": 10000,
     "mana": 2,
-    "description": ""
+    "description": "give all enemy force in row with it 4 damage"
   },
   {
     "specialPower": {
       "CLASSNAME": "model.Buff.DispellBuff",
       "INSTANCE": {
+        "negative": false,
+        "positive": true,
         "kind": "NEGATIVE",
         "duration": 1,
-        "isContinuous": false
+        "isContinuous": false,
+        "numberOfUsage": 0,
+        "onMoment": true,
+        "currnetTurn": 1,
+        "castTurn": 1
       }
     },
     "coolDown": 2,
-    "target": {
-      "type": "SOLDIER",
-      "areaSize": 0,
-      "soldierTargetType": "ONE_ENEMY"
-    },
+    "coolDownWaiting": 2,
     "ap": 3,
     "hp": 40,
     "type": "RANGED",
     "buffs": [],
+    "flagNumber": 0,
     "attackRange": 3,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ONE_ENEMY",
+      "isaffectingCell": false
+    },
     "cardId": 308,
     "name": "afsaneh",
     "price": 11000,
     "mana": 1,
-    "description": ""
+    "description": "dispel one enemy force"
   },
   {
     "specialPower": {
       "CLASSNAME": "model.Buff.HolyBuff",
       "INSTANCE": {
         "lessDamage": 1,
+        "hasCasted": false,
         "kind": "POSITIVE",
         "duration": 3,
-        "isContinuous": false
+        "isContinuous": true,
+        "numberOfUsage": 0,
+        "onMoment": false,
+        "currnetTurn": 1,
+        "castTurn": 1
       }
     },
     "coolDown": 0,
-    "target": {
-      "type": "SOLDIER",
-      "areaSize": 0,
-      "soldierTargetType": "FRIENDLY_HERO"
-    },
+    "coolDownWaiting": 0,
     "ap": 3,
     "hp": 35,
     "type": "HYBRID",
     "buffs": [],
+    "flagNumber": 0,
     "attackRange": 3,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "FRIENDLY_HERO",
+      "isaffectingCell": false
+    },
+    "abilityCastTime": "ON_DEFEND",
     "cardId": 309,
     "name": "esfandiar",
     "price": 12000,
     "mana": 0,
-    "description": ""
+    "description": "have 3 holy buff continuously"
   },
   {
     "coolDown": 0,
+    "coolDownWaiting": 0,
     "ap": 7,
     "hp": 55,
     "type": "HYBRID",
     "buffs": [],
+    "flagNumber": 0,
     "attackRange": 4,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "target": {
+      "type": "SOLDIER",
+      "areaSize": 0,
+      "soldierTargetType": "ITSELF",
+      "isaffectingCell": false
+    },
     "cardId": 310,
     "name": "rostam",
     "price": 8000,
