@@ -117,13 +117,17 @@ public class Item {
         return target;
     }
 
+    public WhenToUse getWhenToUse() {
+        return whenToUse;
+    }
+
     @Override
     public String toString() {
         return "Name : " + getName() + " - "
                 + "Desc : " + getDescription();
     }
 
-    public void useCollectable(SoldierCard target) {
+    public void castItemsSpell(SoldierCard target) {
         target.getBuffs().addAll(getBuffs());
         target.changeHp(getHpChanges());
         target.changeAp(getApChanges());

@@ -530,7 +530,7 @@ public class CardInitializer {
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ENEMY_HERO_RANGED_AND_HYBRID);
         Item pareSimorhg = new Item(6, "pare simorhg", 3500,
                 "decrease enemy's hero power by 2 if it be ranged or hybrid",
-                ItemTypes.USABLE, 0, -2, WhenToUse.ON_MOMENT, buffs, target);
+                ItemTypes.USABLE, 0, -2, WhenToUse.ON_GAME_START, buffs, target);
         items.add(pareSimorhg);
 
         buffs = new ArrayList<>();

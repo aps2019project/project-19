@@ -317,6 +317,8 @@ public class Controller {
                 game.getCell(9, 3)).setInBattleCardId(game.getPlayer2().getAccount().getUserName());
         game.getPlayer1().setFirstHand().resetCardsAttackAndMoveAbility();
         game.getPlayer2().setFirstHand().resetCardsAttackAndMoveAbility();
+        useUsable(game.getPlayer1(), WhenToUse.ON_GAME_START);
+        useUsable(game.getPlayer2(), WhenToUse.ON_GAME_START);
         menuType = MenuType.BATTLE;
         System.err.println("game started");
     }
@@ -750,6 +752,7 @@ public class Controller {
             return;
         }
         attacker.attack(defender);
+        useUsable(activePlayer, WhenToUse.ON_ATTACK);
         attacker.setAttackedThisTurn(true);
         System.err.println("attacked");
         if (defender.targetIsInRange(defenderCell, attackerCell)) {
@@ -946,6 +949,7 @@ public class Controller {
                 view.show(card.getName() + " with " + card.getInBattleCardId() +
                         " inserted to (" + request.getX() + ", " + request.getY() + ")");
             }
+            useUsable(activePlayer, WhenToUse.ON_SPAWN);
             player.getHandCards().remove(card.getCardId(), card);
             player.decreaseMana(card.getMana());
             checkDeadCards(activePlayer);
@@ -1151,7 +1155,7 @@ public class Controller {
         }
         if (findTarget(activePlayer.getSelectedItem()) == null)
             errorType = ErrorType.INVALID_TARGET;
-        else activePlayer.getSelectedItem().useCollectable(findTarget(activePlayer.getSelectedItem()));
+        else activePlayer.getSelectedItem().castItemsSpell(findTarget(activePlayer.getSelectedItem()));
     }
 
     public void showNextCard() {
@@ -1206,6 +1210,7 @@ public class Controller {
             if (card.getAbilityCastTime() != null && card.getAbilityCastTime().equals(AbilityCastTime.ON_DEATH)) {
                 castMinionSpecialPower((Minion) card);
             }
+            useUsable(activePlayer, WhenToUse.ON_DEATH);
             Cell cell = player.getInBattleCards().get(card);
             if (game.getGameMode().equals(GameMode.KEEP_THE_FLAG) && card.getFlagNumber() != 0)
                 player.setNumberOfTurnsWithFlag(0);
@@ -1270,7 +1275,51 @@ public class Controller {
                     }
                 }
                 break;
+            case FRIENDLY_HERO:
+                for (Card card : myInBattleCards) {
+                    if (card instanceof Hero)
+                        return ((Hero) card);
+                }
+                break;
+            case FRIENDLY_HERO_RANGED_AND_HYBRID:
+                for (Card card : myInBattleCards) {
+                    if (card instanceof Hero && (((Hero) card).getType().equals(SoldierTypes.HYBRID) ||
+                            ((Hero) card).getType().equals(SoldierTypes.RANGED)))
+                        return ((Hero) card);
+                }
+                break;
+            case ONE_ENEMY:
+                Collections.shuffle(opponentInBattleCards);
+                for (Card card : opponentInBattleCards) {
+                    if (card instanceof SoldierCard)
+                        return ((SoldierCard) card);
+                }
+                break;
+            case ENEMY_HERO:
+                for (Card card : opponentInBattleCards) {
+                    if (card instanceof Hero)
+                        return ((Hero) card);
+                }
+                break;
+            case ONE_SOLDIER:
+                Collections.shuffle(myInBattleCards);
+                for (Card card : myInBattleCards) {
+                    if (card instanceof SoldierCard)
+                        return ((SoldierCard) card);
+                }
+                break;
+            case ITSELF:
+                return ((SoldierCard) activePlayer.getSelectedCard());
         }
         return null;
+    }
+
+    public void useUsable(Player player, WhenToUse whenToUse){
+        for (Item item : player.getItems().values()) {
+            if (item.getWhenToUse().equals(whenToUse)) {
+                    item.castItemsSpell(findTarget(item));
+            }
+        }
+
     }
 }
