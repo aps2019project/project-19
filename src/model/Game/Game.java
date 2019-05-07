@@ -36,7 +36,6 @@ public class Game {
     public Game(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
-        // TODO: 2019-04-29 set date
         this.isTurnOfPlayerOne = true;
         this.turnNumber = 1;
     }
@@ -44,7 +43,6 @@ public class Game {
     public Game() {
     }
 
-    //todo set prize
     public void setStoryPrize(int level) {
         switch (level) {
             case 1:
@@ -131,7 +129,7 @@ public class Game {
     }
 
     public Cell getCell(int x, int y) {
-        if (y - 1 >= width || x - 1 >= length)
+        if (y - 1 >= width || y - 1 < 0 || x - 1 >= length || x - 1 < 0)
             return null;
         return cells[y - 1][x - 1];
     }

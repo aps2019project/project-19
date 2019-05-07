@@ -164,14 +164,15 @@ public class Controller {
                     break;
                 case SELECT_CARD_OR_COLLECTABLE:
                     selectCardOrItem(activePlayer);
-                    // TODO: 2019-04-30 test
                     break;
                 case MOVE_CARD:
                     moveCard();
-                    // TODO: 2019-04-30 test
                     break;
                 case ATTACK:
                     attack();
+                    break;
+                case COMBO_ATTACK:
+                    comboAttack();
                     break;
                 case SHOW_HAND:
                     showHand();
@@ -186,7 +187,6 @@ public class Controller {
                     showCollectableInfo();
                     break;
                 case USE_COLLECTABLE:
-                    // TODO: 2019-04-30 check if there is any item selected or not (from activeplayer)
                     useCollectable();
                     break;
                 case SHOW_GATHERED_COLLECTABLES:
@@ -201,6 +201,7 @@ public class Controller {
                     break;
                 case USE_SPECIAL_POWER:
                     useSpecialPower();
+                    break;
                 case END_GAME:
                     endGame();
                     break;
@@ -352,7 +353,7 @@ public class Controller {
     }
 
     public void showLeaderBoard() {
-        view.show(Account.sortAccounts());
+        view.show(Account.printAccounts());
     }
 
     public void save() {
@@ -721,14 +722,26 @@ public class Controller {
             currentCell.setCard(null);
             targetCell.setCard(card);
             activePlayer.getInBattleCards().replace(card, targetCell);
-            // TODO: 2019-04-30 check replace function in hashmap
             if (!game.getGameMode().equals(GameMode.DEATH_MATCH))
                 card.pickUpFlags(targetCell);
             System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
             card.setMovedThisTurn(true);
         }
     }
-
+    public void comboAttack(){
+        for (String comboAttackerId : request.getComboAttackers()) {
+            if(!activePlayer.containsCardInBattle(comboAttackerId)){
+                errorType = ErrorType.INVALID_CARD_ID;
+                return;
+            }
+            SoldierCard attacker = ( SoldierCard) activePlayer.getInBattleCard(comboAttackerId);
+            if(!attacker.getAbilityCastTime().equals(AbilityCastTime.COMBO)){
+                continue;
+            }
+            activePlayer.setSelectedCard(attacker);
+            attack();
+        }
+    }
     public void attack() {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
@@ -812,6 +825,21 @@ public class Controller {
                 addMinionSpecialPowersToTarget(card, card);
                 break;
             case ALL_MINIONS_TO_2_CELLS_FURTHER:
+                for (int i = cell.getXCoordinate() - 2; i < cell.getXCoordinate() + 2; i++) {
+                    if (game.getCell(i, cell.getYCoordinate()) != null && i != cell.getXCoordinate() &&
+                            game.getCell(i, cell.getYCoordinate()).getCard() instanceof Minion) {
+                        addMinionSpecialPowersToTarget(card,
+                                (SoldierCard) game.getCell(i, cell.getYCoordinate()).getCard());
+                    }
+                }
+                for (int i = cell.getYCoordinate() - 2; i < cell.getYCoordinate() + 2; i++) {
+                    if (game.getCell(cell.getXCoordinate(), i) != null && i != cell.getYCoordinate() &&
+                            game.getCell(cell.getXCoordinate(), i).getCard() instanceof Minion) {
+                        addMinionSpecialPowersToTarget(card,
+                                (SoldierCard) game.getCell(cell.getXCoordinate(), i).getCard());
+                    }
+                }
+                break;
             case ALL_FRIENDLY_MINIONS:
                 for (Card target : activePlayer.getInBattleCards().keySet()) {
                     if (target instanceof Minion) {
@@ -852,7 +880,6 @@ public class Controller {
     }
 
     private void castHeroSpecialPower(Hero card) {
-        Cell cell = game.getCell(request.getX(), request.getY());
         if (card.getTarget().getType().equals(Type.AREA)) {
             int areaSize = card.getTarget().getAreaSize();
             for (int i = request.getX(); i < request.getX() + areaSize; i++) {
@@ -878,6 +905,7 @@ public class Controller {
                     break;
                 case ONE_ENEMY:
                 case ONE_SOLDIER:
+                    Cell cell = game.getCell(request.getX(), request.getY());
                     addHeroSpecialPowerToTarget(card, (SoldierCard) cell.getCard());
                     break;
                 case ALL_SOLDIERS_IN_THE_ROW_OF_FRIENDLY_HERO:
@@ -958,7 +986,6 @@ public class Controller {
     }
 
     private void castSpell(SpellCard card) {
-        Cell cell = game.getCell(request.getX(), request.getY());
         if (card.getTargetArea().getType().equals(Type.AREA)) {
             int areaSize = card.getTargetArea().getAreaSize();
             for (int i = request.getX(); i < request.getX() + areaSize; i++) {
@@ -976,6 +1003,7 @@ public class Controller {
                                 else
                                     buff.cancelPositiveBuffs((SoldierCard) soldier);
                             } else {
+                                Cell cell = game.getCell(request.getX(), request.getY());
                                 castSpellBuffsOnTarget(card, (SoldierCard) cell.getCard());
                             }
                         }
@@ -990,6 +1018,7 @@ public class Controller {
                 case ONE_SOLDIER:
                 case ONE_FRIENDLY_SOLDIER:
                 case ONE_ENEMY:
+                    Cell cell = game.getCell(request.getX(), request.getY());
                     castSpellBuffsOnTarget(card, (SoldierCard) cell.getCard());
                     break;
                 case ENEMY_HERO:
@@ -1191,7 +1220,8 @@ public class Controller {
                 request.getNewCommand();
             } while (!request.getCommand().equals("end game"));
         }
-        // todo add prize
+        game.getPlayer1().getAccount().getMatchHistory().add(game);
+        game.getPlayer2().getAccount().getMatchHistory().add(game);
         menuType = MenuType.MAINMENU;
         game = null;
         ai = null;
@@ -1206,28 +1236,36 @@ public class Controller {
     }
 
     public void checkDeadCard(Player player, SoldierCard card) {
-        if (card.getHp() <= 0) {
-            if (card.getAbilityCastTime() != null && card.getAbilityCastTime().equals(AbilityCastTime.ON_DEATH)) {
-                castMinionSpecialPower((Minion) card);
+        if ((card.getName().equals("oghab") && card.getHp() < 0) ||
+                (card.getHp() <= 0 && !card.getName().equals("oghab"))) {
+            if (card.getName().equals("oghab") && card.getHp() < 0)
+                if (card.getAbilityCastTime() != null && card.getAbilityCastTime().equals(AbilityCastTime.ON_DEATH)) {
+                    castMinionSpecialPower((Minion) card);
+                }
+            if (card.getHp() <= 0) {
+                if (card.getAbilityCastTime() != null && card.getAbilityCastTime().equals(AbilityCastTime.ON_DEATH)) {
+                    castMinionSpecialPower((Minion) card);
+                }
+                useUsable(activePlayer, WhenToUse.ON_DEATH);
+                Cell cell = player.getInBattleCards().get(card);
+                if (game.getGameMode().equals(GameMode.KEEP_THE_FLAG) && card.getFlagNumber() != 0)
+                    player.setNumberOfTurnsWithFlag(0);
+                card.dropFlags(cell);
+                cell.setCard(null);
+                player.getInBattleCards().remove(card);
+                player.getGraveYard().put(card.getInBattleCardId(), card);
+                card.setCardStatus(CardStatus.IN_GRAVEYARD);
+                System.out.println(card.getInBattleCardId() + " died in battle!");
             }
-            useUsable(activePlayer, WhenToUse.ON_DEATH);
-            Cell cell = player.getInBattleCards().get(card);
-            if (game.getGameMode().equals(GameMode.KEEP_THE_FLAG) && card.getFlagNumber() != 0)
-                player.setNumberOfTurnsWithFlag(0);
-            card.dropFlags(cell);
-            cell.setCard(null);
-            player.getInBattleCards().remove(card);
-            player.getGraveYard().put(card.getInBattleCardId(), card);
-            card.setCardStatus(CardStatus.IN_GRAVEYARD);
-            System.out.println(card.getInBattleCardId() + " died in battle!");
         }
     }
 
-    public void checkDeadCards(Player player) {
-        for (Card card : player.getInBattleCards().keySet()) {
-            checkDeadCard(player, (SoldierCard) card);
+        public void checkDeadCards (Player player){
+            ArrayList<Card> cards = new ArrayList<>(player.getInBattleCards().keySet());
+            for (int i = cards.size() - 1; i >= 0; i--) {
+                checkDeadCard(player, (SoldierCard) cards.get(i));
+            }
         }
-    }
 
     public SoldierCard findTarget(Item item) {
         ArrayList<Card> myInBattleCards = new ArrayList<>(activePlayer.getInBattleCards().keySet());

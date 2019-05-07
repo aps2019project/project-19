@@ -125,6 +125,7 @@ public class CardInitializer {
         buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 10, 0));
         Minion oghab = new Minion(115, "oghab", 200, 2, 2, 0,
                 SoldierTypes.RANGED, 3, "increase health by 10", AbilityCastTime.PASSIVE, buffs);
+        oghab.setTarget(new Target(Type.SOLDIER, 0, SoldierTargetType.ITSELF));
         minions.add(oghab);
 
         Minion diveGorazSavar = new Minion(116, "dive goraz savar", 300, 6, 8, 16,
@@ -356,28 +357,28 @@ public class CardInitializer {
         buffs = new ArrayList<>();
         buffs.add(new DispellBuff(Kind.NEGATIVE, 1, false, true, true));
         target = new Target(Type.AREA, 2, null);
-        SpellCard areaDispel = new SpellCard(202, "Area Dispel", 1500, 2,
+        SpellCard areaDispel = new SpellCard(202, "area dispel", 1500, 2,
                 "eliminate enemy's positive buffs and friendly negatives buffs", buffs, target);
         spellCards.add(areaDispel);
 
         buffs = new ArrayList<>();
         buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0, 2));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_SOLDIER);
-        SpellCard empower = new SpellCard(203, "Empower", 250, 1,
+        SpellCard empower = new SpellCard(203, "empower", 250, 1,
                 "increase friendly force power by 2", buffs, target);
         spellCards.add(empower);
 
         buffs = new ArrayList<>();
         buffs.add(new AttackBuff(Kind.NEGATIVE, 1, false, 4));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY);
-        SpellCard fireBall = new SpellCard(204, "Fire Ball", 400, 1,
+        SpellCard fireBall = new SpellCard(204, "fire ball", 400, 1,
                 "damage enemy by 4", buffs, target);
         spellCards.add(fireBall);
 
         buffs = new ArrayList<>();
         buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0, 4));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.FRIENDLY_HERO);
-        SpellCard godStrength = new SpellCard(205, "God Strength", 450, 2,
+        SpellCard godStrength = new SpellCard(205, "god strength", 450, 2,
                 "give friendly hero 4 strength", buffs, target);
         spellCards.add(godStrength);
 
@@ -385,14 +386,14 @@ public class CardInitializer {
         buffs.add(new FireBuff(Kind.NEGATIVE, 2, false, 2));
         target = new Target(Type.AREA, 2, null);
         target.setIsaffectingCell(true);
-        SpellCard hellFire = new SpellCard(206, "Hell Fire", 600, 3,
+        SpellCard hellFire = new SpellCard(206, "hell fire", 600, 3,
                 "create fire effect on target cells for 2 turns", buffs, target);
         spellCards.add(hellFire);
 
         buffs = new ArrayList<>();
         buffs.add(new AttackBuff(Kind.NEGATIVE, 1, false, 8));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ENEMY_HERO);
-        SpellCard lightingBolt = new SpellCard(207, "Lighting Bolt", 1250, 2,
+        SpellCard lightingBolt = new SpellCard(207, "lighting bolt", 1250, 2,
                 "damage enemy hero by 8", buffs, target);
         spellCards.add(lightingBolt);
 
@@ -400,7 +401,7 @@ public class CardInitializer {
         buffs.add(new PoisonBuff(Kind.NEGATIVE, 1, false, 1));
         target = new Target(Type.AREA, 3, null);
         target.setIsaffectingCell(true);
-        SpellCard poisonLake = new SpellCard(208, "Poison Lake", 900, 5,
+        SpellCard poisonLake = new SpellCard(208, "poison lake", 900, 5,
                 "create poison effect on target cells for 1 turn", buffs, target);
         spellCards.add(poisonLake);
 
@@ -408,28 +409,28 @@ public class CardInitializer {
         buffs.add(new PowerBuff(Kind.POSITIVE, 3, false, 0, 4));
         buffs.add(new DisArmBuff(Kind.NEGATIVE, 3, false));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_SOLDIER);
-        SpellCard madness = new SpellCard(209, "Madness", 650, 0,
+        SpellCard madness = new SpellCard(209, "madness", 650, 0,
                 "increase friendly force power by 4 for 3 turns but disarm it", buffs, target);
         spellCards.add(madness);
 
         buffs = new ArrayList<>();
         buffs.add(new DisArmBuff(Kind.NEGATIVE, 1, false));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ALL_ENEMIES);
-        SpellCard allDisarm = new SpellCard(210, "All Disarm", 2000, 9,
+        SpellCard allDisarm = new SpellCard(210, "all disarm", 2000, 9,
                 "disarm for 1 turn", buffs, target);
         spellCards.add(allDisarm);
 
         buffs = new ArrayList<>();
         buffs.add(new PoisonBuff(Kind.NEGATIVE, 4, false, 1));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ALL_ENEMIES);
-        SpellCard allPoison = new SpellCard(211, "All Poison", 1500, 8,
+        SpellCard allPoison = new SpellCard(211, "all poison", 1500, 8,
                 "all force poisoned for 4 turns", buffs, target);
         spellCards.add(allPoison);
 
         buffs = new ArrayList<>();
         buffs.add(new DispellBuff(Kind.POSITIVE, 1, false, true, true));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_SOLDIER);
-        SpellCard dispel = new SpellCard(212, "Dispel", 2100, 0,
+        SpellCard dispel = new SpellCard(212, "dispel", 2100, 0,
                 "eliminate enemy's positive buffs and friendly negatives buffs", buffs, target);
         spellCards.add(dispel);
 
@@ -437,35 +438,35 @@ public class CardInitializer {
         buffs.add(new WeaknessBuff(Kind.NEGATIVE, 1, false, 6, 0));
         buffs.add(new HolyBuff(Kind.POSITIVE, 3, false, 2));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_SOLDIER);
-        SpellCard healthWithProfit = new SpellCard(213, "Health with profit", 2250, 0,
+        SpellCard healthWithProfit = new SpellCard(213, "health with profit", 2250, 0,
                 "decrease friendly force health by 6 but give it 2 holy buff for 3 turns", buffs, target);
         spellCards.add(healthWithProfit);
 
         buffs = new ArrayList<>();
         buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0, 6));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_SOLDIER);
-        SpellCard powerUp = new SpellCard(214, "Power Up", 2500, 2,
+        SpellCard powerUp = new SpellCard(214, "power up", 2500, 2,
                 "increase force power by 6", buffs, target);
         spellCards.add(powerUp);
 
         buffs = new ArrayList<>();
         buffs.add(new PowerBuff(Kind.POSITIVE, 1, true, 0, 2));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ALL_FRIENDLY_SOLDIERS);
-        SpellCard allPower = new SpellCard(215, "All Power", 2000, 4,
+        SpellCard allPower = new SpellCard(215, "all power", 2000, 4,
                 "give all friendly force 2 power buff continuously", buffs, target);
         spellCards.add(allPower);
 
         buffs = new ArrayList<>();
         buffs.add(new AttackBuff(Kind.NEGATIVE, 1, false, 6));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ALL_ENEMIES_IN_A_COLUMN);
-        SpellCard allAttack = new SpellCard(216, "All Attack", 1500, 4,
+        SpellCard allAttack = new SpellCard(216, "all attack", 1500, 4,
                 "damage all enemy force by 6", buffs, target);
         spellCards.add(allAttack);
 
         buffs = new ArrayList<>();
         buffs.add(new WeaknessBuff(Kind.NEGATIVE, 1, false, 0, 4));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY_MINION);
-        SpellCard weakening = new SpellCard(217, "Weakening", 1000, 1,
+        SpellCard weakening = new SpellCard(217, "weakening", 1000, 1,
                 "decrease one enemy minion,s power by 4", buffs, target);
         spellCards.add(weakening);
 
@@ -473,21 +474,21 @@ public class CardInitializer {
         buffs.add(new WeaknessBuff(Kind.NEGATIVE, 1, false, 6, 0));
         buffs.add(new PowerBuff(Kind.POSITIVE, 1, false, 0, 8));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_FRIENDLY_MINION);
-        SpellCard sacrifice = new SpellCard(218, "Sacrifice", 1600, 2,
+        SpellCard sacrifice = new SpellCard(218, "sacrifice", 1600, 2,
                 "give friendly minion weakness buff with decreasing health by 6 and power buff with increasing power by 8", buffs, target);
         spellCards.add(sacrifice);
 
         buffs = new ArrayList<>();
         buffs.add(new KillBuff(Kind.NEGATIVE, 1, false));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_RANDOM_MINION_AROUND_FRIENDLY_HERO);
-        SpellCard kingsGuard = new SpellCard(219, "Kings Guard", 1750, 9,
+        SpellCard kingsGuard = new SpellCard(219, "kings Guard", 1750, 9,
                 "kill enemy", buffs, target);
         spellCards.add(kingsGuard);
 
         buffs = new ArrayList<>();
         buffs.add(new StunBuff(Kind.NEGATIVE, 2, false));
         target = new Target(Type.SOLDIER, 0, SoldierTargetType.ONE_ENEMY);
-        SpellCard shock = new SpellCard(220, "Shock", 1200, 1,
+        SpellCard shock = new SpellCard(220, "shock", 1200, 1,
                 "stun enemy force for two turn  ", buffs, target);
         spellCards.add(shock);
 
