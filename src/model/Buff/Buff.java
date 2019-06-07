@@ -8,8 +8,9 @@ public abstract class Buff {
     private boolean isContinuous;
     private int numberOfUsage;
     private boolean onMoment;
-    private int currnetTurn;
+    private int currentTurn;
     private int castTurn;
+    private boolean isForCell;
 
     public Buff(Kind kind, int duration, boolean isContinuous) {
         this.kind = kind;
@@ -17,12 +18,21 @@ public abstract class Buff {
         this.isContinuous = isContinuous;
         this.numberOfUsage = 0;
         this.onMoment = false;
-        this.currnetTurn = 1;
+        this.currentTurn = 1;
         this.castTurn = 1;
+        this.isForCell = false;
+    }
+
+    public void setForCell(boolean forCell) {
+        isForCell = forCell;
+    }
+
+    public boolean isForCell() {
+        return isForCell;
     }
 
     public void increaseCurrentTurn() {
-        this.currnetTurn++;
+        this.currentTurn++;
     }
 
     public void setCastTurn(int castTurn) {
@@ -71,8 +81,8 @@ public abstract class Buff {
         this.onMoment = onMoment;
     }
 
-    public int getCurrnetTurn() {
-        return currnetTurn;
+    public int getCurrentTurn() {
+        return currentTurn;
     }
 
     public int getCastTurn() {

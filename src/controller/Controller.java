@@ -719,29 +719,40 @@ public class Controller {
         } else if (currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell, targetCell)) {
             errorType = ErrorType.INVALID_TARGET;
         } else {
+            //removing old cell buffs
+            card.removeCellBuffs();
             currentCell.setCard(null);
             targetCell.setCard(card);
             activePlayer.getInBattleCards().replace(card, targetCell);
             if (!game.getGameMode().equals(GameMode.DEATH_MATCH))
                 card.pickUpFlags(targetCell);
             System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
+            //adding cell buff to card
+            if (targetCell.getBuff() != null) {
+                targetCell.getBuff().setForCell(true);
+                card.addBuffToTarget(targetCell.getBuff(), card);
+                card.castOnMomentBUffs(card);
+                card.checkBUffTiming(card, false);
+            }
             card.setMovedThisTurn(true);
         }
     }
-    public void comboAttack(){
+
+    public void comboAttack() {
         for (String comboAttackerId : request.getComboAttackers()) {
-            if(!activePlayer.containsCardInBattle(comboAttackerId)){
+            if (!activePlayer.containsCardInBattle(comboAttackerId)) {
                 errorType = ErrorType.INVALID_CARD_ID;
                 return;
             }
-            SoldierCard attacker = ( SoldierCard) activePlayer.getInBattleCard(comboAttackerId);
-            if(!attacker.getAbilityCastTime().equals(AbilityCastTime.COMBO)){
+            SoldierCard attacker = (SoldierCard) activePlayer.getInBattleCard(comboAttackerId);
+            if (!attacker.getAbilityCastTime().equals(AbilityCastTime.COMBO)) {
                 continue;
             }
             activePlayer.setSelectedCard(attacker);
             attack();
         }
     }
+
     public void attack() {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
@@ -1260,12 +1271,12 @@ public class Controller {
         }
     }
 
-        public void checkDeadCards (Player player){
-            ArrayList<Card> cards = new ArrayList<>(player.getInBattleCards().keySet());
-            for (int i = cards.size() - 1; i >= 0; i--) {
-                checkDeadCard(player, (SoldierCard) cards.get(i));
-            }
+    public void checkDeadCards(Player player) {
+        ArrayList<Card> cards = new ArrayList<>(player.getInBattleCards().keySet());
+        for (int i = cards.size() - 1; i >= 0; i--) {
+            checkDeadCard(player, (SoldierCard) cards.get(i));
         }
+    }
 
     public SoldierCard findTarget(Item item) {
         ArrayList<Card> myInBattleCards = new ArrayList<>(activePlayer.getInBattleCards().keySet());
@@ -1352,10 +1363,10 @@ public class Controller {
         return null;
     }
 
-    public void useUsable(Player player, WhenToUse whenToUse){
+    public void useUsable(Player player, WhenToUse whenToUse) {
         for (Item item : player.getItems().values()) {
             if (item.getWhenToUse().equals(whenToUse)) {
-                    item.castItemsSpell(findTarget(item));
+                item.castItemsSpell(findTarget(item));
             }
         }
 
