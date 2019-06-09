@@ -15,4 +15,9 @@ public class PoisonBuff extends Buff {
         super(kind, duration, isContinuous);
         this.hpDecrease = hpDecrease;
     }
+
+    public PoisonBuff(PoisonBuff poisonBuff) {
+        super(poisonBuff);
+        this.hpDecrease = poisonBuff.hpDecrease;
+    }
 }

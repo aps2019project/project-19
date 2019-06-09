@@ -7,9 +7,16 @@ public class WeaknessBuff extends Buff {
     private int apDecrease;
     private boolean hasCasted;
 
+    public WeaknessBuff(WeaknessBuff weaknessBuff) {
+        super(weaknessBuff);
+        this.hpDecrease = weaknessBuff.hpDecrease;
+        this.apDecrease = weaknessBuff.apDecrease;
+        this.hasCasted = weaknessBuff.hasCasted;
+    }
+
     @Override
     public void castBuff(SoldierCard soldier) {
-        if(!hasCasted) {
+        if (!hasCasted) {
             soldier.changeAp(-this.apDecrease);
             soldier.changeHp(-this.hpDecrease);
             hasCasted = true;

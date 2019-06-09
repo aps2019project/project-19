@@ -13,4 +13,8 @@ public class KillBuff extends Buff {
         super(kind, duration, isContinuous);
         this.setOnMoment(true);
     }
+
+    public KillBuff(Buff buff) {
+        super(buff);
+    }
 }

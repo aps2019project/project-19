@@ -16,4 +16,9 @@ public class AttackBuff extends Buff {
         this.damage = damage;
         this.setOnMoment(true);
     }
+
+    public AttackBuff(AttackBuff attackBuff) {
+        super(attackBuff);
+        this.damage = attackBuff.damage;
+    }
 }

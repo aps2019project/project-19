@@ -23,6 +23,41 @@ public abstract class Buff {
         this.isForCell = false;
     }
 
+    public Buff(Buff buff) {
+        this.kind = buff.kind;
+        this.duration = buff.duration;
+        this.isContinuous = buff.isContinuous;
+        this.numberOfUsage = 0;
+        this.onMoment = buff.onMoment;
+        this.currentTurn = 1;
+        this.castTurn = 1;
+        this.isForCell = buff.isForCell;
+    }
+
+    public static Buff getNewBuff(Buff buff) {
+        if (buff instanceof AttackBuff)
+            return new AttackBuff((AttackBuff) buff);
+        if (buff instanceof DisArmBuff)
+            return new DisArmBuff(buff);
+        if (buff instanceof DispellBuff)
+            return new DispellBuff((DispellBuff) buff);
+        if (buff instanceof FireBuff)
+            return new FireBuff((FireBuff) buff);
+        if (buff instanceof HolyBuff)
+            return new HolyBuff((HolyBuff) buff);
+        if (buff instanceof KillBuff)
+            return new KillBuff(buff);
+        if (buff instanceof PoisonBuff)
+            return new PoisonBuff((PoisonBuff) buff);
+        if (buff instanceof PowerBuff)
+            return new PowerBuff((PowerBuff) buff);
+        if (buff instanceof StunBuff)
+            return new StunBuff(buff);
+        if (buff instanceof WeaknessBuff)
+            return new WeaknessBuff((WeaknessBuff) buff);
+        return null;
+    }
+
     public void setForCell(boolean forCell) {
         isForCell = forCell;
     }

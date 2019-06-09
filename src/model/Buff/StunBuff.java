@@ -7,6 +7,10 @@ public class StunBuff extends Buff{
     public void castBuff(SoldierCard soldier) {
     }
 
+    public StunBuff(Buff buff) {
+        super(buff);
+    }
+
     public StunBuff(Kind kind, int duration, boolean isContinuous) {
         super(kind, duration, isContinuous);
     }

@@ -7,6 +7,13 @@ public class PowerBuff extends Buff {
     private int apIncrease;
     private boolean hasCasted;
 
+    public PowerBuff(PowerBuff powerBuff) {
+        super(powerBuff);
+        this.hpIncrease = powerBuff.hpIncrease;
+        this.apIncrease = powerBuff.apIncrease;
+        this.hasCasted = powerBuff.hasCasted;
+    }
+
     @Override
     public void castBuff(SoldierCard soldier) {
         if (!hasCasted) {

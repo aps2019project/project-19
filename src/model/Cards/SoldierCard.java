@@ -306,8 +306,7 @@ public abstract class SoldierCard extends Card {
             isPermitted = false;
         }
         if (isPermitted) {
-            //todo shouldn't we make a copy and then add that to target???
-            target.getBuffs().add(buff);
+            target.getBuffs().add(Buff.getNewBuff(buff));
         }
     }
 

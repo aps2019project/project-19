@@ -15,6 +15,12 @@ public class DispellBuff extends Buff {
         this.setOnMoment(true);
     }
 
+    public DispellBuff(DispellBuff dispellBuff) {
+        super(dispellBuff);
+        this.negative = dispellBuff.negative;
+        this.positive = dispellBuff.positive;
+    }
+
     @Override
     public void castBuff(SoldierCard soldier) {
         if (this.isPositive()) {
