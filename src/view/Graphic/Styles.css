@@ -41,7 +41,7 @@
     -fx-pref-width: 1000;
     -fx-pref-height: 300;
     -fx-text-alignment: center;
-    -fx-font-size: 150px;
+    -fx-font-size: 2px;
     -fx-text-fill: white;
 }
 .jfx-tab-pane .tab-header-background {

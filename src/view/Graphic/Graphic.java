@@ -28,8 +28,6 @@ public class Graphic extends Application {
         primaryStage.setFullScreen(true);
         primaryStage.setScene(new Scene(root));
         primaryStage.getScene().getStylesheets().add("view/Graphic/Styles.css");
-        ShopController.setController(loader.getController());
-        ShopController.getController().createCards();
         primaryStage.show();
     }
     public static void main(String[] args,Request request){
