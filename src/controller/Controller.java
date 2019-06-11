@@ -16,11 +16,11 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Controller {
-//    private final static Controller CONTROLLER = new Controller();
-//
-//    public static Controller getInstance() {
-//        return CONTROLLER;
-//    }
+    private final static Controller CONTROLLER = new Controller(System.in);
+
+    public static Controller getInstance() {
+        return CONTROLLER;
+    }
 
     public Controller(InputStream inputStream) {
         this.inputStream = inputStream;

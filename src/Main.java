@@ -14,7 +14,7 @@ public class Main {
 //        ServerSocket serverSocket = new ServerSocket(8888);
 //        Socket client = serverSocket.accept();
 
-        Controller controller = new Controller(System.in);
+        Controller controller = Controller.getInstance();
         new Thread(() -> Graphic.main(args,controller.getRequest())).start();
         try{
             Thread.sleep(500);
