@@ -1,5 +1,6 @@
 import controller.CardInitializer;
 import controller.Controller;
+import view.Graphic.Graphic;
 
 import java.io.IOException;
 
@@ -8,6 +9,8 @@ public class Main {
         CardInitializer cardInitializer = CardInitializer.getInstance();
         cardInitializer.createCards();
         Controller controller = Controller.getInstance();
+        Graphic graphic = new Graphic();
+        graphic.main(args);
         controller.run();
     }
 }

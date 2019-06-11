@@ -36,6 +36,10 @@ public class Controller {
     private Deck aiDeck;
     private Ai ai;
 
+    public Shop getShop() {
+        return shop;
+    }
+
     public void run() {
         //mainLoop:
         do {

@@ -16,11 +16,19 @@ public class Graphic extends Application {
                 Graphic.class.getResource("Lato-Light.ttf").toExternalForm(),
                 10
         );
-        Parent root = FXMLLoader.load(getClass().getResource("loginView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("shopView.fxml"));
+        Parent root = loader.load();
         primaryStage.setTitle("Duelyst");
         stage = primaryStage;
         primaryStage.setFullScreen(true);
         primaryStage.setScene(new Scene(root));
+        primaryStage.getScene().getStylesheets().add("view/Graphic/Styles.css");
+        ShopController.setController(loader.getController());
+        ShopController.getController().createCards();
         primaryStage.show();
+    }
+
+    public void main(String[] args) {
+        launch(args);
     }
 }

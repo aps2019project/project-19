@@ -6,3 +6,28 @@
     -fx-font-family: Lato-Light;
     -fx-font-size: 10;
 }
+
+.shopStyle{
+    -fx-background-image: url("images/background.jpg");
+    -fx-background-size: cover;
+}
+
+.soldierCard{
+    -fx-pref-width: 200;
+    -fx-pref-height: 230;
+    -fx-background-image: url("images/soldierCard.jpg");
+    -fx-background-size: cover;
+}
+
+.spellCard{
+    -fx-background-image: url("images/spellCard.png");
+    -fx-background-size: cover;
+}
+
+.labelName{
+    -fx-pref-width: 1000;
+    -fx-pref-height: 300;
+    -fx-text-alignment: center;
+    -fx-font-size: 150px;
+    -fx-text-fill: white;
+}
