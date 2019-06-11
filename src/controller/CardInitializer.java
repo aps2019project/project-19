@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardInitializer {
-    private ArrayList<Minion> minionCards = new ArrayList<>();
-    private ArrayList<SpellCard> spellCards = new ArrayList<>();
-    private ArrayList<Hero> heroes = new ArrayList<>();
-    private ArrayList<Item> items = new ArrayList<>();
-    private Shop shop = Shop.getInstance();
-    private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new BuffAdapter())
+    private static ArrayList<Minion> minionCards = new ArrayList<>();
+    private static ArrayList<SpellCard> spellCards = new ArrayList<>();
+    private static ArrayList<Hero> heroes = new ArrayList<>();
+    private static ArrayList<Item> items = new ArrayList<>();
+    private static Shop shop = Shop.getInstance();
+    private static Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new BuffAdapter())
             .setPrettyPrinting().create();
 
     private final static CardInitializer CARD_INITIALIZER = new CardInitializer();
@@ -61,21 +61,25 @@ public class CardInitializer {
         }
     }
 
-    public void addCustomCardToFile(Card card) throws IOException {
+    public static void addCustomCardToFile(Card card) {
         FileWriter fileWriter;
         shop.getCards().add(card);
-        if (card instanceof Minion) {
-            minionCards.add((Minion) card);
-            fileWriter = new FileWriter("data/minions.json");
-            fileWriter.write(gson.toJson(minionCards));
-        } else if (card instanceof Hero) {
-            heroes.add((Hero) card);
-            fileWriter = new FileWriter("data/heros.json");
-            fileWriter.write(gson.toJson(heroes));
-        } else if (card instanceof SpellCard) {
-            spellCards.add((SpellCard) card);
-            fileWriter = new FileWriter("data/spells.json");
-            fileWriter.write(gson.toJson(spellCards));
+        try {
+            if (card instanceof Minion) {
+                minionCards.add((Minion) card);
+                fileWriter = new FileWriter("data/minions.json");
+                fileWriter.write(gson.toJson(minionCards));
+            } else if (card instanceof Hero) {
+                heroes.add((Hero) card);
+                fileWriter = new FileWriter("data/heros.json");
+                fileWriter.write(gson.toJson(heroes));
+            } else if (card instanceof SpellCard) {
+                spellCards.add((SpellCard) card);
+                fileWriter = new FileWriter("data/spells.json");
+                fileWriter.write(gson.toJson(spellCards));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

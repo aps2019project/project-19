@@ -9,7 +9,7 @@ import model.Cards.SpellCard;
 import java.util.ArrayList;
 
 public class Shop {
-    private int id;
+    private static int id;
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private final static Shop SHOP = new Shop();
@@ -36,18 +36,20 @@ public class Shop {
 
     public Card findCard(int cardId) {
         for (Card card : cards) {
-            if (card.getCardId()==(cardId))
+            if (card.getCardId() == (cardId))
                 return card;
         }
         return null;
     }
+
     public Item findItem(int itemid) {
         for (Item item : items) {
-            if (item.getItemId()==(itemid))
+            if (item.getItemId() == (itemid))
                 return item;
         }
         return null;
     }
+
     private Shop() {
     }
 
@@ -116,7 +118,7 @@ public class Shop {
                 Item item1 = new Item(item);
                 item1.setItemId(id);
                 account.getCollection().getItems().add(item1);
-                account.increaseMoney( - item.getPrice());
+                account.increaseMoney(-item.getPrice());
             }
         }
     }
@@ -124,7 +126,7 @@ public class Shop {
     public void sell(int productId, Account account) {
         for (Card card : account.getCollection().getCards()) {
             if (card.getCardId() == productId)
-                account.increaseMoney( card.getPrice());
+                account.increaseMoney(card.getPrice());
         }
         for (Item item : account.getCollection().getItems()) {
             if (item.getItemId() == productId)
@@ -141,8 +143,12 @@ public class Shop {
     public void sellItem(int itemId) {
     }
 
-    public void generateNewId() {
+    public static void generateNewId() {
         id++;
     }
 
+    public static int getNewId() {
+        id++;
+        return id;
+    }
 }
