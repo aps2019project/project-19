@@ -42,6 +42,7 @@ public class CustomCard {
                 CardInitializer.addCustomCardToFile(spell);
                 return spell;
         }
+        return null;
     }
 
     public void setName(String name) {
