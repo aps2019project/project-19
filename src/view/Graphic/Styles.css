@@ -1,8 +1,18 @@
-.loginStyle{
+.mainMenu{
     -fx-background-image: url("images/background.jpg");
     -fx-background-size: cover;
 }
-.text{
+.menuText{
     -fx-font-family: Lato-Light;
-    -fx-font-size: 10;
+    -fx-font-size: 45;
+}
+.menuImageDesc{
+    -fx-font-size: 17;
+}
+.loginMenu{
+    -fx-background-image: url("images/background.jpg");
+    -fx-background-size: cover;
+}
+.loginPane{
+    -fx-fill: black;
 }
