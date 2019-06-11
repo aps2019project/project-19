@@ -16,3 +16,13 @@
 .loginPane{
     -fx-fill: black;
 }
+.jfx-tab-pane .headers-region {
+    -fx-background-color: rgb(41,41,42);
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: rgb(41,41,42);
+}
+.jfx-tab-pane .tab-selected-line {
+    -fx-stroke: rgb(241,111,32);
+    -fx-stroke-width: 56pt;
+}
