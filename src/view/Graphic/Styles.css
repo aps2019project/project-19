@@ -1,0 +1,8 @@
+.loginStyle{
+    -fx-background-image: url("images/background.jpg");
+    -fx-background-size: cover;
+}
+.text{
+    -fx-font-family: Lato-Light;
+    -fx-font-size: 10;
+}

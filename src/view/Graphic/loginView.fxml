@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.layout.VBox?>
+<AnchorPane prefHeight="1600.0" prefWidth="1920.0" styleClass="loginStyle" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Graphic.LoginController">
+    <VBox>
+
+    </VBox>
+    <ImageView layoutX="51.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+        <image>
+            <Image url="@images/pillars_near.png" />
+        </image>
+    </ImageView>
+        <ImageView AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <image>
+         <Image url="@images/foreground.png" />
+      </image></ImageView>
+
+
+</AnchorPane>
