@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="1600.0" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.Graphic.MainMenuController">
+
+    <ImageView layoutX="51.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0">
+        <image>
+            <Image url="@images/pillars_near.png"/>
+        </image>
+    </ImageView>
+    <ImageView AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <image>
+            <Image url="@images/foreground.png"/>
+        </image>
+    </ImageView>
+    <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400">
+        <Label style="-fx-text-fill: white" text="PLAY">
+        </Label>
+        <Label style="-fx-text-fill: white" text="WATCH">
+        </Label>
+        <Label style="-fx-text-fill: white" text="COLLECTION">
+        </Label>
+        <Label style="-fx-text-fill: white" text="MYSTERY CRATES">
+        </Label>
+        <Label style="-fx-text-fill: white" text="CODEX">
+        </Label>
+    </VBox>
+    <HBox spacing="20" AnchorPane.bottomAnchor="50" AnchorPane.rightAnchor="20">
+        <ImageView fitHeight="75" fitWidth="75">
+            <Image url="@images/settings.png"/>
+        </ImageView>
+        <ImageView fitHeight="75" fitWidth="75">
+            <Image url="@images/shop.png">
+            </Image>
+        </ImageView>
+        <ImageView fitHeight="75" fitWidth="75">
+            <Image url="@images/profile.png">
+            </Image>
+        </ImageView>
+        <ImageView fitHeight="75" fitWidth="75">
+            <Image url="@images/quests.png">
+            </Image>
+        </ImageView>
+    </HBox>
+    <HBox styleClass="menuImageDesc" spacing="20" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="10">
+        <Label prefWidth="75" text="SEETINGS" style="-fx-text-fill: white"></Label>
+        <Label prefWidth="75" text="SHOP" style="-fx-text-fill: white"></Label>
+        <Label prefWidth="75" text="PROFILE" style="-fx-text-fill: white"></Label>
+        <Label prefWidth="75" text="QUESTS" style="-fx-text-fill: white"></Label>
+    </HBox>
+</AnchorPane>

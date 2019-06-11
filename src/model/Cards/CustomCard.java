@@ -25,24 +25,25 @@ public class CustomCard {
     private int mana;
     private String desc;
 
-//    public Card createCard() {
-//        switch (type) {
-//            case "minion":
-//                Minion minion = new Minion(Shop.getNewId(), name, cost, mana, ap, hp,
-//                        attackType, attackRange, desc, abilityCastTime, specialPowers);
-//                CardInitializer.addCustomCardToFile(minion);
-//                return minion;
-//            case "hero":
-//                Hero hero = new Hero(Shop.getNewId(), name, cost, mana, ap, hp,
-//                        attackType, attackRange, desc, specialPowers.get(0), coolDown, heroTarget);
-//                CardInitializer.addCustomCardToFile(hero);
-//                return hero;
-//            case "spell":
-//                SpellCard spell = new SpellCard(Shop.getNewId(), name, cost, mana, desc, spellBuffs, spellTarget);
-//                CardInitializer.addCustomCardToFile(spell);
-//                return spell;
-//        }
-//    }
+    public Card createCard() {
+        switch (type) {
+            case "minion":
+                Minion minion = new Minion(Shop.getNewId(), name, cost, mana, ap, hp,
+                        attackType, attackRange, desc, abilityCastTime, specialPowers);
+                CardInitializer.addCustomCardToFile(minion);
+                return minion;
+            case "hero":
+                Hero hero = new Hero(Shop.getNewId(), name, cost, mana, ap, hp,
+                        attackType, attackRange, desc, specialPowers.get(0), coolDown, heroTarget);
+                CardInitializer.addCustomCardToFile(hero);
+                return hero;
+            case "spell":
+                SpellCard spell = new SpellCard(Shop.getNewId(), name, cost, mana, desc, spellBuffs, spellTarget);
+                CardInitializer.addCustomCardToFile(spell);
+                return spell;
+        }
+        return null;
+    }
 
     public void setName(String name) {
         this.name = name;

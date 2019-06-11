@@ -1,10 +1,23 @@
-.loginStyle{
+.mainMenu{
     -fx-background-image: url("images/background.jpg");
     -fx-background-size: cover;
 }
-.text{
+.menuText{
     -fx-font-family: Lato-Light;
-    -fx-font-size: 10;
+    -fx-font-size: 45;
+}
+.menuImageDesc{
+    -fx-font-size: 17;
+}
+.loginMenu{
+    -fx-background-image: url("images/background.jpg");
+    -fx-background-size: cover;
+}
+.loginPane{
+    -fx-fill: black;
+}
+.jfx-tab-pane .headers-region {
+    -fx-background-color: rgb(41,41,42);
 }
 
 .shopStyle{
@@ -30,4 +43,11 @@
     -fx-text-alignment: center;
     -fx-font-size: 150px;
     -fx-text-fill: white;
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: rgb(41,41,42);
+}
+.jfx-tab-pane .tab-selected-line {
+    -fx-stroke: rgb(241,111,32);
+    -fx-stroke-width: 56pt;
 }
