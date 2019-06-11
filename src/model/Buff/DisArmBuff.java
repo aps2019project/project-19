@@ -10,4 +10,7 @@ public class DisArmBuff extends Buff {
     public DisArmBuff(Kind kind, int duration, boolean isContinuous) {
         super(kind, duration, isContinuous);
     }
+    public DisArmBuff(Buff buff){
+        super(buff);
+    }
 }

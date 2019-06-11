@@ -233,7 +233,7 @@ public abstract class SoldierCard extends Card {
 
     public void castFirstTurnBuffs() {
         for (Buff buff : this.getBuffs()) {
-            if (buff.getCurrnetTurn() == buff.getCastTurn() && buff.getDuration() > buff.getNumberOfUsage()) {
+            if (buff.getCurrentTurn() == buff.getCastTurn() && buff.getDuration() > buff.getNumberOfUsage()) {
                 buff.castBuff(this);
             }
             if (buff instanceof KillBuff) {
@@ -254,7 +254,7 @@ public abstract class SoldierCard extends Card {
         for (int i = soldier.getBuffs().size() - 1; i >= 0; i--) {
             Buff buff = soldier.getBuffs().get(i);
             if (buff instanceof StunBuff || buff instanceof DisArmBuff) {
-                if (buff.getDuration() + 1 == buff.getCurrnetTurn()) {
+                if (buff.getDuration() + 1 == buff.getCurrentTurn()) {
                     soldier.getBuffs().remove(i);
                 } else {
                     buff.increaseCurrentTurn();
@@ -274,7 +274,7 @@ public abstract class SoldierCard extends Card {
 
     public void castOnMomentBUffs(SoldierCard soldier) {
         for (Buff buff : soldier.getBuffs()) {
-            if (buff.getCastTurn() == buff.getCurrnetTurn() &&
+            if (buff.getCastTurn() == buff.getCurrentTurn() &&
                     buff.isOnMoment() && buff.getDuration() > buff.getNumberOfUsage()) {
                 buff.castBuff(soldier);
             }
@@ -306,7 +306,19 @@ public abstract class SoldierCard extends Card {
             isPermitted = false;
         }
         if (isPermitted) {
-            target.getBuffs().add(buff);
+            target.getBuffs().add(Buff.getNewBuff(buff));
+        }
+    }
+
+    public void removeCellBuffs() {
+        for (int i = this.getBuffs().size() - 1; i >= 0; i--) {
+            Buff buff = this.getBuffs().get(i);
+            if (buff.isForCell()) {
+                if (buff instanceof WeaknessBuff) {
+                    ((WeaknessBuff) buff).cancelEffect(this);
+                }
+                this.getBuffs().remove(buff);
+            }
         }
     }
 

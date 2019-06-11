@@ -5,23 +5,21 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import model.*;
 import model.Buff.*;
-import model.Cards.Hero;
-import model.Cards.Minion;
-import model.Cards.SpellCard;
+import model.Cards.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CardInitializer {
-    private ArrayList<Minion> minionCards = new ArrayList<>();
-    private ArrayList<SpellCard> spellCards = new ArrayList<>();
-    private ArrayList<Hero> heroes = new ArrayList<>();
-    private ArrayList<Item> items = new ArrayList<>();
-    private Shop shop = Shop.getInstance();
+    private static ArrayList<Minion> minionCards = new ArrayList<>();
+    private static ArrayList<SpellCard> spellCards = new ArrayList<>();
+    private static ArrayList<Hero> heroes = new ArrayList<>();
+    private static ArrayList<Item> items = new ArrayList<>();
+    private static Shop shop = Shop.getInstance();
+    private static Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new BuffAdapter())
+            .setPrettyPrinting().create();
 
     private final static CardInitializer CARD_INITIALIZER = new CardInitializer();
 
@@ -34,20 +32,20 @@ public class CardInitializer {
 
     public void createCards() throws FileNotFoundException {
         Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new BuffAdapter()).create();
-        URL url = CardInitializer.class.getResource("../../../src/data/minions.json");
-        Reader reader = new FileReader("src/data/minions.json");
+        URL url = CardInitializer.class.getResource("/data/minions.json");
+        Reader reader = new FileReader(url.getPath());
         minionCards = gson.fromJson(reader, new TypeToken<List<Minion>>() {
         }.getType());
-        url = CardInitializer.class.getResource("../../../src/data/spells.json");
-        reader = new FileReader("src/data/spells.json");
+        url = CardInitializer.class.getResource("/data/spells.json");
+        reader = new FileReader(url.getPath());
         spellCards = gson.fromJson(reader, new TypeToken<List<SpellCard>>() {
         }.getType());
-        url = CardInitializer.class.getResource("../../../src/data/heros.json");
-        reader = new FileReader("src/data/heros.json");
+        url = CardInitializer.class.getResource("/data/heros.json");
+        reader = new FileReader(url.getPath());
         heroes = gson.fromJson(reader, new TypeToken<List<Hero>>() {
         }.getType());
-        url = CardInitializer.class.getResource("../../../src/data/items.json");
-        reader = new FileReader("src/data/items.json");
+        url = CardInitializer.class.getResource("/data/items.json");
+        reader = new FileReader(url.getPath());
         items = gson.fromJson(reader, new TypeToken<List<Item>>() {
         }.getType());
         for (Minion minionCard : minionCards) {
@@ -61,6 +59,28 @@ public class CardInitializer {
         }
         for (Item item : items) {
             shop.getItems().add(item);
+        }
+    }
+
+    public static void addCustomCardToFile(Card card) {
+        FileWriter fileWriter;
+        shop.getCards().add(card);
+        try {
+            if (card instanceof Minion) {
+                minionCards.add((Minion) card);
+                fileWriter = new FileWriter("data/minions.json");
+                fileWriter.write(gson.toJson(minionCards));
+            } else if (card instanceof Hero) {
+                heroes.add((Hero) card);
+                fileWriter = new FileWriter("data/heros.json");
+                fileWriter.write(gson.toJson(heroes));
+            } else if (card instanceof SpellCard) {
+                spellCards.add((SpellCard) card);
+                fileWriter = new FileWriter("data/spells.json");
+                fileWriter.write(gson.toJson(spellCards));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -11,8 +11,13 @@ public class FireBuff extends Buff {
         this.increaseNumberOfUsage();
     }
 
-    public FireBuff(Kind kind, int duration, boolean isContinuous, int hpDecrease){
+    public FireBuff(Kind kind, int duration, boolean isContinuous, int hpDecrease) {
         super(kind, duration, isContinuous);
         this.hpDecrease = hpDecrease;
+    }
+
+    public FireBuff(FireBuff fireBuff) {
+        super(fireBuff);
+        this.hpDecrease = fireBuff.hpDecrease;
     }
 }
