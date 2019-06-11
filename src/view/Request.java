@@ -1,8 +1,10 @@
 package view;
 
+import controller.Controller;
 import controller.MenuType;
 import model.Game.GameMode;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -10,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Request {
-    private static Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
     private String command;
     private RequestType requestType;
     private ErrorType errorType;
@@ -32,10 +34,47 @@ public class Request {
     private ArrayList<String> comboAttackers = new ArrayList<>();
     private boolean hasXY;
 
+    public Request(InputStream inputStream) {
+        this.scanner = new Scanner(inputStream);
+    }
+
+    public void resetProperties() {
+        command = "waiting";
+        requestType = null;
+//        errorType = null;
+        deckName = null;
+        cardName = null;
+        searchingName = null;
+        productName = null;
+        x = 0;
+        y = 0;
+        productId = 0;
+        userName = null;
+        collectableName = null;
+        inBattleCardId = null;
+        enteringMenu = null;
+        cardOrItemID = 0;
+        itemID = 0;
+        gameMode = null;
+        numOfFlags = 0;
+        storyLevel = 0;
+        comboAttackers = new ArrayList<>();
+        hasXY = false;
+    }
+
     public void getNewCommand() {
-        do {
-            command = scanner.nextLine().trim().toLowerCase();
-        } while (command.equals(""));
+//        do {
+//            command = scanner.nextLine().trim().toLowerCase();
+//        } while (command.equals(""));
+        while (command.equals("waiting")) {
+            try {
+                Thread.sleep(300);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        command = command.trim();
+        System.err.println(command);
     }
 
 

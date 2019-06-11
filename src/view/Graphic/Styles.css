@@ -1,0 +1,53 @@
+.mainMenu{
+    -fx-background-image: url("images/background.jpg");
+    -fx-background-size: cover;
+}
+.menuText{
+    -fx-font-family: Lato-Light;
+    -fx-font-size: 45;
+}
+.menuImageDesc{
+    -fx-font-size: 17;
+}
+.loginMenu{
+    -fx-background-image: url("images/background.jpg");
+    -fx-background-size: cover;
+}
+.loginPane{
+    -fx-fill: black;
+}
+.jfx-tab-pane .headers-region {
+    -fx-background-color: rgb(41,41,42);
+}
+
+.shopStyle{
+    -fx-background-image: url("images/background.jpg");
+    -fx-background-size: cover;
+}
+
+.soldierCard{
+    -fx-pref-width: 200;
+    -fx-pref-height: 230;
+    -fx-background-image: url("images/soldierCard.jpg");
+    -fx-background-size: cover;
+}
+
+.spellCard{
+    -fx-background-image: url("images/spellCard.png");
+    -fx-background-size: cover;
+}
+
+.labelName{
+    -fx-pref-width: 1000;
+    -fx-pref-height: 300;
+    -fx-text-alignment: center;
+    -fx-font-size: 2px;
+    -fx-text-fill: white;
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: rgb(41,41,42);
+}
+.jfx-tab-pane .tab-selected-line {
+    -fx-stroke: rgb(241,111,32);
+    -fx-stroke-width: 56pt;
+}

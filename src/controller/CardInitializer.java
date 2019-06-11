@@ -31,20 +31,21 @@ public class CardInitializer {
     }
 
     public void createCards() throws FileNotFoundException {
-        URL url = CardInitializer.class.getResource("data/minions.json");
-        Reader reader = new FileReader(url.getPath());
+        Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new BuffAdapter()).create();
+        URL url = CardInitializer.class.getResource("../data/minions.json");
+        Reader reader = new FileReader("src/data/minions.json");
         minionCards = gson.fromJson(reader, new TypeToken<List<Minion>>() {
         }.getType());
-        url = CardInitializer.class.getResource("data/spells.json");
-        reader = new FileReader(url.getPath());
+        url = CardInitializer.class.getResource("../data/spells.json");
+        reader = new FileReader("src/data/spells.json");
         spellCards = gson.fromJson(reader, new TypeToken<List<SpellCard>>() {
         }.getType());
-        url = CardInitializer.class.getResource("data/heros.json");
-        reader = new FileReader(url.getPath());
+        url = CardInitializer.class.getResource("../data/heros.json");
+        reader = new FileReader("src/data/heros.json");
         heroes = gson.fromJson(reader, new TypeToken<List<Hero>>() {
         }.getType());
-        url = CardInitializer.class.getResource("data/items.json");
-        reader = new FileReader(url.getPath());
+        url = CardInitializer.class.getResource("../data/items.json");
+        reader = new FileReader("src/data/items.json");
         items = gson.fromJson(reader, new TypeToken<List<Item>>() {
         }.getType());
         for (Minion minionCard : minionCards) {

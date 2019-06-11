@@ -9,21 +9,24 @@ import model.Target.Type;
 import view.*;
 import model.Game.*;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
 public class Controller {
-    private final static Controller CONTROLLER = new Controller();
+    private final static Controller CONTROLLER = new Controller(System.in);
 
     public static Controller getInstance() {
         return CONTROLLER;
     }
 
-    private Controller() {
+    public Controller(InputStream inputStream) {
+        this.inputStream = inputStream;
+        request = new Request(inputStream);
     }
-
+    private InputStream inputStream;
     private Shop shop = Shop.getInstance();
     private MenuType menuType = MenuType.ACCOUNT;
     private Request request;
@@ -36,11 +39,15 @@ public class Controller {
     private Deck aiDeck;
     private Ai ai;
 
+    public Shop getShop() {
+        return shop;
+    }
+
     public void run() {
         //mainLoop:
         do {
-            System.out.println("Menu: " + menuType);
-            request = new Request();
+            System.out.println("Menu: " + menuType+" ");
+            request.resetProperties();
             if (ai != null && !game.isTurnOfPlayerOne()) {
                 request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
                 System.err.println("ai requested: " + request.getCommand());
@@ -218,6 +225,7 @@ public class Controller {
             }
             if (errorType != null) {
                 view.printError(errorType);
+                request.setErrorType(errorType);
                 errorType = null;
             }
         } while (true);
@@ -325,11 +333,13 @@ public class Controller {
     }
 
     public void createNewAccount() {
+        System.out.println("is creating");
         if (Account.userNameIsValid(request.getUserName())) {
             errorType = ErrorType.USERNAME_TAKEN;
             return;
         }
         view.printEnterPassword();
+        request.setCommand("waiting");
         request.getNewCommand();
         Account newAccount = new Account(request.getUserName(), request.getCommand());
         Account.addAccount(newAccount);
@@ -342,6 +352,7 @@ public class Controller {
             return;
         }
         view.printEnterPassword();
+        request.setCommand("waiting");
         request.getNewCommand();
         if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
             errorType = ErrorType.INVALID_PASSWORD;
@@ -1227,7 +1238,7 @@ public class Controller {
             game.getWinnerPlayer().getAccount().increaseMoney(game.getPrize());
 
             do {
-                request = new Request();
+                request.resetProperties();
                 request.getNewCommand();
             } while (!request.getCommand().equals("end game"));
         }
@@ -1370,5 +1381,9 @@ public class Controller {
             }
         }
 
+    }
+
+    public Request getRequest() {
+        return request;
     }
 }
