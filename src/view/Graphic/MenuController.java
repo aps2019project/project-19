@@ -31,6 +31,9 @@ public class MenuController {
             MenuController controller = (MenuController) loader.getController();
             controller.setStage(this.getStage());
             controller.setMainController(this.getMainController());
+            if(controller instanceof ShopController){
+                ((ShopController) controller).createCards();
+            }
             this.getStage().getScene().setRoot(root);
         } catch (Exception e) {
             e.printStackTrace();
