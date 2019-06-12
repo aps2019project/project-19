@@ -1,10 +1,13 @@
 package view.Graphic;
 
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.tracing.dtrace.StabilityLevel;
+import controller.Controller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import view.ErrorType;
@@ -15,7 +18,7 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     private Stage stage;
-    private Request request;
+    private Controller mainController;
     @FXML
     private Label signInMessage;
     @FXML
@@ -23,40 +26,52 @@ public class LoginController implements Initializable {
     @FXML
     private JFXTextField signInUserName;
     @FXML
-    private JFXTextField signInPassword;
+    private JFXPasswordField signInPassword;
+    @FXML
+    private JFXTextField logInUserName;
+    @FXML
+    private JFXPasswordField logInPassword;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-    public void signUp(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                request.setCommand("create account "+signInUserName.getText()+"\n");
-                try {
-                    Thread.sleep(200);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                if(request.getErrorType()!=null && request.getErrorType() == ErrorType.USERNAME_TAKEN){
-                    Platform.runLater(() -> signInMessage.setText(ErrorType.USERNAME_TAKEN.getMessage()+""));
-                    request.setErrorType(null);
-                    return;
-                }
-                request.setCommand(signInPassword.getText()+"\n");
-                Platform.runLater(() -> signInMessage.setText("account Creates!"));
+
+    public void signUp() {
+        if (signInUserName.getText().equals("") || signInPassword.getText().equals(""))
+            return;
+        if (mainController.createNewAccount(signInUserName.getText(), signInPassword.getText()))
+            signInMessage.setText("Account Created!");
+        else
+            signInMessage.setText(mainController.getErrorType().getMessage());
+    }
+
+    public void logIn() {
+        if (logInUserName.getText().equals("") || logInPassword.getText().equals(""))
+            return;
+        if (mainController.login(logInUserName.getText(), logInPassword.getText())) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+            try {
+                Parent root = (Parent) loader.load();
+
+            MainMenuController controller = (MainMenuController) loader.getController();
+            controller.setStage(stage);
+            controller.setMainController(mainController);
+            stage.getScene().setRoot(root);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }).start();
+        } else
+            logInMessage.setText(mainController.getErrorType().getMessage());
+
 
     }
-    public void logIn(){
 
-    }
-    public void setStage(Stage stage){
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public void setRequest(Request request) {
-        this.request = request;
+    public void setMainController(Controller controller) {
+        this.mainController = controller;
     }
 }
