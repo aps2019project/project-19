@@ -18,13 +18,13 @@ public class Main {
 //        Socket client = serverSocket.accept();
 
         Controller controller = Controller.getInstance();
-        new Thread(() -> Graphic.main(args, controller.getRequest())).start();
-        try {
-            Thread.sleep(500);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        controller.run();
+        new Thread(() -> Graphic.main(args,controller)).start();
+//        try{
+//            Thread.sleep(500);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        controller.run();
     }
 
     public Controller getController() {

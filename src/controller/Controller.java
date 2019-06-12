@@ -43,7 +43,7 @@ public class Controller {
     public Shop getShop() {
         return shop;
     }
-
+/*
     public void run() {
         //mainLoop:
         do {
@@ -86,7 +86,7 @@ public class Controller {
                     break;
                 ///////////////////////////// SHOP  ///////////////////////////
                 case SEARCH_IN_SHOP:
-                    searchInShop();
+//                    searchInShop();
                     break;
                 case SEARCH_IN_COLLECTION:
                     searchInCollection();
@@ -234,7 +234,7 @@ public class Controller {
             }
         } while (true);
     }
-
+*/
     private void createCustomGame() {
         if (aiDeck == null) {
             errorType = ErrorType.OPPONENT_HERO_NOT_SELECTED;
@@ -336,35 +336,31 @@ public class Controller {
         System.err.println("game started");
     }
 
-    public void createNewAccount() {
+    public boolean createNewAccount(String userName,String password) {
         System.out.println("is creating");
-        if (Account.userNameIsValid(request.getUserName())) {
+        if (Account.userNameIsValid(userName)) {
             errorType = ErrorType.USERNAME_TAKEN;
-            return;
+            return false;
         }
-        view.printEnterPassword();
-        request.setCommand("waiting");
-        request.getNewCommand();
-        Account newAccount = new Account(request.getUserName(), request.getCommand());
+        Account newAccount = new Account(userName, password);
         Account.addAccount(newAccount);
         System.out.println("account created");
+        return true;
     }
 
-    public void login() {
-        if (!Account.userNameIsValid(request.getUserName())) {
+    public boolean login(String userName,String password) {
+        if (!Account.userNameIsValid(userName)) {
             errorType = ErrorType.INVALID_USERNAME;
-            return;
+            return false;
         }
-        view.printEnterPassword();
-        request.setCommand("waiting");
-        request.getNewCommand();
-        if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
+        if (!Account.passwordIsValid(password, userName)) {
             errorType = ErrorType.INVALID_PASSWORD;
-            return;
+            return false;
         }
-        loggedInAccount = Account.getAccounts().get(request.getUserName());
+        loggedInAccount = Account.getAccounts().get(userName);
         menuType = MenuType.MAINMENU;
-        System.out.println("logged into " + request.getUserName());
+        System.out.println("logged into " + userName);
+        return true;
     }
 
     public void showLeaderBoard() {
@@ -590,20 +586,20 @@ public class Controller {
         }
     }
 
-    public void searchInShop() {
-        for (Item item : shop.getItems())
-            if (item.getName().equals(request.getSearchingName())) {
-                view.show("" + item.getItemId());
-                return;
-            }
-        for (Card card : shop.getCards())
-            if (card.getName().equals(request.getSearchingName())) {
-                view.show("" + card.getCardId());
-                return;
-            }
+    public ArrayList searchInShop(String name) {
+        ArrayList<Object> results = new ArrayList<>();
+        for (Card card : shop.getCards()) {
+            if (card.getName().matches(name +"[\\w ]*"))
+                results.add(card);
+        }
+        for (Item item : shop.getItems()) {
+            if (item.getName().matches(name + "[\\w ]*"))
+                results.add(item);
+        }
+        return results;
         //todo:all arraylists must set to hashmap
         //duplicated code with existsInShop in Shop class
-        errorType = ErrorType.NOT_FOUND;
+//        errorType = ErrorType.NOT_FOUND;
     }
 
     public void buyFromShop() {
@@ -1390,5 +1386,9 @@ public class Controller {
 
     public Request getRequest() {
         return request;
+    }
+
+    public ErrorType getErrorType() {
+        return errorType;
     }
 }

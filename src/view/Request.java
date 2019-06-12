@@ -67,11 +67,11 @@ public class Request {
 //            command = scanner.nextLine().trim().toLowerCase();
 //        } while (command.equals(""));
         while (command.equals("waiting")) {
-            try {
-                Thread.sleep(300);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Thread.sleep(300);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }
         command = command.trim();
         System.err.println(command);
