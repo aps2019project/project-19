@@ -3,6 +3,7 @@ package view.Graphic;
 import com.jfoenix.controls.JFXMasonryPane;
 import controller.Controller;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -14,11 +15,16 @@ import model.Item;
 
 import java.util.ArrayList;
 
-public class ShopController extends MenuController{
+public class ShopController extends MenuController {
     private static ShopController controller = new ShopController();
     @FXML
     private JFXMasonryPane pane = new JFXMasonryPane();
-    @FXML private TextField searchBar = new TextField();
+    @FXML
+    private TextField searchBar = new TextField();
+    @FXML
+    private Label errorLabel = new Label();
+    @FXML
+    private Label moneyLabel = new Label();
 
     public static ShopController getController() {
         return controller;
@@ -32,28 +38,26 @@ public class ShopController extends MenuController{
         pane.getChildren().removeIf(node -> node instanceof AnchorPane);
         Controller controller = Controller.getInstance();
         ArrayList<Object> products = new ArrayList<>();
-        if (searchBar.getText().equals("")){
+        if (searchBar.getText().equals("")) {
             System.out.println("empty");
             products.addAll(controller.getShop().getCards());
             products.addAll(controller.getShop().getItems());
-        }
-        else products.addAll(controller.searchInShop(searchBar.getText()));
+        } else products.addAll(controller.searchInShop(searchBar.getText()));
         for (Object product : products) {
             AnchorPane cardView = new AnchorPane();
             Label label = new Label();
             if (product instanceof SoldierCard) {
                 cardView.getStyleClass().add("soldierCard");
                 label.setText(((SoldierCard) product).getName());
-            }
-            else if (product instanceof SpellCard){
+            } else if (product instanceof SpellCard) {
                 cardView.getStyleClass().add("spellCard");
                 label.setText(((SpellCard) product).getName());
-            }
-            else if (product instanceof Item){
+            } else if (product instanceof Item) {
                 cardView.getStyleClass().add("item");
                 label.setText(((Item) product).getName());
             }
             label.getStyleClass().add("labelName");
+            label.setId("nameLabel");
             cardView.getChildren().add(label);
             cardView.setOnMouseEntered(event -> {
                 for (int i = 0; i < 8; i++) {
@@ -72,9 +76,13 @@ public class ShopController extends MenuController{
             label.relocate(10, 120);
             pane.getChildren().add(cardView);
             cardView.setOnMouseClicked(event -> {
-
+                controller.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());
+                if (controller.getErrorType() != null)
+                    errorLabel.setText(controller.getErrorType().getMessage());
+                moneyLabel.setText(controller.getLoggedInAccount().getMoney() + "");
             });
         }
+        moneyLabel.setText(controller.getLoggedInAccount().getMoney() + "");
     }
 
     public void exit() {

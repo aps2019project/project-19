@@ -71,4 +71,8 @@
     -fx-prompt-text-fill: white;
     -fx-text-alignment: center;
 }
+.errorLabel{
+    -fx-font-size: 20px;
+    -fx-text-fill: red;
+}
 

@@ -235,6 +235,11 @@ public class Controller {
         } while (true);
     }
 */
+
+    public Account getLoggedInAccount() {
+        return loggedInAccount;
+    }
+
     private void createCustomGame() {
         if (aiDeck == null) {
             errorType = ErrorType.OPPONENT_HERO_NOT_SELECTED;
@@ -602,15 +607,15 @@ public class Controller {
 //        errorType = ErrorType.NOT_FOUND;
     }
 
-    public void buyFromShop() {
-        if (!shop.existsInShop(request.getProductName()))
+    public void buyFromShop(String name) {
+        if (!shop.existsInShop(name))
             errorType = ErrorType.NOT_FOUND;
-        else if (!shop.priceIsEnough(request.getProductName(), loggedInAccount))
+        else if (!shop.priceIsEnough(name, loggedInAccount))
             errorType = ErrorType.NOT_ENOUGH_MONEY;
-        else if (!shop.validateNumberOfItems(request.getProductName(), loggedInAccount))
+        else if (!shop.validateNumberOfItems(name, loggedInAccount))
             errorType = ErrorType.FULL_ITEMS;
         else {
-            shop.buy(request.getProductName(), loggedInAccount);
+            shop.buy(name, loggedInAccount);
             view.show("Successful purchase");
         }
     }
