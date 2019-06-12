@@ -42,7 +42,7 @@ public class Controller {
     public Shop getShop() {
         return shop;
     }
-
+/*
     public void run() {
         //mainLoop:
         do {
@@ -230,7 +230,7 @@ public class Controller {
             }
         } while (true);
     }
-
+*/
     private void createCustomGame() {
         if (aiDeck == null) {
             errorType = ErrorType.OPPONENT_HERO_NOT_SELECTED;
@@ -332,35 +332,31 @@ public class Controller {
         System.err.println("game started");
     }
 
-    public void createNewAccount() {
+    public boolean createNewAccount(String userName,String password) {
         System.out.println("is creating");
-        if (Account.userNameIsValid(request.getUserName())) {
+        if (Account.userNameIsValid(userName)) {
             errorType = ErrorType.USERNAME_TAKEN;
-            return;
+            return false;
         }
-        view.printEnterPassword();
-        request.setCommand("waiting");
-        request.getNewCommand();
-        Account newAccount = new Account(request.getUserName(), request.getCommand());
+        Account newAccount = new Account(userName, password);
         Account.addAccount(newAccount);
         System.out.println("account created");
+        return true;
     }
 
-    public void login() {
-        if (!Account.userNameIsValid(request.getUserName())) {
+    public boolean login(String userName,String password) {
+        if (!Account.userNameIsValid(userName)) {
             errorType = ErrorType.INVALID_USERNAME;
-            return;
+            return false;
         }
-        view.printEnterPassword();
-        request.setCommand("waiting");
-        request.getNewCommand();
-        if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
+        if (!Account.passwordIsValid(password, userName)) {
             errorType = ErrorType.INVALID_PASSWORD;
-            return;
+            return false;
         }
-        loggedInAccount = Account.getAccounts().get(request.getUserName());
+        loggedInAccount = Account.getAccounts().get(userName);
         menuType = MenuType.MAINMENU;
-        System.out.println("logged into " + request.getUserName());
+        System.out.println("logged into " + userName);
+        return true;
     }
 
     public void showLeaderBoard() {
@@ -1385,5 +1381,9 @@ public class Controller {
 
     public Request getRequest() {
         return request;
+    }
+
+    public ErrorType getErrorType() {
+        return errorType;
     }
 }
