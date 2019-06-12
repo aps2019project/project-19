@@ -55,3 +55,11 @@
     -fx-pref-width: 15px;
     -fx-background-color: #1a3a9b;
 }
+.searchBar {
+    -fx-background-radius: 20px;
+    -fx-background-color: #3d4044;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+    -fx-text-alignment: center;
+}
+

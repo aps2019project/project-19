@@ -82,7 +82,7 @@ public class Controller {
                     break;
                 ///////////////////////////// SHOP  ///////////////////////////
                 case SEARCH_IN_SHOP:
-                    searchInShop();
+//                    searchInShop();
                     break;
                 case SEARCH_IN_COLLECTION:
                     searchInCollection();
@@ -585,20 +585,20 @@ public class Controller {
         }
     }
 
-    public void searchInShop() {
-        for (Item item : shop.getItems())
-            if (item.getName().equals(request.getSearchingName())) {
-                view.show("" + item.getItemId());
-                return;
-            }
-        for (Card card : shop.getCards())
-            if (card.getName().equals(request.getSearchingName())) {
-                view.show("" + card.getCardId());
-                return;
-            }
+    public ArrayList searchInShop(String name) {
+        ArrayList<Object> results = new ArrayList<>();
+        for (Card card : shop.getCards()) {
+            if (card.getName().matches(name +"[\\w ]*"))
+                results.add(card);
+        }
+        for (Item item : shop.getItems()) {
+            if (item.getName().matches(name + "[\\w ]*"))
+                results.add(item);
+        }
+        return results;
         //todo:all arraylists must set to hashmap
         //duplicated code with existsInShop in Shop class
-        errorType = ErrorType.NOT_FOUND;
+//        errorType = ErrorType.NOT_FOUND;
     }
 
     public void buyFromShop() {
