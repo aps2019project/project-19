@@ -33,6 +33,15 @@
 }
 
 .spellCard{
+    -fx-pref-width: 200;
+    -fx-pref-height: 230;
+    -fx-background-image: url("images/spellCard.png");
+    -fx-background-size: cover;
+}
+
+.item{
+    -fx-pref-width: 200;
+    -fx-pref-height: 230;
     -fx-background-image: url("images/spellCard.png");
     -fx-background-size: cover;
 }

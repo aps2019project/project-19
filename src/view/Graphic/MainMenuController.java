@@ -25,6 +25,5 @@ public class MainMenuController extends MenuController implements Initializable{
 
     public void goToShop(){
         changeMenu("shopView.fxml");
-
     }
 }

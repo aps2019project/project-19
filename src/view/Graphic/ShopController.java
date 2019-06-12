@@ -3,17 +3,14 @@ package view.Graphic;
 import com.jfoenix.controls.JFXMasonryPane;
 import controller.Controller;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BackgroundImage;
-import model.Cards.Card;
 import model.Cards.SoldierCard;
+import model.Cards.SpellCard;
+import model.Item;
 
 import java.util.ArrayList;
 
@@ -32,19 +29,30 @@ public class ShopController extends MenuController{
     }
 
     public void createCards() {
+        pane.getChildren().removeIf(node -> node instanceof AnchorPane);
         Controller controller = Controller.getInstance();
         ArrayList<Object> products = new ArrayList<>();
         if (searchBar.getText().equals("")){
+            System.out.println("empty");
             products.addAll(controller.getShop().getCards());
             products.addAll(controller.getShop().getItems());
         }
         else products.addAll(controller.searchInShop(searchBar.getText()));
         for (Object product : products) {
             AnchorPane cardView = new AnchorPane();
-            cardView.getStyleClass().add("soldierCard");
             Label label = new Label();
-            if (product instanceof SoldierCard)
+            if (product instanceof SoldierCard) {
+                cardView.getStyleClass().add("soldierCard");
                 label.setText(((SoldierCard) product).getName());
+            }
+            else if (product instanceof SpellCard){
+                cardView.getStyleClass().add("spellCard");
+                label.setText(((SpellCard) product).getName());
+            }
+            else if (product instanceof Item){
+                cardView.getStyleClass().add("item");
+                label.setText(((Item) product).getName());
+            }
             label.getStyleClass().add("labelName");
             cardView.getChildren().add(label);
             cardView.setOnMouseEntered(event -> {
@@ -63,6 +71,13 @@ public class ShopController extends MenuController{
             });
             label.relocate(10, 120);
             pane.getChildren().add(cardView);
+            cardView.setOnMouseClicked(event -> {
+
+            });
         }
+    }
+
+    public void exit() {
+        changeMenu("MainMenu.fxml");
     }
 }

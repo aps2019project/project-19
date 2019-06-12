@@ -27,7 +27,7 @@ public class MenuController {
     public void changeMenu(String fxmlFile){
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         try {
-            Parent root = (Parent) loader.load();
+            Parent root = loader.load();
             MenuController controller = (MenuController) loader.getController();
             controller.setStage(this.getStage());
             controller.setMainController(this.getMainController());

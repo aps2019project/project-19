@@ -2,13 +2,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="1600.0" prefWidth="1920.0" stylesheets="@Styles.css" styleClass="shopStyle"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="view.Graphic.ShopController">
-    <TextField prefWidth="200" prefHeight="20" stylesheets="@Styles.css" styleClass="searchBar" AnchorPane.topAnchor="20.0" promptText="search" fx:id="searchBar">
+    <TextField prefWidth="200" prefHeight="20" stylesheets="@Styles.css" styleClass="searchBar"
+               AnchorPane.topAnchor="20.0" promptText="search" fx:id="searchBar" onKeyReleased="#createCards"
+               AnchorPane.leftAnchor="860.0">
     </TextField>
+    <ImageView fitHeight="100.0" fitWidth="80.0" onMouseClicked="#exit" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Image url="@images/backButton.png">
+        </Image>
+    </ImageView>
     <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="200.0">
-        <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="pane" stylesheets="@Styles.css" styleClass="shopStyle">
+        <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="pane" stylesheets="@Styles.css"
+                        styleClass="shopStyle">
         </JFXMasonryPane>
     </ScrollPane>
 </AnchorPane>

@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         CardInitializer cardInitializer = CardInitializer.getInstance();
         cardInitializer.createCards();
-        AccountManagement.readAccounts();
+//        AccountManagement.readAccounts();
 //        ServerSocket serverSocket = new ServerSocket(8888);
 //        Socket client = serverSocket.accept();
 
