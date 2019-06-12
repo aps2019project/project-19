@@ -5,7 +5,8 @@
 <AnchorPane prefHeight="1600.0" prefWidth="1920.0" stylesheets="@Styles.css" styleClass="shopStyle"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="view.Graphic.ShopController">
-    <JFXMasonryPane prefHeight="1600.0" prefWidth="1920.0" stylesheets="@Styles.css" styleClass="shopStyle"
-                    fx:id="pane">
-    </JFXMasonryPane>
+    <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="200.0">
+        <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="pane" stylesheets="@Styles.css" styleClass="shopStyle">
+        </JFXMasonryPane>
+    </ScrollPane>
 </AnchorPane>

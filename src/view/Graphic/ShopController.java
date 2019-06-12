@@ -24,13 +24,17 @@ public class ShopController {
         Controller controller = Controller.getInstance();
         System.out.println(controller.getShop().getCards().size());
         for (Card card : controller.getShop().getCards()) {
-            AnchorPane anchorPane = new AnchorPane();
-            anchorPane.getStyleClass().add("soldierCard");
+            AnchorPane cardView = new AnchorPane();
+            cardView.getStyleClass().add("soldierCard");
             Label label = new Label();
             label.setText(card.getName());
             label.getStyleClass().add("labelName");
-            anchorPane.getChildren().add(label);
-            pane.getChildren().add(anchorPane);
+            cardView.getChildren().add(label);
+            cardView.setOnMouseEntered(event -> {
+
+            });
+            label.relocate(10,120);
+            pane.getChildren().add(cardView);
         }
     }
 }

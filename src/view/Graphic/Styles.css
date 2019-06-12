@@ -38,11 +38,11 @@
 }
 
 .labelName{
-    -fx-pref-width: 1000;
-    -fx-pref-height: 300;
-    -fx-text-alignment: center;
-    -fx-font-size: 2px;
+    -fx-pref-width: 200;
+    -fx-pref-height: 30;
+    -fx-font-size: 17px;
     -fx-text-fill: white;
+    -fx-alignment: center;
 }
 .jfx-tab-pane .tab-header-background {
     -fx-background-color: rgb(41,41,42);
@@ -50,4 +50,8 @@
 .jfx-tab-pane .tab-selected-line {
     -fx-stroke: rgb(241,111,32);
     -fx-stroke-width: 56pt;
+}
+.scroll-bar:vertical{
+    -fx-pref-width: 15px;
+    -fx-background-color: #1a3a9b;
 }
