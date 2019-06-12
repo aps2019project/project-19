@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import model.Cards.Card;
 
-public class ShopController {
+public class ShopController extends MenuController{
     private static ShopController controller = new ShopController();
     @FXML
     private JFXMasonryPane pane = new JFXMasonryPane();
