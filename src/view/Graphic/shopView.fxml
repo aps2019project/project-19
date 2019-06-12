@@ -1,6 +1,5 @@
 <?import com.jfoenix.controls.JFXMasonryPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <AnchorPane prefHeight="1600.0" prefWidth="1920.0" stylesheets="@Styles.css" styleClass="shopStyle"

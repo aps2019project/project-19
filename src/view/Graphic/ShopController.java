@@ -13,6 +13,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import model.Cards.Card;
+import model.Cards.SoldierCard;
 
 import java.util.ArrayList;
 
@@ -32,12 +33,18 @@ public class ShopController {
 
     public void createCards() {
         Controller controller = Controller.getInstance();
-        System.out.println(controller.getShop().getCards().size());
-        for (Card card : controller.getShop().getCards()) {
+        ArrayList<Object> products = new ArrayList<>();
+        if (searchBar.getText().equals("")){
+            products.addAll(controller.getShop().getCards());
+            products.addAll(controller.getShop().getItems());
+        }
+        else products.addAll(controller.searchInShop(searchBar.getText()));
+        for (Object product : products) {
             AnchorPane cardView = new AnchorPane();
             cardView.getStyleClass().add("soldierCard");
             Label label = new Label();
-            label.setText(card.getName());
+            if (product instanceof SoldierCard)
+                label.setText(((SoldierCard) product).getName());
             label.getStyleClass().add("labelName");
             cardView.getChildren().add(label);
             cardView.setOnMouseEntered(event -> {
