@@ -68,15 +68,15 @@ public class CardInitializer {
         try {
             if (card instanceof Minion) {
                 minionCards.add((Minion) card);
-                fileWriter = new FileWriter("data/minions.json");
+                fileWriter = new FileWriter("src/data/minions.json");
                 fileWriter.write(gson.toJson(minionCards));
             } else if (card instanceof Hero) {
                 heroes.add((Hero) card);
-                fileWriter = new FileWriter("data/heros.json");
+                fileWriter = new FileWriter("src/data/heros.json");
                 fileWriter.write(gson.toJson(heroes));
             } else if (card instanceof SpellCard) {
                 spellCards.add((SpellCard) card);
-                fileWriter = new FileWriter("data/spells.json");
+                fileWriter = new FileWriter("src/data/spells.json");
                 fileWriter.write(gson.toJson(spellCards));
             }
         } catch (IOException e) {
