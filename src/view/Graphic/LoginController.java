@@ -16,9 +16,7 @@ import view.Request;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
-    private Stage stage;
-    private Controller mainController;
+public class LoginController extends MenuController implements Initializable {
     @FXML
     private Label signInMessage;
     @FXML
@@ -40,38 +38,33 @@ public class LoginController implements Initializable {
     public void signUp() {
         if (signInUserName.getText().equals("") || signInPassword.getText().equals(""))
             return;
-        if (mainController.createNewAccount(signInUserName.getText(), signInPassword.getText()))
+        if (getMainController().createNewAccount(signInUserName.getText(), signInPassword.getText()))
             signInMessage.setText("Account Created!");
         else
-            signInMessage.setText(mainController.getErrorType().getMessage());
+            signInMessage.setText(getMainController().getErrorType().getMessage());
     }
 
     public void logIn() {
         if (logInUserName.getText().equals("") || logInPassword.getText().equals(""))
             return;
-        if (mainController.login(logInUserName.getText(), logInPassword.getText())) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
-            try {
-                Parent root = (Parent) loader.load();
-
-            MainMenuController controller = (MainMenuController) loader.getController();
-            controller.setStage(stage);
-            controller.setMainController(mainController);
-            stage.getScene().setRoot(root);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        if (getMainController().login(logInUserName.getText(), logInPassword.getText())) {
+            changeMenu("MainMenu.fxml");
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+//            try {
+//                Parent root = (Parent) loader.load();
+//
+//            MainMenuController controller = (MainMenuController) loader.getController();
+//            controller.setStage(stage);
+//            controller.setMainController(mainController);
+//            stage.getScene().setRoot(root);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         } else
-            logInMessage.setText(mainController.getErrorType().getMessage());
+            logInMessage.setText(getMainController().getErrorType().getMessage());
 
 
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
-    public void setMainController(Controller controller) {
-        this.mainController = controller;
-    }
 }

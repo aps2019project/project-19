@@ -26,6 +26,7 @@ public class Controller {
         this.inputStream = inputStream;
         request = new Request(inputStream);
     }
+
     private InputStream inputStream;
     private Shop shop = Shop.getInstance();
     private MenuType menuType = MenuType.ACCOUNT;
@@ -46,7 +47,7 @@ public class Controller {
     public void run() {
         //mainLoop:
         do {
-            System.out.println("Menu: " + menuType+" ");
+            System.out.println("Menu: " + menuType + " ");
             request.resetProperties();
             if (ai != null && !game.isTurnOfPlayerOne()) {
                 request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
@@ -79,6 +80,9 @@ public class Controller {
                     break;
                 case LOGOUT:
                     logOut();
+                    break;
+                case SAVE:
+                    save();
                     break;
                 ///////////////////////////// SHOP  ///////////////////////////
                 case SEARCH_IN_SHOP:
@@ -364,6 +368,7 @@ public class Controller {
     }
 
     public void save() {
+        AccountManagement.saveAccount(loggedInAccount);
     }
 
     public void logOut() {

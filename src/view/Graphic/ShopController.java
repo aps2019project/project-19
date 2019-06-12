@@ -17,7 +17,7 @@ import model.Cards.SoldierCard;
 
 import java.util.ArrayList;
 
-public class ShopController {
+public class ShopController extends MenuController{
     private static ShopController controller = new ShopController();
     @FXML
     private JFXMasonryPane pane = new JFXMasonryPane();

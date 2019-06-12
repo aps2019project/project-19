@@ -25,7 +25,7 @@
         <ImageView fitHeight="75" fitWidth="75">
             <Image url="@images/settings.png" />
         </ImageView>
-        <ImageView fitHeight="75" fitWidth="75">
+        <ImageView fitHeight="75" fitWidth="75" fx:id="shop" onMouseClicked="#goToShop">
             <Image url="@images/shop.png">
             </Image>
         </ImageView>
