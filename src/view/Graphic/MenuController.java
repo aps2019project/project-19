@@ -45,8 +45,9 @@ public class MenuController {
             if (controller instanceof ShopController) {
                 ((ShopController) controller).putCardsInShop();
                 ShopController.setController(((ShopController) controller));
-            } else if (controller instanceof CollectionController) {
+            }if (controller instanceof CollectionController) {
                 ((CollectionController) controller).putCardsInCollection();
+                CollectionController.setController(((CollectionController) controller));
             }
             this.getStage().getScene().setRoot(root);
         } catch (Exception e) {
