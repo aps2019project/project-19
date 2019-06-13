@@ -3,7 +3,6 @@ package view.Graphic;
 import com.jfoenix.controls.JFXMasonryPane;
 import controller.Controller;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -45,20 +44,20 @@ public class ShopController extends MenuController {
         } else products.addAll(controller.searchInShop(searchBar.getText()));
         for (Object product : products) {
             AnchorPane cardView = new AnchorPane();
-            Label label = new Label();
+            Label nameLabel = new Label();
             if (product instanceof SoldierCard) {
                 cardView.getStyleClass().add("soldierCard");
-                label.setText(((SoldierCard) product).getName());
+                nameLabel.setText(((SoldierCard) product).getName());
             } else if (product instanceof SpellCard) {
                 cardView.getStyleClass().add("spellCard");
-                label.setText(((SpellCard) product).getName());
+                nameLabel.setText(((SpellCard) product).getName());
             } else if (product instanceof Item) {
                 cardView.getStyleClass().add("item");
-                label.setText(((Item) product).getName());
+                nameLabel.setText(((Item) product).getName());
             }
-            label.getStyleClass().add("labelName");
-            label.setId("nameLabel");
-            cardView.getChildren().add(label);
+            nameLabel.getStyleClass().add("labelName");
+            nameLabel.setId("nameLabel");
+            cardView.getChildren().add(nameLabel);
             cardView.setOnMouseEntered(event -> {
                 for (int i = 0; i < 8; i++) {
                     Image image = new Image("view/Graphic/images/cardShadow.png");
@@ -73,7 +72,7 @@ public class ShopController extends MenuController {
             cardView.setOnMouseExited(event -> {
                 cardView.getChildren().removeIf(node -> node instanceof ImageView);
             });
-            label.relocate(10, 120);
+            nameLabel.relocate(10, 120);
             pane.getChildren().add(cardView);
             cardView.setOnMouseClicked(event -> {
                 controller.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());

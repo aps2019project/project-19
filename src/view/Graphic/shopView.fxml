@@ -12,20 +12,23 @@
                AnchorPane.topAnchor="20.0" promptText="search" fx:id="searchBar" onKeyReleased="#createCards"
                AnchorPane.leftAnchor="860.0" alignment="TOP_CENTER">
     </TextField>
-    <Label prefWidth="400" prefHeight="20" stylesheets="@Styles.css" styleClass="errorLabel" AnchorPane.topAnchor="80.0"
+    <Label prefWidth="400" prefHeight="20" styleClass="errorLabel" AnchorPane.topAnchor="80.0"
            AnchorPane.rightAnchor="450.0" fx:id="errorLabel">
     </Label>
     <ImageView fitHeight="100.0" fitWidth="80.0" onMouseClicked="#exit" AnchorPane.leftAnchor="0.0"
                AnchorPane.topAnchor="0.0">
-        <Image url="@images/spellCard.png">
+        <Image url="@images/backButton.png">
         </Image>
     </ImageView>
-    <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="200.0">
-        <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="pane" stylesheets="@Styles.css"
-                        styleClass="shopStyle">
+    <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="200.0" style="-fx-background-color: transparent">
+        <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="pane" style="-fx-background-color: transparent">
         </JFXMasonryPane>
     </ScrollPane>
-    <Label prefWidth="200.0" prefHeight="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.bottomAnchor="20.0"
-           textFill="yellow" fx:id="moneyLabel" textAlignment="RIGHT">
+    <Label prefWidth="250.0" prefHeight="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.bottomAnchor="20.0"
+            styleClass="moneyLabel" fx:id="moneyLabel" alignment="CENTER">
     </Label>
+    <ImageView fitHeight="60" fitWidth="60" AnchorPane.leftAnchor="20.0" AnchorPane.bottomAnchor="20.0">
+        <Image url="@images/money.png">
+        </Image>
+    </ImageView>
 </AnchorPane>

@@ -68,12 +68,12 @@ public class Shop {
         //todo: duplicate code :/
         for (Item item : items) {
             if (item.getName().equals(productName))
-                if (item.getPrice() < account.getMoney())
+                if (item.getPrice() <= account.getMoney())
                     return true;
         }
         for (Card card : cards) {
             if (card.getName().equals(productName))
-                if (card.getPrice() < account.getMoney())
+                if (card.getPrice() <= account.getMoney())
                     return true;
         }
         return false;

@@ -19,7 +19,6 @@
 .jfx-tab-pane .headers-region {
     -fx-background-color: rgb(41,41,42);
 }
-
 .shopStyle{
     -fx-background-image: url("images/background.jpg");
     -fx-background-size: cover;
@@ -42,7 +41,7 @@
 .item{
     -fx-pref-width: 200;
     -fx-pref-height: 230;
-    -fx-background-image: url("images/spellCard.png");
+    -fx-background-image: url("images/item.png");
     -fx-background-size: cover;
 }
 
@@ -74,5 +73,16 @@
 .errorLabel{
     -fx-font-size: 20px;
     -fx-text-fill: red;
+}
+.moneyLabel{
+    -fx-font-size: 20px;
+   -fx-text-fill: yellow;
+    -fx-text-alignment: right;
+    -fx-alignment: right;
+    -fx-background-color: #3d4044;
+    -fx-background-radius: 20px;
+}
+.scroll-pane .viewport{
+    -fx-background-color: transparent;
 }
 
