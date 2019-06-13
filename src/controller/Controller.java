@@ -134,6 +134,12 @@ public class Controller {
                     removeFromDeck();
                     //todo: test for items
                     break;
+                case EXPORT_DECK:
+                    exportDeck();
+                    break;
+                case IMPORT_DECK:
+                    importDeck();
+                    break;
                 ///////////////////////////////// CREATING GAME ///////////////////////
                 case SHOW_ALL_PLAYERS:
                     showAllPlayer();
@@ -235,6 +241,32 @@ public class Controller {
         } while (true);
     }
 */
+    private void exportDeck(){
+        if(!request.getExport().deckIsValid()) {
+            errorType = ErrorType.INVALID_DECK;
+            return;
+        }
+        boolean isDone = DeckManagement.exportDeck(request.getExport(), request.getDeckFileName());
+        if (isDone){
+            System.err.println("deck exported successfully");
+        } else{
+            errorType = ErrorType.DUPLICATE_FILE_DECK_NAME;
+        }
+    }
+
+    private void importDeck(){
+        Deck deck = DeckManagement.importDeck(request.getDeckFileName());
+        if (deck == null){
+            errorType = ErrorType.INVALID_DECK_FILE_NAME;
+            return;
+        } else{
+            //todo check if player has deck cards
+            if (!loggedInAccount.getCollection().getDecks().containsKey(deck.getName()))
+                loggedInAccount.getCollection().getDecks().put(deck.getName(), deck);
+
+        }
+    }
+
 
     public Account getLoggedInAccount() {
         return loggedInAccount;

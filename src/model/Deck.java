@@ -38,9 +38,7 @@ public class Deck {
     }
 
     public boolean deckIsValid() {
-        if (cards.size() == 21 && deckHasHero())
-            return true;
-        return false;
+        return cards.size() == 21 && deckHasHero();
     }
 
     public HashMap<Integer, Card> getCards() {
