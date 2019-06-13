@@ -13,6 +13,8 @@ public class ShopController extends MenuController {
     @FXML
     private JFXMasonryPane shopPane = new JFXMasonryPane();
     @FXML
+    private JFXMasonryPane collectionPane = new JFXMasonryPane();
+    @FXML
     private TextField searchBar = new TextField();
     @FXML
     private Label errorLabel = new Label();
@@ -35,16 +37,30 @@ public class ShopController extends MenuController {
         return moneyLabel;
     }
 
-    public void putCardsInShop() {
+    public void putCards() {
         shopPane.getChildren().removeIf(node -> node instanceof AnchorPane);
+        collectionPane.getChildren().removeIf(node -> node instanceof AnchorPane);
         Controller controller = Controller.getInstance();
-        ArrayList<Object> products = new ArrayList<>();
+        ArrayList<Object> shopProducts = new ArrayList<>();
+        ArrayList<Object> collectionProducts = new ArrayList<>();
         if (searchBar.getText().equals("")) {
-            products.addAll(controller.getShop().getCards());
-            products.addAll(controller.getShop().getItems());
-        } else products.addAll(controller.searchInShop(searchBar.getText()));
-        createCards(shopPane, products);
+            shopProducts.addAll(controller.getShop().getCards());
+            shopProducts.addAll(controller.getShop().getItems());
+            collectionProducts.addAll(controller.getLoggedInAccount().getCollection().getCards());
+            collectionProducts.addAll(controller.getLoggedInAccount().getCollection().getItems());
+        }
+        else {
+            shopProducts.addAll(controller.searchInShop(searchBar.getText()));
+            collectionProducts.addAll(controller.searchInCollection(searchBar.getText()));
+        }
+        createCards(shopPane, shopProducts);
+        createCards(collectionPane, collectionProducts);
         moneyLabel.setText(controller.getLoggedInAccount().getMoney() + "");
+    }
+
+    public void changeTab() {
+        putCards();
+        searchBar.setText("");
     }
 
     public void exit() {

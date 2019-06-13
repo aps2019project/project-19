@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Cards.Hero;
+import model.Cards.Minion;
 import model.Cards.SoldierCard;
 import model.Cards.SpellCard;
 import model.Item;
@@ -43,9 +45,9 @@ public class MenuController {
             controller.setStage(this.getStage());
             controller.setMainController(this.getMainController());
             if (controller instanceof ShopController) {
-                ((ShopController) controller).putCardsInShop();
                 ShopController.setController(((ShopController) controller));
-            }if (controller instanceof CollectionController) {
+            }
+            if (controller instanceof CollectionController) {
                 ((CollectionController) controller).putCardsInCollection();
                 CollectionController.setController(((CollectionController) controller));
             }
@@ -59,20 +61,64 @@ public class MenuController {
         pane.getChildren().removeIf(node -> node instanceof AnchorPane);
         for (Object product : products) {
             AnchorPane cardView = new AnchorPane();
+            Label kind = new Label();
             Label nameLabel = new Label();
+            Label mana = new Label();
+            kind.getStyleClass().add("kindLabel");
+            mana.getStyleClass().add("manaLabel");
+            mana.setId("manaLabel");
+            ImageView manaView = new ImageView();
+            mana.setId("mana");
+            manaView.setImage(new Image("/view/Graphic/images/mana.png"));
             if (product instanceof SoldierCard) {
-                cardView.getStyleClass().add("soldierCard");
+                if (product instanceof Hero)
+                    kind.setText("HERO");
+                if (product instanceof Minion)
+                    kind.setText("MINION");
                 nameLabel.setText(((SoldierCard) product).getName());
+                Label aPLabel = new Label();
+                Label hPLabel = new Label();
+                aPLabel.getStyleClass().add("aPLabel");
+                hPLabel.getStyleClass().add("hPLabel");
+                aPLabel.setText(((SoldierCard) product).getAp() + "");
+                hPLabel.setText(((SoldierCard) product).getHp() + "");
+                mana.setText(((SoldierCard) product).getMana() + "");
+                cardView.getStyleClass().add("soldierCard");
+                cardView.getChildren().add(aPLabel);
+                cardView.getChildren().add(hPLabel);
+                aPLabel.relocate(39, 165);
+                hPLabel.relocate(159, 165);
             } else if (product instanceof SpellCard) {
                 cardView.getStyleClass().add("spellCard");
                 nameLabel.setText(((SpellCard) product).getName());
+                mana.setText(((SpellCard) product).getMana() + "");
+                kind.setText("SPELL CARD");
             } else if (product instanceof Item) {
                 cardView.getStyleClass().add("item");
                 nameLabel.setText(((Item) product).getName());
+                kind.setText("ITEM");
             }
             nameLabel.getStyleClass().add("labelName");
             nameLabel.setId("nameLabel");
             cardView.getChildren().add(nameLabel);
+            cardView.getChildren().add(kind);
+            if (!(product instanceof Item)) {
+                cardView.getChildren().add(manaView);
+                cardView.getChildren().add(mana);
+                mana.relocate(8, 8);
+                manaView.relocate(-7, -7);
+            }
+            kind.relocate(14, 140);
+            nameLabel.relocate(10, 120);
+            pane.getChildren().add(cardView);
+            cardView.setOnMouseExited(event -> {
+                cardView.getChildren().removeIf(node -> node instanceof ImageView);
+                if (!(product instanceof Item)) {
+                    cardView.getChildren().add(manaView);
+                    cardView.getChildren().remove(mana);
+                    cardView.getChildren().add(mana);
+                }
+            });
             cardView.setOnMouseEntered(event -> {
                 for (int i = 0; i < 8; i++) {
                     Image image = new Image("view/Graphic/images/cardShadow.png");
@@ -84,19 +130,16 @@ public class MenuController {
                     cardView.getChildren().add(imageView);
                 }
             });
-            cardView.setOnMouseExited(event -> cardView.getChildren().removeIf(node -> node instanceof ImageView));
-            nameLabel.relocate(10, 120);
-            pane.getChildren().add(cardView);
-            if (pane.getId().equals("shopPane"))
-                cardView.setOnMouseClicked(event -> {
+            cardView.setOnMouseClicked(event -> {
+                if (pane.getId().equals("shopPane"))
                     mainController.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());
-                    ShopController.getController().getErrorLabel().setText("");
-                    if (mainController.getErrorType() != null) {
-                        ShopController.getController().getErrorLabel().setText(mainController.getErrorType().getMessage());
-                        mainController.setErrorType(null);
-                    }
-                    ShopController.getController().getMoneyLabel().setText(mainController.getLoggedInAccount().getMoney() + "");
-                });
+                ShopController.getController().getErrorLabel().setText("");
+                if (mainController.getErrorType() != null) {
+                    ShopController.getController().getErrorLabel().setText(mainController.getErrorType().getMessage());
+                    mainController.setErrorType(null);
+                }
+                ShopController.getController().getMoneyLabel().setText(mainController.getLoggedInAccount().getMoney() + "");
+            });
         }
     }
 }

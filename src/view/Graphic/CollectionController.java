@@ -47,4 +47,9 @@ public class CollectionController extends MenuController{
         Image image = new Image("view/Graphic/images/rightButtonGlow.png");
         newDeckButton.setImage(image);
     }
+
+    public void removeGlow() {
+        Image image = new Image("view/Graphic/images/rightButton.png");
+        newDeckButton.setImage(image);
+    }
 }
