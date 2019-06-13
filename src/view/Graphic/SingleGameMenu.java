@@ -1,7 +1,6 @@
 package view.Graphic;
 
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,7 +16,7 @@ public class SingleGameMenu extends MenuController implements Initializable {
     }
 
     public void goToCustomMode() {
-
+        changeMenu("singleGameCustomMode.fxml");
     }
 
     public void exit() {

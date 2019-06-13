@@ -17,8 +17,8 @@
         </Image>
     </ImageView>
     <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400">
-        <Label style="-fx-text-fill: white" text="Story mode" onMouseClicked="#goToStoryMode"/>
-        <Label style="-fx-text-fill: white" text="Custom mode" onMouseClicked="#goToCustomMode"/>
+        <Label style="-fx-text-fill: white" text="Story mode" onMouseClicked="#goToStoryMode" onMouseEntered="#onMenuItem" onMouseExited="#outOfMenuItem"/>
+        <Label style="-fx-text-fill: white" text="Custom mode" onMouseClicked="#goToCustomMode" onMouseEntered="#onMenuItem" onMouseExited="#outOfMenuItem"/>
     </VBox>
 
 </AnchorPane>

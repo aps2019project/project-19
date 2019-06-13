@@ -37,7 +37,7 @@ public class ShopController extends MenuController {
 
     public void putCardsInShop() {
         shopPane.getChildren().removeIf(node -> node instanceof AnchorPane);
-        Controller controller = Controller.getInstance();
+        Controller controller = getMainController();
         ArrayList<Object> products = new ArrayList<>();
         if (searchBar.getText().equals("")) {
             products.addAll(controller.getShop().getCards());
