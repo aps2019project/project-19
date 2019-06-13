@@ -77,8 +77,6 @@
 .moneyLabel{
     -fx-font-size: 20px;
    -fx-text-fill: yellow;
-    -fx-text-alignment: right;
-    -fx-alignment: right;
     -fx-background-color: #3d4044;
     -fx-background-radius: 20px;
 }

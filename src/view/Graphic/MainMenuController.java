@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainMenuController extends MenuController implements Initializable{
@@ -25,5 +26,9 @@ public class MainMenuController extends MenuController implements Initializable{
 
     public void goToShop(){
         changeMenu("shopView.fxml");
+    }
+
+    public void goToCollection() {
+        changeMenu("collectionView.fxml");
     }
 }

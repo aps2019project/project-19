@@ -14,7 +14,7 @@
         </Label>
         <Label style="-fx-text-fill: white" text="WATCH">
         </Label>
-        <Label style="-fx-text-fill: white" text="COLLECTION">
+        <Label style="-fx-text-fill: white" text="COLLECTION" onMouseClicked="#goToCollection">
         </Label>
         <Label style="-fx-text-fill: white" text="MYSTERY CRATES">
         </Label>
