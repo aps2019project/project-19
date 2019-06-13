@@ -3,12 +3,16 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import model.Buff.Buff;
+import model.Cards.Card;
+import model.Cards.SoldierCard;
 import model.Deck;
 
 import java.io.*;
 
 public class DeckManagement {
-    private static Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new BuffAdapter())
+    private static Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
+            .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
+            .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
             .setPrettyPrinting().create();
     private static File file = new File("src/data/Decks");
 

@@ -18,7 +18,9 @@ public class CardInitializer {
     private static ArrayList<Hero> heroes = new ArrayList<>();
     private static ArrayList<Item> items = new ArrayList<>();
     private static Shop shop = Shop.getInstance();
-    private static Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new BuffAdapter())
+    private static Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
+            .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
+            .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
             .setPrettyPrinting().create();
 
     private final static CardInitializer CARD_INITIALIZER = new CardInitializer();
@@ -31,7 +33,7 @@ public class CardInitializer {
     }
 
     public void createCards() throws FileNotFoundException {
-        Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new BuffAdapter()).create();
+        Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters()).create();
         URL url = CardInitializer.class.getResource("../data/minions.json");
         Reader reader = new FileReader("src/data/minions.json");
         minionCards = gson.fromJson(reader, new TypeToken<List<Minion>>() {
