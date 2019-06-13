@@ -21,6 +21,7 @@ project.iml
 .idea/encodings.xml
 .idea/misc.xml
 .idea/modules.xml
+.idea/cssdialects.xml
 
 # Gradle
 .idea/**/gradle.xml

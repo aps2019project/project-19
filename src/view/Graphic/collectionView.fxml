@@ -20,8 +20,10 @@
         <Image url="@images/backButton.png">
         </Image>
     </ImageView>
-    <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="200.0" style="-fx-background-color: transparent">
-        <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="collectionPane" style="-fx-background-color: transparent">
+    <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
+                AnchorPane.rightAnchor="200.0" style="-fx-background-color: transparent">
+        <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="collectionPane"
+                        style="-fx-background-color: transparent">
         </JFXMasonryPane>
     </ScrollPane>
 </AnchorPane>
