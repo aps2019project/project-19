@@ -17,7 +17,7 @@ public class AccountManagement {
         Reader reader;
         for (int i = 0; i < accounts.length; i++) {
             try {
-                reader = new FileReader(accounts[i]);
+                reader = new FileReader("src/data/Accounts/"+accounts[i]);
                 Account account = gson.fromJson(reader, Account.class);
                 Account.getAccounts().put(account.getUserName(), account);
                 reader.close();

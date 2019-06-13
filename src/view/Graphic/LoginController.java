@@ -49,11 +49,8 @@ public class LoginController extends MenuController implements Initializable {
             return;
         if (getMainController().login(logInUserName.getText(), logInPassword.getText())) {
             changeMenu("MainMenu.fxml");
-
         } else
             logInMessage.setText(getMainController().getErrorType().getMessage());
-
-
     }
     public void exitGame(){
         System.exit(0);

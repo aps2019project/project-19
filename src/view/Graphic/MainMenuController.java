@@ -1,5 +1,6 @@
 package view.Graphic;
 
+import controller.AccountManagement;
 import controller.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,5 +42,9 @@ public class MainMenuController extends MenuController implements Initializable{
 
     public void goToStartNewGame() {
         changeMenu("startNewGame.fxml");
+    }
+
+    public void saveAccount() {
+        getMainController().save();
     }
 }
