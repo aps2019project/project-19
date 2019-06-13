@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.*?>
+<AnchorPane prefHeight="1600.0" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="view.Graphic.SingleGameStoryMode">
+    <ImageView fitHeight="100.0" fitWidth="80.0" onMouseClicked="#exit" AnchorPane.leftAnchor="0.0"
+               AnchorPane.topAnchor="0.0">
+        <Image url="@images/backButton.png">
+        </Image>
+    </ImageView>
+    <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400">
+        <Label style="-fx-text-fill: white" text="Level 1" onMouseClicked="#startLevel1"/>
+        <Label style="-fx-text-fill: white" text="Level 2" onMouseClicked="#startLevel2"/>
+        <Label style="-fx-text-fill: white" text="Level 3" onMouseClicked="#startLevel3"/>
+    </VBox>
+</AnchorPane>

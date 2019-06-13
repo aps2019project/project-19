@@ -10,7 +10,6 @@ public abstract class Card {
     private int price;
     private int mana;
     private String description;
-
     public Card() {
     }
 
