@@ -3,8 +3,7 @@
     -fx-background-size: cover;
 }
 .battleMenu{
-    -fx-background-image: url("images/battleBackground.jpg");
-    -fx-background-size: cover;
+    -fx-background-image: url("images/battleBackground2.jpg");
 }
 .menuText{
     -fx-font-family: Lato-Light;
