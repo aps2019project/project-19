@@ -31,7 +31,7 @@
         <JFXMasonryPane prefWidth="480.0" prefHeight="1200.0" style="-fx-background-color: black">
         </JFXMasonryPane>
     </ScrollPane>
-    <ImageView fitWidth="250.0" fitHeight="80.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="195git .0">
+    <ImageView fitWidth="250.0" fitHeight="80.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="195.0">
         <Image url="@images/rightButton.png">
         </Image>
     </ImageView>
