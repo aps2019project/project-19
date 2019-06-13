@@ -43,204 +43,209 @@ public class Controller {
     public Shop getShop() {
         return shop;
     }
-/*
-    public void run() {
-        //mainLoop:
-        do {
-            System.out.println("Menu: " + menuType + " ");
-            request.resetProperties();
-            if (ai != null && !game.isTurnOfPlayerOne()) {
-                request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
-                System.err.println("ai requested: " + request.getCommand());
-            } else request.getNewCommand();
-            request.setRequestType(menuType);
-            request.parseCommand();
-            if (game != null) {
-                if (game.isTurnOfPlayerOne()) {
-                    activePlayer = game.getPlayer1();
-                    deactivePlayer = game.getPlayer2();
-                } else {
-                    activePlayer = game.getPlayer2();
-                    deactivePlayer = game.getPlayer1();
-                }
-            }
-            switch (request.getRequestType()) {
-                case ERROR:
-                    errorType = ErrorType.INVALID_COMMAND;
-                    break;
-                ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
-                case SHOW_LEADER_BOARD:
-                    showLeaderBoard();
-                    break;
-                case CREATE_ACCOUNT:
-                    createNewAccount();
-                    break;
-                case LOGIN:
-                    login();
-                    break;
-                case LOGOUT:
-                    logOut();
-                    break;
-                case SAVE:
-                    save();
-                    break;
-                ///////////////////////////// SHOP  ///////////////////////////
-                case SEARCH_IN_SHOP:
-//                    searchInShop();
-                    break;
-                case SEARCH_IN_COLLECTION:
-                    searchInCollection();
-                    break;
-                case BUY_FROM_SHOP:
-                    buyFromShop();
-                    break;
-                case SELL_TO_SHOP:
-                    sellToShop();
-                    break;
-                case SHOW_SHOP:
-                    showShop();
-                    break;
-                //////////////////////////// COLLECTION /////////////////////////
-                case SHOW_COLLECTION_ITEMS:
-                    showCollectionItems();
-                    break;
-                case SAVE_COLLECTION:
-                    saveCollection();
-                    // todo: saveCollection
-                    break;
-                case CREATE_DECK:
-                    createDeck();
-                    break;
-                case DELETE_DECK:
-                    deleteDeck();
-                    break;
-                case SHOW_DECK:
-                    showDeck();
-                    break;
-                case SHOW_ALL_DECKS:
-                    showAllDecks();
-                    break;
-                case ADD_TO_DECK:
-                    addToDeck();
-                    // todo: test for items
-                    break;
-                case VALIDATE_DECK:
-                    validateDeck();
-                    break;
-                case SELECT_MAIN_DECK:
-                    selectMainDeck();
-                    break;
-                case REMOVE_FROM_DECK:
-                    removeFromDeck();
-                    //todo: test for items
-                    break;
-                case EXPORT_DECK:
-                    exportDeck();
-                    break;
-                case IMPORT_DECK:
-                    importDeck();
-                    break;
-                ///////////////////////////////// CREATING GAME ///////////////////////
-                case SHOW_ALL_PLAYERS:
-                    showAllPlayer();
-                    break;
-                case SELECT_OPPONENT_USER:
-                    selectOpponent();
-                    break;
-                case SELECT_MULTI_PLAYER_MODE:
-                    selectMultiPlayerMode();
-                    // TODO: 2019-04- test
-                    break;
-                case SELECT_STORY_LEVEL:
-                    selectStoryLevel();
-                    break;
-                case CHOOSE_HERO:
-                    chooseHero();
-                    break;
-                case SELECT_CUSTOM_GAME_GAMEMODE:
-                    createCustomGame();
-                    break;
-                ///////////////////////////////// BATTLE  ////////////////////////
-                case INSERT_CARD:
-                    insertCard();
-                    break;
-                case SHOW_GAME_INFO:
-                    showGameInfo();
-                    break;
-                case SHOW_MY_MINIONS:
-                    showMinions();
-                    break;
-                case SHOW_OPPONENT_MINIONS:
-                    if (game.isTurnOfPlayerOne())
-                        activePlayer = game.getPlayer2();
-                    else activePlayer = game.getPlayer1();
-                    showMinions();
-                    break;
-                case SHOW_CARD_INFO_IN_BATTLE:
-                    showCardInfoInBattle();
-                    break;
-                case SELECT_CARD_OR_COLLECTABLE:
-                    selectCardOrItem(activePlayer);
-                    break;
-                case MOVE_CARD:
-                    moveCard();
-                    break;
-                case ATTACK:
-                    attack();
-                    break;
-                case COMBO_ATTACK:
-                    comboAttack();
-                    break;
-                case SHOW_HAND:
-                    showHand();
-                    break;
-                case END_TURN:
-                    endTurn();
-                    break;
-                case SHOW_NEXT_CARD:
-                    showNextCard();
-                    break;
-                case SHOW_COLLECATBLE_INFO:
-                    showCollectableInfo();
-                    break;
-                case USE_COLLECTABLE:
-                    useCollectable();
-                    break;
-                case SHOW_GATHERED_COLLECTABLES:
-                    //todo what to do????
-                    showGatheredCollectables();
-                    break;
-                case SHOW_CARD_INFO_IN_GRAVEYARD:
-                    showCardInfoInGraveYard();
-                    break;
-                case SHOW_All_CARDS_IN_GRAVEYARD:
-                    showAllCardsInGraveYard();
-                    break;
-                case USE_SPECIAL_POWER:
-                    useSpecialPower();
-                    break;
-                case END_GAME:
-                    endGame();
-                    break;
-                /////////////////////////////////            //////////////////////
-                case EXIT_MENU:
-                    exitMenu();
-                    break;
-                case ENTER_MENU:
-                    enterMenu();
-                    break;
-                case HELP:
-                    view.showHelp(menuType);
-                    break;
-            }
-            if (errorType != null) {
-                view.printError(errorType);
-                request.setErrorType(errorType);
-                errorType = null;
-            }
-        } while (true);
+
+    public void setErrorType(ErrorType errorType) {
+        this.errorType = errorType;
     }
-*/
+
+    /*
+        public void run() {
+            //mainLoop:
+            do {
+                System.out.println("Menu: " + menuType + " ");
+                request.resetProperties();
+                if (ai != null && !game.isTurnOfPlayerOne()) {
+                    request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
+                    System.err.println("ai requested: " + request.getCommand());
+                } else request.getNewCommand();
+                request.setRequestType(menuType);
+                request.parseCommand();
+                if (game != null) {
+                    if (game.isTurnOfPlayerOne()) {
+                        activePlayer = game.getPlayer1();
+                        deactivePlayer = game.getPlayer2();
+                    } else {
+                        activePlayer = game.getPlayer2();
+                        deactivePlayer = game.getPlayer1();
+                    }
+                }
+                switch (request.getRequestType()) {
+                    case ERROR:
+                        errorType = ErrorType.INVALID_COMMAND;
+                        break;
+                    ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
+                    case SHOW_LEADER_BOARD:
+                        showLeaderBoard();
+                        break;
+                    case CREATE_ACCOUNT:
+                        createNewAccount();
+                        break;
+                    case LOGIN:
+                        login();
+                        break;
+                    case LOGOUT:
+                        logOut();
+                        break;
+                    case SAVE:
+                        save();
+                        break;
+                    ///////////////////////////// SHOP  ///////////////////////////
+                    case SEARCH_IN_SHOP:
+    //                    searchInShop();
+                        break;
+                    case SEARCH_IN_COLLECTION:
+                        searchInCollection();
+                        break;
+                    case BUY_FROM_SHOP:
+                        buyFromShop();
+                        break;
+                    case SELL_TO_SHOP:
+                        sellToShop();
+                        break;
+                    case SHOW_SHOP:
+                        showShop();
+                        break;
+                    //////////////////////////// COLLECTION /////////////////////////
+                    case SHOW_COLLECTION_ITEMS:
+                        showCollectionItems();
+                        break;
+                    case SAVE_COLLECTION:
+                        saveCollection();
+                        // todo: saveCollection
+                        break;
+                    case CREATE_DECK:
+                        createDeck();
+                        break;
+                    case DELETE_DECK:
+                        deleteDeck();
+                        break;
+                    case SHOW_DECK:
+                        showDeck();
+                        break;
+                    case SHOW_ALL_DECKS:
+                        showAllDecks();
+                        break;
+                    case ADD_TO_DECK:
+                        addToDeck();
+                        // todo: test for items
+                        break;
+                    case VALIDATE_DECK:
+                        validateDeck();
+                        break;
+                    case SELECT_MAIN_DECK:
+                        selectMainDeck();
+                        break;
+                    case REMOVE_FROM_DECK:
+                        removeFromDeck();
+                        //todo: test for items
+                        break;
+                    case EXPORT_DECK:
+                        exportDeck();
+                        break;
+                    case IMPORT_DECK:
+                        importDeck();
+                        break;
+                    ///////////////////////////////// CREATING GAME ///////////////////////
+                    case SHOW_ALL_PLAYERS:
+                        showAllPlayer();
+                        break;
+                    case SELECT_OPPONENT_USER:
+                        selectOpponent();
+                        break;
+                    case SELECT_MULTI_PLAYER_MODE:
+                        selectMultiPlayerMode();
+                        // TODO: 2019-04- test
+                        break;
+                    case SELECT_STORY_LEVEL:
+                        selectStoryLevel();
+                        break;
+                    case CHOOSE_HERO:
+                        chooseHero();
+                        break;
+                    case SELECT_CUSTOM_GAME_GAMEMODE:
+                        createCustomGame();
+                        break;
+                    ///////////////////////////////// BATTLE  ////////////////////////
+                    case INSERT_CARD:
+                        insertCard();
+                        break;
+                    case SHOW_GAME_INFO:
+                        showGameInfo();
+                        break;
+                    case SHOW_MY_MINIONS:
+                        showMinions();
+                        break;
+                    case SHOW_OPPONENT_MINIONS:
+                        if (game.isTurnOfPlayerOne())
+                            activePlayer = game.getPlayer2();
+                        else activePlayer = game.getPlayer1();
+                        showMinions();
+                        break;
+                    case SHOW_CARD_INFO_IN_BATTLE:
+                        showCardInfoInBattle();
+                        break;
+                    case SELECT_CARD_OR_COLLECTABLE:
+                        selectCardOrItem(activePlayer);
+                        break;
+                    case MOVE_CARD:
+                        moveCard();
+                        break;
+                    case ATTACK:
+                        attack();
+                        break;
+                    case COMBO_ATTACK:
+                        comboAttack();
+                        break;
+                    case SHOW_HAND:
+                        showHand();
+                        break;
+                    case END_TURN:
+                        endTurn();
+                        break;
+                    case SHOW_NEXT_CARD:
+                        showNextCard();
+                        break;
+                    case SHOW_COLLECATBLE_INFO:
+                        showCollectableInfo();
+                        break;
+                    case USE_COLLECTABLE:
+                        useCollectable();
+                        break;
+                    case SHOW_GATHERED_COLLECTABLES:
+                        //todo what to do????
+                        showGatheredCollectables();
+                        break;
+                    case SHOW_CARD_INFO_IN_GRAVEYARD:
+                        showCardInfoInGraveYard();
+                        break;
+                    case SHOW_All_CARDS_IN_GRAVEYARD:
+                        showAllCardsInGraveYard();
+                        break;
+                    case USE_SPECIAL_POWER:
+                        useSpecialPower();
+                        break;
+                    case END_GAME:
+                        endGame();
+                        break;
+                    /////////////////////////////////            //////////////////////
+                    case EXIT_MENU:
+                        exitMenu();
+                        break;
+                    case ENTER_MENU:
+                        enterMenu();
+                        break;
+                    case HELP:
+                        view.showHelp(menuType);
+                        break;
+                }
+                if (errorType != null) {
+                    view.printError(errorType);
+                    request.setErrorType(errorType);
+                    errorType = null;
+                }
+            } while (true);
+        }
+    */
     private void exportDeck(){
         if(!request.getExport().deckIsValid()) {
             errorType = ErrorType.INVALID_DECK;
@@ -519,21 +524,16 @@ public class Controller {
         }
     }
 
-    public void searchInCollection() {
-        boolean find = false;
+    public ArrayList<Object> searchInCollection(String name) {
+        ArrayList<Object> results = new ArrayList<>();
         for (Item item : loggedInAccount.getCollection().getItems()) {
-            if (item.getName().equals(request.getSearchingName())) {
-                view.show("" + item.getItemId());
-                find = true;
-            }
+            if (item.getName().matches(name + "[\\w ]*")) results.add(item);
         }
         for (Card card : loggedInAccount.getCollection().getCards()) {
-            if (card.getName().equals(request.getSearchingName())) {
-                view.show("" + card.getCardId());
-                find = true;
-            }
+            if (card.getName().matches(name + "[\\w ]*")) results.add(card);
         }
-        if (!find) errorType = ErrorType.NOT_FOUND;
+        if (results.size() == 0) errorType = ErrorType.NOT_FOUND;
+        return results;
     }
 
     public void saveCollection() {
