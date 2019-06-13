@@ -18,6 +18,8 @@ public enum RequestType {
     CREATE_DECK,
     DELETE_DECK,
     ADD_TO_DECK,
+    EXPORT_DECK,
+    IMPORT_DECK,
     REMOVE_FROM_DECK,
     VALIDATE_DECK,
     SELECT_MAIN_DECK,

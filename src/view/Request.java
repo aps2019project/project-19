@@ -2,6 +2,7 @@ package view;
 
 import controller.Controller;
 import controller.MenuType;
+import model.Deck;
 import model.Game.GameMode;
 
 import java.io.InputStream;
@@ -33,6 +34,8 @@ public class Request {
     private int storyLevel;
     private ArrayList<String> comboAttackers = new ArrayList<>();
     private boolean hasXY;
+    private Deck export;
+    private String deckFileName;
 
     public Request(InputStream inputStream) {
         this.scanner = new Scanner(inputStream);
@@ -60,6 +63,8 @@ public class Request {
         storyLevel = 0;
         comboAttackers = new ArrayList<>();
         hasXY = false;
+        export = null;
+        deckFileName = null;
     }
 
     public void getNewCommand() {
@@ -552,6 +557,14 @@ public class Request {
 
     public boolean isHasXY() {
         return hasXY;
+    }
+
+    public Deck getExport() {
+        return export;
+    }
+
+    public String getDeckFileName() {
+        return deckFileName;
     }
 }
 

@@ -13,7 +13,6 @@ public class DeckManagement {
     private static File file = new File("src/data/Decks");
 
     //returns false is the name exists
-    //todo : before export check if the deck is valid & get another name if it returned false
     public static boolean exportDeck(Deck deck, String name) {
         String[] decks = file.list();
         for (String fileName : decks) {
@@ -33,7 +32,6 @@ public class DeckManagement {
     }
 
     //returns null if deck doesn't exist
-    //todo : ckeck if playar has all deck cards then add deck to his decks
     public static Deck importDeck(String name) {
         String[] decks = file.list();
         for (String fileName : decks) {
