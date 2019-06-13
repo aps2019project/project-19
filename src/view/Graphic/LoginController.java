@@ -49,22 +49,14 @@ public class LoginController extends MenuController implements Initializable {
             return;
         if (getMainController().login(logInUserName.getText(), logInPassword.getText())) {
             changeMenu("MainMenu.fxml");
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
-//            try {
-//                Parent root = (Parent) loader.load();
-//
-//            MainMenuController controller = (MainMenuController) loader.getController();
-//            controller.setStage(stage);
-//            controller.setMainController(mainController);
-//            stage.getScene().setRoot(root);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
+
         } else
             logInMessage.setText(getMainController().getErrorType().getMessage());
 
 
     }
-
+    public void exitGame(){
+        System.exit(0);
+    }
 
 }

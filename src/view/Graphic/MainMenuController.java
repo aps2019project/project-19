@@ -26,4 +26,11 @@ public class MainMenuController extends MenuController implements Initializable{
     public void goToShop(){
         changeMenu("shopView.fxml");
     }
+    public void exitGame(){
+        System.exit(0);
+    }
+    public void logOut(){
+        getMainController().logOut();
+        changeMenu("loginView.fxml");
+    }
 }

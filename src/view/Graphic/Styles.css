@@ -2,6 +2,10 @@
     -fx-background-image: url("images/background.jpg");
     -fx-background-size: cover;
 }
+.battleMenu{
+    -fx-background-image: url("images/battleBackground.jpg");
+    -fx-background-size: cover;
+}
 .menuText{
     -fx-font-family: Lato-Light;
     -fx-font-size: 45;
@@ -9,19 +13,12 @@
 .menuImageDesc{
     -fx-font-size: 17;
 }
-.loginMenu{
-    -fx-background-image: url("images/background.jpg");
-    -fx-background-size: cover;
-}
+
 .loginPane{
     -fx-fill: black;
 }
 .jfx-tab-pane .headers-region {
     -fx-background-color: rgb(41,41,42);
-}
-.shopStyle{
-    -fx-background-image: url("images/background.jpg");
-    -fx-background-size: cover;
 }
 
 .soldierCard{
