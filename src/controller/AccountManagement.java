@@ -4,11 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import model.Account;
 import model.Buff.Buff;
+import model.Cards.Card;
+import model.Cards.SoldierCard;
 
 import java.io.*;
 
 public class AccountManagement {
-    private static Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new BuffAdapter())
+    private static Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
+            .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
+            .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
             .setPrettyPrinting().create();
 
     public static void readAccounts() {
@@ -17,7 +21,7 @@ public class AccountManagement {
         Reader reader;
         for (int i = 0; i < accounts.length; i++) {
             try {
-                reader = new FileReader("src/data/Accounts/"+accounts[i]);
+                reader = new FileReader("src/data/Accounts/" + accounts[i]);
                 Account account = gson.fromJson(reader, Account.class);
                 Account.getAccounts().put(account.getUserName(), account);
                 reader.close();

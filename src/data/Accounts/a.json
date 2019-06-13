@@ -2,11 +2,99 @@
   "userName": "a",
   "password": "a",
   "numberOfWins": 0,
-  "money": 14100,
+  "money": 10800,
   "matchHistory": [],
   "collection": {
     "items": [],
     "decks": {},
-    "cards": []
+    "cards": [
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 1,
+          "name": "camandare farse",
+          "price": 300,
+          "mana": 2,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.StunBuff",
+              "INSTANCE": {
+                "kind": "NEGATIVE",
+                "duration": 2,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": false,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 6,
+          "hp": 4,
+          "type": "MELEE",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 1,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "abilityCastTime": "ON_ATTACK",
+          "cardId": 2,
+          "name": "shamshir zane fars",
+          "price": 400,
+          "mana": 2,
+          "description": "stun enemy for one turn"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 3,
+          "hp": 5,
+          "type": "HYBRID",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 3,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 3,
+          "name": "neyzedare farse",
+          "price": 500,
+          "mana": 1,
+          "description": ""
+        }
+      }
+    ]
   }
 }

@@ -1,16 +1,15 @@
 package controller;
 
 import com.google.gson.*;
-import model.Buff.Buff;
 
 import java.lang.reflect.Type;
 
-public class BuffAdapter implements JsonSerializer<Buff>, JsonDeserializer<Buff> {
+public class AbstractClassAdapters<T> implements JsonSerializer<T>, JsonDeserializer<T> {
     private static final String CLASSNAME = "CLASSNAME";
     private static final String INSTANCE = "INSTANCE";
 
     @Override
-    public Buff deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public T deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
         String className = prim.getAsString();
@@ -25,7 +24,7 @@ public class BuffAdapter implements JsonSerializer<Buff>, JsonDeserializer<Buff>
     }
 
     @Override
-    public JsonElement serialize(Buff src, Type type, JsonSerializationContext context) {
+    public JsonElement serialize(T src, Type type, JsonSerializationContext context) {
         JsonObject retValue = new JsonObject();
         String className = src.getClass().getName();
         retValue.addProperty(CLASSNAME, className);
