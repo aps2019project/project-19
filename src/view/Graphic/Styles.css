@@ -48,6 +48,34 @@
     -fx-text-fill: white;
     -fx-alignment: center;
 }
+.aPLabel{
+    -fx-pref-width: 25;
+    -fx-pref-height: 25;
+    -fx-font-size: 20px;
+    -fx-text-fill: yellow;
+    -fx-alignment: center;
+}
+.hPLabel{
+    -fx-pref-width: 25;
+    -fx-pref-height: 25;
+    -fx-font-size: 20px;
+    -fx-text-fill: red;
+    -fx-alignment: center;
+}
+.manaLabel{
+    -fx-pref-width: 25;
+    -fx-pref-height: 25;
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+.kindLabel{
+    -fx-pref-width: 200;
+    -fx-pref-height: 30;
+    -fx-font-size: 15px;
+    -fx-text-fill: gray;
+    -fx-alignment: center;
+}
 .jfx-tab-pane .tab-header-background {
     -fx-background-color: rgb(41,41,42);
 }
@@ -79,4 +107,17 @@
 .scroll-pane .viewport{
     -fx-background-color: transparent;
 }
+.jfx-tab-pane .headers-region {
+    -fx-background-color: transparent;
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+.jfx-tab-pane .tab-selected-line {
+    -fx-stroke: transparent;
+    -fx-stroke-width: 3pt;
+}
+ .tabStyle{
+     -fx-font-size: 20px;
+ }
 
