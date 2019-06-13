@@ -315,7 +315,7 @@ public class Controller {
         }
         game = new Game();
         game.initStoryDecks(shop);
-        aiDeck = game.getStoyLevelDecks().get(request.getStoryLevel());
+        aiDeck = game.getStoryLevelDecks().get(request.getStoryLevel());
         ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
         game = new Game(player1, ai.getPlayer());
         game.setGameMode(GameMode.DEATH_MATCH);
@@ -379,7 +379,6 @@ public class Controller {
     }
 
     public boolean createNewAccount(String userName,String password) {
-        System.out.println("is creating");
         if (Account.userNameIsValid(userName)) {
             errorType = ErrorType.USERNAME_TAKEN;
             return false;

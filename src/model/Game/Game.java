@@ -30,7 +30,7 @@ public class Game {
     private Player winnerPlayer;
     private GameMode gameMode;
     private int prize;
-    private ArrayList<Deck> stoyLevelDecks = new ArrayList<>(
+    private ArrayList<Deck> storyLevelDecks = new ArrayList<>(
     );
 
     public Game(Player player1, Player player2) {
@@ -428,13 +428,13 @@ public class Game {
         level3.getCards().put(21, new Hero((Hero) shop.findCard(307), 21));
         level3.getItems().put(22, new Item(shop.findItem(3), 22));
 
-        stoyLevelDecks.add(level1);
-        stoyLevelDecks.add(level2);
-        stoyLevelDecks.add(level3);
+        storyLevelDecks.add(level1);
+        storyLevelDecks.add(level2);
+        storyLevelDecks.add(level3);
     }
 
-    public ArrayList<Deck> getStoyLevelDecks() {
-        return stoyLevelDecks;
+    public ArrayList<Deck> getStoryLevelDecks() {
+        return storyLevelDecks;
     }
 
     public Cell FindCardCellInGame(Minion card) {

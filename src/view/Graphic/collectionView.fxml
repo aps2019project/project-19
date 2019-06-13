@@ -21,9 +21,18 @@
         </Image>
     </ImageView>
     <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
-                AnchorPane.rightAnchor="200.0" style="-fx-background-color: transparent">
+                AnchorPane.leftAnchor="70.0" style="-fx-background-color: transparent">
         <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="collectionPane"
                         style="-fx-background-color: transparent">
         </JFXMasonryPane>
     </ScrollPane>
+    <ScrollPane prefWidth="500.0" prefHeight="900.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
+                AnchorPane.rightAnchor="70.0" style="-fx-background-color: transparent">
+        <JFXMasonryPane prefWidth="480.0" prefHeight="1200.0" style="-fx-background-color: black">
+        </JFXMasonryPane>
+    </ScrollPane>
+    <ImageView fitWidth="250.0" fitHeight="80.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="195.0">
+        <Image url="@images/rightButton.png">
+        </Image>
+    </ImageView>
 </AnchorPane>

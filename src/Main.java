@@ -14,8 +14,8 @@ public class Main {
         CardInitializer cardInitializer = CardInitializer.getInstance();
         cardInitializer.createCards();
         Controller controller = Controller.getInstance();
+        AccountManagement.readAccounts();
         Graphic.main(args,controller);
-
     }
 
     public Controller getController() {

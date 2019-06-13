@@ -13,7 +13,7 @@
 
     <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400">
         <Label style="-fx-text-fill: white" text="PLAY" onMouseClicked="#goToStartNewGame"/>
-        <Label style="-fx-text-fill: white" text="Save"/>
+        <Label style="-fx-text-fill: white" text="Save" onMouseClicked="#saveAccount"/>
         <Label style="-fx-text-fill: white" text="WATCH"/>
         <Label style="-fx-text-fill: white" text="COLLECTION" onMouseClicked="#goToCollection"/>
         <Label style="-fx-text-fill: white" text="MYSTERY CRATES"/>

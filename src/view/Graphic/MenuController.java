@@ -56,7 +56,6 @@ public class MenuController {
 
     protected void createCards(JFXMasonryPane pane, ArrayList<Object> products) {
         pane.getChildren().removeIf(node -> node instanceof AnchorPane);
-        Controller controller = Controller.getInstance();
         for (Object product : products) {
             AnchorPane cardView = new AnchorPane();
             Label nameLabel = new Label();
@@ -89,13 +88,13 @@ public class MenuController {
             pane.getChildren().add(cardView);
             if (pane.getId().equals("shopPane"))
                 cardView.setOnMouseClicked(event -> {
-                    controller.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());
+                    mainController.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());
                     ShopController.getController().getErrorLabel().setText("");
-                    if (controller.getErrorType() != null) {
-                        ShopController.getController().getErrorLabel().setText(controller.getErrorType().getMessage());
-                        controller.setErrorType(null);
+                    if (mainController.getErrorType() != null) {
+                        ShopController.getController().getErrorLabel().setText(mainController.getErrorType().getMessage());
+                        mainController.setErrorType(null);
                     }
-                    ShopController.getController().getMoneyLabel().setText(controller.getLoggedInAccount().getMoney() + "");
+                    ShopController.getController().getMoneyLabel().setText(mainController.getLoggedInAccount().getMoney() + "");
                 });
         }
     }
