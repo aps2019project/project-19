@@ -11,14 +11,15 @@ import javafx.stage.Stage;
 public class Graphic extends Application {
     private static Stage stage;
     private static Controller mainController;
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Font.loadFont(
                 Graphic.class.getResource("Lato-Light.ttf").toExternalForm(),
                 10
         );
         FXMLLoader loader = new FXMLLoader(getClass().getResource("loginView.fxml"));
-        Parent root = (Parent)loader.load();
+        Parent root = (Parent) loader.load();
         LoginController controller = (LoginController) loader.getController();
         controller.setStage(primaryStage);
         controller.setMainController(mainController);
@@ -29,7 +30,8 @@ public class Graphic extends Application {
         primaryStage.getScene().getStylesheets().add("view/Graphic/Styles.css");
         primaryStage.show();
     }
-    public static void main(String[] args, Controller controller){
+
+    public static void main(String[] args, Controller controller) {
         mainController = controller;
         launch(args);
     }

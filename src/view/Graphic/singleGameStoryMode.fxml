@@ -17,11 +17,8 @@
         </Image>
     </ImageView>
     <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400">
-        <Label style="-fx-text-fill: white" text="Level 1" onMouseClicked="#startLevel1" onMouseEntered="#onMenuItem"
-               onMouseExited="#outOfMenuItem"/>
-        <Label style="-fx-text-fill: white" text="Level 2" onMouseClicked="#startLevel2" onMouseEntered="#onMenuItem"
-               onMouseExited="#outOfMenuItem"/>
-        <Label style="-fx-text-fill: white" text="Level 3" onMouseClicked="#startLevel3" onMouseEntered="#onMenuItem"
-               onMouseExited="#outOfMenuItem"/>
+        <Label text="Level 1" onMouseClicked="#startLevel1"/>
+        <Label text="Level 2" onMouseClicked="#startLevel2"/>
+        <Label text="Level 3" onMouseClicked="#startLevel3"/>
     </VBox>
 </AnchorPane>

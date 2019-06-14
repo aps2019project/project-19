@@ -124,3 +124,12 @@
     -fx-text-fill: Black;
     -fx-font-size: 50;
 }
+
+.menuText *:hover{
+    -fx-text-fill: red;
+}
+
+.menuText *{
+    -fx-text-fill: white;
+}
+
