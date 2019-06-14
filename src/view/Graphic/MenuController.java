@@ -8,9 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Cards.Hero;
 import model.Cards.Minion;
@@ -152,16 +150,6 @@ public class MenuController {
                 ShopController.getController().getMoneyLabel().setText(mainController.getLoggedInAccount().getMoney() + "");
             });
         }
-    }
-
-    public void onMenuItem(MouseEvent event) {
-        Label label = (Label) event.getSource();
-        label.setOnMouseEntered(e -> label.setTextFill(Color.RED));
-    }
-
-    public void outOfMenuItem(MouseEvent event) {
-        Label label = (Label) event.getSource();
-        label.setOnMouseExited(e -> label.setTextFill(Color.WHITE));
     }
 
     public void customGame(String heroName) {

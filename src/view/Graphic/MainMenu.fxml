@@ -7,24 +7,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
+<AnchorPane prefHeight="100" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
             xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="view.Graphic.MainMenuController">
 
     <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400">
-        <Label style="-fx-text-fill: white" text="PLAY" onMouseClicked="#goToStartNewGame" onMouseEntered="#onMenuItem"
-               onMouseExited="#outOfMenuItem"/>
-        <Label style="-fx-text-fill: white" text="Save" onMouseClicked="#saveAccount" onMouseEntered="#onMenuItem"
-               onMouseExited="#outOfMenuItem"/>
-        <Label style="-fx-text-fill: white" text="WATCH" onMouseEntered="#onMenuItem" onMouseExited="#outOfMenuItem"/>
-        <Label style="-fx-text-fill: white" text="COLLECTION" onMouseClicked="#goToCollection"
-               onMouseEntered="#onMenuItem" onMouseExited="#outOfMenuItem"/>
-        <Label style="-fx-text-fill: white" text="MYSTERY CRATES" onMouseEntered="#onMenuItem"
-               onMouseExited="#outOfMenuItem"/>
-        <Label style="-fx-text-fill: white" text="LOG OUT" onMouseClicked="#logOut" onMouseEntered="#onMenuItem"
-               onMouseExited="#outOfMenuItem"/>
-        <Label style="-fx-text-fill: white" text="EXIT" onMouseClicked="#exitGame" onMouseEntered="#onMenuItem"
-               onMouseExited="#outOfMenuItem"/>
+        <Label text="PLAY" onMouseClicked="#goToStartNewGame"/>
+        <Label text="Save" onMouseClicked="#saveAccount"/>
+        <Label text="WATCH"/>
+        <Label text="COLLECTION" onMouseClicked="#goToCollection"/>
+        <Label text="MYSTERY CRATES"/>
+        <Label text="LOG OUT" onMouseClicked="#logOut"/>
+        <Label text="EXIT" onMouseClicked="#exitGame"/>
     </VBox>
     <HBox spacing="20" AnchorPane.bottomAnchor="50" AnchorPane.rightAnchor="20">
         <ImageView fitHeight="75" fitWidth="75">
