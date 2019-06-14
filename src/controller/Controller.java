@@ -246,25 +246,25 @@ public class Controller {
             } while (true);
         }
     */
-    private void exportDeck(){
-        if(!request.getExport().deckIsValid()) {
+    private void exportDeck() {
+        if (!request.getExport().deckIsValid()) {
             errorType = ErrorType.INVALID_DECK;
             return;
         }
         boolean isDone = DeckManagement.exportDeck(request.getExport(), request.getDeckFileName());
-        if (isDone){
+        if (isDone) {
             System.err.println("deck exported successfully");
-        } else{
+        } else {
             errorType = ErrorType.DUPLICATE_FILE_DECK_NAME;
         }
     }
 
-    private void importDeck(){
+    private void importDeck() {
         Deck deck = DeckManagement.importDeck(request.getDeckFileName());
-        if (deck == null){
+        if (deck == null) {
             errorType = ErrorType.INVALID_DECK_FILE_NAME;
             return;
-        } else{
+        } else {
             //todo check if player has deck cards
             if (!loggedInAccount.getCollection().getDecks().containsKey(deck.getName()))
                 loggedInAccount.getCollection().getDecks().put(deck.getName(), deck);
@@ -277,17 +277,17 @@ public class Controller {
         return loggedInAccount;
     }
 
-    private void createCustomGame() {
+    public void createCustomGame(GameMode gameMode, String deckName) {
         if (aiDeck == null) {
             errorType = ErrorType.OPPONENT_HERO_NOT_SELECTED;
         } else {
-            if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
+            if (loggedInAccount.getCollection().getDecks().containsKey(deckName)) {
                 Player player1 = new Player(loggedInAccount,
-                        loggedInAccount.getCollection().getDecks().get(request.getDeckName()));
+                        loggedInAccount.getCollection().getDecks().get(deckName));
                 ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
                 game = new Game(player1, ai.getPlayer());
-                game.setGameMode(request.getGameMode());
-                initNewGame(game.getGameMode());
+                game.setGameMode(gameMode);
+                initNewGame(gameMode);
                 game.setPrize(1000);
             } else {
                 errorType = ErrorType.DECK_NOT_EXISTS;
@@ -379,7 +379,7 @@ public class Controller {
         System.err.println("game started");
     }
 
-    public boolean createNewAccount(String userName,String password) {
+    public boolean createNewAccount(String userName, String password) {
         if (Account.userNameIsValid(userName)) {
             errorType = ErrorType.USERNAME_TAKEN;
             return false;
@@ -390,7 +390,7 @@ public class Controller {
         return true;
     }
 
-    public boolean login(String userName,String password) {
+    public boolean login(String userName, String password) {
         if (!Account.userNameIsValid(userName)) {
             errorType = ErrorType.INVALID_USERNAME;
             return false;
@@ -628,7 +628,7 @@ public class Controller {
     public ArrayList searchInShop(String name) {
         ArrayList<Object> results = new ArrayList<>();
         for (Card card : shop.getCards()) {
-            if (card.getName().matches(name +"[\\w ]*"))
+            if (card.getName().matches(name + "[\\w ]*"))
                 results.add(card);
         }
         for (Item item : shop.getItems()) {

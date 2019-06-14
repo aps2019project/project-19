@@ -5,6 +5,7 @@ import controller.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,9 +21,11 @@ import view.ErrorType;
 import java.util.ArrayList;
 
 public class MenuController {
+    private static boolean customGame = false;
     @FXML
     private Label label;
     private Stage stage;
+    private String deckName;
     private Controller mainController;
 
     public void setMainController(Controller mainController) {
@@ -41,6 +44,22 @@ public class MenuController {
         return mainController;
     }
 
+    public static boolean isCustomGame() {
+        return customGame;
+    }
+
+    public static void setCustomGame(boolean customGame) {
+        MenuController.customGame = customGame;
+    }
+
+    public void setDeckName(String deckName) {
+        this.deckName = deckName;
+    }
+
+    public String getDeckName() {
+        return deckName;
+    }
+
     public void changeMenu(String fxmlFile) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         try {
@@ -55,9 +74,10 @@ public class MenuController {
                 ((CollectionController) controller).putCardsInCollection();
                 CollectionController.setController(((CollectionController) controller));
             }
-            if (controller instanceof SingleGameCustomMode) {
-                ((SingleGameCustomMode) controller).putCardsInPane();
+            if (controller instanceof SingleGameCustomModeController) {
+                ((SingleGameCustomModeController) controller).putCardsInPane();
             }
+
             this.getStage().getScene().setRoot(root);
         } catch (Exception e) {
             e.printStackTrace();
@@ -169,10 +189,14 @@ public class MenuController {
     public void customGame(String heroName) {
         if (mainController.getLoggedInAccount().getCollection().isAnyDeckAvailable()) {
             mainController.chooseHero(heroName);
-            AlertBox.display("Custom Game", heroName + " selected");
-            //choosing a deck
-            changeMenu("MainMenu.fxml");
+            AlertBox.display(Alert.AlertType.INFORMATION, "Custom Game", heroName + " selected");
+            do {
+                deckName = TextReceiver.getText("Custom Game", "please enter a deck to play with");
+            } while (deckName == null || deckName.equals(""));
+            customGame = true;
+            changeMenu("gameModeMenu.fxml");
         }
-        AlertBox.display("Error", ErrorType.NO_VALID_DECK.getMessage());
+
+        AlertBox.display(Alert.AlertType.WARNING, "Warning", ErrorType.NO_VALID_DECK.getMessage());
     }
 }
