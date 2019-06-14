@@ -50,5 +50,6 @@ public class MainMenuController extends MenuController implements Initializable 
 
     public void saveAccount() {
         getMainController().save();
+        AlertBox.display("title", "Account has been saved successfully");
     }
 }

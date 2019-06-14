@@ -120,4 +120,7 @@
  .tabStyle{
      -fx-font-size: 20px;
  }
-
+.alertBox{
+    -fx-text-fill: Black;
+    -fx-font-size: 50;
+}
