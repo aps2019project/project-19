@@ -12,13 +12,19 @@
             fx:controller="view.Graphic.MainMenuController">
 
     <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400">
-        <Label style="-fx-text-fill: white" text="PLAY" onMouseClicked="#goToStartNewGame"/>
-        <Label style="-fx-text-fill: white" text="Save" onMouseClicked="#saveAccount"/>
-        <Label style="-fx-text-fill: white" text="WATCH"/>
-        <Label style="-fx-text-fill: white" text="COLLECTION" onMouseClicked="#goToCollection"/>
-        <Label style="-fx-text-fill: white" text="MYSTERY CRATES"/>
-        <Label style="-fx-text-fill: white" text="LOG OUT" onMouseClicked="#logOut"/>
-        <Label style="-fx-text-fill: white" text="EXIT" onMouseClicked="#exitGame"/>
+        <Label style="-fx-text-fill: white" text="PLAY" onMouseClicked="#goToStartNewGame" onMouseEntered="#onMenuItem"
+               onMouseExited="#outOfMenuItem"/>
+        <Label style="-fx-text-fill: white" text="Save" onMouseClicked="#saveAccount" onMouseEntered="#onMenuItem"
+               onMouseExited="#outOfMenuItem"/>
+        <Label style="-fx-text-fill: white" text="WATCH" onMouseEntered="#onMenuItem" onMouseExited="#outOfMenuItem"/>
+        <Label style="-fx-text-fill: white" text="COLLECTION" onMouseClicked="#goToCollection"
+               onMouseEntered="#onMenuItem" onMouseExited="#outOfMenuItem"/>
+        <Label style="-fx-text-fill: white" text="MYSTERY CRATES" onMouseEntered="#onMenuItem"
+               onMouseExited="#outOfMenuItem"/>
+        <Label style="-fx-text-fill: white" text="LOG OUT" onMouseClicked="#logOut" onMouseEntered="#onMenuItem"
+               onMouseExited="#outOfMenuItem"/>
+        <Label style="-fx-text-fill: white" text="EXIT" onMouseClicked="#exitGame" onMouseEntered="#onMenuItem"
+               onMouseExited="#outOfMenuItem"/>
     </VBox>
     <HBox spacing="20" AnchorPane.bottomAnchor="50" AnchorPane.rightAnchor="20">
         <ImageView fitHeight="75" fitWidth="75">

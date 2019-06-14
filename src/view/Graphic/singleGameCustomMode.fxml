@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.JFXMasonryPane?>
 <AnchorPane prefHeight="1600.0" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -16,5 +17,11 @@
         <Image url="@images/backButton.png">
         </Image>
     </ImageView>
+    <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
+                AnchorPane.rightAnchor="200.0" style="-fx-background-color: transparent">
+        <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="heroPane"
+                        style="-fx-background-color: transparent">
+        </JFXMasonryPane>
+    </ScrollPane>
 
 </AnchorPane>

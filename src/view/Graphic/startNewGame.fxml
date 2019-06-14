@@ -17,7 +17,9 @@
         </Image>
     </ImageView>
     <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400">
-        <Label style="-fx-text-fill: white" text="Single Player" onMouseClicked="#goToSinglePlayerMode"/>
-        <Label style="-fx-text-fill: white" text="Multi Player" onMouseClicked="#goToMultiPlayerMode"/>
+        <Label style="-fx-text-fill: white" text="Single Player" onMouseClicked="#goToSinglePlayerMode"
+               onMouseEntered="#onMenuItem" onMouseExited="#outOfMenuItem"/>
+        <Label style="-fx-text-fill: white" text="Multi Player" onMouseClicked="#goToMultiPlayerMode"
+               onMouseEntered="#onMenuItem" onMouseExited="#outOfMenuItem"/>
     </VBox>
 </AnchorPane>

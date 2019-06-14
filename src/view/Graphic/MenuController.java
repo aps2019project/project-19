@@ -2,22 +2,28 @@ package view.Graphic;
 
 import com.jfoenix.controls.JFXMasonryPane;
 import controller.Controller;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Cards.Hero;
 import model.Cards.Minion;
 import model.Cards.SoldierCard;
 import model.Cards.SpellCard;
 import model.Item;
+import view.ErrorType;
 
 import java.util.ArrayList;
 
 public class MenuController {
+    @FXML
+    private Label label;
     private Stage stage;
     private Controller mainController;
 
@@ -50,6 +56,9 @@ public class MenuController {
             if (controller instanceof CollectionController) {
                 ((CollectionController) controller).putCardsInCollection();
                 CollectionController.setController(((CollectionController) controller));
+            }
+            if (controller instanceof SingleGameCustomMode) {
+                ((SingleGameCustomMode) controller).putCardsInPane();
             }
             this.getStage().getScene().setRoot(root);
         } catch (Exception e) {
@@ -134,6 +143,8 @@ public class MenuController {
             });
 
             cardView.setOnMouseClicked(event -> {
+                if (pane.getId().equals("heroPane"))
+                    customGame(((Label) cardView.lookup("#nameLabel")).getText());
                 if (pane.getId().equals("shopPane"))
                     mainController.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());
                 if (pane.getId().equals("collectionPane")) {
@@ -154,5 +165,25 @@ public class MenuController {
                 ShopController.getController().getMoneyLabel().setText(mainController.getLoggedInAccount().getMoney() + "");
             });
         }
+    }
+
+    public void onMenuItem(MouseEvent event) {
+        Label label = (Label) event.getSource();
+        label.setOnMouseEntered(e -> label.setTextFill(Color.RED));
+    }
+
+    public void outOfMenuItem(MouseEvent event) {
+        Label label = (Label) event.getSource();
+        label.setOnMouseExited(e -> label.setTextFill(Color.WHITE));
+    }
+
+    public void customGame(String heroName) {
+        if (mainController.getLoggedInAccount().getCollection().isAnyDeckAvailable()) {
+            mainController.chooseHero(heroName);
+            AlertBox.display("Custom Game", heroName + " selected");
+            //choosing a deck
+            changeMenu("MainMenu.fxml");
+        }
+        AlertBox.display("Error", ErrorType.NO_VALID_DECK.getMessage());
     }
 }

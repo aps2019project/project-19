@@ -26,6 +26,15 @@ public class Shop {
         return items;
     }
 
+    public ArrayList<Object> getHeros() {
+        ArrayList<Object> heros = new ArrayList<>();
+        for (Card card : cards) {
+            if (card instanceof Hero)
+                heros.add(card);
+        }
+        return heros;
+    }
+
     public Card findCard(String cardName) {
         for (Card card : cards) {
             if (card.getName().equals(cardName))
