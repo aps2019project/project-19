@@ -13,7 +13,7 @@ public class ShopController extends MenuController {
     @FXML
     private JFXMasonryPane shopPane = new JFXMasonryPane();
     @FXML
-    private JFXMasonryPane collectionPane = new JFXMasonryPane();
+    private JFXMasonryPane collectionInShopPane = new JFXMasonryPane();
     @FXML
     private TextField searchBar = new TextField();
     @FXML
@@ -39,7 +39,7 @@ public class ShopController extends MenuController {
 
     public void putCards() {
         shopPane.getChildren().removeIf(node -> node instanceof AnchorPane);
-        collectionPane.getChildren().removeIf(node -> node instanceof AnchorPane);
+        collectionInShopPane.getChildren().removeIf(node -> node instanceof AnchorPane);
         Controller controller = Controller.getInstance();
         ArrayList<Object> shopProducts = new ArrayList<>();
         ArrayList<Object> collectionProducts = new ArrayList<>();
@@ -54,7 +54,7 @@ public class ShopController extends MenuController {
             collectionProducts.addAll(controller.searchInCollection(searchBar.getText()));
         }
         createCards(shopPane, shopProducts);
-        createCards(collectionPane, collectionProducts);
+        createCards(collectionInShopPane, collectionProducts);
         moneyLabel.setText(controller.getLoggedInAccount().getMoney() + "");
     }
 
