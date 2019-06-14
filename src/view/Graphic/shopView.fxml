@@ -43,7 +43,7 @@
                 <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.topAnchor="80.0"
                             AnchorPane.bottomAnchor="0.0"
                             AnchorPane.leftAnchor="100.0" style="-fx-background-color: transparent">
-                    <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="collectionPane"
+                    <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="collectionInShopPane"
                                     style="-fx-background-color: transparent">
                     </JFXMasonryPane>
                 </ScrollPane>

@@ -165,7 +165,7 @@ public class MenuController {
                     customGame(((Label) cardView.lookup("#nameLabel")).getText());
                 if (pane.getId().equals("shopPane"))
                     mainController.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());
-                if (pane.getId().equals("collectionPane")) {
+                if (pane.getId().equals("collectionInShopPane")) {
                     Object selling = mainController.searchInCollection(((Label) cardView.lookup("#nameLabel")).getText()).get(0);
                     if (selling instanceof SoldierCard)
                         mainController.sellToShop(((SoldierCard) selling).getCardId());
@@ -174,6 +174,7 @@ public class MenuController {
                     if (selling instanceof Item)
                         mainController.sellToShop(((Item) selling).getItemId());
                     ShopController.getController().putCards();
+//                    pane.getChildren().remove(cardView);
                 }
                 ShopController.getController().getErrorLabel().setText("");
                 if (mainController.getErrorType() != null) {
