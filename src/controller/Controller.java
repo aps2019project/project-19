@@ -295,11 +295,12 @@ public class Controller {
         }
     }
 
-    private void chooseHero() {
-        Card newHero = shop.findCard(request.getCardName());
+    public void chooseHero(String heroName) {
+        Card newHero = shop.findCard(heroName);
         if (newHero == null || !(newHero instanceof Hero))
             errorType = ErrorType.WRONG_HERO_NAME;
         else {
+            //todo check if a maindeck is available
             aiDeck = new Deck(loggedInAccount.getCollection().getMainDeck());
             Card postHero = aiDeck.getHero();
             aiDeck.getCards().remove(postHero.getCardId());

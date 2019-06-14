@@ -17,6 +17,7 @@ import model.Cards.Minion;
 import model.Cards.SoldierCard;
 import model.Cards.SpellCard;
 import model.Item;
+import view.ErrorType;
 
 import java.util.ArrayList;
 
@@ -139,6 +140,8 @@ public class MenuController {
                 }
             });
             cardView.setOnMouseClicked(event -> {
+                if (pane.getId().equals("heroPane"))
+                    customGame(((Label) cardView.lookup("#nameLabel")).getText());
                 if (pane.getId().equals("shopPane"))
                     mainController.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());
                 ShopController.getController().getErrorLabel().setText("");
@@ -159,5 +162,15 @@ public class MenuController {
     public void outOfMenuItem(MouseEvent event) {
         Label label = (Label) event.getSource();
         label.setOnMouseExited(e -> label.setTextFill(Color.WHITE));
+    }
+
+    public void customGame(String heroName) {
+        if (mainController.getLoggedInAccount().getCollection().isAnyDeckAvailable()) {
+            mainController.chooseHero(heroName);
+            AlertBox.display("Custom Game", heroName + " selected");
+            //choosing a deck
+            changeMenu("MainMenu.fxml");
+        }
+        AlertBox.display("Error", ErrorType.NO_VALID_DECK.getMessage());
     }
 }

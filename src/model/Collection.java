@@ -39,6 +39,13 @@ public class Collection {
     public void deleteDeck(String deckName) {
     }
 
+    public boolean isAnyDeckAvailable() {
+        for (Deck deck : decks.values()) {
+            if (deck.deckIsValid())
+                return true;
+        }
+        return false;
+    }
 //
 //    public boolean cardIsValid(int cardId){}
 //
