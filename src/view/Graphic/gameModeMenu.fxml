@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane prefHeight="100" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.Graphic.GameModeMenu">
+    <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400">
+        <Label text="Death Match" onMouseClicked="#startDeathMatch"/>
+        <Label text="Keep The Flag" onMouseClicked="#startKeepTheFalg"/>
+        <Label text="Capture The Flags" onMouseClicked="#startCaptureTheFlag"/>
+    </VBox>
+
+    <ImageView fitHeight="100.0" fitWidth="80.0" onMouseClicked="#exit" AnchorPane.leftAnchor="0.0"
+               AnchorPane.topAnchor="0.0">
+        <Image url="@images/backButton.png">
+        </Image>
+    </ImageView>
+</AnchorPane>

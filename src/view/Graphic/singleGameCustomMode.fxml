@@ -11,7 +11,7 @@
 <AnchorPane prefHeight="1600.0" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.Graphic.SingleGameCustomMode">
+            fx:controller="view.Graphic.SingleGameCustomModeController">
     <ImageView fitHeight="100.0" fitWidth="80.0" onMouseClicked="#exit" AnchorPane.leftAnchor="0.0"
                AnchorPane.topAnchor="0.0">
         <Image url="@images/backButton.png">

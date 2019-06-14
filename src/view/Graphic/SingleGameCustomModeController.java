@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SingleGameCustomMode extends MenuController implements Initializable {
+public class SingleGameCustomModeController extends MenuController implements Initializable {
     @FXML
     private JFXMasonryPane heroPane;
 
