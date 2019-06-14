@@ -27,15 +27,15 @@
         </JFXMasonryPane>
     </ScrollPane>
     <ScrollPane prefWidth="500.0" prefHeight="900.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
-                AnchorPane.rightAnchor="70.0" style="-fx-background-color: transparent">
-        <JFXMasonryPane prefWidth="480.0" prefHeight="1200.0" style="-fx-background-color: black">
+                AnchorPane.rightAnchor="5.0" style="-fx-background-color: transparent">
+        <JFXMasonryPane prefWidth="480.0" prefHeight="1200.0" style="-fx-background-color: rgba(64,64,64,0.85)">
         </JFXMasonryPane>
     </ScrollPane>
-    <ImageView fitWidth="250.0" fitHeight="80.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="195.0"  fx:id="newDeckButton">
+    <ImageView fitWidth="250.0" fitHeight="80.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="130.0"  fx:id="newDeckButton">
         <Image url="@images/rightButton.png">
         </Image>
     </ImageView>
-    <Label prefWidth="250.0" prefHeight="80.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="195.0" text="new deck" alignment="CENTER" textFill="white"
+    <Label prefWidth="250.0" prefHeight="80.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="130.0" text="new deck" alignment="CENTER" textFill="white"
     style="-fx-font-size: 25px" onMouseEntered="#glowButton" onMouseExited="#removeGlow">
     </Label>
 </AnchorPane>

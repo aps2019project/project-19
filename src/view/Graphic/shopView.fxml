@@ -23,7 +23,10 @@
     <Label prefWidth="400" prefHeight="20" styleClass="errorLabel" AnchorPane.topAnchor="100.0"
            AnchorPane.rightAnchor="450.0" fx:id="errorLabel">
     </Label>
-    <JFXTabPane prefHeight="900.0" prefWidth="1860.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="70.0" >
+    <Label prefWidth="250.0" prefHeight="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.bottomAnchor="20.0"
+           styleClass="moneyLabel" fx:id="moneyLabel" alignment="CENTER">
+    </Label>
+    <JFXTabPane prefHeight="900.0" prefWidth="1860.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="70.0">
         <Tab text="shop" onSelectionChanged="#changeTab">
             <AnchorPane>
                 <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.topAnchor="80.0"
@@ -47,9 +50,6 @@
             </AnchorPane>
         </Tab>
     </JFXTabPane>
-    <Label prefWidth="250.0" prefHeight="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.bottomAnchor="20.0"
-           styleClass="moneyLabel" fx:id="moneyLabel" alignment="CENTER">
-    </Label>
     <ImageView fitHeight="60" fitWidth="60" AnchorPane.leftAnchor="20.0" AnchorPane.bottomAnchor="20.0">
         <Image url="@images/money.png">
         </Image>

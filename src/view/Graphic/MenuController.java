@@ -118,6 +118,7 @@ public class MenuController {
             kind.relocate(14, 140);
             nameLabel.relocate(10, 120);
             pane.getChildren().add(cardView);
+
             cardView.setOnMouseExited(event -> {
                 cardView.getChildren().removeIf(node -> node instanceof ImageView);
                 if (!(product instanceof Item)) {
@@ -126,6 +127,7 @@ public class MenuController {
                     cardView.getChildren().add(mana);
                 }
             });
+
             cardView.setOnMouseEntered(event -> {
                 for (int i = 0; i < 8; i++) {
                     Image image = new Image("view/Graphic/images/cardShadow.png");
@@ -137,11 +139,22 @@ public class MenuController {
                     cardView.getChildren().add(imageView);
                 }
             });
+
             cardView.setOnMouseClicked(event -> {
                 if (pane.getId().equals("heroPane"))
                     customGame(((Label) cardView.lookup("#nameLabel")).getText());
                 if (pane.getId().equals("shopPane"))
                     mainController.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());
+                if (pane.getId().equals("collectionPane")) {
+                    Object selling = mainController.searchInCollection(((Label) cardView.lookup("#nameLabel")).getText()).get(0);
+                    if (selling instanceof SoldierCard)
+                        mainController.sellToShop(((SoldierCard) selling).getCardId());
+                    if (selling instanceof SpellCard)
+                        mainController.sellToShop(((SpellCard) selling).getCardId());
+                    if (selling instanceof Item)
+                        mainController.sellToShop(((Item) selling).getItemId());
+                    ShopController.getController().putCards();
+                }
                 ShopController.getController().getErrorLabel().setText("");
                 if (mainController.getErrorType() != null) {
                     ShopController.getController().getErrorLabel().setText(mainController.getErrorType().getMessage());

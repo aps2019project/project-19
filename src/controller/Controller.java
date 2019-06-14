@@ -532,7 +532,9 @@ public class Controller {
         for (Card card : loggedInAccount.getCollection().getCards()) {
             if (card.getName().matches(name + "[\\w ]*")) results.add(card);
         }
-        if (results.size() == 0) errorType = ErrorType.NOT_FOUND;
+//        if (results.size() == 0) {
+//            errorType = ErrorType.NOT_FOUND;
+//        }
         return results;
     }
 
@@ -652,11 +654,11 @@ public class Controller {
         }
     }
 
-    public void sellToShop() {
-        if (!loggedInAccount.getCollection().existsInCollection(request.getProductId()))
+    public void sellToShop(int id) {
+        if (!loggedInAccount.getCollection().existsInCollection(id))
             errorType = ErrorType.NOT_FOUND;
         else {
-            shop.sell(request.getProductId(), loggedInAccount);
+            shop.sell(id, loggedInAccount);
             view.show("Successful sale");
         }
     }
