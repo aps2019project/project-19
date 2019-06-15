@@ -64,7 +64,7 @@ public class MenuController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         try {
             Parent root = loader.load();
-            MenuController controller = (MenuController) loader.getController();
+            MenuController controller = loader.getController();
             controller.setStage(this.getStage());
             controller.setMainController(this.getMainController());
             if (controller instanceof ShopController) {
@@ -178,7 +178,7 @@ public class MenuController {
                 }
                 ShopController.getController().getErrorLabel().setText("");
                 if (mainController.getErrorType() != null) {
-                    ShopController.getController().getErrorLabel().setText(mainController.getErrorType().getMessage());
+                    AlertBox.display(Alert.AlertType.ERROR, "Shop", mainController.getErrorType().getMessage());
                     mainController.setErrorType(null);
                 }
                 ShopController.getController().getMoneyLabel().setText(mainController.getLoggedInAccount().getMoney() + "");

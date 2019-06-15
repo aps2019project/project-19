@@ -132,4 +132,9 @@
 .menuText *{
     -fx-text-fill: white;
 }
+.decks{
+    -fx-pref-width: 480;
+    -fx-pref-height: 60;
+    -fx-background-color: black;
+}
 

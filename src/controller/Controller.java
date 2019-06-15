@@ -542,14 +542,14 @@ public class Controller {
         view.show("saved!");
     }
 
-    public void createDeck() {
-        if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
+    public void createDeck(String name) {
+        if (loggedInAccount.getCollection().getDecks().containsKey(name)) {
             errorType = ErrorType.DECK_EXISTS;
             return;
         }
-        Deck deck = new Deck(request.getDeckName());
-        loggedInAccount.getCollection().getDecks().put(request.getDeckName(), deck);
-        view.show(request.getDeckName() + " created");
+        Deck deck = new Deck(name);
+        loggedInAccount.getCollection().getDecks().put(name, deck);
+        view.show(name + " created");
     }
 
     public void deleteDeck() {
