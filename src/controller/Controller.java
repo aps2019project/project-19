@@ -268,7 +268,6 @@ public class Controller {
             //todo check if player has deck cards
             if (!loggedInAccount.getCollection().getDecks().containsKey(deck.getName()))
                 loggedInAccount.getCollection().getDecks().put(deck.getName(), deck);
-
         }
     }
 
