@@ -11,10 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.Cards.Hero;
-import model.Cards.Minion;
-import model.Cards.SoldierCard;
-import model.Cards.SpellCard;
+import model.Cards.*;
 import model.Item;
 import view.ErrorType;
 
@@ -22,10 +19,11 @@ import java.util.ArrayList;
 
 public class MenuController {
     private static boolean customGame = false;
+    private String deckName;
+
     @FXML
     private Label label;
     private Stage stage;
-    private String deckName;
     private Controller mainController;
 
     public void setMainController(Controller mainController) {

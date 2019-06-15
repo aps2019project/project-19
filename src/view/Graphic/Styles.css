@@ -2,6 +2,10 @@
     -fx-background-image: url("images/background.jpg");
     -fx-background-size: cover;
 }
+.playMode{
+    -fx-background-image: url("images/play_mode_background.jpg");
+    -fx-background-size: cover;
+}
 .battleMenu{
     -fx-background-image: url("images/battleBackground2.jpg");
 }

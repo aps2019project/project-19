@@ -2,36 +2,11 @@
   "userName": "a",
   "password": "a",
   "numberOfWins": 0,
-  "money": 11500,
+  "money": 15000,
   "matchHistory": [],
   "collection": {
     "items": [],
     "decks": {},
-    "cards": [
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [],
-          "ap": 3,
-          "hp": 5,
-          "type": "HYBRID",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 3,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "cardId": 3,
-          "name": "neyzedare farse",
-          "price": 500,
-          "mana": 1,
-          "description": ""
-        }
-      }
-    ]
+    "cards": []
   }
 }

@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="100" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
-            xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="100" prefWidth="1920.0" styleClass="playMode" stylesheets="@Styles.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="view.Graphic.GameModeMenu">
-    <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400">
-        <Label text="Death Match" onMouseClicked="#startDeathMatch"/>
-        <Label text="Keep The Flag" onMouseClicked="#startKeepTheFalg"/>
-        <Label text="Capture The Flags" onMouseClicked="#startCaptureTheFlag"/>
-    </VBox>
+    <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400"/>
 
     <ImageView fitHeight="100.0" fitWidth="80.0" onMouseClicked="#exit" AnchorPane.leftAnchor="0.0"
                AnchorPane.topAnchor="0.0">
         <Image url="@images/backButton.png">
         </Image>
     </ImageView>
+    <HBox alignment="CENTER" layoutX="483.0" layoutY="57.0" prefHeight="462.0" prefWidth="954.0" spacing="150.0">
+        <children>
+            <ImageView fitHeight="417.0" fitWidth="401.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/play_mode_deathMatch.jpg"/>
+                </image>
+            </ImageView>
+            <ImageView fitHeight="417.0" fitWidth="279.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/play_mode_keepTheFlag.jpg"/>
+                </image>
+            </ImageView>
+            <ImageView fitHeight="418.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/play_mode_captureTheFlags.jpg"/>
+                </image>
+            </ImageView>
+        </children>
+    </HBox>
+    <HBox alignment="CENTER" layoutX="423.0" layoutY="498.0" prefHeight="62.0" prefWidth="1312.0" spacing="70.0"
+          styleClass="menuText" stylesheets="@Styles.css">
+        <children>
+            <Label onMouseClicked="#startDeathMatch" prefHeight="55.0" prefWidth="294.0" text="Death Match"/>
+            <Label onMouseClicked="#startKeepTheFalg" text="Keep The Flag"/>
+            <Label onMouseClicked="#startCaptureTheFlag" prefHeight="46.0" prefWidth="484.0" text="Capture The Flags"/>
+        </children>
+    </HBox>
 </AnchorPane>
