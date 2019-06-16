@@ -17,7 +17,8 @@ public class MainMenuController extends MenuController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        Music.stopAllMusics();
+        Music.getMainMenuMusicPlayer().play();
     }
 
     public void goToShop() {
