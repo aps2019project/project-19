@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 public class StartNewGameController extends MenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     public void goToSinglePlayerMode() {

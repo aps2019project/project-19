@@ -9,6 +9,7 @@ public class TextReceiver {
         TextInputDialog textInputDialog = new TextInputDialog();
         textInputDialog.setTitle(title);
         textInputDialog.setHeaderText(requestMessage);
+        textInputDialog.setContentText("test");
         Optional<String> result = textInputDialog.showAndWait();
         return result.orElse(null);
     }

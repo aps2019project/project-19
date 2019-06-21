@@ -276,7 +276,7 @@ public class Controller {
         return loggedInAccount;
     }
 
-    public void createCustomGame(GameMode gameMode, String deckName) {
+    public void createCustomGame(GameMode gameMode, String deckName, int numOfFlags) {
         if (aiDeck == null) {
             errorType = ErrorType.OPPONENT_HERO_NOT_SELECTED;
         } else {
@@ -286,6 +286,9 @@ public class Controller {
                 ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
                 game = new Game(player1, ai.getPlayer());
                 game.setGameMode(gameMode);
+                if(gameMode.equals(GameMode.CAPTURE_THE_FLAGS)){
+                    game.setNumOfFlags(numOfFlags);
+                }
                 initNewGame(gameMode);
                 game.setPrize(1000);
             } else {

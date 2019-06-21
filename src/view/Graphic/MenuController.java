@@ -205,6 +205,7 @@ public class MenuController {
     public void customGame(String heroName) {
         if (mainController.getLoggedInAccount().getCollection().isAnyDeckAvailable()) {
             mainController.chooseHero(heroName);
+            //todo change select a deck in graphic
             AlertBox.display(Alert.AlertType.INFORMATION, "Custom Game", heroName + " selected");
             do {
                 deckName = TextReceiver.getText("Custom Game", "please enter a deck to play with");
