@@ -70,7 +70,9 @@ public class MenuController {
             }
             if (controller instanceof CollectionController) {
                 ((CollectionController) controller).putCardsInCollection();
+                ((CollectionController) controller).putDecks();
                 CollectionController.setController(((CollectionController) controller));
+
             }
             if (controller instanceof SingleGameCustomModeController) {
                 ((SingleGameCustomModeController) controller).putCardsInPane();
@@ -173,6 +175,22 @@ public class MenuController {
                         mainController.sellToShop(((Item) selling).getItemId());
                     ShopController.getController().putCards();
 //                    pane.getChildren().remove(cardView);
+                }
+                if (pane.getId().equals("collectionPane") && CollectionController.getController().isInDeck()) {
+                    Object card = mainController.searchInCollection(((Label) cardView.lookup("#nameLabel")).getText()).get(0);
+                    System.out.println(((Label) cardView.lookup("#nameLabel")).getText());
+                    if (card instanceof Card) {
+                        getMainController().addToDeck(deckName, ((Card) card).getCardId());
+                        mainController.getLoggedInAccount().getCollection().getCards().remove(card);
+                        mainController.getLoggedInAccount().getCollection().getCards().add(((Card) card));
+                    }
+                    
+                    if (card instanceof Item){
+                        mainController.addToDeck(deckName, ((Item) card).getItemId());
+                        mainController.getLoggedInAccount().getCollection().getItems().remove(card);
+                        mainController.getLoggedInAccount().getCollection().getItems().add(((Item) card));
+                    }
+                    CollectionController.getController().putCardInDeck(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName));
                 }
                 ShopController.getController().getErrorLabel().setText("");
                 if (mainController.getErrorType() != null) {

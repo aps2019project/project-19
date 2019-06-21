@@ -98,7 +98,7 @@ public class Shop {
     }
 
     public void buy(String productName, Account account) {
-        generateNewId();
+        generateNewId(account);
         for (Card card : cards) {
             if (card.getName().equals(productName)) {
                 if (card instanceof Hero) {
@@ -152,7 +152,8 @@ public class Shop {
     public void sellItem(int itemId) {
     }
 
-    public static void generateNewId() {
+    public static void generateNewId(Account account) {
+        id = account.getCollection().getCards().size() + account.getCollection().getItems().size();
         id++;
     }
 
