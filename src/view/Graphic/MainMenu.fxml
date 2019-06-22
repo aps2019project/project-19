@@ -7,24 +7,22 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="100" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
-            xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="view.Graphic.MainMenuController">
+<AnchorPane prefHeight="100" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Graphic.MainMenuController">
 
     <VBox spacing="5" styleClass="menuText" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="400">
-        <Label text="PLAY" onMouseClicked="#goToStartNewGame"/>
-        <Label text="Save" onMouseClicked="#saveAccount"/>
-        <Label text="WATCH"/>
-        <Label text="COLLECTION" onMouseClicked="#goToCollection"/>
-        <Label text="MYSTERY CRATES"/>
-        <Label text="LOG OUT" onMouseClicked="#logOut"/>
-        <Label text="EXIT" onMouseClicked="#exitGame"/>
+        <Label onMouseClicked="#goToStartNewGame" text="PLAY" />
+        <Label onMouseClicked="#saveAccount" text="Save" />
+        <Label text="WATCH" />
+        <Label onMouseClicked="#goToCollection" text="COLLECTION" />
+        <Label text="MYSTERY CRATES" />
+        <Label onMouseClicked="#logOut" text="LOG OUT" />
+        <Label onMouseClicked="#exitGame" text="EXIT" />
     </VBox>
     <HBox spacing="20" AnchorPane.bottomAnchor="50" AnchorPane.rightAnchor="20">
         <ImageView fitHeight="75" fitWidth="75">
-            <Image url="@images/settings.png"/>
+            <Image url="@images/settings.png" />
         </ImageView>
-        <ImageView fitHeight="75" fitWidth="75" fx:id="shop" onMouseClicked="#goToShop">
+        <ImageView fx:id="shop" fitHeight="75" fitWidth="75" onMouseClicked="#goToShop">
             <Image url="@images/shop.png">
             </Image>
         </ImageView>
@@ -32,15 +30,15 @@
             <Image url="@images/profile.png">
             </Image>
         </ImageView>
-        <ImageView fitHeight="75" fitWidth="75">
+        <ImageView fitHeight="75" fitWidth="75" onMouseClicked="#deleteAccount">
             <Image url="@images/quests.png">
             </Image>
         </ImageView>
     </HBox>
     <HBox spacing="20" styleClass="menuImageDesc" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="10">
-        <Label prefWidth="75" style="-fx-text-fill: white" text="SEETINGS"/>
-        <Label prefWidth="75" style="-fx-text-fill: white" text="SHOP"/>
-        <Label prefWidth="75" style="-fx-text-fill: white" text="PROFILE"/>
-        <Label prefWidth="75" style="-fx-text-fill: white" text="QUESTS"/>
+        <Label prefHeight="21.0" prefWidth="87.0" style="-fx-text-fill: white" text="SEETINGS" />
+        <Label prefWidth="75" style="-fx-text-fill: white" text="SHOP" />
+        <Label prefWidth="75" style="-fx-text-fill: white" text="PROFILE" />
+        <Label prefWidth="75" style="-fx-text-fill: white" text="DELETE" />
     </HBox>
 </AnchorPane>

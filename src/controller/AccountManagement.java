@@ -39,4 +39,19 @@ public class AccountManagement {
             e.printStackTrace();
         }
     }
+
+    public static boolean deleteAccount(Account account) {
+        String address = "src/data/Accounts/" + account.getUserName() + ".json";
+        File file = new File("src/data/Accounts");
+        String[] accounts = file.list();
+        for (String fileName : accounts) {
+            System.out.println(fileName);
+            if (fileName.equals(account.getUserName() + ".json")) {
+                File accountFile = new File(address);
+                accountFile.delete();
+                return true;
+            }
+        }
+        return false;
+    }
 }

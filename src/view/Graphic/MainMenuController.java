@@ -1,9 +1,12 @@
 package view.Graphic;
 
+import controller.AccountManagement;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import model.Account;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,5 +48,14 @@ public class MainMenuController extends MenuController implements Initializable 
     public void saveAccount() {
         getMainController().save();
         AlertBox.display(Alert.AlertType.INFORMATION, "Save", "Account has been saved successfully");
+    }
+
+    public void deleteAccount() {
+        if (AccountManagement.deleteAccount(getMainController().getLoggedInAccount())) {
+            AlertBox.display(Alert.AlertType.INFORMATION, "Account", "Account deleted successfully");
+            changeMenu("loginView.fxml");
+        } else {
+            AlertBox.display(Alert.AlertType.ERROR, "Account", "Account has not been saved yet");
+        }
     }
 }
