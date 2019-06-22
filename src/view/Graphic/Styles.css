@@ -136,4 +136,15 @@
 .menuText *{
     -fx-text-fill: white;
 }
+.decks{
+    -fx-pref-width: 470;
+    -fx-pref-height: 60;
+    -fx-background-color: black;
+}
+
+.cardsInDeck{
+    -fx-pref-width:460;
+    -fx-pref-height: 60;
+    -fx-background-image: url("images/deckCard.png");
+}
 

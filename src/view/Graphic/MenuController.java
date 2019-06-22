@@ -62,7 +62,7 @@ public class MenuController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         try {
             Parent root = loader.load();
-            MenuController controller = (MenuController) loader.getController();
+            MenuController controller = loader.getController();
             controller.setStage(this.getStage());
             controller.setMainController(this.getMainController());
             if (controller instanceof ShopController) {
@@ -70,7 +70,9 @@ public class MenuController {
             }
             if (controller instanceof CollectionController) {
                 ((CollectionController) controller).putCardsInCollection();
+                ((CollectionController) controller).putDecks();
                 CollectionController.setController(((CollectionController) controller));
+
             }
             if (controller instanceof SingleGameCustomModeController) {
                 ((SingleGameCustomModeController) controller).putCardsInPane();
@@ -174,9 +176,25 @@ public class MenuController {
                     ShopController.getController().putCards();
 //                    pane.getChildren().remove(cardView);
                 }
+                if (pane.getId().equals("collectionPane") && CollectionController.getController().isInDeck()) {
+                    Object card = mainController.searchInCollection(((Label) cardView.lookup("#nameLabel")).getText()).get(0);
+                    System.out.println(((Label) cardView.lookup("#nameLabel")).getText());
+                    if (card instanceof Card) {
+                        getMainController().addToDeck(deckName, ((Card) card).getCardId());
+                        mainController.getLoggedInAccount().getCollection().getCards().remove(card);
+                        mainController.getLoggedInAccount().getCollection().getCards().add(((Card) card));
+                    }
+                    
+                    if (card instanceof Item){
+                        mainController.addToDeck(deckName, ((Item) card).getItemId());
+                        mainController.getLoggedInAccount().getCollection().getItems().remove(card);
+                        mainController.getLoggedInAccount().getCollection().getItems().add(((Item) card));
+                    }
+                    CollectionController.getController().putCardInDeck(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName));
+                }
                 ShopController.getController().getErrorLabel().setText("");
                 if (mainController.getErrorType() != null) {
-                    ShopController.getController().getErrorLabel().setText(mainController.getErrorType().getMessage());
+                    AlertBox.display(Alert.AlertType.ERROR, "Shop", mainController.getErrorType().getMessage());
                     mainController.setErrorType(null);
                 }
                 ShopController.getController().getMoneyLabel().setText(mainController.getLoggedInAccount().getMoney() + "");

@@ -544,14 +544,14 @@ public class Controller {
         view.show("saved!");
     }
 
-    public void createDeck() {
-        if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
+    public void createDeck(String name) {
+        if (loggedInAccount.getCollection().getDecks().containsKey(name)) {
             errorType = ErrorType.DECK_EXISTS;
             return;
         }
-        Deck deck = new Deck(request.getDeckName());
-        loggedInAccount.getCollection().getDecks().put(request.getDeckName(), deck);
-        view.show(request.getDeckName() + " created");
+        Deck deck = new Deck(name);
+        loggedInAccount.getCollection().getDecks().put(name, deck);
+        view.show(name + " created");
     }
 
     public void deleteDeck() {
@@ -563,21 +563,21 @@ public class Controller {
         errorType = ErrorType.DECK_NOT_EXISTS;
     }
 
-    public void addToDeck() {
-        if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
+    public void addToDeck(String deckName, int id) {
+        if (!loggedInAccount.getCollection().getDecks().containsKey(deckName))
             errorType = ErrorType.DECK_NOT_EXISTS;
-        else if (!loggedInAccount.getCollection().existsInCollection(request.getCardOrItemID()))
+        else if (!loggedInAccount.getCollection().existsInCollection(id))
             errorType = ErrorType.NOT_FOUND;
-        else if (loggedInAccount.getCollection().existsInDeck(request.getDeckName(), request.getCardOrItemID()))
+        else if (loggedInAccount.getCollection().existsInDeck(deckName, id))
             errorType = ErrorType.EXISTS_IN_DECK;
-        else if (loggedInAccount.getCollection().deckIsFull(request.getDeckName(), request.getCardOrItemID()))
+        else if (loggedInAccount.getCollection().deckIsFull(deckName, id))
             errorType = ErrorType.DECK_IS_FULL;
-        else if (loggedInAccount.getCollection().isHero(request.getCardOrItemID()) &&
-                loggedInAccount.getCollection().getDecks().get(request.getDeckName()).deckHasHero())
+        else if (loggedInAccount.getCollection().isHero(id) &&
+                loggedInAccount.getCollection().getDecks().get(deckName).deckHasHero())
             errorType = ErrorType.DECK_HAS_HERO;
         else {
-            loggedInAccount.getCollection().addToDeck(request.getCardOrItemID(), request.getDeckName());
-            view.show("card " + request.getCardOrItemID() + " added to deck " + request.getDeckName());
+            loggedInAccount.getCollection().addToDeck(id, deckName);
+            view.show("card " + id + " added to deck " + deckName);
         }
     }
 
