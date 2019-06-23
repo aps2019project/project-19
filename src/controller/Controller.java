@@ -856,7 +856,7 @@ public class Controller {
             } else if (((Hero) card).getCoolDownWaiting() < ((Hero) card).getCoolDown()) {
                 errorType = ErrorType.NOT_ENOUGH_COOLDOWN;
             } else {
-                castHeroSpecialPower((Hero) card);
+                castHeroSpecialPower((Hero) card,x,y);
                 ((Hero) card).setCoolDownWaiting(0);
             }
         }
