@@ -6,9 +6,7 @@
     -fx-background-image: url("images/play_mode_background.jpg");
     -fx-background-size: cover;
 }
-.battleMenu{
-    -fx-background-image: url("images/battleBackground2.jpg");
-}
+
 .menuText{
     -fx-font-family: Lato-Light;
     -fx-font-size: 45;
@@ -147,4 +145,3 @@
     -fx-pref-height: 60;
     -fx-background-image: url("images/deckCard.png");
 }
-

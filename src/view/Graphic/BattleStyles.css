@@ -1,0 +1,13 @@
+.battleMenu{
+    -fx-background-image: url("images/battleBackground2.jpg");
+}
+.cells{
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-image: url("images/cells.png");
+}
+.hoveredCells{
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-image: url("images/cellsHover.png");
+}
