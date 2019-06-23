@@ -727,15 +727,13 @@ public class Controller {
         errorType = ErrorType.INVALID_CARD_ID;
     }
 
-    public void selectCardOrItem(Player player) {
-        String id = request.getInBattleCardId();
-        if (player.containsCardInBattle(id)) {
-            Card card = activePlayer.getInBattleCard(id);
+    public void selectCardOrItem(Player player,String inBattleCardId,int itemId) {
+        if (player.containsCardInBattle(inBattleCardId)) {
+            Card card = activePlayer.getInBattleCard(inBattleCardId);
             activePlayer.setSelectedCard(card);
             System.err.println(card.getName() + " " + card.getCardId() + " selected");
             return;
         }
-        int itemId = request.getItemID();
         if (player.getItems().containsKey(itemId)) {
             Item item = activePlayer.getItems().get(itemId);
             activePlayer.setSelectedItem(item);
@@ -745,7 +743,7 @@ public class Controller {
         errorType = ErrorType.INVALID_CARD_ID;
     }
 
-    public void moveCard() {
+    public void moveCard(int x,int y) {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
@@ -761,12 +759,12 @@ public class Controller {
             errorType = ErrorType.CAN_NOT_MOVE_AGAIN;
             return;
         }
-        if (!game.coordinateIsValid(request.getX(), request.getY())) {
+        if (!game.coordinateIsValid(x, y)) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
         Cell currentCell = activePlayer.getInBattleCards().get(card);
-        Cell targetCell = game.getCell(request.getX(), request.getY());
+        Cell targetCell = game.getCell(x, y);
         if (targetCell.getCard() != null) {
             errorType = ErrorType.INVALID_TARGET;
         } else if (currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell, targetCell)) {
@@ -779,7 +777,7 @@ public class Controller {
             activePlayer.getInBattleCards().replace(card, targetCell);
             if (!game.getGameMode().equals(GameMode.DEATH_MATCH))
                 card.pickUpFlags(targetCell);
-            System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
+            System.err.println("card" + card.getName() + " moved to " + x + "," + y);
             //adding cell buff to card
             if (targetCell.getBuff() != null) {
                 targetCell.getBuff().setForCell(true);
@@ -791,8 +789,8 @@ public class Controller {
         }
     }
 
-    public void comboAttack() {
-        for (String comboAttackerId : request.getComboAttackers()) {
+    public void comboAttack(ArrayList<String> comboAttackers,String defenderInBattleId) {
+        for (String comboAttackerId : comboAttackers) {
             if (!activePlayer.containsCardInBattle(comboAttackerId)) {
                 errorType = ErrorType.INVALID_CARD_ID;
                 return;
@@ -802,11 +800,11 @@ public class Controller {
                 continue;
             }
             activePlayer.setSelectedCard(attacker);
-            attack();
+            attack(defenderInBattleId);
         }
     }
 
-    public void attack() {
+    public void attack(String defenderInBattleId) {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
@@ -816,12 +814,11 @@ public class Controller {
             errorType = ErrorType.CAN_NOT_ATTACK_AGAIN;
             return;
         }
-        String defenderId = request.getInBattleCardId();
-        if (!deactivePlayer.containsCardInBattle(defenderId)) {
+        if (!deactivePlayer.containsCardInBattle(defenderInBattleId)) {
             errorType = ErrorType.INVALID_CARD_ID;
             return;
         }
-        SoldierCard defender = (SoldierCard) deactivePlayer.getInBattleCard(defenderId);
+        SoldierCard defender = (SoldierCard) deactivePlayer.getInBattleCard(defenderInBattleId);
         Cell attackerCell = activePlayer.getInBattleCards().get(attacker);
         Cell defenderCell = deactivePlayer.getInBattleCards().get(defender);
         if (!attacker.targetIsInRange(attackerCell, defenderCell)) {
@@ -842,7 +839,7 @@ public class Controller {
             endTurn();
     }
 
-    public void useSpecialPower() {
+    public void useSpecialPower(int x,int y) {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
@@ -852,7 +849,7 @@ public class Controller {
             if (((Hero) card).getSpecialPower() == null || ((Hero) card).getCoolDown() == 0) {
                 errorType = ErrorType.NO_SPECIAL_POWER;
             } else if (!card.getTarget().checkTargetValidation(game, activePlayer, deactivePlayer,
-                    request.getX(), request.getY())) {
+                    x, y)) {
                 errorType = ErrorType.INVALID_TARGET;
             } else if (activePlayer.getMana() < card.getMana()) {
                 errorType = ErrorType.NOT_ENOUGH_MANA;
@@ -869,7 +866,7 @@ public class Controller {
                 return;
             }
             if (!card.getTarget().checkTargetValidation(game, activePlayer,
-                    deactivePlayer, request.getX(), request.getY())) {
+                    deactivePlayer, x,y)) {
                 errorType = ErrorType.INVALID_TARGET;
                 return;
             }
@@ -943,11 +940,11 @@ public class Controller {
         }
     }
 
-    private void castHeroSpecialPower(Hero card) {
+    private void castHeroSpecialPower(Hero card,int x,int y) {
         if (card.getTarget().getType().equals(Type.AREA)) {
             int areaSize = card.getTarget().getAreaSize();
-            for (int i = request.getX(); i < request.getX() + areaSize; i++) {
-                for (int j = request.getY(); j < request.getY() + areaSize; j++) {
+            for (int i = x; i < y + areaSize; i++) {
+                for (int j = y; j < y + areaSize; j++) {
                     if (game.coordinateIsValid(i, j)) {
                         if (card.getTarget().isIsaffectingCell()) {
                             game.getCell(i, j).setBuff(card.getSpecialPower());
@@ -969,14 +966,14 @@ public class Controller {
                     break;
                 case ONE_ENEMY:
                 case ONE_SOLDIER:
-                    Cell cell = game.getCell(request.getX(), request.getY());
+                    Cell cell = game.getCell(x, y);
                     addHeroSpecialPowerToTarget(card, (SoldierCard) cell.getCard());
                     break;
                 case ALL_SOLDIERS_IN_THE_ROW_OF_FRIENDLY_HERO:
                     for (int i = 1; i <= 9; i++) {
                         int j = activePlayer.getInBattleCards().get(activePlayer.getHero()).getYCoordinate();
-                        int x = activePlayer.getInBattleCards().get(activePlayer.getHero()).getXCoordinate();
-                        if (game.getCell(i, j) != null && i != x) {
+                        int x1 = activePlayer.getInBattleCards().get(activePlayer.getHero()).getXCoordinate();
+                        if (game.getCell(i, j) != null && i != x1) {
                             addHeroSpecialPowerToTarget(card, (SoldierCard) game.getCell(i, j).getCard());
                         }
                     }
@@ -1003,15 +1000,15 @@ public class Controller {
         view.show(activePlayer.handInfo());
     }
 
-    public void insertCard() {
+    public void insertCard(String cardName,int x,int y) {
         Player player = activePlayer;
         ArrayList<Card> cards = new ArrayList<>(player.getHandCards().values());
-        Card card = findCardInHandByName(cards, request.getCardName());
+        Card card = findCardInHandByName(cards, cardName);
         if (card == null) {
             errorType = ErrorType.INVALID_CARDNAME;
             return;
         }
-        if (request.isHasXY() && !game.coordinateIsValid(request.getX(), request.getY())) {
+        if (!game.coordinateIsValid(x, y)) {
             errorType = ErrorType.INVALID_TARGET;
             return;
         }
@@ -1019,14 +1016,14 @@ public class Controller {
             errorType = ErrorType.NOT_ENOUGH_MANA;
             return;
         }
-        Cell insertionCell = game.getCell(request.getX(), request.getY());
+        Cell insertionCell = game.getCell(x, y);
         if (card instanceof SpellCard) {
             if (!((SpellCard) card).getTargetArea().checkTargetValidation(game,
-                    activePlayer, deactivePlayer, request.getX(), request.getY())) {
+                    activePlayer, deactivePlayer, x, y)) {
                 errorType = ErrorType.INVALID_TARGET;
                 return;
             }
-            castSpell((SpellCard) card);
+            castSpell((SpellCard) card,x,y);
             card.setCardStatus(CardStatus.IN_GRAVEYARD);
             activePlayer.getGraveYard().put(card.getInBattleCardId(), card);
         } else {
@@ -1039,7 +1036,7 @@ public class Controller {
                 insertionCell.setCard(card);
                 card.setInBattleCardId(generateInBattleCardId(card));
                 view.show(card.getName() + " with " + card.getInBattleCardId() +
-                        " inserted to (" + request.getX() + ", " + request.getY() + ")");
+                        " inserted to (" + x + ", " + y + ")");
             }
             useUsable(activePlayer, WhenToUse.ON_SPAWN);
             player.getHandCards().remove(card.getCardId(), card);
@@ -1049,11 +1046,11 @@ public class Controller {
         }
     }
 
-    private void castSpell(SpellCard card) {
+    private void castSpell(SpellCard card,int x,int y) {
         if (card.getTargetArea().getType().equals(Type.AREA)) {
             int areaSize = card.getTargetArea().getAreaSize();
-            for (int i = request.getX(); i < request.getX() + areaSize; i++) {
-                for (int j = request.getY(); j < request.getY() + areaSize; j++) {
+            for (int i = x; i < x + areaSize; i++) {
+                for (int j = y; j < y + areaSize; j++) {
                     if (game.coordinateIsValid(i, j)) {
                         if (card.getTargetArea().isIsaffectingCell()) {
                             game.getCell(i, j).setBuff(card.getBuff().get(0));
@@ -1067,7 +1064,7 @@ public class Controller {
                                 else
                                     buff.cancelPositiveBuffs((SoldierCard) soldier);
                             } else {
-                                Cell cell = game.getCell(request.getX(), request.getY());
+                                Cell cell = game.getCell(x, y);
                                 castSpellBuffsOnTarget(card, (SoldierCard) cell.getCard());
                             }
                         }
@@ -1082,7 +1079,7 @@ public class Controller {
                 case ONE_SOLDIER:
                 case ONE_FRIENDLY_SOLDIER:
                 case ONE_ENEMY:
-                    Cell cell = game.getCell(request.getX(), request.getY());
+                    Cell cell = game.getCell(x, y);
                     castSpellBuffsOnTarget(card, (SoldierCard) cell.getCard());
                     break;
                 case ENEMY_HERO:
@@ -1120,7 +1117,7 @@ public class Controller {
                     break;
                 case ALL_ENEMIES_IN_A_COLUMN:
                     for (int i = 1; i <= 5; i++) {
-                        Card soldier = game.getCell(request.getX(), i).getCard();
+                        Card soldier = game.getCell(x, i).getCard();
                         if (soldier != null && deactivePlayer.getInBattleCards().containsKey(soldier)) {
                             castSpellBuffsOnTarget(card, (SoldierCard) soldier);
                         }
@@ -1279,10 +1276,6 @@ public class Controller {
                     + " won the game and his prize is: " + game.getPrize());
             game.getWinnerPlayer().getAccount().increaseMoney(game.getPrize());
 
-            do {
-                request.resetProperties();
-                request.getNewCommand();
-            } while (!request.getCommand().equals("end game"));
         }
         game.getPlayer1().getAccount().getMatchHistory().add(game);
         game.getPlayer2().getAccount().getMatchHistory().add(game);
