@@ -5,7 +5,9 @@ import controller.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+
 import java.util.ArrayList;
 
 public class ShopController extends MenuController {
@@ -48,8 +50,7 @@ public class ShopController extends MenuController {
             shopProducts.addAll(controller.getShop().getItems());
             collectionProducts.addAll(controller.getLoggedInAccount().getCollection().getCards());
             collectionProducts.addAll(controller.getLoggedInAccount().getCollection().getItems());
-        }
-        else {
+        } else {
             shopProducts.addAll(controller.searchInShop(searchBar.getText()));
             collectionProducts.addAll(controller.searchInCollection(searchBar.getText()));
         }
@@ -65,5 +66,9 @@ public class ShopController extends MenuController {
 
     public void exit() {
         changeMenu("MainMenu.fxml");
+    }
+
+    public void goToCustomCardMenu() {
+        changeMenu("customCardPage.fxml");
     }
 }

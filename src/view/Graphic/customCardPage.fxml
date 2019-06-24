@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" styleClass="customCard" stylesheets="@Styles.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.Graphic.CustomCardPage">
+    <ImageView fitHeight="100.0" fitWidth="80.0" onMouseClicked="#exit" AnchorPane.leftAnchor="0.0"
+               AnchorPane.topAnchor="0.0">
+        <Image url="@images/backButton.png"/>
+    </ImageView>
+    <JFXTabPane layoutX="147.0" layoutY="122.0" prefHeight="878.0" prefWidth="1749.0" AnchorPane.leftAnchor="100.0"
+                AnchorPane.topAnchor="150.0">
+        <Tab text="Minion">
+            <AnchorPane fx:id="minionTab">
+                <Label styleClass="labelInput" stylesheets="@Styles.css" text="Attack Point" AnchorPane.leftAnchor="10"
+                       AnchorPane.topAnchor="10"/>
+                <JFXTextField layoutX="10.0" layoutY="70.0" prefHeight="56.0" prefWidth="308.0" styleClass="textInput"
+                              stylesheets="@Styles.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="70.0"/>
+                <Label layoutX="10.0" layoutY="146.0" styleClass="labelInput" stylesheets="@Styles.css"
+                       text="Health Point" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="130.0"/>
+                <JFXTextField layoutX="20.0" layoutY="216.0" prefHeight="56.0" prefWidth="308.0" styleClass="textInput"
+                              stylesheets="@Styles.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="190.0"/>
+                <ChoiceBox fx:id="minionAttackType" layoutX="99.0" layoutY="337.0" prefWidth="308"
+                           AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="310.0"/>
+                <Label layoutX="10.0" layoutY="260.0" styleClass="labelInput" stylesheets="@Styles.css"
+                       text="Attack Type" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="250.0"/>
+                <ChoiceBox fx:id="minionAbilityCastTime" layoutX="109.0" layoutY="424.0" prefWidth="308"
+                           AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="410.0"/>
+                <Label layoutX="20.0" layoutY="347.0" styleClass="labelInput" stylesheets="@Styles.css"
+                       text="Ability Cast Time" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="350.0"/>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Hero">
+            <AnchorPane fx:id="heroTab">
+
+            </AnchorPane>
+        </Tab>
+        <Tab text="Spell">
+            <AnchorPane fx:id="spellTab">
+
+            </AnchorPane>
+        </Tab>
+    </JFXTabPane>
+    <JFXTextField layoutX="100.0" layoutY="83.0" prefHeight="56.0" prefWidth="308.0" styleClass="textInput"
+                  stylesheets="@Styles.css"/>
+    <JFXTextField layoutX="432.0" layoutY="83.0" prefHeight="56.0" prefWidth="308.0" styleClass="textInput"
+                  stylesheets="@Styles.css"/>
+    <JFXTextField layoutX="762.0" layoutY="83.0" prefHeight="56.0" prefWidth="308.0" styleClass="textInput"
+                  stylesheets="@Styles.css"/>
+    <JFXTextField layoutX="1086.0" layoutY="83.0" prefHeight="56.0" prefWidth="308.0" styleClass="textInput"
+                  stylesheets="@Styles.css"/>
+    <Label layoutX="100.0" layoutY="23.0" styleClass="labelInput" stylesheets="@Styles.css" text="Name"/>
+    <Label layoutX="432.0" layoutY="23.0" styleClass="labelInput" stylesheets="@Styles.css" text="Mana"/>
+    <Label layoutX="762.0" layoutY="23.0" styleClass="labelInput" stylesheets="@Styles.css" text="Cost"/>
+    <Label layoutX="1086.0" layoutY="23.0" styleClass="labelInput" stylesheets="@Styles.css" text="Description"/>
+</AnchorPane>

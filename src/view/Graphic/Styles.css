@@ -1,96 +1,114 @@
-.mainMenu{
+.mainMenu {
     -fx-background-image: url("images/background.jpg");
     -fx-background-size: cover;
 }
-.playMode{
+
+.playMode {
     -fx-background-image: url("images/play_mode_background.jpg");
     -fx-background-size: cover;
 }
-.battleMenu{
+
+.customCard {
+    -fx-background-image: url("images/customCard_background.jpg");
+    -fx-background-size: cover;
+}
+
+.battleMenu {
     -fx-background-image: url("images/battleBackground2.jpg");
 }
-.menuText{
+
+.menuText {
     -fx-font-family: Lato-Light;
     -fx-font-size: 45;
 }
-.menuImageDesc{
+
+.menuImageDesc {
     -fx-font-size: 17;
 }
 
-.loginPane{
+.loginPane {
     -fx-fill: black;
 }
+
 .jfx-tab-pane .headers-region {
-    -fx-background-color: rgb(41,41,42);
+    -fx-background-color: rgb(41, 41, 42);
 }
 
-.soldierCard{
+.soldierCard {
     -fx-pref-width: 200;
     -fx-pref-height: 230;
     -fx-background-image: url("images/soldierCard.jpg");
     -fx-background-size: cover;
 }
 
-.spellCard{
+.spellCard {
     -fx-pref-width: 200;
     -fx-pref-height: 230;
     -fx-background-image: url("images/spellCard.png");
     -fx-background-size: cover;
 }
 
-.item{
+.item {
     -fx-pref-width: 200;
     -fx-pref-height: 230;
     -fx-background-image: url("images/item.png");
     -fx-background-size: cover;
 }
 
-.labelName{
+.labelName {
     -fx-pref-width: 200;
     -fx-pref-height: 30;
     -fx-font-size: 17px;
     -fx-text-fill: white;
     -fx-alignment: center;
 }
-.aPLabel{
+
+.aPLabel {
     -fx-pref-width: 25;
     -fx-pref-height: 25;
     -fx-font-size: 20px;
     -fx-text-fill: yellow;
     -fx-alignment: center;
 }
-.hPLabel{
+
+.hPLabel {
     -fx-pref-width: 25;
     -fx-pref-height: 25;
     -fx-font-size: 20px;
     -fx-text-fill: red;
     -fx-alignment: center;
 }
-.manaLabel{
+
+.manaLabel {
     -fx-pref-width: 25;
     -fx-pref-height: 25;
     -fx-font-size: 20px;
     -fx-text-fill: white;
     -fx-alignment: center;
 }
-.kindLabel{
+
+.kindLabel {
     -fx-pref-width: 200;
     -fx-pref-height: 30;
     -fx-font-size: 15px;
     -fx-text-fill: gray;
     -fx-alignment: center;
 }
+
 .jfx-tab-pane .tab-header-background {
-    -fx-background-color: rgb(41,41,42);
+    -fx-background-color: rgb(41, 41, 42);
 }
+
 .jfx-tab-pane .tab-selected-line {
-    -fx-stroke: rgb(241,111,32);
+    -fx-stroke: rgb(241, 111, 32);
     -fx-stroke-width: 56pt;
 }
-.scroll-bar:vertical{
+
+.scroll-bar:vertical {
     -fx-pref-width: 15px;
     -fx-background-color: #1a3a9b;
 }
+
 .searchBar {
     -fx-background-radius: 20px;
     -fx-background-color: #3d4044;
@@ -98,53 +116,72 @@
     -fx-prompt-text-fill: white;
     -fx-text-alignment: center;
 }
-.errorLabel{
+
+.errorLabel {
     -fx-font-size: 20px;
     -fx-text-fill: red;
 }
-.moneyLabel{
+
+.moneyLabel {
     -fx-font-size: 20px;
-   -fx-text-fill: yellow;
+    -fx-text-fill: yellow;
     -fx-background-color: #3d4044;
     -fx-background-radius: 20px;
 }
-.scroll-pane .viewport{
+
+.scroll-pane .viewport {
     -fx-background-color: transparent;
 }
+
 .jfx-tab-pane .headers-region {
     -fx-background-color: transparent;
 }
+
 .jfx-tab-pane .tab-header-background {
     -fx-background-color: transparent;
 }
+
 .jfx-tab-pane .tab-selected-line {
     -fx-stroke: transparent;
     -fx-stroke-width: 3pt;
 }
- .tabStyle{
-     -fx-font-size: 20px;
- }
-.alertBox{
+
+.tabStyle {
+    -fx-font-size: 20px;
+}
+
+.alertBox {
     -fx-text-fill: Black;
     -fx-font-size: 50;
 }
 
-.menuText *:hover{
+.menuText *:hover {
     -fx-text-fill: red;
 }
 
-.menuText *{
+.menuText * {
     -fx-text-fill: white;
 }
-.decks{
+
+.decks {
     -fx-pref-width: 470;
     -fx-pref-height: 60;
     -fx-background-color: black;
 }
 
-.cardsInDeck{
-    -fx-pref-width:460;
+.cardsInDeck {
+    -fx-pref-width: 460;
     -fx-pref-height: 60;
     -fx-background-image: url("images/deckCard.png");
 }
 
+.textInput {
+    -fx-background-color: white;
+    -fx-font-size: 30;
+    fx-background-color-opacity: 0.5px;
+}
+
+.labelInput {
+    -fx-font-size: 45;
+    -fx-text-fill: white;
+}
