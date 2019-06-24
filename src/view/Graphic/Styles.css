@@ -184,7 +184,7 @@
 
 .labelInput {
     -fx-font-size: 45;
-    -fx-text-fill: white;
+    -fx-text-fill: #cece00;
 }
 
 .buffAnchors {

@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" styleClass="customCard" stylesheets="@Styles.css"
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="view.Graphic.CustomCardPage">
@@ -40,6 +41,8 @@
                            AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="70.0"/>
                 <Label layoutX="382.0" layoutY="10.0" styleClass="labelInput" stylesheets="@Styles.css"
                        text="Special Powers" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="10.0"/>
+                <JFXButton AnchorPane.topAnchor="130.0" AnchorPane.leftAnchor="450" styleClass="addBuffBtn"
+                           stylesheets="@Styles.css" text="Create Card" onAction="#createMinion"/>
                 <AnchorPane fx:id="buffSection" AnchorPane.leftAnchor="850.0" AnchorPane.topAnchor="10.0">
                 </AnchorPane>
             </AnchorPane>

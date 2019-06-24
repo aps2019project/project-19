@@ -1,7 +1,9 @@
 package view.Graphic;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -9,10 +11,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import model.AbilityCastTime;
-import model.Buff.Buff;
-import model.Buff.DisArmBuff;
-import model.Buff.DispellBuff;
-import model.Buff.Kind;
+import model.Buff.*;
 import model.Cards.CustomCard;
 import model.Cards.SoldierTypes;
 
@@ -50,35 +49,175 @@ public class CustomCardPage extends MenuController implements Initializable {
 
     private void handleBuff(AnchorPane commonAttributes) {
         switch (minionBuffType.getValue()) {
-            case "DisArm Buff":
-                JFXButton button = getButton("Add Buff");
-                commonAttributes.getChildren().add(button);
-                AnchorPane.setTopAnchor(button, 240.0);
-                button.setOnAction(event -> {
-                    if (checkTextField((JFXTextField) commonAttributes.getChildren().get(1)) &&
-                            checkTextField((JFXTextField) commonAttributes.getChildren().get(3))) {
-                        DisArmBuff buff = new DisArmBuff(Kind.NEGATIVE, Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()), false);
-                        customCard.getSpecialPowers().add();
+            case "DisArm Buff": {
+                JFXButton addBtn = getButton("Add Buff");
+                commonAttributes.getChildren().add(addBtn);
+                AnchorPane.setTopAnchor(addBtn, 240.0);
+                addBtn.setOnAction(event -> {
+                    if (checkCommonAttributes(commonAttributes)) {
+                        DisArmBuff buff = new DisArmBuff(Kind.NEGATIVE,
+                                Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()), false);
+                        addBuff(commonAttributes, buff);
+                        return;
                     }
                     AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
                 });
                 break;
-            case "Stun Buff":
+            }
+            case "Stun Buff": {
+                JFXButton addBtn = getButton("Add Buff");
+                commonAttributes.getChildren().add(addBtn);
+                AnchorPane.setTopAnchor(addBtn, 240.0);
+                addBtn.setOnAction(event -> {
+                    if (checkCommonAttributes(commonAttributes)) {
+                        StunBuff buff = new StunBuff(Kind.NEGATIVE,
+                                Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()), false);
+                        addBuff(commonAttributes, buff);
+                        return;
+                    }
+                    AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
+                });
                 break;
-            case "Attack Buff":
+            }
+            case "Attack Buff": {
+                AnchorPane anchorPane = oneAttributeBuff();
+                JFXButton addBtn = labelingOneAttributeBuffs(anchorPane, "Damage Point");
+                addBtn.setOnAction(event -> {
+                    if (checkCommonAttributes(commonAttributes) && checkTextField((JFXTextField) anchorPane.getChildren().get(1))) {
+                        AttackBuff buff = new AttackBuff(Kind.NEGATIVE,
+                                Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
+                                false, Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(1)).getText()));
+                        addBuff(commonAttributes, buff);
+                        return;
+                    }
+                    AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
+                });
                 break;
-            case "Holy Buff":
+            }
+            case "Holy Buff": {
+                AnchorPane anchorPane = oneAttributeBuff();
+                JFXButton addBtn = labelingOneAttributeBuffs(anchorPane, "Less Damage Point");
+                addBtn.setOnAction(event -> {
+                    if (checkCommonAttributes(commonAttributes) && checkTextField((JFXTextField) anchorPane.getChildren().get(1))) {
+                        HolyBuff buff = new HolyBuff(Kind.POSITIVE,
+                                Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
+                                false, Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(1)).getText()));
+                        addBuff(commonAttributes, buff);
+                        return;
+                    }
+                    AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
+                });
                 break;
-            case "Poison Buff":
+            }
+            case "Poison Buff": {
+                AnchorPane anchorPane = oneAttributeBuff();
+                JFXButton addBtn = labelingOneAttributeBuffs(anchorPane, "Damage Point");
+                addBtn.setOnAction(event -> {
+                    if (checkCommonAttributes(commonAttributes) && checkTextField((JFXTextField) anchorPane.getChildren().get(1))) {
+                        PoisonBuff buff = new PoisonBuff(Kind.NEGATIVE,
+                                Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
+                                false, Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(1)).getText()));
+                        addBuff(commonAttributes, buff);
+                        return;
+                    }
+                    AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
+                });
                 break;
-            case "Dispell Buff":
+            }
+            case "Power Buff": {
+                AnchorPane anchorPane = twoAttributeBuff();
+                JFXButton addBtn = labelingTwoAttributeBuffs(anchorPane, "Health Point", "Attack Point");
+                addBtn.setOnAction(e -> {
+                    if (checkCommonAttributes(commonAttributes) && checkTextField((JFXTextField) anchorPane.getChildren().get(1))
+                            && checkTextField((JFXTextField) anchorPane.getChildren().get(3))) {
+                        PowerBuff buff = new PowerBuff(Kind.POSITIVE,
+                                Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
+                                false, Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(1)).getText()),
+                                Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(3)).getText()));
+                        addBuff(commonAttributes, buff);
+                        return;
+                    }
+                    AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
+                });
                 break;
-            case "Power Buff":
+            }
+            case "Weakness Buff": {
+                AnchorPane anchorPane = twoAttributeBuff();
+                JFXButton addBtn = labelingTwoAttributeBuffs(anchorPane, "Health Decrement Point", "Attack Decrement Point");
+                addBtn.setOnAction(e -> {
+                    if (checkCommonAttributes(commonAttributes) && checkTextField((JFXTextField) anchorPane.getChildren().get(1))
+                            && checkTextField((JFXTextField) anchorPane.getChildren().get(3))) {
+                        WeaknessBuff buff = new WeaknessBuff(Kind.NEGATIVE,
+                                Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
+                                false, Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(1)).getText()),
+                                Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(3)).getText()));
+                        addBuff(commonAttributes, buff);
+                        return;
+                    }
+                    AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
+                });
                 break;
-            case "Weakness Buff":
+            }
+            case "DisPell Buff": {
+                JFXCheckBox enemy = new JFXCheckBox("Enemy");
+                enemy.getStyleClass().add("labelInput");
+                JFXCheckBox friend = new JFXCheckBox("Friend");
+                friend.getStyleClass().add("labelInput");
+                JFXButton addBtn = getButton("Add Buff");
+                commonAttributes.getChildren().addAll(addBtn, enemy, friend);
+                AnchorPane.setTopAnchor(addBtn, 360.0);
+                AnchorPane.setTopAnchor(enemy, 240.0);
+                AnchorPane.setTopAnchor(friend, 300.0);
+                addBtn.setOnAction(e -> {
+                    if (checkCommonAttributes(commonAttributes) && (enemy.isSelected() || friend.isSelected())) {
+                        DispellBuff buff = new DispellBuff(Kind.NEGATIVE,
+                                Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
+                                false, enemy.isSelected(), friend.isSelected());
+                        addBuff(commonAttributes, buff);
+                        return;
+                    }
+                    AlertBox.display(Alert.AlertType.ERROR, "Inputs",
+                            "Enter all inputs correctly and select at least on of the checkBoxes");
+                });
                 break;
-            default:
+            }
         }
+    }
+
+    private JFXButton labelingOneAttributeBuffs(AnchorPane anchorPane, String labelText) {
+        Label label = (Label) anchorPane.getChildren().get(0);
+        label.setText(labelText);
+        buffSection.getChildren().add(anchorPane);
+        AnchorPane.setTopAnchor(anchorPane, 300.0);
+        return (JFXButton) anchorPane.getChildren().get(2);
+    }
+
+    private JFXButton labelingTwoAttributeBuffs(AnchorPane anchorPane, String label1, String label2) {
+        Label labelOne = (Label) anchorPane.getChildren().get(0);
+        Label labelTwo = (Label) anchorPane.getChildren().get(2);
+        labelOne.setText(label1);
+        labelTwo.setText(label2);
+        buffSection.getChildren().add(anchorPane);
+        AnchorPane.setTopAnchor(anchorPane, 300.0);
+        return (JFXButton) anchorPane.getChildren().get(4);
+
+    }
+
+    private void addBuff(AnchorPane commonAttributes, Buff buff) {
+        buff.setCastTurn(Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(3)).getText()));
+        customCard.getSpecialPowers().add(buff);
+        AlertBox.display(Alert.AlertType.INFORMATION, "Buff", "Buff added successfully");
+        cleanUpBuff();
+    }
+
+    private void cleanUpBuff() {
+        buffSection.getChildren().removeIf(node -> node instanceof AnchorPane);
+        minionBuffType.getItems().removeAll();
+    }
+
+    private boolean checkCommonAttributes(AnchorPane commonAttributes) {
+        return checkTextField((JFXTextField) commonAttributes.getChildren().get(1)) &&
+                checkTextField((JFXTextField) commonAttributes.getChildren().get(3));
     }
 
     private boolean checkTextField(JFXTextField textField) {
@@ -159,4 +298,7 @@ public class CustomCardPage extends MenuController implements Initializable {
         return button;
     }
 
+    public void createMinion() {
+        // TODO: 6/24/19  
+    }
 }
