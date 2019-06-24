@@ -19,11 +19,15 @@ import java.util.ArrayList;
 public class CollectionController extends MenuController {
     private static CollectionController controller = new CollectionController();
     @FXML
+    AnchorPane mainPane = new AnchorPane();
+    @FXML
     private JFXMasonryPane collectionPane = new JFXMasonryPane();
     @FXML
     private TextField searchBar = new TextField();
     @FXML
     private ImageView newDeckButton = new ImageView();
+    @FXML
+    private Label deckButtonLabel = new Label();
     @FXML
     private JFXMasonryPane decksPane = new JFXMasonryPane();
     @FXML
@@ -71,8 +75,11 @@ public class CollectionController extends MenuController {
             deckView.getChildren().add(name);
             decksPane.getChildren().add(deckView);
             deckView.setOnMouseClicked(event -> {
+//                setMainDeckButton();
+                deckButtonLabel.setText("exit deck");
                 super.setDeckName(((Label) deckView.lookup("#name")).getText());
                 putCardInDeck(getMainController().getLoggedInAccount().getCollection().getDecks().get(((Label) deckView.lookup("#name")).getText()));
+                putUnusedCard(collectionPane);
             });
         }
     }
@@ -85,6 +92,18 @@ public class CollectionController extends MenuController {
     public void removeGlow() {
         Image image = new Image("view/Graphic/images/rightButton.png");
         newDeckButton.setImage(image);
+    }
+
+    public void handleDeckButton() {
+        if (!inDeck) {
+            createDeck();
+        }
+        if (inDeck) {
+            inDeck = false;
+            putCardsInCollection();
+            putDecks();
+            deckButtonLabel.setText("new deck");
+        }
     }
 
     public void createDeck() {
@@ -119,5 +138,25 @@ public class CollectionController extends MenuController {
             mana.relocate(35, 30);
             decksPane.getChildren().add(cardView);
         }
+    }
+
+    public void setMainDeckButton() {
+        ImageView mainButton = new ImageView();
+        Image mainButtonImage = new Image("view/Graphic/images/rightButton.png");
+        Label setMain = new Label("main deck");
+        mainButton.setImage(mainButtonImage);
+        mainButton.resize(250, 80);
+        setMain.resize(250, 80);
+        mainPane.getChildren().add(mainButton);
+        mainPane.getChildren().add(setMain);
+        mainButton.relocate(1540, 900);
+        setMain.relocate(1640, 1000);
+        setMain.setOnMouseEntered(event -> {
+            Image glowImage = new Image("view/Graphic/images/rightButtonGlow.png");
+            mainButton.setImage(glowImage);
+        });
+        setMain.setOnMouseExited(event -> mainButton.setImage(mainButtonImage));
+        setMain.setOnMouseClicked(event -> {
+        });
     }
 }
