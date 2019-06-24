@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import model.AbilityCastTime;
@@ -14,23 +15,33 @@ import model.Buff.*;
 import model.Cards.Card;
 import model.Cards.CustomCard;
 import model.Cards.SoldierTypes;
+import model.Target.SoldierTargetType;
+import model.Target.Type;
 
 import java.net.URL;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CustomCardPage extends MenuController implements Initializable {
     @FXML
     public ChoiceBox<SoldierTypes> minionAttackType;
     public ChoiceBox<AbilityCastTime> minionAbilityCastTime;
-    public AnchorPane minionTabAnchorPane;
     public ChoiceBox<String> minionBuffType;
-    public AnchorPane buffSection;
+    public AnchorPane minionBuffSection;
     public JFXTextField name;
     public JFXTextField mana;
     public JFXTextField cost;
     public JFXTextField description;
     public JFXTextField minionAP;
     public JFXTextField minionHP;
+    public JFXTextField heroAP;
+    public JFXTextField heroHP;
+    public ChoiceBox<SoldierTypes> heroAttackType;
+    public ChoiceBox<String> heroBuffType;
+    public AnchorPane heroBuffSection;
+    public JFXTextField heroCoolDown;
+    public ChoiceBox<Type> heroTargetType;
 
     private CustomCard customCard;
 
@@ -38,9 +49,58 @@ public class CustomCardPage extends MenuController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         customCard = new CustomCard();
         minionAttackType.getItems().addAll(SoldierTypes.getTypes());
-        minionAttackType.setOnAction(e -> {
-            customCard.setAttackType(minionAttackType.getValue());
-            if (minionAttackType.getValue().equals(SoldierTypes.RANGED)) {
+        heroAttackType.getItems().addAll(SoldierTypes.getTypes());
+        attackTypeHandler(minionAttackType);
+        attackTypeHandler(heroAttackType);
+        minionAbilityCastTime.getItems().addAll(AbilityCastTime.getTypes());
+        minionAbilityCastTime.setOnAction(e -> customCard.setAbilityCastTime(minionAbilityCastTime.getValue()));
+        minionBuffType.getItems().addAll(Buff.getSoldierBuffNames());
+        heroBuffType.getItems().addAll(Buff.getSoldierBuffNames());
+        buffTypeHandler(minionBuffType, minionBuffSection);
+        buffTypeHandler(heroBuffType, heroBuffSection);
+        heroTargetType.getItems().addAll(Type.AREA, Type.SOLDIER);
+        heroTargetType.setOnAction(e -> {
+            customCard.setTargetType(heroTargetType.getValue());
+            if (heroTargetType.getValue().equals(Type.AREA)) {
+                String areaSize;
+                do {
+                    areaSize = TextReceiver.getText("Range", "please enter minion range");
+                } while (areaSize == null || areaSize.equals(""));
+                try {
+                    customCard.setAreaSize(Integer.parseInt(areaSize));
+                } catch (Exception exception) {
+                    AlertBox.display(Alert.AlertType.ERROR, "Range", "invalid input\ntry again");
+                }
+            }
+            if (heroTargetType.getValue().equals(Type.SOLDIER)) {
+                ChoiceDialog<SoldierTargetType> soldierTargetType = new ChoiceDialog<>();
+                soldierTargetType.getItems().addAll(SoldierTargetType.getHeroTypes());
+                soldierTargetType.setTitle("Soldier Target Type");
+                soldierTargetType.setHeaderText("Choose Soldier Target Type");
+                Optional<SoldierTargetType> result = soldierTargetType.showAndWait();
+                if (result.isPresent())
+                    customCard.setSoldierTargetType(result.get());
+                else
+                    AlertBox.display(Alert.AlertType.ERROR, "Target", "invalid input\ntry again");
+            }
+        });
+    }
+
+    private void buffTypeHandler(ChoiceBox<String> choiceBox, AnchorPane anchorPane) {
+        choiceBox.setOnAction(e -> {
+            anchorPane.getChildren().removeIf(node -> node instanceof AnchorPane);
+            AnchorPane commonAttributes = buffCommonInputs();
+            anchorPane.getChildren().addAll(commonAttributes);
+            AnchorPane.setTopAnchor(commonAttributes, 0.0);
+            AnchorPane.setLeftAnchor(commonAttributes, 0.0);
+            handleBuff(commonAttributes, choiceBox.getValue(), anchorPane);
+        });
+    }
+
+    private void attackTypeHandler(ChoiceBox<SoldierTypes> attackType) {
+        attackType.setOnAction(e -> {
+            customCard.setAttackType(attackType.getValue());
+            if (attackType.getValue().equals(SoldierTypes.RANGED)) {
                 String range;
                 do {
                     range = TextReceiver.getText("Range", "please enter minion range");
@@ -50,25 +110,12 @@ public class CustomCardPage extends MenuController implements Initializable {
                 } catch (Exception exception) {
                     AlertBox.display(Alert.AlertType.ERROR, "Range", "invalid input\ntry again");
                 }
-
             }
         });
-        minionAbilityCastTime.getItems().addAll(AbilityCastTime.getTypes());
-        minionAbilityCastTime.setOnAction(e -> customCard.setAbilityCastTime(minionAbilityCastTime.getValue()));
-        minionBuffType.getItems().addAll(Buff.getSoldierBuffNames());
-        minionBuffType.setOnAction(e -> {
-            buffSection.getChildren().removeIf(node -> node instanceof AnchorPane);
-            AnchorPane commonAttributes = buffCommonInputs();
-            buffSection.getChildren().add(commonAttributes);
-            AnchorPane.setTopAnchor(commonAttributes, 0.0);
-            AnchorPane.setLeftAnchor(commonAttributes, 0.0);
-            handleBuff(commonAttributes);
-        });
-
     }
 
-    private void handleBuff(AnchorPane commonAttributes) {
-        switch (minionBuffType.getValue()) {
+    private void handleBuff(AnchorPane commonAttributes, String value, AnchorPane buffSection) {
+        switch (value) {
             case "DisArm Buff": {
                 JFXButton addBtn = getButton("Add Buff");
                 commonAttributes.getChildren().add(addBtn);
@@ -101,7 +148,7 @@ public class CustomCardPage extends MenuController implements Initializable {
             }
             case "Attack Buff": {
                 AnchorPane anchorPane = oneAttributeBuff();
-                JFXButton addBtn = labelingOneAttributeBuffs(anchorPane, "Damage Point");
+                JFXButton addBtn = labelingOneAttributeBuffs(anchorPane, "Damage Point", buffSection);
                 addBtn.setOnAction(event -> {
                     if (checkCommonAttributes(commonAttributes) && checkTextField((JFXTextField) anchorPane.getChildren().get(1))) {
                         AttackBuff buff = new AttackBuff(Kind.NEGATIVE,
@@ -116,7 +163,7 @@ public class CustomCardPage extends MenuController implements Initializable {
             }
             case "Holy Buff": {
                 AnchorPane anchorPane = oneAttributeBuff();
-                JFXButton addBtn = labelingOneAttributeBuffs(anchorPane, "Less Damage Point");
+                JFXButton addBtn = labelingOneAttributeBuffs(anchorPane, "Less Damage Point", buffSection);
                 addBtn.setOnAction(event -> {
                     if (checkCommonAttributes(commonAttributes) && checkTextField((JFXTextField) anchorPane.getChildren().get(1))) {
                         HolyBuff buff = new HolyBuff(Kind.POSITIVE,
@@ -131,7 +178,7 @@ public class CustomCardPage extends MenuController implements Initializable {
             }
             case "Poison Buff": {
                 AnchorPane anchorPane = oneAttributeBuff();
-                JFXButton addBtn = labelingOneAttributeBuffs(anchorPane, "Damage Point");
+                JFXButton addBtn = labelingOneAttributeBuffs(anchorPane, "Damage Point", buffSection);
                 addBtn.setOnAction(event -> {
                     if (checkCommonAttributes(commonAttributes) && checkTextField((JFXTextField) anchorPane.getChildren().get(1))) {
                         PoisonBuff buff = new PoisonBuff(Kind.NEGATIVE,
@@ -146,7 +193,7 @@ public class CustomCardPage extends MenuController implements Initializable {
             }
             case "Power Buff": {
                 AnchorPane anchorPane = twoAttributeBuff();
-                JFXButton addBtn = labelingTwoAttributeBuffs(anchorPane, "Health Point", "Attack Point");
+                JFXButton addBtn = labelingTwoAttributeBuffs(anchorPane, "Health Point", "Attack Point", buffSection);
                 addBtn.setOnAction(e -> {
                     if (checkCommonAttributes(commonAttributes) && checkTextField((JFXTextField) anchorPane.getChildren().get(1))
                             && checkTextField((JFXTextField) anchorPane.getChildren().get(3))) {
@@ -163,7 +210,8 @@ public class CustomCardPage extends MenuController implements Initializable {
             }
             case "Weakness Buff": {
                 AnchorPane anchorPane = twoAttributeBuff();
-                JFXButton addBtn = labelingTwoAttributeBuffs(anchorPane, "Health Decrement Point", "Attack Decrement Point");
+                JFXButton addBtn = labelingTwoAttributeBuffs(anchorPane, "Health Decrement Point",
+                        "Attack Decrement Point", buffSection);
                 addBtn.setOnAction(e -> {
                     if (checkCommonAttributes(commonAttributes) && checkTextField((JFXTextField) anchorPane.getChildren().get(1))
                             && checkTextField((JFXTextField) anchorPane.getChildren().get(3))) {
@@ -201,10 +249,11 @@ public class CustomCardPage extends MenuController implements Initializable {
                 });
                 break;
             }
+            default:
         }
     }
 
-    private JFXButton labelingOneAttributeBuffs(AnchorPane anchorPane, String labelText) {
+    private JFXButton labelingOneAttributeBuffs(AnchorPane anchorPane, String labelText, AnchorPane buffSection) {
         Label label = (Label) anchorPane.getChildren().get(0);
         label.setText(labelText);
         buffSection.getChildren().add(anchorPane);
@@ -212,7 +261,7 @@ public class CustomCardPage extends MenuController implements Initializable {
         return (JFXButton) anchorPane.getChildren().get(2);
     }
 
-    private JFXButton labelingTwoAttributeBuffs(AnchorPane anchorPane, String label1, String label2) {
+    private JFXButton labelingTwoAttributeBuffs(AnchorPane anchorPane, String label1, String label2, AnchorPane buffSection) {
         Label labelOne = (Label) anchorPane.getChildren().get(0);
         Label labelTwo = (Label) anchorPane.getChildren().get(2);
         labelOne.setText(label1);
@@ -231,8 +280,13 @@ public class CustomCardPage extends MenuController implements Initializable {
     }
 
     private void cleanUpBuff() {
-        buffSection.getChildren().removeIf(node -> node instanceof AnchorPane);
+        minionBuffSection.getChildren().removeIf(node -> node instanceof AnchorPane);
         minionBuffType.getItems().removeAll();
+        if (heroBuffType.getValue() != null) {
+            heroBuffSection.getChildren().removeIf(node -> node instanceof AnchorPane);
+            heroBuffType.getItems().removeAll();
+            heroBuffType.getItems().removeIf(Objects::nonNull);
+        }
     }
 
     private boolean checkCommonAttributes(AnchorPane commonAttributes) {
@@ -348,5 +402,9 @@ public class CustomCardPage extends MenuController implements Initializable {
             return x && z;
         }
         return false;
+    }
+
+    public void createHero() {
+        // TODO: 6/24/19  
     }
 }

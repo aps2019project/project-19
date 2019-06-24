@@ -4,7 +4,9 @@ import controller.CardInitializer;
 import model.AbilityCastTime;
 import model.Buff.Buff;
 import model.Shop;
+import model.Target.SoldierTargetType;
 import model.Target.Target;
+import model.Target.Type;
 
 import java.util.ArrayList;
 
@@ -24,25 +26,50 @@ public class CustomCard {
     private int cost;
     private int mana;
     private String desc;
+    private Type targetType;
+    private int areaSize = 0;
+    private SoldierTargetType soldierTargetType;
 
     public Card createCard() {
         switch (type) {
             case "minion":
+                if (!attackType.equals(SoldierTypes.RANGED))
+                    attackRange = 0;
                 Minion minion = new Minion(Shop.getNewId(), name, cost, mana, ap, hp,
                         attackType, attackRange, desc, abilityCastTime, specialPowers);
                 //CardInitializer.addCustomCardToFile(minion);
                 return minion;
             case "hero":
+                if (!attackType.equals(SoldierTypes.RANGED))
+                    attackRange = 0;
+                if (!targetType.equals(Type.AREA))
+                    areaSize = 0;
+                heroTarget = new Target(targetType, areaSize, soldierTargetType);
                 Hero hero = new Hero(Shop.getNewId(), name, cost, mana, ap, hp,
                         attackType, attackRange, desc, specialPowers.get(0), coolDown, heroTarget);
                 //CardInitializer.addCustomCardToFile(hero);
                 return hero;
             case "spell":
+                if (!targetType.equals(Type.AREA))
+                    areaSize = 0;
+                spellTarget = new Target(targetType, areaSize, soldierTargetType);
                 SpellCard spell = new SpellCard(Shop.getNewId(), name, cost, mana, desc, spellBuffs, spellTarget);
                 //CardInitializer.addCustomCardToFile(spell);
                 return spell;
         }
         return null;
+    }
+
+    public void setTargetType(Type targetType) {
+        this.targetType = targetType;
+    }
+
+    public void setAreaSize(int areaSize) {
+        this.areaSize = areaSize;
+    }
+
+    public void setSoldierTargetType(SoldierTargetType soldierTargetType) {
+        this.soldierTargetType = soldierTargetType;
     }
 
     public void setName(String name) {
