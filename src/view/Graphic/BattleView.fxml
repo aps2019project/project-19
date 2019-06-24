@@ -15,34 +15,8 @@
          <top>
             <AnchorPane prefHeight="270.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane>
-                     <children>
-                        <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/general_portrait_border.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/general_portrait_border_highlight.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="1651.0">
-                     <children>
-                        <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/general_portrait_border.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/general_portrait_border_highlight.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
+                  <AnchorPane fx:id="rightHeroAnchor" />
+                  <AnchorPane fx:id="leftHeroAnchor" layoutX="1651.0" />
                </children></AnchorPane>
          </top>
          <left>
