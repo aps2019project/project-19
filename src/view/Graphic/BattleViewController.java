@@ -8,6 +8,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +17,8 @@ import java.util.ResourceBundle;
 public class BattleViewController extends MenuController implements Initializable {
     @FXML
     AnchorPane center;
+    @FXML
+    HBox deckBar;
     //    private final int cellsLength = getMainController().getGame().getLength();
 //    private final int cellsWeight = getMainController().getGame().getWidth();
     //todo: set wight and lenght with game
@@ -41,11 +45,7 @@ public class BattleViewController extends MenuController implements Initializabl
                     anchorPane.getStyleClass().remove(0);
                     anchorPane.getStyleClass().add("cells");
                 });
-//                Image image = new Image("View/Graphic/cards/Arash_idle.gif");
-//                ImageView imageView = new ImageView(image);
-//                imageView.setFitWidth(70);
-//                imageView.setFitHeight(70);
-//                anchorPane.getChildren().add(imageView);
+
             }
 
     }
