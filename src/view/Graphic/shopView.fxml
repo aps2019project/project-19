@@ -1,56 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import com.jfoenix.controls.JFXMasonryPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.control.Label?>
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@Styles.css" styleClass="mainMenu"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="view.Graphic.ShopController">
     <ImageView fitHeight="100.0" fitWidth="80.0" onMouseClicked="#exit" AnchorPane.leftAnchor="0.0"
                AnchorPane.topAnchor="0.0">
         <Image url="@images/backButton.png">
         </Image>
     </ImageView>
-    <TextField prefWidth="200" prefHeight="20" stylesheets="@Styles.css" styleClass="searchBar"
-               AnchorPane.topAnchor="20.0" promptText="search" fx:id="searchBar"
-               onKeyReleased="#putCards"
-               AnchorPane.leftAnchor="860.0" alignment="TOP_CENTER">
+    <ImageView fitHeight="100.0" fitWidth="100.0" onMouseClicked="#goToCustomCardMenu" AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="0.0">
+        <Image url="@images/customCard.png">
+        </Image>
+    </ImageView>
+    <TextField fx:id="searchBar" alignment="TOP_CENTER" onKeyReleased="#putCards" prefHeight="20" prefWidth="200"
+               promptText="search" styleClass="searchBar" stylesheets="@Styles.css" AnchorPane.leftAnchor="860.0"
+               AnchorPane.topAnchor="20.0">
     </TextField>
-    <Label prefWidth="400" prefHeight="20" styleClass="errorLabel" AnchorPane.topAnchor="100.0"
-           AnchorPane.rightAnchor="450.0" fx:id="errorLabel">
+    <Label fx:id="errorLabel" prefHeight="20" prefWidth="400" styleClass="errorLabel" AnchorPane.rightAnchor="450.0"
+           AnchorPane.topAnchor="100.0">
     </Label>
-    <Label prefWidth="250.0" prefHeight="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.bottomAnchor="20.0"
-           styleClass="moneyLabel" fx:id="moneyLabel" alignment="CENTER">
+    <Label fx:id="moneyLabel" alignment="CENTER" prefHeight="60.0" prefWidth="250.0" styleClass="moneyLabel"
+           AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
     </Label>
     <JFXTabPane prefHeight="900.0" prefWidth="1860.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="70.0">
-        <Tab text="shop" onSelectionChanged="#changeTab">
+        <Tab onSelectionChanged="#changeTab" text="shop">
             <AnchorPane>
-                <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.topAnchor="80.0"
-                            AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.rightAnchor="100.0" style="-fx-background-color: transparent">
-                    <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="shopPane"
+                <ScrollPane prefHeight="900.0" prefWidth="919.0" style="-fx-background-color: transparent"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="80.0">
+                    <JFXMasonryPane fx:id="shopPane" prefHeight="5400.0" prefWidth="900.0"
                                     style="-fx-background-color: transparent">
                     </JFXMasonryPane>
                 </ScrollPane>
             </AnchorPane>
         </Tab>
-        <Tab text="collection" onSelectionChanged="#changeTab">
+        <Tab onSelectionChanged="#changeTab" text="collection">
             <AnchorPane>
-                <ScrollPane prefWidth="919.0" prefHeight="900.0" AnchorPane.topAnchor="80.0"
-                            AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.leftAnchor="100.0" style="-fx-background-color: transparent">
-                    <JFXMasonryPane prefHeight="5400.0" prefWidth="900.0" fx:id="collectionInShopPane"
+                <ScrollPane prefHeight="900.0" prefWidth="919.0" style="-fx-background-color: transparent"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="80.0">
+                    <JFXMasonryPane fx:id="collectionInShopPane" prefHeight="5400.0" prefWidth="900.0"
                                     style="-fx-background-color: transparent">
                     </JFXMasonryPane>
                 </ScrollPane>
             </AnchorPane>
         </Tab>
     </JFXTabPane>
-    <ImageView fitHeight="60" fitWidth="60" AnchorPane.leftAnchor="20.0" AnchorPane.bottomAnchor="20.0">
+    <ImageView fitHeight="60" fitWidth="60" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
         <Image url="@images/money.png">
         </Image>
     </ImageView>

@@ -57,8 +57,8 @@ public class CustomCard {
         this.spellTarget = spellTarget;
     }
 
-    public void setSpellBuffs(ArrayList<Buff> spellBuffs) {
-        this.spellBuffs = spellBuffs;
+    public ArrayList<Buff> getSpellBuffs() {
+        return spellBuffs;
     }
 
     public void setAp(int ap) {
@@ -77,8 +77,8 @@ public class CustomCard {
         this.attackRange = attackRange;
     }
 
-    public void setSpecialPowers(ArrayList<Buff> specialPowers) {
-        this.specialPowers = specialPowers;
+    public ArrayList<Buff> getSpecialPowers() {
+        return specialPowers;
     }
 
     public void setAbilityCastTime(AbilityCastTime abilityCastTime) {

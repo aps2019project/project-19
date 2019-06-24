@@ -174,7 +174,6 @@ public class MenuController {
                     if (selling instanceof Item)
                         mainController.sellToShop(((Item) selling).getItemId());
                     ShopController.getController().putCards();
-//                    pane.getChildren().remove(cardView);
                 }
                 if (pane.getId().equals("collectionPane") && CollectionController.getController().isInDeck()) {
                     Object card = mainController.searchInCollection(((Label) cardView.lookup("#nameLabel")).getText()).get(0);
@@ -191,6 +190,7 @@ public class MenuController {
                         mainController.getLoggedInAccount().getCollection().getItems().add(((Item) card));
                     }
                     CollectionController.getController().putCardInDeck(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName));
+                    putUnusedCard(pane);
                 }
                 ShopController.getController().getErrorLabel().setText("");
                 if (mainController.getErrorType() != null) {
@@ -200,6 +200,15 @@ public class MenuController {
                 ShopController.getController().getMoneyLabel().setText(mainController.getLoggedInAccount().getMoney() + "");
             });
         }
+    }
+
+    public void putUnusedCard(JFXMasonryPane pane) {
+        ArrayList<Object> collectonCards = new ArrayList<>();
+        collectonCards.addAll(mainController.getLoggedInAccount().getCollection().getCards());
+        collectonCards.addAll(mainController.getLoggedInAccount().getCollection().getItems());
+        collectonCards.removeAll(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName).getCards().values());
+        collectonCards.removeAll(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName).getItems().values());
+        createCards(pane, collectonCards);
     }
 
     public void customGame(String heroName) {

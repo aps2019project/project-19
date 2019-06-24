@@ -51,7 +51,6 @@ public class BattleViewController extends MenuController implements Initializabl
                     anchorPane.getStyleClass().remove(0);
                     anchorPane.getStyleClass().add("cells");
                 });
-
                 Image image = new Image("view/Graphic/cards/arash idle.gif");
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(100);
