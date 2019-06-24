@@ -46,10 +46,10 @@ public class BattleViewController extends MenuController implements Initializabl
                     anchorPane.getStyleClass().add("cells");
                 });
 
-                Image image = new Image("View/Graphic/cards/Arash_idle.gif");
+                Image image = new Image("View/Graphic/cards/arash idle.gif");
                 ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(70);
-                imageView.setFitHeight(70);
+                imageView.setFitWidth(100);
+                imageView.setFitHeight(100);
                 anchorPane.getChildren().add(imageView);
             }
 
