@@ -30,16 +30,16 @@ public class CustomCard {
             case "minion":
                 Minion minion = new Minion(Shop.getNewId(), name, cost, mana, ap, hp,
                         attackType, attackRange, desc, abilityCastTime, specialPowers);
-                CardInitializer.addCustomCardToFile(minion);
+                //CardInitializer.addCustomCardToFile(minion);
                 return minion;
             case "hero":
                 Hero hero = new Hero(Shop.getNewId(), name, cost, mana, ap, hp,
                         attackType, attackRange, desc, specialPowers.get(0), coolDown, heroTarget);
-                CardInitializer.addCustomCardToFile(hero);
+                //CardInitializer.addCustomCardToFile(hero);
                 return hero;
             case "spell":
                 SpellCard spell = new SpellCard(Shop.getNewId(), name, cost, mana, desc, spellBuffs, spellTarget);
-                CardInitializer.addCustomCardToFile(spell);
+                //CardInitializer.addCustomCardToFile(spell);
                 return spell;
         }
         return null;

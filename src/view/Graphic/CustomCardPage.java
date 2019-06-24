@@ -3,7 +3,6 @@ package view.Graphic;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -12,11 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import model.AbilityCastTime;
 import model.Buff.*;
+import model.Cards.Card;
 import model.Cards.CustomCard;
 import model.Cards.SoldierTypes;
 
-import java.awt.event.MouseEvent;
-import java.beans.EventHandler;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -27,6 +25,12 @@ public class CustomCardPage extends MenuController implements Initializable {
     public AnchorPane minionTabAnchorPane;
     public ChoiceBox<String> minionBuffType;
     public AnchorPane buffSection;
+    public JFXTextField name;
+    public JFXTextField mana;
+    public JFXTextField cost;
+    public JFXTextField description;
+    public JFXTextField minionAP;
+    public JFXTextField minionHP;
 
     private CustomCard customCard;
 
@@ -34,7 +38,23 @@ public class CustomCardPage extends MenuController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         customCard = new CustomCard();
         minionAttackType.getItems().addAll(SoldierTypes.getTypes());
+        minionAttackType.setOnAction(e -> {
+            customCard.setAttackType(minionAttackType.getValue());
+            if (minionAttackType.getValue().equals(SoldierTypes.RANGED)) {
+                String range;
+                do {
+                    range = TextReceiver.getText("Range", "please enter minion range");
+                } while (range == null || range.equals(""));
+                try {
+                    customCard.setAttackRange(Integer.parseInt(range));
+                } catch (Exception exception) {
+                    AlertBox.display(Alert.AlertType.ERROR, "Range", "invalid input\ntry again");
+                }
+
+            }
+        });
         minionAbilityCastTime.getItems().addAll(AbilityCastTime.getTypes());
+        minionAbilityCastTime.setOnAction(e -> customCard.setAbilityCastTime(minionAbilityCastTime.getValue()));
         minionBuffType.getItems().addAll(Buff.getSoldierBuffNames());
         minionBuffType.setOnAction(e -> {
             buffSection.getChildren().removeIf(node -> node instanceof AnchorPane);
@@ -299,6 +319,34 @@ public class CustomCardPage extends MenuController implements Initializable {
     }
 
     public void createMinion() {
-        // TODO: 6/24/19  
+        if (checkGeneralFields() && checkTextField(minionAP) && checkTextField(minionHP) &&
+                minionAttackType.getValue() != null && ((customCard.getSpecialPowers().size() != 0 &&
+                minionAbilityCastTime.getValue() != null) || customCard.getSpecialPowers().size() == 0)) {
+            customCard.setAp(Integer.parseInt(minionAP.getText()));
+            customCard.setHp(Integer.parseInt(minionHP.getText()));
+            customCard.setCost(Integer.parseInt(cost.getText()));
+            customCard.setName(name.getText());
+            customCard.setMana(Integer.parseInt(mana.getText()));
+            if (description.getText() == null) {
+                customCard.setDesc("");
+            } else {
+                customCard.setDesc(description.getText());
+            }
+            customCard.setType("minion");
+            Card card = customCard.createCard();
+            getMainController().getShop().getCards().add(card);
+            AlertBox.display(Alert.AlertType.INFORMATION, "Custom Card", "Custom Card created successfully");
+            changeMenu("shopView.fxml");
+        } else
+            AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
+    }
+
+    public boolean checkGeneralFields() {
+        boolean x = checkTextField(mana) && checkTextField(cost);
+        if (name.getText() != null) {
+            boolean z = !getMainController().getShop().existsInShop(name.getText());
+            return x && z;
+        }
+        return false;
     }
 }
