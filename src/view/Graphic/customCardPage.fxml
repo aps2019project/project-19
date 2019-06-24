@@ -19,23 +19,29 @@
     <JFXTabPane layoutX="147.0" layoutY="122.0" prefHeight="878.0" prefWidth="1749.0" AnchorPane.leftAnchor="100.0"
                 AnchorPane.topAnchor="150.0">
         <Tab text="Minion">
-            <AnchorPane fx:id="minionTab">
-                <Label styleClass="labelInput" stylesheets="@Styles.css" text="Attack Point" AnchorPane.leftAnchor="10"
+            <AnchorPane fx:id="minionTabAnchorPane">
+                <Label styleClass="labelInput" stylesheets="@Styles.css" text="Attack Point" AnchorPane.leftAnchor="0.0"
                        AnchorPane.topAnchor="10"/>
                 <JFXTextField layoutX="10.0" layoutY="70.0" prefHeight="56.0" prefWidth="308.0" styleClass="textInput"
-                              stylesheets="@Styles.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="70.0"/>
+                              stylesheets="@Styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="70.0"/>
                 <Label layoutX="10.0" layoutY="146.0" styleClass="labelInput" stylesheets="@Styles.css"
-                       text="Health Point" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="130.0"/>
+                       text="Health Point" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="130.0"/>
                 <JFXTextField layoutX="20.0" layoutY="216.0" prefHeight="56.0" prefWidth="308.0" styleClass="textInput"
-                              stylesheets="@Styles.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="190.0"/>
+                              stylesheets="@Styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="190.0"/>
                 <ChoiceBox fx:id="minionAttackType" layoutX="99.0" layoutY="337.0" prefWidth="308"
-                           AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="310.0"/>
+                           AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="310.0"/>
                 <Label layoutX="10.0" layoutY="260.0" styleClass="labelInput" stylesheets="@Styles.css"
-                       text="Attack Type" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="250.0"/>
+                       text="Attack Type" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="250.0"/>
                 <ChoiceBox fx:id="minionAbilityCastTime" layoutX="109.0" layoutY="424.0" prefWidth="308"
-                           AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="410.0"/>
+                           AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="410.0"/>
                 <Label layoutX="20.0" layoutY="347.0" styleClass="labelInput" stylesheets="@Styles.css"
-                       text="Ability Cast Time" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="350.0"/>
+                       text="Ability Cast Time" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="350.0"/>
+                <ChoiceBox fx:id="minionBuffType" layoutX="422.0" layoutY="98.0" prefWidth="308"
+                           AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="70.0"/>
+                <Label layoutX="382.0" layoutY="10.0" styleClass="labelInput" stylesheets="@Styles.css"
+                       text="Special Powers" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="10.0"/>
+                <AnchorPane fx:id="buffSection" AnchorPane.leftAnchor="850.0" AnchorPane.topAnchor="10.0">
+                </AnchorPane>
             </AnchorPane>
         </Tab>
         <Tab text="Hero">

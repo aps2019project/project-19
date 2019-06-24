@@ -178,10 +178,23 @@
 .textInput {
     -fx-background-color: white;
     -fx-font-size: 30;
-    fx-background-color-opacity: 0.5px;
+    -fx-pref-width: 308;
+    -fx-pref-height: 56;
 }
 
 .labelInput {
     -fx-font-size: 45;
     -fx-text-fill: white;
+}
+
+.buffAnchors {
+    -fx-pref-width: 330;
+    -fx-pref-height: 300;
+}
+
+.addBuffBtn {
+    -fx-background-color: #793dff;
+    -fx-pref-width: 308;
+    -fx-pref-height: 56;
+    -fx-text-fill: Black;
 }

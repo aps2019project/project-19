@@ -1,5 +1,7 @@
 package model.Buff;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Cards.SoldierCard;
 
 public abstract class Buff {
@@ -122,5 +124,12 @@ public abstract class Buff {
 
     public int getCastTurn() {
         return castTurn;
+    }
+
+    public static ObservableList<String> getSoldierBuffNames() {
+        ObservableList<String> buffs = FXCollections.observableArrayList();
+        buffs.addAll("Attack Buff", "DisArm Buff", "DisPell Buff", "Holy Buff",
+                "Poison Buff", "Power Buff", "Stun Buff", "Weakness Buff");
+        return buffs;
     }
 }
