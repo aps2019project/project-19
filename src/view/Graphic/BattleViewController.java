@@ -108,6 +108,7 @@ public class BattleViewController extends MenuController implements Initializabl
     }
 
     private void addCardGifInGround(AnchorPane anchorPane, String cardName) {
+        ImageView attack = new ImageView(new Image("view/Graphic/images/icon_atk.png"));
         CardImageView cardImageView = new CardImageView(cardName, CardImageView.Stance.IDLING);
         cardImageView.setFitWidth(100);
         cardImageView.setFitHeight(100);
@@ -115,6 +116,7 @@ public class BattleViewController extends MenuController implements Initializabl
         cardImageView.setPreserveRatio(true);
         cardImageView.setPickOnBounds(true);
         anchorPane.getChildren().add(cardImageView);
+        anchorPane.getChildren().add(attack);
     }
 
     private void addHeroIcons(AnchorPane anchorPane, String name) {
