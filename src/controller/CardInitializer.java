@@ -66,7 +66,6 @@ public class CardInitializer {
 
     public static void addCustomCardToFile(Card card) {
         FileWriter fileWriter;
-        shop.getCards().add(card);
         try {
             if (card instanceof Minion) {
                 minionCards.add((Minion) card);

@@ -122,7 +122,12 @@ public class MenuController {
                     kind.setText("HERO");
                 if (product instanceof Minion)
                     kind.setText("MINION");
-                Image gifImage = new Image("/view/Graphic/cards/" + ((SoldierCard) product).getName() + " idle.gif");
+                Image gifImage;
+                try {
+                    gifImage = new Image("/view/Graphic/cards/" + ((SoldierCard) product).getName() + " idle.gif");
+                } catch (Exception e) {
+                    gifImage = new Image("view/Graphic/cards/camandare farse idle.gif");
+                }
                 gif.setImage(gifImage);
                 nameLabel.setText(((SoldierCard) product).getName());
                 Label aPLabel = new Label();
@@ -139,7 +144,12 @@ public class MenuController {
                 hPLabel.relocate(159, 165);
                 price.setText(((SoldierCard) product).getPrice() + "");
             } else if (product instanceof SpellCard) {
-                Image gifImage = new Image("/view/Graphic/cards/" + ((SpellCard) product).getName() + " idle.gif");
+                Image gifImage;
+                try {
+                    gifImage = new Image("/view/Graphic/cards/" + ((SpellCard) product).getName() + " idle.gif");
+                } catch (Exception e) {
+                    gifImage = new Image("/view/Graphic/cards/weakening idle.gif");
+                }
                 gif.setImage(gifImage);
                 cardView.getStyleClass().add("spellCard");
                 nameLabel.setText(((SpellCard) product).getName());
