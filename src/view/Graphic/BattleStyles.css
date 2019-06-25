@@ -11,6 +11,11 @@
     -fx-pref-width: 100;
     -fx-background-image: url("images/cellsHover.png");
 }
+.selectedCell{
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-image: url("images/cellSelected.png");
+}
 .endTurnButton{
     -fx-background-image: url("images/button_secondary.png");
     -fx-background-size: cover;
