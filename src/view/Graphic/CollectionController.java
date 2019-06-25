@@ -4,10 +4,12 @@ import com.jfoenix.controls.JFXMasonryPane;
 import controller.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.Cards.Card;
@@ -32,6 +34,8 @@ public class CollectionController extends MenuController {
     private TextField deckName = new TextField();
     @FXML
     private ImageView backButton = new ImageView();
+    @FXML
+    private Button importButton = new Button();
     private boolean inDeck = false;
     private String selectedDeckName;
 
@@ -76,6 +80,7 @@ public class CollectionController extends MenuController {
             deckView.getChildren().add(name);
             decksPane.getChildren().add(deckView);
             deckView.setOnMouseClicked(event -> {
+                importButton.setText("export");
                 selectedDeckName = deck.getName();
                 setMainDeckButton();
                 deckButtonLabel.setText("exit deck");
@@ -101,6 +106,7 @@ public class CollectionController extends MenuController {
             createDeck();
         }
         if (inDeck) {
+            importButton.setText("import");
             inDeck = false;
             putCardsInCollection();
             putDecks();
@@ -177,5 +183,20 @@ public class CollectionController extends MenuController {
             if (getMainController().getErrorType() != null)
                 AlertBox.display(Alert.AlertType.ERROR, "Deck", getMainController().getErrorType().getMessage());
         });
+    }
+
+    public void glowImportButton() {
+        importButton.getStyleClass().remove("importButton");
+        importButton.getStyleClass().add("importButtonGlow");
+    }
+
+    public void removeImportGlow() {
+        importButton.getStyleClass().remove("importButtonGlow");
+        importButton.getStyleClass().add("importButton");
+    }
+
+    public void importDeck() {
+        if (inDeck){}
+        else{}
     }
 }

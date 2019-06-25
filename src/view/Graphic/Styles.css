@@ -172,7 +172,8 @@
 .decks {
     -fx-pref-width: 470;
     -fx-pref-height: 60;
-    -fx-background-color: black;
+    -fx-background-color: #4cb8ff;
+    -fx-background-radius: 10px ;
 }
 
 .cardsInDeck {
@@ -213,4 +214,18 @@
     -fx-text-fill: white;
     -fx-text-alignment: Center;
     -fx-background-color: transparent;
+}
+
+.importButton{
+    -fx-background-image: url(images/rightButton.png);
+    -fx-background-size: cover;
+    -fx-background-color: transparent;
+    -fx-font-size: 25px;
+}
+
+.importButtonGlow{
+    -fx-background-image: url(images/rightButtonGlow.png);
+    -fx-background-size: cover;
+    -fx-background-color: transparent;
+    -fx-font-size: 25px;
 }

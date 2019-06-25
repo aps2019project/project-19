@@ -5,6 +5,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.ScrollPane?>
 <?import com.jfoenix.controls.JFXMasonryPane?>
+<?import javafx.scene.control.Button?>
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@Styles.css" styleClass="mainMenu"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="view.Graphic.CollectionController" fx:id="mainPane">
@@ -26,9 +27,9 @@
                         style="-fx-background-color: transparent">
         </JFXMasonryPane>
     </ScrollPane>
-    <ScrollPane prefWidth="500.0" prefHeight="900.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
+    <ScrollPane prefWidth="500.0" prefHeight="700.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
                 AnchorPane.rightAnchor="5.0" style="-fx-background-color: transparent">
-        <JFXMasonryPane prefWidth="480.0" prefHeight="1200.0" style="-fx-background-color: rgba(64,64,64,0.85)"
+        <JFXMasonryPane prefWidth="480.0" prefHeight="1200.0" style="-fx-background-color: transparent"
                         fx:id="decksPane">
         </JFXMasonryPane>
     </ScrollPane>
@@ -45,4 +46,9 @@
            style="-fx-font-size: 25px" onMouseEntered="#glowButton" onMouseExited="#removeGlow"
            onMouseClicked="#handleDeckButton" fx:id="deckButtonLabel">
     </Label>
+    <Button prefWidth="250.0" prefHeight="80.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="380.0"
+            text="import" textFill="white" textAlignment="CENTER" styleClass="importButton"
+            onMouseEntered="#glowImportButton" onMouseExited="#removeImportGlow" onMouseClicked="#importDeck"
+            fx:id="importButton">
+    </Button>
 </AnchorPane>
