@@ -12,7 +12,8 @@ public class SingleGameStoryMode extends MenuController implements Initializable
     }
 
     public void startBattle(int level) {
-        //todo
+        getMainController().selectStoryLevel(level);
+        changeMenu("BattleView.fxml");
     }
 
     public void startLevel1() {
