@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,10 +13,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Cards.Card;
+import model.Cards.SoldierCard;
+import model.Cards.SpellCard;
 import model.Cell;
 import model.Collection;
 import model.Game.Game;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,22 +82,35 @@ public class BattleViewController extends MenuController implements Initializabl
         for (int i = 0; i < hand.size(); i++) {
             System.out.println(hand.get(i).getName());
             AnchorPane child = (AnchorPane) deckBar.getChildren().get(i);
-            addCardGifInDeck((AnchorPane) child, hand.get(i).getName());
+            addCardGifInDeck((AnchorPane) child, hand.get(i));
         }
         //todo:test
         addHeroIcons(rightHeroAnchor, game.getPlayer1().getHero().getName());
         addHeroIcons(leftHeroAnchor, game.getPlayer2().getHero().getName());
     }
 
-    private void addCardGifInDeck(AnchorPane child, String cardName) {
+    private void addCardGifInDeck(AnchorPane child, Card card) {
         ((ImageView) child.getChildren().get(0)).setImage(new Image("view/Graphic/images/card_background.png"));
-        CardImageView cardImageView = new CardImageView(cardName, CardImageView.Stance.IDLING);
+        CardImageView cardImageView = new CardImageView(card.getName(), CardImageView.Stance.IDLING);
+
         cardImageView.setPreserveRatio(true);
         cardImageView.setPickOnBounds(true);
         cardImageView.setFitWidth(200);
         cardImageView.setFitHeight(200);
         cardImageView.setLayoutY(-50);
         child.getChildren().add(cardImageView);
+        if (card instanceof SoldierCard) {
+            ImageView attackImage = new ImageView(new Image("view/Graphic/images/icon_atk.png"));
+            Label attack = new Label();
+            attack.setText(((SoldierCard) card).getAp() + "");
+            attackImage.setFitWidth(50);
+            attackImage.setFitHeight(50);
+            attackImage.relocate(40, 110);
+            attack.getStyleClass().add("apLabel");
+            attack.relocate(40, 110);
+            child.getChildren().add(attackImage);
+            child.getChildren().add(attack);
+        }
         cardImageView.setOnMouseClicked(x -> {
 
             ImageView backGroundImage = ((ImageView) child.getChildren().get(0));
