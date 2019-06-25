@@ -180,9 +180,9 @@ public class Player {
                 handCards.put(card.getCardId(), card);
             }
             ArrayList<Card> cards = new ArrayList<>(deckCards.getCards().values());
-            int rand = random.nextInt(Shop.getNewId());
             Card card;
             do {
+                int rand = random.nextInt(cards.size());
                 card = cards.get(rand);
             }while (card == null);
             nextCardId = card.getCardId();
