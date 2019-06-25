@@ -13,10 +13,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Cards.Card;
+import model.Cards.SoldierCard;
+import model.Cards.SpellCard;
 import model.Cell;
 import model.Collection;
 import model.Game.Game;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -133,6 +136,38 @@ public class BattleViewController extends MenuController implements Initializabl
         cardImageView.setFitHeight(200);
         cardImageView.setLayoutY(-50);
         child.getChildren().add(cardImageView);
+        if (card instanceof SoldierCard) {
+            ImageView attackImage = new ImageView(new Image("view/Graphic/images/icon_atk.png"));
+            ImageView healthImage = new ImageView(new Image("view/Graphic/images/icon_hp.png"));
+            ImageView manaImage = new ImageView(new Image("view/Graphic/images/mana.png"));
+            Label attack = new Label();
+            Label health = new Label();
+            Label mana = new Label();
+            attack.setText(((SoldierCard) card).getAp() + "");
+            health.setText(((SoldierCard) card).getHp() + "");
+            mana.setText(card.getMana() + "");
+            attackImage.setFitWidth(70);
+            attackImage.setFitHeight(70);
+            healthImage.setFitWidth(70);
+            healthImage.setFitHeight(70);
+            manaImage.setFitWidth(50);
+            manaImage.setFitHeight(50);
+            attackImage.relocate(30, 120);
+            healthImage.relocate(110,120);
+            manaImage.relocate(20, 20);
+            attack.getStyleClass().add("aPLabel");
+            health.getStyleClass().add("hPLabel");
+            mana.getStyleClass().add("manaLabel");
+            attack.relocate(50, 140);
+            health.relocate(130, 140);
+            mana.relocate(30, 30);
+            child.getChildren().add(attackImage);
+            child.getChildren().add(attack);
+            child.getChildren().add(healthImage);
+            child.getChildren().add(health);
+            child.getChildren().add(manaImage);
+            child.getChildren().add(mana);
+        }
         cardImageView.setOnMouseClicked(x -> {
             handleHandCardSelection(child, card);
         });
