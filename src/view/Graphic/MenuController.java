@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Cards.*;
+import model.Deck;
 import model.Item;
 import view.ErrorType;
 
@@ -83,7 +84,7 @@ public class MenuController {
             if (controller instanceof SingleGameCustomModeController) {
                 ((SingleGameCustomModeController) controller).putCardsInPane();
             }
-            if (controller instanceof GameModeMenu){
+            if (controller instanceof GameModeMenu) {
                 controller.setCustomGameDeck(customGameDeck);
             }
 
@@ -227,12 +228,12 @@ public class MenuController {
     }
 
     public void putUnusedCard(JFXMasonryPane pane) {
-        ArrayList<Object> collectonCards = new ArrayList<>();
-        collectonCards.addAll(mainController.getLoggedInAccount().getCollection().getCards());
-        collectonCards.addAll(mainController.getLoggedInAccount().getCollection().getItems());
-        collectonCards.removeAll(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName).getCards().values());
-        collectonCards.removeAll(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName).getItems().values());
-        createCards(pane, collectonCards);
+        ArrayList<Object> collectionCards = new ArrayList<>();
+        collectionCards.addAll(mainController.getLoggedInAccount().getCollection().getCards());
+        collectionCards.addAll(mainController.getLoggedInAccount().getCollection().getItems());
+        collectionCards.removeAll(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName).getCards().values());
+        collectionCards.removeAll(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName).getItems().values());
+        createCards(pane, collectionCards);
     }
 
     public void customGame(String heroName) {
@@ -240,17 +241,18 @@ public class MenuController {
             mainController.chooseHero(heroName);
             AlertBox.display(Alert.AlertType.INFORMATION, "Custom Game", heroName + " selected");
             ChoiceDialog<String> decks = new ChoiceDialog<>();
-            decks.getItems().addAll(getMainController().getLoggedInAccount().getCollection().getDecks().keySet());
+            for (Deck deck : getMainController().getLoggedInAccount().getCollection().getDecks().values()) {
+                if (deck.deckIsValid())
+                    decks.getItems().addAll(deck.getName());
+            }
             decks.setTitle("Deck");
             decks.setContentText("Choose the deck you wanna play with");
             Optional<String> result = decks.showAndWait();
-            if (result.isPresent()){
-                System.out.println("selected deck name is " + result.get());
+            if (decks.getItems().size() != 0 && result.isPresent()) {
                 customGameDeck = result.get();
                 customGame = true;
                 changeMenu("gameModeMenu.fxml");
-            }
-            else{
+            } else {
                 AlertBox.display(Alert.AlertType.WARNING, "Warning", "no deck is selected");
             }
         } else {
