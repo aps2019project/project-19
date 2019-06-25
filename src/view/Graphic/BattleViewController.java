@@ -25,9 +25,12 @@ public class BattleViewController extends MenuController implements Initializabl
     AnchorPane center;
     @FXML
     HBox deckBar;
-    private Game game = getMainController().getGame();
-    private final int cellsLength = getMainController().getGame().getLength();
-    private final int cellsWeight = getMainController().getGame().getWidth();
+    private Game game;
+
+    private int cellsLength;
+    private int cellsWeight;
+
+
     //todo: set wight and lenght with game
 //    private final int cellsLength = 9;
 //    private final int cellsWeight = 5;
@@ -59,15 +62,24 @@ public class BattleViewController extends MenuController implements Initializabl
                 addCardGifInGround(anchorPane, "arash");
 
             }
-        //todo:test
-        addHeroIcons(rightHeroAnchor, game.getPlayer1().getHero().getName());
-        addHeroIcons(leftHeroAnchor, game.getPlayer2().getHero().getName());
+
+
+
+    }
+
+    public void loadGame() {
+        game = getMainController().getGame();
+        cellsLength = getMainController().getGame().getLength();
+        cellsWeight = getMainController().getGame().getWidth();
         ArrayList<Card> hand = new ArrayList<>(game.getPlayer1().getHandCards().values());
         for (int i = 0; i < hand.size(); i++) {
+            System.out.println(hand.get(i).getName());
             AnchorPane child = (AnchorPane) deckBar.getChildren().get(i);
             addCardGifInDeck((AnchorPane) child,hand.get(i).getName() );
         }
-
+        //todo:test
+        addHeroIcons(rightHeroAnchor, game.getPlayer1().getHero().getName());
+        addHeroIcons(leftHeroAnchor, game.getPlayer2().getHero().getName());
     }
 
     private void addCardGifInDeck(AnchorPane child, String cardName) {

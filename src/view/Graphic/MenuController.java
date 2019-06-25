@@ -87,6 +87,9 @@ public class MenuController {
             if (controller instanceof GameModeMenu) {
                 controller.setCustomGameDeck(customGameDeck);
             }
+            if(controller instanceof BattleViewController){
+                ((BattleViewController) controller).loadGame();
+            }
 
             this.getStage().getScene().setRoot(root);
         } catch (Exception e) {
