@@ -330,7 +330,7 @@ public class Controller {
         }
         game = new Game();
         game.initStoryDecks(shop);
-        aiDeck = game.getStoryLevelDecks().get(storyLevel);
+        aiDeck = game.getStoryLevelDecks().get(storyLevel - 1);
         ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
         game = new Game(player1, ai.getPlayer());
         if (storyLevel == 1)
@@ -744,7 +744,7 @@ public class Controller {
         errorType = ErrorType.INVALID_CARD_ID;
     }
 
-    public void selectCardOrItem(Player player,String inBattleCardId,int itemId) {
+    public void selectCardOrItem(Player player, String inBattleCardId, int itemId) {
         if (player.containsCardInBattle(inBattleCardId)) {
             Card card = activePlayer.getInBattleCard(inBattleCardId);
             activePlayer.setSelectedCard(card);
@@ -856,7 +856,7 @@ public class Controller {
             endTurn();
     }
 
-    public void useSpecialPower(int x,int y) {
+    public void useSpecialPower(int x, int y) {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
@@ -1017,7 +1017,7 @@ public class Controller {
         view.show(activePlayer.handInfo());
     }
 
-    public boolean insertCard(String cardName,int x,int y) {
+    public boolean insertCard(String cardName, int x, int y) {
         Player player = activePlayer;
         ArrayList<Card> cards = new ArrayList<>(player.getHandCards().values());
         Card card = findCardInHandByName(cards, cardName);
@@ -1061,7 +1061,7 @@ public class Controller {
             checkDeadCards(activePlayer);
             checkDeadCards(deactivePlayer);
         }
-        return errorType ==null;
+        return errorType == null;
     }
 
     private void castSpell(SpellCard card, int x, int y) {
