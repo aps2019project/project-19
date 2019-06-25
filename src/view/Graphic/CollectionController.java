@@ -215,6 +215,7 @@ public class CollectionController extends MenuController {
                     AlertBox.display(Alert.AlertType.INFORMATION, "Export", "Deck exported with name : " + name);
                 } else {
                     AlertBox.display(Alert.AlertType.ERROR, "Export", getMainController().getErrorType().getMessage());
+                    getMainController().setErrorType(null);
                 }
             }
         } else {
@@ -225,6 +226,7 @@ public class CollectionController extends MenuController {
                     putDecks();
                 } else {
                     AlertBox.display(Alert.AlertType.ERROR, "Export", getMainController().getErrorType().getMessage());
+                    getMainController().setErrorType(null);
                 }
             }
         }

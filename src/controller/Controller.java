@@ -322,20 +322,25 @@ public class Controller {
         }
     }
 
-    private void selectStoryLevel() {
+    public void selectStoryLevel(int storyLevel) {
         Player player1 = new Player(loggedInAccount, loggedInAccount.getCollection().getMainDeck());
-        if (request.getStoryLevel() > 4 || request.getStoryLevel() < 1) {
+        if (storyLevel > 4 || storyLevel < 1) {
             errorType = ErrorType.INVALID_LEVEL;
             return;
         }
         game = new Game();
         game.initStoryDecks(shop);
-        aiDeck = game.getStoryLevelDecks().get(request.getStoryLevel());
+        aiDeck = game.getStoryLevelDecks().get(storyLevel);
         ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
         game = new Game(player1, ai.getPlayer());
-        game.setGameMode(GameMode.DEATH_MATCH);
+        if (storyLevel == 1)
+            game.setGameMode(GameMode.DEATH_MATCH);
+        if (storyLevel == 2)
+            game.setGameMode(GameMode.CAPTURE_THE_FLAGS);
+        if (storyLevel == 3)
+            game.setGameMode(GameMode.KEEP_THE_FLAG);
         initNewGame(game.getGameMode());
-        game.setStoryPrize(request.getStoryLevel());
+        game.setStoryPrize(storyLevel);
     }
 
     private void selectOpponent() {
