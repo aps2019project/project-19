@@ -101,8 +101,8 @@ public class MenuController {
         pane.getChildren().removeIf(node -> node instanceof AnchorPane);
         for (Object product : products) {
             ImageView gif = new ImageView();
-            Image gifImage = new Image("/view/Graphic/cards/afsaneh idle.gif");
-            gif.setImage(gifImage);
+//            Image gifImage = new Image("/view/Graphic/cards/afsaneh idle.gif");
+//            gif.setImage(gifImage);
             gif.setFitWidth(150);
             gif.setFitHeight(150);
             AnchorPane cardView = new AnchorPane();
@@ -121,8 +121,8 @@ public class MenuController {
                     kind.setText("HERO");
                 if (product instanceof Minion)
                     kind.setText("MINION");
-//                Image gifImage = new Image("/view/Graphic/cards/" + ((SoldierCard) product).getName() +" idle.gif");
-//                gif.setImage(gifImage);
+                Image gifImage = new Image("/view/Graphic/cards/" + ((SoldierCard) product).getName() +" idle.gif");
+                gif.setImage(gifImage);
                 nameLabel.setText(((SoldierCard) product).getName());
                 Label aPLabel = new Label();
                 Label hPLabel = new Label();
