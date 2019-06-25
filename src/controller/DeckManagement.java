@@ -25,7 +25,7 @@ public class DeckManagement {
                 return false;
         }
         try {
-            Writer writer = new FileWriter("src/data/" + name + ".json");
+            Writer writer = new FileWriter("src/data/Decks/" + name + ".json");
             writer.write(gson.toJson(deck));
             writer.flush();
             writer.close();
