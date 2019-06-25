@@ -34,7 +34,7 @@
                            <children>
                               <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/card_background.png" />
+                                    <Image url="@images/card_background_disabled.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -43,7 +43,7 @@
                            <children>
                               <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/card_background.png" />
+                                    <Image url="@images/card_background_disabled.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -52,7 +52,7 @@
                            <children>
                               <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/card_background.png" />
+                                    <Image url="@images/card_background_disabled.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -61,7 +61,7 @@
                            <children>
                               <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/card_background.png" />
+                                    <Image url="@images/card_background_disabled.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -70,7 +70,7 @@
                            <children>
                               <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/card_background.png" />
+                                    <Image url="@images/card_background_disabled.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -79,7 +79,7 @@
                            <children>
                               <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/card_background.png" />
+                                    <Image url="@images/card_background_disabled.png" />
                                  </image>
                               </ImageView>
                            </children>

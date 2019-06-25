@@ -21,8 +21,8 @@ public class BattleViewController extends MenuController implements Initializabl
     AnchorPane center;
     @FXML
     HBox deckBar;
-//    private Game game = getMainController().getGame();
-    //    private final int cellsLength = getMainController().getGame().getLength();
+    //    private Game game = getMainController().getGame();
+//    private final int cellsLength = getMainController().getGame().getLength();
 //    private final int cellsWeight = getMainController().getGame().getWidth();
     //todo: set wight and lenght with game
     private final int cellsLength = 9;
@@ -32,6 +32,7 @@ public class BattleViewController extends MenuController implements Initializabl
     private AnchorPane rightHeroAnchor;
     @FXML
     private AnchorPane leftHeroAnchor;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         anchorPaneCells = new AnchorPane[cellsWeight][cellsLength];
@@ -47,45 +48,62 @@ public class BattleViewController extends MenuController implements Initializabl
                     anchorPane.getStyleClass().remove(0);
                     anchorPane.getStyleClass().add("hoveredCells");
                 });
-                anchorPane.setOnMouseExited(x->{
+                anchorPane.setOnMouseExited(x -> {
                     anchorPane.getStyleClass().remove(0);
                     anchorPane.getStyleClass().add("cells");
                 });
-                Image image = new Image("view/Graphic/cards/arash idle.gif");
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(100);
-                imageView.setFitHeight(100);
-                imageView.setLayoutY(-20);
-                imageView.setPreserveRatio(true);
-                imageView.setPickOnBounds(true);
-                anchorPane.getChildren().add(imageView);
+                addCardGifInGround(anchorPane, "arash");
 
             }
-        ImageView rightHeroIcon = new ImageView(new Image("view/Graphic/cards/arash.png"));
-        rightHeroIcon.setFitHeight(300);
-        rightHeroIcon.setFitWidth(300);
-        rightHeroIcon.setLayoutY(-50);
-        rightHeroIcon.setPreserveRatio(true);
-        rightHeroIcon.setPickOnBounds(true);
-        rightHeroAnchor.getChildren().add(rightHeroIcon);
-        ImageView leftHeroIcon = new ImageView(new Image("view/Graphic/cards/afsaneh.png"));
-        leftHeroIcon.setFitHeight(300);
-        leftHeroIcon.setFitWidth(300);
-        leftHeroIcon.setPreserveRatio(true);
-        leftHeroIcon.setPickOnBounds(true);
-        leftHeroIcon.setLayoutY(-50);
-        leftHeroAnchor.getChildren().add(leftHeroIcon);
+        addHeroIcons(rightHeroAnchor, "arash");
+        addHeroIcons(leftHeroAnchor, "afsaneh");
         for (Node child : deckBar.getChildren()) {
-            Image image = new Image("view/Graphic/cards/arash idle.gif");
-            ImageView imageView = new ImageView(image);
-            imageView.setPreserveRatio(true);
-            imageView.setPickOnBounds(true);
-            imageView.setFitWidth(200);
-            imageView.setFitHeight(200);
-            imageView.setLayoutY(-50);
-
-            ((AnchorPane)child).getChildren().add(imageView);
+            addCardGifInDeck((AnchorPane) child, "arash");
         }
 
+    }
+
+    private void addCardGifInDeck(AnchorPane child, String cardName) {
+        ((ImageView) child.getChildren().get(0)).setImage(new Image("view/Graphic/images/card_background.png"));
+        Image image = new Image("view/Graphic/cards/" + cardName + " idle.gif");
+        ImageView imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        imageView.setPickOnBounds(true);
+        imageView.setFitWidth(200);
+        imageView.setFitHeight(200);
+        imageView.setLayoutY(-50);
+        child.getChildren().add(imageView);
+        imageView.setOnMouseClicked(x -> {
+
+            ImageView backGroundImage = ((ImageView) child.getChildren().get(0));
+
+            for (Node deckBarChild : deckBar.getChildren()) {
+                if (((AnchorPane) deckBarChild).getChildren().size() != 1) {
+                    ((ImageView) (((AnchorPane) deckBarChild).getChildren().get(0))).setImage(new Image("view/Graphic/images/card_background.png"));
+                }
+            }
+            backGroundImage.setImage(new Image("view/Graphic/images/card_background_highlight.png"));
+        });
+    }
+
+    private void addCardGifInGround(AnchorPane anchorPane, String cardName) {
+        Image image = new Image("view/Graphic/cards/" + cardName + " idle.gif");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        imageView.setLayoutY(-20);
+        imageView.setPreserveRatio(true);
+        imageView.setPickOnBounds(true);
+        anchorPane.getChildren().add(imageView);
+    }
+
+    private void addHeroIcons(AnchorPane anchorPane, String name) {
+        ImageView heroIcon = new ImageView(new Image("view/Graphic/cards/" + name + ".png"));
+        heroIcon.setFitHeight(300);
+        heroIcon.setFitWidth(300);
+        heroIcon.setPreserveRatio(true);
+        heroIcon.setPickOnBounds(true);
+        heroIcon.setLayoutY(-50);
+        anchorPane.getChildren().add(heroIcon);
     }
 }

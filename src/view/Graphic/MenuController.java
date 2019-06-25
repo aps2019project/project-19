@@ -195,8 +195,8 @@ public class MenuController {
                         mainController.getLoggedInAccount().getCollection().getCards().remove(card);
                         mainController.getLoggedInAccount().getCollection().getCards().add(((Card) card));
                     }
-                    
-                    if (card instanceof Item){
+
+                    if (card instanceof Item) {
                         mainController.addToDeck(deckName, ((Item) card).getItemId());
                         mainController.getLoggedInAccount().getCollection().getItems().remove(card);
                         mainController.getLoggedInAccount().getCollection().getItems().add(((Item) card));
@@ -233,8 +233,8 @@ public class MenuController {
             } while (deckName == null || deckName.equals(""));
             customGame = true;
             changeMenu("gameModeMenu.fxml");
+        } else {
+            AlertBox.display(Alert.AlertType.WARNING, "Warning", ErrorType.NO_VALID_DECK.getMessage());
         }
-
-        AlertBox.display(Alert.AlertType.WARNING, "Warning", ErrorType.NO_VALID_DECK.getMessage());
     }
 }
