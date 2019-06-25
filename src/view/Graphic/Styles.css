@@ -229,3 +229,14 @@
     -fx-background-color: transparent;
     -fx-font-size: 25px;
 }
+
+.deleteButton{
+    -fx-pref-width: 30;
+    -fx-pref-height: 15;
+    -fx-background-color: gray;
+    -fx-background-image: url("images/bin.png");
+    -fx-background-size: cover;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-background-radius: 10px;
+}

@@ -104,19 +104,19 @@ public class Shop {
                 if (card instanceof Hero) {
                     Hero card1 = new Hero((Hero) card);
                     card1.setCardId(id);
-                    account.getCollection().getCards().add(card1);
+                    account.getCollection().getCards().add(0,card1);
                 }
 
                 if (card instanceof Minion) {
                     Minion card1 = new Minion((Minion) card);
                     card1.setCardId(id);
-                    account.getCollection().getCards().add(card1);
+                    account.getCollection().getCards().add(0, card1);
                 }
 
                 if (card instanceof SpellCard) {
                     SpellCard card1 = new SpellCard((SpellCard) card);
                     card1.setCardId(id);
-                    account.getCollection().getCards().add(card1);
+                    account.getCollection().getCards().add(0, card1);
                 }
                 account.increaseMoney(-card.getPrice());
                 return;
@@ -126,7 +126,7 @@ public class Shop {
             if (item.getName().equals(productName)) {
                 Item item1 = new Item(item);
                 item1.setItemId(id);
-                account.getCollection().getItems().add(item1);
+                account.getCollection().getItems().add(0 ,item1);
                 account.increaseMoney(-item.getPrice());
             }
         }

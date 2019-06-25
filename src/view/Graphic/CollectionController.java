@@ -69,6 +69,8 @@ public class CollectionController extends MenuController {
     public void putDecks() {
         decksPane.getChildren().removeIf(node -> node instanceof AnchorPane);
         for (Deck deck : getMainController().getLoggedInAccount().getCollection().getDecks().values()) {
+            Button button = new Button();
+            button.getStyleClass().add("deleteButton");
             System.out.println(deck.getName());
             AnchorPane deckView = new AnchorPane();
             Label name = new Label();
@@ -76,9 +78,16 @@ public class CollectionController extends MenuController {
             name.getStyleClass().add("labelName");
             name.setId("name");
             name.relocate(135, 15);
+            AnchorPane.setRightAnchor(deckView, 0.0);
+            AnchorPane.setTopAnchor(deckView, 0.0);
             deckView.getStyleClass().add("decks");
             deckView.getChildren().add(name);
+            deckView.getChildren().add(button);
             decksPane.getChildren().add(deckView);
+            button.setOnMouseClicked(event -> {
+                getMainController().deleteDeck(deck.getName());
+                putDecks();
+            });
             deckView.setOnMouseClicked(event -> {
                 importButton.setText("export");
                 selectedDeckName = deck.getName();
