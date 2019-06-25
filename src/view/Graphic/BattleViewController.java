@@ -107,15 +107,35 @@ public class BattleViewController extends MenuController implements Initializabl
         child.getChildren().add(cardImageView);
         if (card instanceof SoldierCard) {
             ImageView attackImage = new ImageView(new Image("view/Graphic/images/icon_atk.png"));
+            ImageView healthImage = new ImageView(new Image("view/Graphic/images/icon_hp.png"));
+            ImageView manaImage = new ImageView(new Image("view/Graphic/images/mana.png"));
             Label attack = new Label();
+            Label health = new Label();
+            Label mana = new Label();
             attack.setText(((SoldierCard) card).getAp() + "");
-            attackImage.setFitWidth(50);
-            attackImage.setFitHeight(50);
-            attackImage.relocate(40, 110);
-            attack.getStyleClass().add("apLabel");
-            attack.relocate(40, 110);
+            health.setText(((SoldierCard) card).getHp() + "");
+            mana.setText(card.getMana() + "");
+            attackImage.setFitWidth(70);
+            attackImage.setFitHeight(70);
+            healthImage.setFitWidth(70);
+            healthImage.setFitHeight(70);
+            manaImage.setFitWidth(50);
+            manaImage.setFitHeight(50);
+            attackImage.relocate(30, 120);
+            healthImage.relocate(110,120);
+            manaImage.relocate(20, 20);
+            attack.getStyleClass().add("aPLabel");
+            health.getStyleClass().add("hPLabel");
+            mana.getStyleClass().add("manaLabel");
+            attack.relocate(50, 140);
+            health.relocate(130, 140);
+            mana.relocate(30, 30);
             child.getChildren().add(attackImage);
             child.getChildren().add(attack);
+            child.getChildren().add(healthImage);
+            child.getChildren().add(health);
+            child.getChildren().add(manaImage);
+            child.getChildren().add(mana);
         }
         cardImageView.setOnMouseClicked(x -> {
             handleHandCardSelection(child, card);

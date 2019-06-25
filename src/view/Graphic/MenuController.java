@@ -20,6 +20,7 @@ import view.ErrorType;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class MenuController {
     private static boolean customGame = false;
@@ -87,7 +88,7 @@ public class MenuController {
             if (controller instanceof GameModeMenu) {
                 controller.setCustomGameDeck(customGameDeck);
             }
-            if(controller instanceof BattleViewController){
+            if (controller instanceof BattleViewController) {
                 ((BattleViewController) controller).loadGame();
             }
 
@@ -121,7 +122,7 @@ public class MenuController {
                     kind.setText("HERO");
                 if (product instanceof Minion)
                     kind.setText("MINION");
-                Image gifImage = new Image("/view/Graphic/cards/" + ((SoldierCard) product).getName() +" idle.gif");
+                Image gifImage = new Image("/view/Graphic/cards/" + ((SoldierCard) product).getName() + " idle.gif");
                 gif.setImage(gifImage);
                 nameLabel.setText(((SoldierCard) product).getName());
                 Label aPLabel = new Label();
@@ -138,7 +139,7 @@ public class MenuController {
                 hPLabel.relocate(159, 165);
                 price.setText(((SoldierCard) product).getPrice() + "");
             } else if (product instanceof SpellCard) {
-                Image gifImage = new Image("/view/Graphic/cards/" + ((SpellCard) product).getName() +" idle.gif");
+                Image gifImage = new Image("/view/Graphic/cards/" + ((SpellCard) product).getName() + " idle.gif");
                 gif.setImage(gifImage);
                 cardView.getStyleClass().add("spellCard");
                 nameLabel.setText(((SpellCard) product).getName());
@@ -240,8 +241,10 @@ public class MenuController {
         ArrayList<Object> collectionCards = new ArrayList<>();
         collectionCards.addAll(mainController.getLoggedInAccount().getCollection().getCards());
         collectionCards.addAll(mainController.getLoggedInAccount().getCollection().getItems());
-        collectionCards.removeAll(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName).getCards().values());
-        collectionCards.removeAll(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName).getItems().values());
+        ArrayList<Card> cards = mainController.getLoggedInAccount().getCollection().getCards();
+        ArrayList<Item> items = mainController.getLoggedInAccount().getCollection().getItems();
+        cards.stream().<Predicate<? super Object>>map(card -> o -> o instanceof Card && ((Card) o).getCardId() == card.getCardId()).forEach(collectionCards::removeIf);
+        items.stream().<Predicate<? super Object>>map(item -> o -> o instanceof Item && ((Item) o).getItemId() == item.getItemId()).forEach(collectionCards::removeIf);
         createCards(pane, collectionCards);
     }
 
