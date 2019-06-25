@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Cards.Card;
+import model.Cell;
 import model.Collection;
 import model.Game.Game;
 
@@ -42,27 +43,6 @@ public class BattleViewController extends MenuController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        anchorPaneCells = new AnchorPane[cellsWeight][cellsLength];
-        for (int i = 0; i < cellsWeight; i++)
-            for (int j = 0; j < cellsLength; j++) {
-                AnchorPane anchorPane = new AnchorPane();
-                anchorPane.getStyleClass().add("cells");
-                anchorPane.setLayoutX(j * 100 + 40);
-                anchorPane.setLayoutY(i * 100);
-                center.getChildren().add(anchorPane);
-                anchorPaneCells[i][j] = anchorPane;
-                anchorPane.setOnMouseEntered(x -> {
-                    anchorPane.getStyleClass().remove(0);
-                    anchorPane.getStyleClass().add("hoveredCells");
-                });
-                anchorPane.setOnMouseExited(x -> {
-                    anchorPane.getStyleClass().remove(0);
-                    anchorPane.getStyleClass().add("cells");
-                });
-                addCardGifInGround(anchorPane, "arash");
-
-            }
-
 
 
     }
@@ -71,11 +51,34 @@ public class BattleViewController extends MenuController implements Initializabl
         game = getMainController().getGame();
         cellsLength = getMainController().getGame().getLength();
         cellsWeight = getMainController().getGame().getWidth();
+        anchorPaneCells = new AnchorPane[cellsWeight][cellsLength];
+        for (int i = 0; i < cellsLength; i++)
+            for (int j = 0; j < cellsWeight; j++) {
+                AnchorPane anchorPane = new AnchorPane();
+                anchorPane.getStyleClass().add("cells");
+                anchorPane.setLayoutX(i * 100 + 40);
+                anchorPane.setLayoutY(j * 100);
+                center.getChildren().add(anchorPane);
+                anchorPaneCells[j][i] = anchorPane;
+                anchorPane.setOnMouseEntered(x -> {
+                    anchorPane.getStyleClass().remove(0);
+                    anchorPane.getStyleClass().add("hoveredCells");
+                });
+                anchorPane.setOnMouseExited(x -> {
+                    anchorPane.getStyleClass().remove(0);
+                    anchorPane.getStyleClass().add("cells");
+                });
+                Cell cell = game.getCell(i+1, j+1);
+                if (cell.getCard() != null)
+                    addCardGifInGround(anchorPane, cell.getCard().getName());
+
+            }
+
         ArrayList<Card> hand = new ArrayList<>(game.getPlayer1().getHandCards().values());
         for (int i = 0; i < hand.size(); i++) {
             System.out.println(hand.get(i).getName());
             AnchorPane child = (AnchorPane) deckBar.getChildren().get(i);
-            addCardGifInDeck((AnchorPane) child,hand.get(i).getName() );
+            addCardGifInDeck((AnchorPane) child, hand.get(i).getName());
         }
         //todo:test
         addHeroIcons(rightHeroAnchor, game.getPlayer1().getHero().getName());
