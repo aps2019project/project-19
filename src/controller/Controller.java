@@ -277,7 +277,9 @@ public class Controller {
     }
 
     public void createCustomGame(GameMode gameMode, String deckName, int numOfFlags) {
+        System.out.println("entered method");
         if (aiDeck == null) {
+            System.out.println("ai deck is null");
             errorType = ErrorType.OPPONENT_HERO_NOT_SELECTED;
         } else {
             if (loggedInAccount.getCollection().getDecks().containsKey(deckName)) {

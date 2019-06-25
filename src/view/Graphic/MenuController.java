@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,13 +18,19 @@ import model.Item;
 import view.ErrorType;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class MenuController {
     private static boolean customGame = false;
     private String deckName;
+    private String customGameDeck;
 
     private Stage stage;
     private Controller mainController;
+
+    public void setCustomGameDeck(String customGameDeck) {
+        this.customGameDeck = customGameDeck;
+    }
 
     public void setMainController(Controller mainController) {
         this.mainController = mainController;
@@ -74,6 +82,9 @@ public class MenuController {
             }
             if (controller instanceof SingleGameCustomModeController) {
                 ((SingleGameCustomModeController) controller).putCardsInPane();
+            }
+            if (controller instanceof GameModeMenu){
+                controller.setCustomGameDeck(customGameDeck);
             }
 
             this.getStage().getScene().setRoot(root);
@@ -226,15 +237,27 @@ public class MenuController {
     public void customGame(String heroName) {
         if (mainController.getLoggedInAccount().getCollection().isAnyDeckAvailable()) {
             mainController.chooseHero(heroName);
-            //todo change select a deck in graphic
             AlertBox.display(Alert.AlertType.INFORMATION, "Custom Game", heroName + " selected");
-            do {
-                deckName = TextReceiver.getText("Custom Game", "please enter a deck to play with");
-            } while (deckName == null || deckName.equals(""));
-            customGame = true;
-            changeMenu("gameModeMenu.fxml");
+            ChoiceDialog<String> decks = new ChoiceDialog<>();
+            decks.getItems().addAll(getMainController().getLoggedInAccount().getCollection().getDecks().keySet());
+            decks.setTitle("Deck");
+            decks.setContentText("Choose the deck you wanna play with");
+            Optional<String> result = decks.showAndWait();
+            if (result.isPresent()){
+                System.out.println("selected deck name is " + result.get());
+                customGameDeck = result.get();
+                customGame = true;
+                changeMenu("gameModeMenu.fxml");
+            }
+            else{
+                AlertBox.display(Alert.AlertType.WARNING, "Warning", "no deck is selected");
+            }
         } else {
             AlertBox.display(Alert.AlertType.WARNING, "Warning", ErrorType.NO_VALID_DECK.getMessage());
         }
+    }
+
+    public String getCustomGameDeck() {
+        return customGameDeck;
     }
 }
