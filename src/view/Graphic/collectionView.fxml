@@ -16,7 +16,7 @@
            AnchorPane.rightAnchor="450.0" fx:id="errorLabel">
     </Label>
     <ImageView fitHeight="100.0" fitWidth="80.0" onMouseClicked="#exit" AnchorPane.leftAnchor="0.0"
-               AnchorPane.topAnchor="0.0">
+               AnchorPane.topAnchor="0.0" fx:id="backButton">
         <Image url="@images/backButton.png">
         </Image>
     </ImageView>

@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.Cards.Card;
 import model.Deck;
-
 import java.util.ArrayList;
 
 public class CollectionController extends MenuController {
@@ -31,6 +30,8 @@ public class CollectionController extends MenuController {
     private JFXMasonryPane decksPane = new JFXMasonryPane();
     @FXML
     private TextField deckName = new TextField();
+    @FXML
+    private ImageView backButton = new ImageView();
     private boolean inDeck = false;
     private String selectedDeckName;
 
@@ -104,10 +105,10 @@ public class CollectionController extends MenuController {
             putCardsInCollection();
             putDecks();
             deckButtonLabel.setText("new deck");
-            mainPane.getChildren().removeIf(node -> node instanceof ImageView || node instanceof Label);
+            mainPane.getChildren().removeIf(node ->  node instanceof ImageView || node instanceof Label);
+            mainPane.getChildren().add(backButton);
             mainPane.getChildren().add(newDeckButton);
             mainPane.getChildren().add(deckButtonLabel);
-//                    || (node instanceof Label && node.getId().equals("mainButtonText")));
         }
     }
 
