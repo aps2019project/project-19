@@ -246,28 +246,39 @@ public class Controller {
             } while (true);
         }
     */
-    private void exportDeck() {
-        if (!request.getExport().deckIsValid()) {
+    public boolean exportDeck(Deck deck, String fileName) {
+        if (!deck.deckIsValid()) {
             errorType = ErrorType.INVALID_DECK;
-            return;
+            return false;
         }
-        boolean isDone = DeckManagement.exportDeck(request.getExport(), request.getDeckFileName());
+        boolean isDone = DeckManagement.exportDeck(deck, fileName);
         if (isDone) {
-            System.err.println("deck exported successfully");
+            return true;
         } else {
             errorType = ErrorType.DUPLICATE_FILE_DECK_NAME;
+            return false;
         }
     }
 
-    private void importDeck() {
-        Deck deck = DeckManagement.importDeck(request.getDeckFileName());
+    public boolean importDeck(String fileName) {
+        Deck deck = DeckManagement.importDeck(fileName);
         if (deck == null) {
             errorType = ErrorType.INVALID_DECK_FILE_NAME;
-            return;
+            return false;
         } else {
-            //todo check if player has deck cards
-            if (!loggedInAccount.getCollection().getDecks().containsKey(deck.getName()))
+            if (getLoggedInAccount().getCollection().getDecks().containsKey(deck.getName())) {
+                errorType = ErrorType.SAME_DECK;
+                return false;
+            } else {
+                for (Card card : deck.getCards().values()) {
+                    if (!loggedInAccount.getCollection().existsInCollectionCards(card.getName())) {
+                        errorType = ErrorType.YOU_DONT_HAVE_THE_CARD;
+                        return false;
+                    }
+                }
                 loggedInAccount.getCollection().getDecks().put(deck.getName(), deck);
+                return true;
+            }
         }
     }
 
@@ -287,7 +298,7 @@ public class Controller {
                 ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
                 game = new Game(player1, ai.getPlayer());
                 game.setGameMode(gameMode);
-                if(gameMode.equals(GameMode.CAPTURE_THE_FLAGS)){
+                if (gameMode.equals(GameMode.CAPTURE_THE_FLAGS)) {
                     game.setNumOfFlags(numOfFlags);
                 }
                 initNewGame(gameMode);
@@ -311,20 +322,25 @@ public class Controller {
         }
     }
 
-    private void selectStoryLevel() {
+    public void selectStoryLevel(int storyLevel) {
         Player player1 = new Player(loggedInAccount, loggedInAccount.getCollection().getMainDeck());
-        if (request.getStoryLevel() > 4 || request.getStoryLevel() < 1) {
+        if (storyLevel > 4 || storyLevel < 1) {
             errorType = ErrorType.INVALID_LEVEL;
             return;
         }
         game = new Game();
         game.initStoryDecks(shop);
-        aiDeck = game.getStoryLevelDecks().get(request.getStoryLevel());
+        aiDeck = game.getStoryLevelDecks().get(storyLevel);
         ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
         game = new Game(player1, ai.getPlayer());
-        game.setGameMode(GameMode.DEATH_MATCH);
+        if (storyLevel == 1)
+            game.setGameMode(GameMode.DEATH_MATCH);
+        if (storyLevel == 2)
+            game.setGameMode(GameMode.CAPTURE_THE_FLAGS);
+        if (storyLevel == 3)
+            game.setGameMode(GameMode.KEEP_THE_FLAG);
         initNewGame(game.getGameMode());
-        game.setStoryPrize(request.getStoryLevel());
+        game.setStoryPrize(storyLevel);
     }
 
     private void selectOpponent() {
@@ -744,7 +760,7 @@ public class Controller {
         errorType = ErrorType.INVALID_CARD_ID;
     }
 
-    public void moveCard(int x,int y) {
+    public void moveCard(int x, int y) {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
             return;
@@ -790,7 +806,7 @@ public class Controller {
         }
     }
 
-    public void comboAttack(ArrayList<String> comboAttackers,String defenderInBattleId) {
+    public void comboAttack(ArrayList<String> comboAttackers, String defenderInBattleId) {
         for (String comboAttackerId : comboAttackers) {
             if (!activePlayer.containsCardInBattle(comboAttackerId)) {
                 errorType = ErrorType.INVALID_CARD_ID;
@@ -857,7 +873,7 @@ public class Controller {
             } else if (((Hero) card).getCoolDownWaiting() < ((Hero) card).getCoolDown()) {
                 errorType = ErrorType.NOT_ENOUGH_COOLDOWN;
             } else {
-                castHeroSpecialPower((Hero) card,x,y);
+                castHeroSpecialPower((Hero) card, x, y);
                 ((Hero) card).setCoolDownWaiting(0);
             }
         }
@@ -867,7 +883,7 @@ public class Controller {
                 return;
             }
             if (!card.getTarget().checkTargetValidation(game, activePlayer,
-                    deactivePlayer, x,y)) {
+                    deactivePlayer, x, y)) {
                 errorType = ErrorType.INVALID_TARGET;
                 return;
             }
@@ -941,7 +957,7 @@ public class Controller {
         }
     }
 
-    private void castHeroSpecialPower(Hero card,int x,int y) {
+    private void castHeroSpecialPower(Hero card, int x, int y) {
         if (card.getTarget().getType().equals(Type.AREA)) {
             int areaSize = card.getTarget().getAreaSize();
             for (int i = x; i < y + areaSize; i++) {
@@ -1001,30 +1017,30 @@ public class Controller {
         view.show(activePlayer.handInfo());
     }
 
-    public void insertCard(String cardName,int x,int y) {
+    public boolean insertCard(String cardName,int x,int y) {
         Player player = activePlayer;
         ArrayList<Card> cards = new ArrayList<>(player.getHandCards().values());
         Card card = findCardInHandByName(cards, cardName);
         if (card == null) {
             errorType = ErrorType.INVALID_CARDNAME;
-            return;
+            return false;
         }
         if (!game.coordinateIsValid(x, y)) {
             errorType = ErrorType.INVALID_TARGET;
-            return;
+            return false;
         }
         if (player.getMana() < card.getMana()) {
             errorType = ErrorType.NOT_ENOUGH_MANA;
-            return;
+            return false;
         }
         Cell insertionCell = game.getCell(x, y);
         if (card instanceof SpellCard) {
             if (!((SpellCard) card).getTargetArea().checkTargetValidation(game,
                     activePlayer, deactivePlayer, x, y)) {
                 errorType = ErrorType.INVALID_TARGET;
-                return;
+                return false;
             }
-            castSpell((SpellCard) card,x,y);
+            castSpell((SpellCard) card, x, y);
             card.setCardStatus(CardStatus.IN_GRAVEYARD);
             activePlayer.getGraveYard().put(card.getInBattleCardId(), card);
         } else {
@@ -1045,9 +1061,10 @@ public class Controller {
             checkDeadCards(activePlayer);
             checkDeadCards(deactivePlayer);
         }
+        return errorType ==null;
     }
 
-    private void castSpell(SpellCard card,int x,int y) {
+    private void castSpell(SpellCard card, int x, int y) {
         if (card.getTargetArea().getType().equals(Type.AREA)) {
             int areaSize = card.getTargetArea().getAreaSize();
             for (int i = x; i < x + areaSize; i++) {
@@ -1194,6 +1211,7 @@ public class Controller {
             castPassiveBuffs();
         } else
             endGame();
+        setActivePlayer();
     }
 
     private void castPassiveBuffs() {
@@ -1426,4 +1444,17 @@ public class Controller {
     public ErrorType getErrorType() {
         return errorType;
     }
+
+    public void setActivePlayer() {
+        if (game != null) {
+            if (game.isTurnOfPlayerOne()) {
+                activePlayer = game.getPlayer1();
+                deactivePlayer = game.getPlayer2();
+            } else {
+                activePlayer = game.getPlayer2();
+                deactivePlayer = game.getPlayer1();
+            }
+        }
+    }
+
 }

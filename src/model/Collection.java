@@ -122,6 +122,13 @@ public class Collection {
 
     public void removeItem(int itemId, String deckName) {
     }
+    public boolean existsInCollectionCards(String name){
+        for (Card card : cards) {
+            if (card.getName().equals(name))
+                return true;
+        }
+        return false;
+    }
 
 //    public boolean validateDeck(String deckName){}
 }

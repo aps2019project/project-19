@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.Cards.Card;
 import model.Deck;
+
 import java.util.ArrayList;
 
 public class CollectionController extends MenuController {
@@ -120,7 +121,7 @@ public class CollectionController extends MenuController {
             putCardsInCollection();
             putDecks();
             deckButtonLabel.setText("new deck");
-            mainPane.getChildren().removeIf(node ->  node instanceof ImageView || node instanceof Label);
+            mainPane.getChildren().removeIf(node -> node instanceof ImageView || node instanceof Label);
             mainPane.getChildren().add(backButton);
             mainPane.getChildren().add(newDeckButton);
             mainPane.getChildren().add(deckButtonLabel);
@@ -205,7 +206,29 @@ public class CollectionController extends MenuController {
     }
 
     public void importDeck() {
-        if (inDeck){}
-        else{}
+        if (inDeck) {
+            String name = TextReceiver.getText("Export", "please enter a name for exporting deck");
+            if (!(name == null || name.equals(""))) {
+
+                if (getMainController().exportDeck(
+                        getMainController().getLoggedInAccount().getCollection().getDecks().get(selectedDeckName), name)) {
+                    AlertBox.display(Alert.AlertType.INFORMATION, "Export", "Deck exported with name : " + name);
+                } else {
+                    AlertBox.display(Alert.AlertType.ERROR, "Export", getMainController().getErrorType().getMessage());
+                    getMainController().setErrorType(null);
+                }
+            }
+        } else {
+            String name = TextReceiver.getText("Export", "please enter a name for importing a deck");
+            if (!(name == null || name.equals(""))) {
+                if (getMainController().importDeck(name)) {
+                    AlertBox.display(Alert.AlertType.INFORMATION, "Export", "Deck imported successfully");
+                    putDecks();
+                } else {
+                    AlertBox.display(Alert.AlertType.ERROR, "Export", getMainController().getErrorType().getMessage());
+                    getMainController().setErrorType(null);
+                }
+            }
+        }
     }
 }
