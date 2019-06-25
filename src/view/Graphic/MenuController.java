@@ -21,8 +21,6 @@ public class MenuController {
     private static boolean customGame = false;
     private String deckName;
 
-    @FXML
-    private Label label;
     private Stage stage;
     private Controller mainController;
 
@@ -90,8 +88,8 @@ public class MenuController {
             ImageView gif = new ImageView();
             Image gifImage = new Image("/view/Graphic/cards/afsaneh idle.gif");
             gif.setImage(gifImage);
-            gif.setFitWidth(200);
-            gif.setFitHeight(200);
+            gif.setFitWidth(150);
+            gif.setFitHeight(150);
             AnchorPane cardView = new AnchorPane();
             Label kind = new Label();
             Label nameLabel = new Label();
@@ -141,7 +139,7 @@ public class MenuController {
             cardView.getChildren().add(nameLabel);
             cardView.getChildren().add(kind);
             cardView.getChildren().add(gif);
-            gif.relocate(20, 20);
+            gif.relocate(33, 7);
             price.relocate(102, 275);
             if (!(product instanceof Item)) {
                 cardView.getChildren().add(manaView);

@@ -30,6 +30,8 @@ public class CollectionController extends MenuController {
     private JFXMasonryPane decksPane = new JFXMasonryPane();
     @FXML
     private TextField deckName = new TextField();
+    @FXML
+    private ImageView backButton = new ImageView();
     private boolean inDeck = false;
     private String selectedDeckName;
 
@@ -104,9 +106,9 @@ public class CollectionController extends MenuController {
             putDecks();
             deckButtonLabel.setText("new deck");
             mainPane.getChildren().removeIf(node ->  node instanceof ImageView || node instanceof Label);
+            mainPane.getChildren().add(backButton);
             mainPane.getChildren().add(newDeckButton);
             mainPane.getChildren().add(deckButtonLabel);
-//                    || (node instanceof Label && node.getId().equals("mainButtonText")));
         }
     }
 
