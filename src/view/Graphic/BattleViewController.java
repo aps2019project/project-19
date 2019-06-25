@@ -3,6 +3,7 @@ package view.Graphic;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -12,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import model.Cards.Card;
 import model.Cards.SoldierCard;
 import model.Cards.SpellCard;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 
 public class BattleViewController extends MenuController implements Initializable {
     @FXML
@@ -188,8 +191,8 @@ public class BattleViewController extends MenuController implements Initializabl
         }
     }
 
-    private void addCardGifInGround(AnchorPane anchorPane, String cardName) {
-        ImageView attack = new ImageView(new Image("view/Graphic/images/icon_atk.png"));
+    private void addCardGifInGround(AnchorPane anchorPane, Card card) {
+        String cardName = card.getName();
         for (Node childChild : anchorPane.getChildren()) {
             if (childChild instanceof CardImageView) {
                 ((CardImageView) childChild).changeImage(cardName, CardImageView.Stance.IDLING);
@@ -203,6 +206,28 @@ public class BattleViewController extends MenuController implements Initializabl
         cardImageView.setPreserveRatio(true);
         cardImageView.setPickOnBounds(true);
         anchorPane.getChildren().add(cardImageView);
+        if (card instanceof SoldierCard) {
+            ImageView attackImage = new ImageView(new Image("view/Graphic/images/icon_atk.png"));
+            ImageView healthImage = new ImageView(new Image("view/Graphic/images/icon_hp.png"));
+            Label attack = new Label();
+            Label health = new Label();
+            attack.setText(((SoldierCard) card).getAp() + "");
+            health.setText(((SoldierCard) card).getHp() + "");
+            attackImage.setFitWidth(35);
+            attackImage.setFitHeight(35);
+            healthImage.setFitWidth(35);
+            healthImage.setFitHeight(35);
+            attackImage.relocate(15, 60);
+            healthImage.relocate(55,60);
+            attack.getStyleClass().add("aPLabelSmall");
+            health.getStyleClass().add("hPLabelSmall");
+            attack.relocate(25, 70);
+            health.relocate(65, 70);
+            anchorPane.getChildren().add(attackImage);
+            anchorPane.getChildren().add(attack);
+            anchorPane.getChildren().add(healthImage);
+            anchorPane.getChildren().add(health);
+        }
     }
 
     private void addHeroIcons(AnchorPane anchorPane, String name, boolean left) {
@@ -235,7 +260,7 @@ public class BattleViewController extends MenuController implements Initializabl
             for (int j = 0; j < cellsWeight; j++) {
                 Cell cell = game.getCell(i + 1, j + 1);
                 if(cell.getCard()!= null){
-                    addCardGifInGround(anchorPaneCells[j][i],cell.getCard().getName());
+                    addCardGifInGround(anchorPaneCells[j][i],cell.getCard());
                 }
             }
         }
