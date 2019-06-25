@@ -164,6 +164,7 @@ public class MenuController {
 
             cardView.setOnMouseExited(event -> {
                 cardView.getChildren().removeIf(node -> node instanceof ImageView);
+                cardView.getChildren().add(gif);
                 if (!(product instanceof Item)) {
                     cardView.getChildren().add(manaView);
                     cardView.getChildren().remove(mana);
