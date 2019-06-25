@@ -103,8 +103,8 @@ public class MenuController {
             ImageView gif = new ImageView();
 //            Image gifImage = new Image("/view/Graphic/cards/afsaneh idle.gif");
 //            gif.setImage(gifImage);
-            gif.setFitWidth(150);
-            gif.setFitHeight(150);
+            gif.setFitWidth(140);
+            gif.setFitHeight(140);
             AnchorPane cardView = new AnchorPane();
             Label kind = new Label();
             Label nameLabel = new Label();
@@ -138,8 +138,8 @@ public class MenuController {
                 hPLabel.relocate(159, 165);
                 price.setText(((SoldierCard) product).getPrice() + "");
             } else if (product instanceof SpellCard) {
-//                Image gifImage = new Image("/view/Graphic/cards/" + ((SpellCard) product).getName() +".gif");
-//                gif.setImage(gifImage);
+                Image gifImage = new Image("/view/Graphic/cards/" + ((SpellCard) product).getName() +" idle.gif");
+                gif.setImage(gifImage);
                 cardView.getStyleClass().add("spellCard");
                 nameLabel.setText(((SpellCard) product).getName());
                 mana.setText(((SpellCard) product).getMana() + "");
@@ -160,7 +160,7 @@ public class MenuController {
             cardView.getChildren().add(nameLabel);
             cardView.getChildren().add(kind);
             cardView.getChildren().add(gif);
-            gif.relocate(33, 7);
+            gif.relocate(38, 5);
             price.relocate(102, 275);
             if (!(product instanceof Item)) {
                 cardView.getChildren().add(manaView);
