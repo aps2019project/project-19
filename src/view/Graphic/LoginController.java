@@ -53,9 +53,7 @@ public class LoginController extends MenuController implements Initializable {
             logInMessage.setText(getMainController().getErrorType().getMessage());
     }
     public void exitGame(){
-        changeMenu("BattleView.fxml");
-
-        //        System.exit(0);
+                System.exit(0);
     }
 
 }

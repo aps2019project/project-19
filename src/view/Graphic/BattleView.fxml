@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" styleClass="battleMenu" stylesheets="@BattleStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Graphic.BattleViewController">
    <children>
@@ -15,8 +17,32 @@
          <top>
             <AnchorPane prefHeight="270.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="rightHeroAnchor" />
-                  <AnchorPane fx:id="leftHeroAnchor" layoutX="1651.0" />
+                  <AnchorPane fx:id="rightHeroAnchor" prefHeight="270.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fitHeight="141.0" fitWidth="127.0" layoutX="292.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <image>
+                              <Image url="@images/mana.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="rightManaLabel" alignment="CENTER" layoutX="307.0" layoutY="39.0" prefHeight="61.0" prefWidth="58.0" text="9/9" AnchorPane.bottomAnchor="169.79999999999998" AnchorPane.rightAnchor="34.60000000000002" AnchorPane.topAnchor="39.0">
+                           <font>
+                              <Font name="System Bold" size="26.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
+                  <AnchorPane fx:id="leftHeroAnchor" layoutX="1520.0" prefHeight="270.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1520.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fitHeight="141.0" fitWidth="127.0" layoutX="27.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <image>
+                              <Image url="@images/mana.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="leftManaLabel" alignment="CENTER" layoutX="33.0" layoutY="41.0" prefHeight="61.0" prefWidth="58.0" text="9/9" AnchorPane.bottomAnchor="167.79999999999998" AnchorPane.leftAnchor="33.0" AnchorPane.topAnchor="41.0">
+                           <font>
+                              <Font name="System Bold" size="26.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
                </children></AnchorPane>
          </top>
          <left>
@@ -109,6 +135,11 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
+                  <Label alignment="CENTER" onMouseClicked="#endTurn" prefHeight="86.0" prefWidth="262.0" styleClass="endTurnButton" text="END TURN" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font size="29.0" />
+                     </font>
+                  </Label>
                </children></AnchorPane>
          </bottom>
       </BorderPane>
