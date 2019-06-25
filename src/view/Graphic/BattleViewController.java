@@ -11,9 +11,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.Cards.Card;
+import model.Collection;
 import model.Game.Game;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class BattleViewController extends MenuController implements Initializable {
@@ -21,12 +25,12 @@ public class BattleViewController extends MenuController implements Initializabl
     AnchorPane center;
     @FXML
     HBox deckBar;
-    //    private Game game = getMainController().getGame();
-//    private final int cellsLength = getMainController().getGame().getLength();
-//    private final int cellsWeight = getMainController().getGame().getWidth();
+    private Game game = getMainController().getGame();
+    private final int cellsLength = getMainController().getGame().getLength();
+    private final int cellsWeight = getMainController().getGame().getWidth();
     //todo: set wight and lenght with game
-    private final int cellsLength = 9;
-    private final int cellsWeight = 5;
+//    private final int cellsLength = 9;
+//    private final int cellsWeight = 5;
     private AnchorPane[][] anchorPaneCells;
     @FXML
     private AnchorPane rightHeroAnchor;
@@ -55,25 +59,27 @@ public class BattleViewController extends MenuController implements Initializabl
                 addCardGifInGround(anchorPane, "arash");
 
             }
-        addHeroIcons(rightHeroAnchor, "arash");
-        addHeroIcons(leftHeroAnchor, "afsaneh");
-        for (Node child : deckBar.getChildren()) {
-            addCardGifInDeck((AnchorPane) child, "arash");
+        //todo:test
+        addHeroIcons(rightHeroAnchor, game.getPlayer1().getHero().getName());
+        addHeroIcons(leftHeroAnchor, game.getPlayer2().getHero().getName());
+        ArrayList<Card> hand = new ArrayList<>(game.getPlayer1().getHandCards().values());
+        for (int i = 0; i < hand.size(); i++) {
+            AnchorPane child = (AnchorPane) deckBar.getChildren().get(i);
+            addCardGifInDeck((AnchorPane) child,hand.get(i).getName() );
         }
 
     }
 
     private void addCardGifInDeck(AnchorPane child, String cardName) {
         ((ImageView) child.getChildren().get(0)).setImage(new Image("view/Graphic/images/card_background.png"));
-        Image image = new Image("view/Graphic/cards/" + cardName + " idle.gif");
-        ImageView imageView = new ImageView(image);
-        imageView.setPreserveRatio(true);
-        imageView.setPickOnBounds(true);
-        imageView.setFitWidth(200);
-        imageView.setFitHeight(200);
-        imageView.setLayoutY(-50);
-        child.getChildren().add(imageView);
-        imageView.setOnMouseClicked(x -> {
+        CardImageView cardImageView = new CardImageView(cardName, CardImageView.Stance.IDLING);
+        cardImageView.setPreserveRatio(true);
+        cardImageView.setPickOnBounds(true);
+        cardImageView.setFitWidth(200);
+        cardImageView.setFitHeight(200);
+        cardImageView.setLayoutY(-50);
+        child.getChildren().add(cardImageView);
+        cardImageView.setOnMouseClicked(x -> {
 
             ImageView backGroundImage = ((ImageView) child.getChildren().get(0));
 
@@ -87,14 +93,13 @@ public class BattleViewController extends MenuController implements Initializabl
     }
 
     private void addCardGifInGround(AnchorPane anchorPane, String cardName) {
-        Image image = new Image("view/Graphic/cards/" + cardName + " idle.gif");
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(100);
-        imageView.setFitHeight(100);
-        imageView.setLayoutY(-20);
-        imageView.setPreserveRatio(true);
-        imageView.setPickOnBounds(true);
-        anchorPane.getChildren().add(imageView);
+        CardImageView cardImageView = new CardImageView(cardName, CardImageView.Stance.IDLING);
+        cardImageView.setFitWidth(100);
+        cardImageView.setFitHeight(100);
+        cardImageView.setLayoutY(-20);
+        cardImageView.setPreserveRatio(true);
+        cardImageView.setPickOnBounds(true);
+        anchorPane.getChildren().add(cardImageView);
     }
 
     private void addHeroIcons(AnchorPane anchorPane, String name) {

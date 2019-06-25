@@ -187,6 +187,7 @@ public class CollectionController extends MenuController {
         });
         setMain.setOnMouseExited(event -> mainButton.setImage(mainButtonImage));
         setMain.setOnMouseClicked(event -> {
+            System.err.println(selectedDeckName);
             getMainController().selectMainDeck(selectedDeckName);
             if (getMainController().getErrorType() != null)
                 AlertBox.display(Alert.AlertType.ERROR, "Deck", getMainController().getErrorType().getMessage());
