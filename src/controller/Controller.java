@@ -555,10 +555,10 @@ public class Controller {
         view.show(name + " created");
     }
 
-    public void deleteDeck() {
-        if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
-            loggedInAccount.getCollection().getDecks().remove(request.getDeckName());
-            view.show(request.getDeckName() + " deleted");
+    public void deleteDeck(String deckName) {
+        if (loggedInAccount.getCollection().getDecks().containsKey(deckName)) {
+            loggedInAccount.getCollection().getDecks().remove(deckName);
+            view.show(deckName + " deleted");
             return;
         }
         errorType = ErrorType.DECK_NOT_EXISTS;

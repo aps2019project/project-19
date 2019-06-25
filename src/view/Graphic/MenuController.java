@@ -121,6 +121,8 @@ public class MenuController {
                     kind.setText("HERO");
                 if (product instanceof Minion)
                     kind.setText("MINION");
+//                Image gifImage = new Image("/view/Graphic/cards/" + ((SoldierCard) product).getName() +" idle.gif");
+//                gif.setImage(gifImage);
                 nameLabel.setText(((SoldierCard) product).getName());
                 Label aPLabel = new Label();
                 Label hPLabel = new Label();
@@ -136,12 +138,16 @@ public class MenuController {
                 hPLabel.relocate(159, 165);
                 price.setText(((SoldierCard) product).getPrice() + "");
             } else if (product instanceof SpellCard) {
+//                Image gifImage = new Image("/view/Graphic/cards/" + ((SpellCard) product).getName() +".gif");
+//                gif.setImage(gifImage);
                 cardView.getStyleClass().add("spellCard");
                 nameLabel.setText(((SpellCard) product).getName());
                 mana.setText(((SpellCard) product).getMana() + "");
                 kind.setText("SPELL CARD");
                 price.setText(((SpellCard) product).getPrice() + "");
             } else if (product instanceof Item) {
+//                Image gifImage = new Image("/view/Graphic/cards/" + ((Item) product).getName() +".gif");
+//                gif.setImage(gifImage);
                 cardView.getStyleClass().add("item");
                 nameLabel.setText(((Item) product).getName());
                 kind.setText("ITEM");
