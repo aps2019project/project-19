@@ -53,13 +53,13 @@ public class CustomCardPage extends MenuController implements Initializable {
         attackTypeHandler(minionAttackType);
         attackTypeHandler(heroAttackType);
         minionAbilityCastTime.getItems().addAll(AbilityCastTime.getTypes());
-        minionAbilityCastTime.setOnAction(e -> customCard.setAbilityCastTime(minionAbilityCastTime.getValue()));
+        minionAbilityCastTime.setOnMouseClicked(e -> customCard.setAbilityCastTime(minionAbilityCastTime.getValue()));
         minionBuffType.getItems().addAll(Buff.getSoldierBuffNames());
         heroBuffType.getItems().addAll(Buff.getSoldierBuffNames());
         buffTypeHandler(minionBuffType, minionBuffSection);
         buffTypeHandler(heroBuffType, heroBuffSection);
         heroTargetType.getItems().addAll(Type.AREA, Type.SOLDIER);
-        heroTargetType.setOnAction(e -> {
+        heroTargetType.setOnMouseClicked(e -> {
             customCard.setTargetType(heroTargetType.getValue());
             if (heroTargetType.getValue().equals(Type.AREA)) {
                 String areaSize;
@@ -87,7 +87,7 @@ public class CustomCardPage extends MenuController implements Initializable {
     }
 
     private void buffTypeHandler(ChoiceBox<String> choiceBox, AnchorPane anchorPane) {
-        choiceBox.setOnAction(e -> {
+        choiceBox.setOnMouseClicked(e -> {
             anchorPane.getChildren().removeIf(node -> node instanceof AnchorPane);
             AnchorPane commonAttributes = buffCommonInputs();
             anchorPane.getChildren().addAll(commonAttributes);
@@ -98,7 +98,7 @@ public class CustomCardPage extends MenuController implements Initializable {
     }
 
     private void attackTypeHandler(ChoiceBox<SoldierTypes> attackType) {
-        attackType.setOnAction(e -> {
+        attackType.setOnMouseClicked(e -> {
             customCard.setAttackType(attackType.getValue());
             if (attackType.getValue().equals(SoldierTypes.RANGED)) {
                 String range;

@@ -2,7 +2,6 @@ package view.Graphic;
 
 import com.jfoenix.controls.JFXMasonryPane;
 import controller.Controller;
-import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -13,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.Cards.Card;
 import model.Deck;
-
 import java.util.ArrayList;
 
 public class CollectionController extends MenuController {
@@ -33,6 +31,7 @@ public class CollectionController extends MenuController {
     @FXML
     private TextField deckName = new TextField();
     private boolean inDeck = false;
+    private String selectedDeckName;
 
     public boolean isInDeck() {
         return inDeck;
@@ -75,7 +74,8 @@ public class CollectionController extends MenuController {
             deckView.getChildren().add(name);
             decksPane.getChildren().add(deckView);
             deckView.setOnMouseClicked(event -> {
-//                setMainDeckButton();
+                selectedDeckName = deck.getName();
+                setMainDeckButton();
                 deckButtonLabel.setText("exit deck");
                 super.setDeckName(((Label) deckView.lookup("#name")).getText());
                 putCardInDeck(getMainController().getLoggedInAccount().getCollection().getDecks().get(((Label) deckView.lookup("#name")).getText()));
@@ -103,6 +103,10 @@ public class CollectionController extends MenuController {
             putCardsInCollection();
             putDecks();
             deckButtonLabel.setText("new deck");
+            mainPane.getChildren().removeIf(node ->  node instanceof ImageView || node instanceof Label);
+            mainPane.getChildren().add(newDeckButton);
+            mainPane.getChildren().add(deckButtonLabel);
+//                    || (node instanceof Label && node.getId().equals("mainButtonText")));
         }
     }
 
@@ -126,7 +130,6 @@ public class CollectionController extends MenuController {
         for (Card card : deck.getCards().values()) {
             AnchorPane cardView = new AnchorPane();
             cardView.getStyleClass().add("cardsInDeck");
-//            cardView.setPrefSize(30,6);
             Label name = new Label();
             Label mana = new Label();
             name.setText(card.getName());
@@ -137,6 +140,11 @@ public class CollectionController extends MenuController {
             name.relocate(200, 25);
             mana.relocate(35, 30);
             decksPane.getChildren().add(cardView);
+            cardView.setOnMouseClicked(event -> {
+                getMainController().removeFromDeck(deck.getName(), card.getCardId());
+                putCardInDeck(deck);
+                putUnusedCard(collectionPane);
+            });
         }
     }
 
@@ -144,19 +152,26 @@ public class CollectionController extends MenuController {
         ImageView mainButton = new ImageView();
         Image mainButtonImage = new Image("view/Graphic/images/rightButton.png");
         Label setMain = new Label("main deck");
+        mainButton.setId("mainButtonImage");
+        setMain.setId("mainButtonText");
+        mainButton.setFitHeight(80);
+        mainButton.setFitWidth(250);
         mainButton.setImage(mainButtonImage);
-        mainButton.resize(250, 80);
-        setMain.resize(250, 80);
+        setMain.getStyleClass().add("setMainDeckBtn");
         mainPane.getChildren().add(mainButton);
+        AnchorPane.setBottomAnchor(mainButton, 130.0);
+        AnchorPane.setRightAnchor(mainButton, 130.0);
+        AnchorPane.setBottomAnchor(setMain, 130.0);
+        AnchorPane.setRightAnchor(setMain, 130.0);
         mainPane.getChildren().add(setMain);
-        mainButton.relocate(1540, 900);
-        setMain.relocate(1640, 1000);
         setMain.setOnMouseEntered(event -> {
             Image glowImage = new Image("view/Graphic/images/rightButtonGlow.png");
             mainButton.setImage(glowImage);
         });
         setMain.setOnMouseExited(event -> mainButton.setImage(mainButtonImage));
         setMain.setOnMouseClicked(event -> {
+            getMainController().selectMainDeck(selectedDeckName);
+            AlertBox.display(Alert.AlertType.ERROR, "Deck", getMainController().getErrorType().getMessage());
         });
     }
 }

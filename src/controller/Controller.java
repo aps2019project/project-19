@@ -581,14 +581,14 @@ public class Controller {
         }
     }
 
-    public void removeFromDeck() {
-        if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
+    public void removeFromDeck(String deckName, int id) {
+        if (!loggedInAccount.getCollection().getDecks().containsKey(deckName))
             errorType = ErrorType.DECK_NOT_EXISTS;
-        else if (!loggedInAccount.getCollection().existsInDeck(request.getDeckName(), request.getCardOrItemID()))
+        else if (!loggedInAccount.getCollection().existsInDeck(deckName, id))
             errorType = ErrorType.NOT_FOUND;
         else {
-            loggedInAccount.getCollection().removeFromDeck(request.getDeckName(), request.getCardOrItemID());
-            view.show("card " + request.getCardOrItemID() + " removed from deck " + request.getDeckName());
+            loggedInAccount.getCollection().removeFromDeck(deckName, id);
+            view.show("card " + id + " removed from deck " + deckName);
         }
 
     }
@@ -601,11 +601,11 @@ public class Controller {
         else errorType = ErrorType.INVALID_DECK;
     }
 
-    public void selectMainDeck() {
-        if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
+    public void selectMainDeck(String deckName) {
+        if (!loggedInAccount.getCollection().getDecks().containsKey(deckName))
             errorType = ErrorType.DECK_NOT_EXISTS;
-        else if (loggedInAccount.getCollection().getDecks().get(request.getDeckName()).deckIsValid()) {
-            loggedInAccount.getCollection().setMainDeck(request.getDeckName());
+        else if (loggedInAccount.getCollection().getDecks().get(deckName).deckIsValid()) {
+            loggedInAccount.getCollection().setMainDeck(deckName);
             view.show("deck has selected");
         } else errorType = ErrorType.INVALID_DECK;
     }

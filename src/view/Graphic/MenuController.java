@@ -87,10 +87,16 @@ public class MenuController {
     protected void createCards(JFXMasonryPane pane, ArrayList<Object> products) {
         pane.getChildren().removeIf(node -> node instanceof AnchorPane);
         for (Object product : products) {
+            ImageView gif = new ImageView();
+            Image gifImage = new Image("/view/Graphic/cards/afsaneh idle.gif");
+            gif.setImage(gifImage);
+            gif.setFitWidth(200);
+            gif.setFitHeight(200);
             AnchorPane cardView = new AnchorPane();
             Label kind = new Label();
             Label nameLabel = new Label();
             Label mana = new Label();
+            Label price = new Label();
             kind.getStyleClass().add("kindLabel");
             mana.getStyleClass().add("manaLabel");
             mana.setId("manaLabel");
@@ -115,20 +121,28 @@ public class MenuController {
                 cardView.getChildren().add(hPLabel);
                 aPLabel.relocate(39, 165);
                 hPLabel.relocate(159, 165);
+                price.setText(((SoldierCard) product).getPrice() + "");
             } else if (product instanceof SpellCard) {
                 cardView.getStyleClass().add("spellCard");
                 nameLabel.setText(((SpellCard) product).getName());
                 mana.setText(((SpellCard) product).getMana() + "");
                 kind.setText("SPELL CARD");
+                price.setText(((SpellCard) product).getPrice() + "");
             } else if (product instanceof Item) {
                 cardView.getStyleClass().add("item");
                 nameLabel.setText(((Item) product).getName());
                 kind.setText("ITEM");
+                price.setText(((Item) product).getPrice() + "");
             }
             nameLabel.getStyleClass().add("labelName");
             nameLabel.setId("nameLabel");
+            price.getStyleClass().add("priceLabel");
+            cardView.getChildren().add(price);
             cardView.getChildren().add(nameLabel);
             cardView.getChildren().add(kind);
+            cardView.getChildren().add(gif);
+            gif.relocate(20, 20);
+            price.relocate(102, 275);
             if (!(product instanceof Item)) {
                 cardView.getChildren().add(manaView);
                 cardView.getChildren().add(mana);
