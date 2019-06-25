@@ -129,6 +129,12 @@
     -fx-background-radius: 20px;
 }
 
+.priceLabel{
+    -fx-font-size: 12px;
+    -fx-text-fill: gold;
+    -fx-background-color: transparent;
+}
+
 .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
@@ -197,4 +203,14 @@
     -fx-pref-width: 308;
     -fx-pref-height: 56;
     -fx-text-fill: Black;
+}
+
+.setMainDeckBtn {
+    -fx-font-size: 25px;
+    -fx-pref-width: 250;
+    -fx-pref-height: 80;
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-text-alignment: Center;
+    -fx-background-color: transparent;
 }

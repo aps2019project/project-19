@@ -1,8 +1,6 @@
 package view.Graphic;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -12,16 +10,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import model.AbilityCastTime;
 import model.Buff.*;
-import model.Cards.Card;
-import model.Cards.CustomCard;
-import model.Cards.SoldierTypes;
-import model.Target.SoldierTargetType;
-import model.Target.Type;
+import model.Cards.*;
+import model.Target.*;
 
 import java.net.URL;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class CustomCardPage extends MenuController implements Initializable {
     @FXML
@@ -42,6 +35,9 @@ public class CustomCardPage extends MenuController implements Initializable {
     public AnchorPane heroBuffSection;
     public JFXTextField heroCoolDown;
     public ChoiceBox<Type> heroTargetType;
+    public ChoiceBox<String> spellBuffType;
+    public AnchorPane spellBuffSection;
+    public ChoiceBox<Type> spellTargetType;
 
     private CustomCard customCard;
 
@@ -56,34 +52,53 @@ public class CustomCardPage extends MenuController implements Initializable {
         minionAbilityCastTime.setOnAction(e -> customCard.setAbilityCastTime(minionAbilityCastTime.getValue()));
         minionBuffType.getItems().addAll(Buff.getSoldierBuffNames());
         heroBuffType.getItems().addAll(Buff.getSoldierBuffNames());
+        spellBuffType.getItems().addAll(Buff.getSoldierBuffNames());
         buffTypeHandler(minionBuffType, minionBuffSection);
         buffTypeHandler(heroBuffType, heroBuffSection);
+        buffTypeHandler(spellBuffType, spellBuffSection);
         heroTargetType.getItems().addAll(Type.AREA, Type.SOLDIER);
+        spellTargetType.getItems().addAll(Type.AREA, Type.SOLDIER);
         heroTargetType.setOnAction(e -> {
-            customCard.setTargetType(heroTargetType.getValue());
-            if (heroTargetType.getValue().equals(Type.AREA)) {
-                String areaSize;
-                do {
-                    areaSize = TextReceiver.getText("Range", "please enter minion range");
-                } while (areaSize == null || areaSize.equals(""));
-                try {
-                    customCard.setAreaSize(Integer.parseInt(areaSize));
-                } catch (Exception exception) {
-                    AlertBox.display(Alert.AlertType.ERROR, "Range", "invalid input\ntry again");
-                }
-            }
+            targetAreaHandler(heroTargetType);
             if (heroTargetType.getValue().equals(Type.SOLDIER)) {
                 ChoiceDialog<SoldierTargetType> soldierTargetType = new ChoiceDialog<>();
                 soldierTargetType.getItems().addAll(SoldierTargetType.getHeroTypes());
-                soldierTargetType.setTitle("Soldier Target Type");
-                soldierTargetType.setHeaderText("Choose Soldier Target Type");
-                Optional<SoldierTargetType> result = soldierTargetType.showAndWait();
-                if (result.isPresent())
-                    customCard.setSoldierTargetType(result.get());
-                else
-                    AlertBox.display(Alert.AlertType.ERROR, "Target", "invalid input\ntry again");
+                targetSoldierHandler(soldierTargetType);
             }
         });
+        spellTargetType.setOnAction(e -> {
+            targetAreaHandler(spellTargetType);
+            if (spellTargetType.getValue().equals(Type.SOLDIER)) {
+                ChoiceDialog<SoldierTargetType> soldierTargetType = new ChoiceDialog<>();
+                soldierTargetType.getItems().addAll(SoldierTargetType.getSpellTypes());
+                targetSoldierHandler(soldierTargetType);
+            }
+        });
+    }
+
+    private void targetSoldierHandler(ChoiceDialog<SoldierTargetType> soldierTargetType) {
+        soldierTargetType.setTitle("Soldier Target Type");
+        soldierTargetType.setHeaderText("Choose Soldier Target Type");
+        Optional<SoldierTargetType> result = soldierTargetType.showAndWait();
+        if (result.isPresent())
+            customCard.setSoldierTargetType(result.get());
+        else
+            AlertBox.display(Alert.AlertType.ERROR, "Target", "invalid input\ntry again");
+    }
+
+    private void targetAreaHandler(ChoiceBox<Type> spellTargetType) {
+        customCard.setTargetType(spellTargetType.getValue());
+        if (spellTargetType.getValue().equals(Type.AREA)) {
+            String areaSize;
+            do {
+                areaSize = TextReceiver.getText("Range", "please enter range");
+            } while (areaSize == null || areaSize.equals(""));
+            try {
+                customCard.setAreaSize(Integer.parseInt(areaSize));
+            } catch (Exception exception) {
+                AlertBox.display(Alert.AlertType.ERROR, "Range", "invalid input\ntry again");
+            }
+        }
     }
 
     private void buffTypeHandler(ChoiceBox<String> choiceBox, AnchorPane anchorPane) {
@@ -124,7 +139,7 @@ public class CustomCardPage extends MenuController implements Initializable {
                     if (checkCommonAttributes(commonAttributes)) {
                         DisArmBuff buff = new DisArmBuff(Kind.NEGATIVE,
                                 Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()), false);
-                        addBuff(commonAttributes, buff);
+                        addBuff(commonAttributes, buff, buffSection);
                         return;
                     }
                     AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
@@ -139,7 +154,7 @@ public class CustomCardPage extends MenuController implements Initializable {
                     if (checkCommonAttributes(commonAttributes)) {
                         StunBuff buff = new StunBuff(Kind.NEGATIVE,
                                 Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()), false);
-                        addBuff(commonAttributes, buff);
+                        addBuff(commonAttributes, buff, buffSection);
                         return;
                     }
                     AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
@@ -154,7 +169,7 @@ public class CustomCardPage extends MenuController implements Initializable {
                         AttackBuff buff = new AttackBuff(Kind.NEGATIVE,
                                 Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
                                 false, Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(1)).getText()));
-                        addBuff(commonAttributes, buff);
+                        addBuff(commonAttributes, buff, buffSection);
                         return;
                     }
                     AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
@@ -169,7 +184,7 @@ public class CustomCardPage extends MenuController implements Initializable {
                         HolyBuff buff = new HolyBuff(Kind.POSITIVE,
                                 Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
                                 false, Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(1)).getText()));
-                        addBuff(commonAttributes, buff);
+                        addBuff(commonAttributes, buff, buffSection);
                         return;
                     }
                     AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
@@ -184,7 +199,7 @@ public class CustomCardPage extends MenuController implements Initializable {
                         PoisonBuff buff = new PoisonBuff(Kind.NEGATIVE,
                                 Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
                                 false, Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(1)).getText()));
-                        addBuff(commonAttributes, buff);
+                        addBuff(commonAttributes, buff, buffSection);
                         return;
                     }
                     AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
@@ -201,7 +216,7 @@ public class CustomCardPage extends MenuController implements Initializable {
                                 Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
                                 false, Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(1)).getText()),
                                 Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(3)).getText()));
-                        addBuff(commonAttributes, buff);
+                        addBuff(commonAttributes, buff, buffSection);
                         return;
                     }
                     AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
@@ -219,7 +234,7 @@ public class CustomCardPage extends MenuController implements Initializable {
                                 Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
                                 false, Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(1)).getText()),
                                 Integer.parseInt(((JFXTextField) anchorPane.getChildren().get(3)).getText()));
-                        addBuff(commonAttributes, buff);
+                        addBuff(commonAttributes, buff, buffSection);
                         return;
                     }
                     AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
@@ -241,7 +256,7 @@ public class CustomCardPage extends MenuController implements Initializable {
                         DispellBuff buff = new DispellBuff(Kind.NEGATIVE,
                                 Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(1)).getText()),
                                 false, enemy.isSelected(), friend.isSelected());
-                        addBuff(commonAttributes, buff);
+                        addBuff(commonAttributes, buff, buffSection);
                         return;
                     }
                     AlertBox.display(Alert.AlertType.ERROR, "Inputs",
@@ -272,9 +287,13 @@ public class CustomCardPage extends MenuController implements Initializable {
 
     }
 
-    private void addBuff(AnchorPane commonAttributes, Buff buff) {
+    private void addBuff(AnchorPane commonAttributes, Buff buff, AnchorPane buffSection) {
         buff.setCastTurn(Integer.parseInt(((JFXTextField) commonAttributes.getChildren().get(3)).getText()));
-        customCard.getSpecialPowers().add(buff);
+        if (buffSection.equals(spellBuffSection)) {
+            customCard.getSpellBuffs().add(buff);
+        } else {
+            customCard.getSpecialPowers().add(buff);
+        }
         AlertBox.display(Alert.AlertType.INFORMATION, "Buff", "Buff added successfully");
         cleanUpBuff();
     }
@@ -282,6 +301,8 @@ public class CustomCardPage extends MenuController implements Initializable {
     private void cleanUpBuff() {
         minionBuffSection.getChildren().removeIf(node -> node instanceof AnchorPane);
         minionBuffType.getItems().removeAll();
+        spellBuffSection.getChildren().removeIf(node -> node instanceof AnchorPane);
+        spellBuffType.getItems().removeAll();
         if (heroBuffType.getValue() != null) {
             heroBuffSection.getChildren().removeIf(node -> node instanceof AnchorPane);
             heroBuffType.getItems().removeAll();
@@ -378,19 +399,7 @@ public class CustomCardPage extends MenuController implements Initializable {
                 minionAbilityCastTime.getValue() != null) || customCard.getSpecialPowers().size() == 0)) {
             customCard.setAp(Integer.parseInt(minionAP.getText()));
             customCard.setHp(Integer.parseInt(minionHP.getText()));
-            customCard.setCost(Integer.parseInt(cost.getText()));
-            customCard.setName(name.getText());
-            customCard.setMana(Integer.parseInt(mana.getText()));
-            if (description.getText() == null) {
-                customCard.setDesc("");
-            } else {
-                customCard.setDesc(description.getText());
-            }
-            customCard.setType("minion");
-            Card card = customCard.createCard();
-            getMainController().getShop().getCards().add(card);
-            AlertBox.display(Alert.AlertType.INFORMATION, "Custom Card", "Custom Card created successfully");
-            changeMenu("shopView.fxml");
+            createCard("minion");
         } else
             AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
     }
@@ -405,6 +414,40 @@ public class CustomCardPage extends MenuController implements Initializable {
     }
 
     public void createHero() {
-        // TODO: 6/24/19  
+        if (checkGeneralFields() && checkTextField(heroAP) && checkTextField(heroHP) &&
+                heroAttackType.getValue() != null && (customCard.getSpecialPowers().size() == 0 ||
+                (checkTextField(heroCoolDown) && customCard.isTargetAvailable()))) {
+            customCard.setAp(Integer.parseInt(heroAP.getText()));
+            customCard.setHp(Integer.parseInt(heroHP.getText()));
+            createCard("hero");
+        } else
+            AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
+    }
+
+    private void createCard(String cardType) {
+        setGeneralFields();
+        customCard.setType(cardType);
+        Card card = customCard.createCard();
+        getMainController().getShop().getCards().add(card);
+        AlertBox.display(Alert.AlertType.INFORMATION, "Custom Card", "Custom Card created successfully");
+        changeMenu("shopView.fxml");
+    }
+
+    private void setGeneralFields() {
+        customCard.setCost(Integer.parseInt(cost.getText()));
+        customCard.setName(name.getText());
+        customCard.setMana(Integer.parseInt(mana.getText()));
+        if (description.getText() == null) {
+            customCard.setDesc("");
+        } else {
+            customCard.setDesc(description.getText());
+        }
+    }
+
+    public void createSpell() {
+        if (checkGeneralFields() && customCard.isTargetAvailable() && customCard.getSpellBuffs().size() != 0) {
+            createCard("spell");
+        } else
+            AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
     }
 }

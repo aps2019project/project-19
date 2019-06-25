@@ -16,4 +16,12 @@ public enum SoldierTargetType {
         types.addAll(ITSELF, ALL_ENEMIES, ONE_ENEMY, ONE_SOLDIER, ALL_SOLDIERS_IN_THE_ROW_OF_FRIENDLY_HERO);
         return types;
     }
+
+    public static ObservableList<SoldierTargetType> getSpellTypes() {
+        ObservableList<SoldierTargetType> types = FXCollections.observableArrayList();
+        types.addAll(ONE_FRIENDLY_MINION, ONE_ENEMY_MINION, ONE_SOLDIER, ONE_FRIENDLY_SOLDIER, ONE_ENEMY,
+                ENEMY_HERO, ALL_ENEMIES, FRIENDLY_HERO, ALL_FRIENDLY_SOLDIERS, ALL_FRIENDLY_MINIONS,
+                ONE_RANDOM_MINION_AROUND_FRIENDLY_HERO, ALL_ENEMIES_IN_A_COLUMN);
+        return types;
+    }
 }
