@@ -30,7 +30,7 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private int cellsLength;
     private int cellsWeight;
-
+    private Card handSelectedCard;
 
     //todo: set wight and lenght with game
 //    private final int cellsLength = 9;
@@ -51,6 +51,7 @@ public class BattleViewController extends MenuController implements Initializabl
         game = getMainController().getGame();
         cellsLength = getMainController().getGame().getLength();
         cellsWeight = getMainController().getGame().getWidth();
+        getMainController().setActivePlayer();
         anchorPaneCells = new AnchorPane[cellsWeight][cellsLength];
         for (int i = 0; i < cellsLength; i++)
             for (int j = 0; j < cellsWeight; j++) {
@@ -69,6 +70,13 @@ public class BattleViewController extends MenuController implements Initializabl
                     anchorPane.getStyleClass().add("cells");
                 });
                 Cell cell = game.getCell(i+1, j+1);
+                anchorPane.setOnMouseClicked(x->{
+                    if(handSelectedCard!=null)
+                        if(getMainController().insertCard(handSelectedCard.getName(), cell.getXCoordinate(), cell.getYCoordinate())){
+                            addCardGifInGround(anchorPane,cell.getCard().getName());
+                        }
+
+                });
                 if (cell.getCard() != null)
                     addCardGifInGround(anchorPane, cell.getCard().getName());
 
@@ -78,16 +86,15 @@ public class BattleViewController extends MenuController implements Initializabl
         for (int i = 0; i < hand.size(); i++) {
             System.out.println(hand.get(i).getName());
             AnchorPane child = (AnchorPane) deckBar.getChildren().get(i);
-            addCardGifInDeck((AnchorPane) child, hand.get(i).getName());
+            addCardGifInDeck((AnchorPane) child, hand.get(i));
         }
-        //todo:test
         addHeroIcons(rightHeroAnchor, game.getPlayer1().getHero().getName());
         addHeroIcons(leftHeroAnchor, game.getPlayer2().getHero().getName());
     }
 
-    private void addCardGifInDeck(AnchorPane child, String cardName) {
+    private void addCardGifInDeck(AnchorPane child, Card card) {
         ((ImageView) child.getChildren().get(0)).setImage(new Image("view/Graphic/images/card_background.png"));
-        CardImageView cardImageView = new CardImageView(cardName, CardImageView.Stance.IDLING);
+        CardImageView cardImageView = new CardImageView(card.getName(), CardImageView.Stance.IDLING);
         cardImageView.setPreserveRatio(true);
         cardImageView.setPickOnBounds(true);
         cardImageView.setFitWidth(200);
@@ -95,20 +102,23 @@ public class BattleViewController extends MenuController implements Initializabl
         cardImageView.setLayoutY(-50);
         child.getChildren().add(cardImageView);
         cardImageView.setOnMouseClicked(x -> {
-
-            ImageView backGroundImage = ((ImageView) child.getChildren().get(0));
-
-            for (Node deckBarChild : deckBar.getChildren()) {
-                if (((AnchorPane) deckBarChild).getChildren().size() != 1) {
-                    ((ImageView) (((AnchorPane) deckBarChild).getChildren().get(0))).setImage(new Image("view/Graphic/images/card_background.png"));
-                }
-            }
-            backGroundImage.setImage(new Image("view/Graphic/images/card_background_highlight.png"));
+            handleHandCardSelection(child, card);
         });
     }
 
+    private void handleHandCardSelection(AnchorPane child,Card card) {
+        handSelectedCard = card;
+        ImageView backGroundImage = ((ImageView) child.getChildren().get(0));
+        for (Node deckBarChild : deckBar.getChildren()) {
+            if (((AnchorPane) deckBarChild).getChildren().size() != 1) {
+                ((ImageView) (((AnchorPane) deckBarChild).getChildren().get(0))).setImage(new Image("view/Graphic/images/card_background.png"));
+            }
+        }
+        backGroundImage.setImage(new Image("view/Graphic/images/card_background_highlight.png"));
+    }
+
     private void addCardGifInGround(AnchorPane anchorPane, String cardName) {
-        ImageView attack = new ImageView(new Image("view/Graphic/images/icon_atk.png"));
+//        ImageView attack = new ImageView(new Image("view/Graphic/images/icon_atk.png"));
         CardImageView cardImageView = new CardImageView(cardName, CardImageView.Stance.IDLING);
         cardImageView.setFitWidth(100);
         cardImageView.setFitHeight(100);
@@ -116,7 +126,7 @@ public class BattleViewController extends MenuController implements Initializabl
         cardImageView.setPreserveRatio(true);
         cardImageView.setPickOnBounds(true);
         anchorPane.getChildren().add(cardImageView);
-        anchorPane.getChildren().add(attack);
+//        anchorPane.getChildren().add(attack);
     }
 
     private void addHeroIcons(AnchorPane anchorPane, String name) {

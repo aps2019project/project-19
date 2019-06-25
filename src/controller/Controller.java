@@ -1001,28 +1001,30 @@ public class Controller {
         view.show(activePlayer.handInfo());
     }
 
-    public void insertCard(String cardName,int x,int y) {
+    public boolean insertCard(String cardName,int x,int y) {
         Player player = activePlayer;
+        System.err.println(player.getMana());
+        System.err.println(player.getHandCards());
         ArrayList<Card> cards = new ArrayList<>(player.getHandCards().values());
         Card card = findCardInHandByName(cards, cardName);
         if (card == null) {
             errorType = ErrorType.INVALID_CARDNAME;
-            return;
+            return false;
         }
         if (!game.coordinateIsValid(x, y)) {
             errorType = ErrorType.INVALID_TARGET;
-            return;
+            return false;
         }
         if (player.getMana() < card.getMana()) {
             errorType = ErrorType.NOT_ENOUGH_MANA;
-            return;
+            return false;
         }
         Cell insertionCell = game.getCell(x, y);
         if (card instanceof SpellCard) {
             if (!((SpellCard) card).getTargetArea().checkTargetValidation(game,
                     activePlayer, deactivePlayer, x, y)) {
                 errorType = ErrorType.INVALID_TARGET;
-                return;
+                return false;
             }
             castSpell((SpellCard) card,x,y);
             card.setCardStatus(CardStatus.IN_GRAVEYARD);
@@ -1045,6 +1047,7 @@ public class Controller {
             checkDeadCards(activePlayer);
             checkDeadCards(deactivePlayer);
         }
+        return errorType ==null;
     }
 
     private void castSpell(SpellCard card,int x,int y) {
@@ -1194,6 +1197,7 @@ public class Controller {
             castPassiveBuffs();
         } else
             endGame();
+        setActivePlayer();
     }
 
     private void castPassiveBuffs() {
@@ -1426,4 +1430,17 @@ public class Controller {
     public ErrorType getErrorType() {
         return errorType;
     }
+
+    public void setActivePlayer() {
+        if (game != null) {
+            if (game.isTurnOfPlayerOne()) {
+                activePlayer = game.getPlayer1();
+                deactivePlayer = game.getPlayer2();
+            } else {
+                activePlayer = game.getPlayer2();
+                deactivePlayer = game.getPlayer1();
+            }
+        }
+    }
+
 }
