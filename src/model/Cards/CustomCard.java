@@ -60,6 +60,16 @@ public class CustomCard {
         return null;
     }
 
+    public boolean isTargetAvailable() {
+        if (targetType != null) {
+            if (targetType.equals(Type.SOLDIER) && soldierTargetType != null)
+                return true;
+            if (targetType.equals(Type.AREA))
+                return true;
+        }
+        return false;
+    }
+
     public void setTargetType(Type targetType) {
         this.targetType = targetType;
     }

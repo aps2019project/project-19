@@ -53,6 +53,7 @@ public class MainMenuController extends MenuController implements Initializable 
     public void deleteAccount() {
         if (AccountManagement.deleteAccount(getMainController().getLoggedInAccount())) {
             AlertBox.display(Alert.AlertType.INFORMATION, "Account", "Account deleted successfully");
+            getMainController().logOut();
             changeMenu("loginView.fxml");
         } else {
             AlertBox.display(Alert.AlertType.ERROR, "Account", "Account has not been saved yet");

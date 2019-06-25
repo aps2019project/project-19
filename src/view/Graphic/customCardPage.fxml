@@ -86,7 +86,18 @@
         </Tab>
         <Tab text="Spell">
             <AnchorPane>
-
+                <ChoiceBox fx:id="spellBuffType" layoutX="422.0" layoutY="98.0" prefWidth="308"
+                           AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="70.0"/>
+                <Label layoutX="382.0" layoutY="10.0" styleClass="labelInput" stylesheets="@Styles.css"
+                       text="Buffs" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="10.0"/>
+                <JFXButton onAction="#createSpell" styleClass="addBuffBtn" stylesheets="@Styles.css" text="Create Card"
+                           AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="130.0"/>
+                <AnchorPane fx:id="spellBuffSection" AnchorPane.leftAnchor="850.0" AnchorPane.topAnchor="10.0">
+                </AnchorPane>
+                <Label styleClass="labelInput" stylesheets="@Styles.css" text="Target"
+                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0"/>
+                <ChoiceBox fx:id="spellTargetType" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="70.0"
+                           prefWidth="308"/>
             </AnchorPane>
         </Tab>
     </JFXTabPane>
