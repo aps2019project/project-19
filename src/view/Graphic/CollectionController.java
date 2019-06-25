@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.Cards.Card;
 import model.Deck;
+
 import java.util.ArrayList;
 
 public class CollectionController extends MenuController {
@@ -103,7 +104,7 @@ public class CollectionController extends MenuController {
             putCardsInCollection();
             putDecks();
             deckButtonLabel.setText("new deck");
-            mainPane.getChildren().removeIf(node ->  node instanceof ImageView || node instanceof Label);
+            mainPane.getChildren().removeIf(node -> node instanceof ImageView || node instanceof Label);
             mainPane.getChildren().add(newDeckButton);
             mainPane.getChildren().add(deckButtonLabel);
 //                    || (node instanceof Label && node.getId().equals("mainButtonText")));
@@ -171,7 +172,8 @@ public class CollectionController extends MenuController {
         setMain.setOnMouseExited(event -> mainButton.setImage(mainButtonImage));
         setMain.setOnMouseClicked(event -> {
             getMainController().selectMainDeck(selectedDeckName);
-            AlertBox.display(Alert.AlertType.ERROR, "Deck", getMainController().getErrorType().getMessage());
+            if (getMainController().getErrorType() != null)
+                AlertBox.display(Alert.AlertType.ERROR, "Deck", getMainController().getErrorType().getMessage());
         });
     }
 }

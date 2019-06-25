@@ -50,6 +50,7 @@ public class GameModeMenu extends MenuController implements Initializable {
         if (isCustomGame()) {
             setCustomGame(false);
             getMainController().createCustomGame(gameMode, getDeckName(), numberOfFlags);
+            System.out.println("game is started");
         } else {
             System.out.println("xxxxxxxxxxxxx");
             //todo multiplayer
