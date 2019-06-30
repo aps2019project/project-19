@@ -241,8 +241,8 @@ public class MenuController {
         ArrayList<Object> collectionCards = new ArrayList<>();
         collectionCards.addAll(mainController.getLoggedInAccount().getCollection().getCards());
         collectionCards.addAll(mainController.getLoggedInAccount().getCollection().getItems());
-        ArrayList<Card> cards = mainController.getLoggedInAccount().getCollection().getCards();
-        ArrayList<Item> items = mainController.getLoggedInAccount().getCollection().getItems();
+        ArrayList<Card> cards = new ArrayList<>(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName).getCards().values());
+        ArrayList<Item> items = new ArrayList<>(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName).getItems().values());
         cards.stream().<Predicate<? super Object>>map(card -> o -> o instanceof Card && ((Card) o).getCardId() == card.getCardId()).forEach(collectionCards::removeIf);
         items.stream().<Predicate<? super Object>>map(item -> o -> o instanceof Item && ((Item) o).getItemId() == item.getItemId()).forEach(collectionCards::removeIf);
         createCards(pane, collectionCards);
