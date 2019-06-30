@@ -18,6 +18,10 @@ public class CardImageView extends ImageView {
         super(new Image("view/Graphic/cards/" + cardName + " "+stance.getMessage()+".gif"));
         this.cardName=cardName;
     }
+    public void changeImage(String cardName,Stance stance){
+        this.setImage(new Image("view/Graphic/cards/" + cardName + " "+stance.getMessage()+".gif"));
+        this.cardName = cardName;
+    }
     public void changeStance(Stance newStance){
         this.setImage(new Image("view/Graphic/cards/" + cardName + " "+newStance.getMessage()+".gif"));
     }
