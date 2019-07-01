@@ -825,39 +825,46 @@ public class Controller {
         }
     }
 
-    public void attack(String defenderInBattleId) {
+    public int attack(String defenderInBattleId) {
+        // return -1 if error occurred
+        // return 0 if attack had no counter Attack
+        // return 1 if attack had counter attack
+        int result = -1;
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
-            return;
+            return -1;
         }
         SoldierCard attacker = (SoldierCard) activePlayer.getSelectedCard();
         if (attacker.isAttackedThisTurn()) {
             errorType = ErrorType.CAN_NOT_ATTACK_AGAIN;
-            return;
+            return -1;
         }
         if (!deactivePlayer.containsCardInBattle(defenderInBattleId)) {
             errorType = ErrorType.INVALID_CARD_ID;
-            return;
+            return -1;
         }
         SoldierCard defender = (SoldierCard) deactivePlayer.getInBattleCard(defenderInBattleId);
         Cell attackerCell = activePlayer.getInBattleCards().get(attacker);
         Cell defenderCell = deactivePlayer.getInBattleCards().get(defender);
         if (!attacker.targetIsInRange(attackerCell, defenderCell)) {
             errorType = ErrorType.TARGET_NOT_IN_RANGE;
-            return;
+            return -1;
         }
         attacker.attack(defender);
         useUsable(activePlayer, WhenToUse.ON_ATTACK);
         attacker.setAttackedThisTurn(true);
         System.err.println("attacked");
+        result = 0;
         if (defender.targetIsInRange(defenderCell, attackerCell)) {
             defender.counterAttack(attacker);
-            System.err.println("counter attaacked");
+            System.err.println("counter attacked");
             checkDeadCard(activePlayer, attacker);
+            result = 1;
         }
         checkDeadCard(deactivePlayer, defender);
         if (game.gameIsOver())
             endTurn();
+        return result;
     }
 
     public void useSpecialPower(int x, int y) {

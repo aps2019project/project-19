@@ -1,6 +1,10 @@
 package view.Graphic;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -108,6 +112,7 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private void handleCellsMouseClick(Cell cell) {
         if (handSelectedCard != null) {
+            //insert card block
             if (getMainController().insertCard(handSelectedCard.getCardName(), cell.getXCoordinate(), cell.getYCoordinate())) {
                 updateCells();
                 removeCardsFromHand();
@@ -119,51 +124,88 @@ public class BattleViewController extends MenuController implements Initializabl
                 getMainController().setErrorType(null);
             }
         }
-        if (game.getPlayer1().isAnyCardSelected()) {
+
+        if (game.getPlayer1().isAnyCardSelected()){
             Cell currentCell = game.getPlayer1().getInBattleCards().get(game.getPlayer1().getSelectedCard());
-            AnchorPane anchorPane = anchorPaneCells[currentCell.getYCoordinate()-1][currentCell.getXCoordinate()-1];
-            if (getMainController().moveCard(cell.getXCoordinate(), cell.getYCoordinate())) {
-                playMoveAnimation(cell, currentCell, anchorPane);
-                return;
+            AnchorPane currentAnchorePane = anchorPaneCells[currentCell.getYCoordinate() - 1][currentCell.getXCoordinate() - 1];
+            if (cell.getCard() == null) {
+
+                //move block
+
+                if (getMainController().moveCard(cell.getXCoordinate(), cell.getYCoordinate())) {
+                    playMoveAnimation(cell, currentCell, currentAnchorePane);
+                    return;
+                } else {
+                    errorBox.setText(getMainController().getErrorType().getMessage());
+                    getMainController().setErrorType(null);
+                    game.getPlayer1().setSelectedCard(null);
+                    currentAnchorePane.getStyleClass().remove(0);
+                    currentAnchorePane.getStyleClass().add("cells");
+                }
             } else {
-                errorBox.setText(getMainController().getErrorType().getMessage());
-                getMainController().setErrorType(null);
-                game.getPlayer1().setSelectedCard(null);
-                anchorPane.getStyleClass().remove(0);
-                anchorPane.getStyleClass().add("cells");
-            }
-        }
+                //attack block
+                Cell targetCell = cell;
+                switch (getMainController().attack(targetCell.getCard().getInBattleCardId())) {
+                    case 1:
+                        AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
+                        playAttackAnimation(anchorPane);
+                    case 0:
+                        playAttackAnimation(currentAnchorePane);
+                        return;
+                    case -1:
+                        errorBox.setText(getMainController().getErrorType().getMessage());
+                        getMainController().setErrorType(null);
+                        game.getPlayer1().setSelectedCard(null);
+                        currentAnchorePane.getStyleClass().remove(0);
+                        currentAnchorePane.getStyleClass().add("cells");
+                }
+            }}
         if (cell.getCard() != null) {
+            //select Card Block
             AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
             if (getMainController().selectCardOrItem(game.getPlayer1(), cell.getCard().getInBattleCardId(), 0)) {
                 updateCells();
                 setCellMouseHover(anchorPane, false);
                 anchorPane.getStyleClass().remove(0);
                 anchorPane.getStyleClass().add("selectedCell");
-            }else {
+            } else {
                 errorBox.setText(getMainController().getErrorType().getMessage());
                 getMainController().setErrorType(null);
             }
         }
     }
 
+    private void playAttackAnimation(AnchorPane anchorPane) {
+        anchorPane.getChildren().stream().filter(node -> node instanceof CardImageView).forEach(
+                node -> ((CardImageView) node).changeStance(CardImageView.Stance.ATTACKING));
+
+        PauseTransition pauseTransition = new PauseTransition(Duration.millis(2000));
+        pauseTransition.setOnFinished(x -> {
+            anchorPane.getChildren().stream().filter(node -> node instanceof CardImageView).forEach(
+                    node -> ((CardImageView) node).changeStance(CardImageView.Stance.IDLING));
+            updateCells();
+
+        });
+        pauseTransition.play();
+    }
+
     private void playMoveAnimation(Cell targetCell, Cell currentCell, AnchorPane anchorPane) {
         anchorPane.getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
                 || node instanceof CardImageProperties);
-        Path path = new Path(new MoveTo((currentCell.getXCoordinate()-1)*100 +90,(currentCell.getYCoordinate()-1)*100+30),
-                new LineTo((targetCell.getXCoordinate()-1)*100 +90,(targetCell.getYCoordinate()-1)*100+30));
+        Path path = new Path(new MoveTo((currentCell.getXCoordinate() - 1) * 100 + 90, (currentCell.getYCoordinate() - 1) * 100 + 30),
+                new LineTo((targetCell.getXCoordinate() - 1) * 100 + 90, (targetCell.getYCoordinate() - 1) * 100 + 30));
         path.setVisible(false);
         CardImageView cardImageView = new CardImageView(targetCell.getCard().getName(), CardImageView.Stance.RUNING);
         cardImageView.setFitHeight(100);
         cardImageView.setFitWidth(100);
-        center.getChildren().addAll(path,cardImageView);
-        PathTransition pathTransition = new PathTransition(Duration.millis(2000),path,cardImageView);
+        center.getChildren().addAll(cardImageView);
+        PathTransition pathTransition = new PathTransition(Duration.millis(2000), path, cardImageView);
         pathTransition.setCycleCount(1);
         pathTransition.setAutoReverse(false);
         anchorPane.getStyleClass().remove(0);
         anchorPane.getStyleClass().add("cells");
-        pathTransition.setOnFinished(x->{
-            center.getChildren().removeAll(cardImageView,path);
+        pathTransition.setOnFinished(x -> {
+            center.getChildren().removeAll(cardImageView);
             updateCells();
         });
         pathTransition.play();
@@ -252,12 +294,12 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private void addCardGifInGround(AnchorPane anchorPane, Card card) {
         String cardName = card.getName();
-        for (Node childChild : anchorPane.getChildren()) {
-            if (childChild instanceof CardImageView) {
-                ((CardImageView) childChild).changeImage(cardName, CardImageView.Stance.IDLING);
-                return;
-            }
-        }
+//        for (Node childChild : anchorPane.getChildren()) {
+//            if (childChild instanceof CardImageView) {
+//                ((CardImageView) childChild).changeImage(cardName, CardImageView.Stance.IDLING);
+//                return;
+//            }
+//        }
         CardImageView cardImageView = new CardImageView(cardName, CardImageView.Stance.IDLING);
         cardImageView.setFitWidth(100);
         cardImageView.setFitHeight(100);
@@ -319,12 +361,12 @@ public class BattleViewController extends MenuController implements Initializabl
             for (int j = 0; j < cellsWeight; j++) {
                 Cell cell = game.getCell(i + 1, j + 1);
                 AnchorPane anchorPane = anchorPaneCells[j][i];
-//                anchorPane.getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
-//                        || node instanceof CardImageProperties);
                 anchorPane.getStyleClass().remove(0);
                 anchorPane.getStyleClass().add("cells");
                 setCellMouseHover(anchorPane, true);
                 if (cell.getCard() != null) {
+                    anchorPane.getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
+                            || node instanceof CardImageProperties);
                     addCardGifInGround(anchorPane, cell.getCard());
                 }
             }
