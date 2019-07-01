@@ -1,5 +1,6 @@
 package view.Graphic;
 
+import javafx.animation.PathTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -8,6 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
 import model.Cards.Card;
 import model.Cards.SoldierCard;
 import model.Cell;
@@ -33,8 +38,8 @@ public class BattleViewController extends MenuController implements Initializabl
     private int cellsLength;
     private int cellsWeight;
     private CardImageView handSelectedCard;
-    //todo: set wight and lenght with game
-//    private final int cellsLength = 9;
+    //todo: maybe we should change all getPlayer1 's to getActivePlayer
+    //private final int cellsLength = 9;
 //    private final int cellsWeight = 5;
     private AnchorPane[][] anchorPaneCells;
     @FXML
@@ -68,26 +73,13 @@ public class BattleViewController extends MenuController implements Initializabl
                 center.getChildren().add(anchorPane);
                 anchorPaneCells[j][i] = anchorPane;
                 Cell cell = game.getCell(i + 1, j + 1);
-                anchorPane.setOnMouseEntered(x -> {
-                    if(game.getPlayer1().isAnyCardSelected() )
-                        return;
-                    anchorPane.getStyleClass().remove(0);
-                    anchorPane.getStyleClass().add("hoveredCells");
-                });
-                anchorPane.setOnMouseExited(x -> {
-                    if(game.getPlayer1().isAnyCardSelected())
-                        return;
-                    anchorPane.getStyleClass().remove(0);
-                    anchorPane.getStyleClass().add("cells");
-                });
+                setCellMouseHover(anchorPane, true);
                 anchorPane.setOnMouseClicked(x -> {
                     handleCellsMouseClick(cell);
-
                 });
-                updateCells();
 
             }
-
+        updateCells();
         ArrayList<Card> hand = new ArrayList<>(game.getPlayer1().getHandCards().values());
         putHandsCards(hand);
         rightManaLabel.setText(game.getPlayer1().getMana() + "/" + game.getPlayer1().getMaxMana());
@@ -96,29 +88,88 @@ public class BattleViewController extends MenuController implements Initializabl
         addHeroIcons(leftHeroAnchor, game.getPlayer2().getHero().getName(), true);
     }
 
+    private void setCellMouseHover(AnchorPane anchorPane, boolean on) {
+        if (!on) {
+            anchorPane.setOnMouseEntered(x -> {
+            });
+            anchorPane.setOnMouseExited(x -> {
+            });
+            return;
+        }
+        anchorPane.setOnMouseEntered(x -> {
+            anchorPane.getStyleClass().remove(0);
+            anchorPane.getStyleClass().add("hoveredCells");
+        });
+        anchorPane.setOnMouseExited(x -> {
+            anchorPane.getStyleClass().remove(0);
+            anchorPane.getStyleClass().add("cells");
+        });
+    }
+
     private void handleCellsMouseClick(Cell cell) {
         if (handSelectedCard != null) {
             if (getMainController().insertCard(handSelectedCard.getCardName(), cell.getXCoordinate(), cell.getYCoordinate())) {
                 updateCells();
-                removeCardFromHand();
+                removeCardsFromHand();
                 handSelectedCard = null;
                 updateStatus();
                 return;
             } else {
                 errorBox.setText(getMainController().getErrorType().getMessage());
                 getMainController().setErrorType(null);
-
             }
         }
-//        if(cell.getCard()!= null){
-//            AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate()-1][cell.getXCoordinate()-1];
-//            anchorPane.getStyleClass().remove(0);
-//            anchorPane.getStyleClass().add("selectedCell");
-//            getMainController().selectCardOrItem(game.getPlayer1(),cell.getCard().getInBattleCardId(),0);
-//        }
+        if (game.getPlayer1().isAnyCardSelected()) {
+            Cell currentCell = game.getPlayer1().getInBattleCards().get(game.getPlayer1().getSelectedCard());
+            AnchorPane anchorPane = anchorPaneCells[currentCell.getYCoordinate()-1][currentCell.getXCoordinate()-1];
+            if (getMainController().moveCard(cell.getXCoordinate(), cell.getYCoordinate())) {
+                playMoveAnimation(cell, currentCell, anchorPane);
+                return;
+            } else {
+                errorBox.setText(getMainController().getErrorType().getMessage());
+                getMainController().setErrorType(null);
+                game.getPlayer1().setSelectedCard(null);
+                anchorPane.getStyleClass().remove(0);
+                anchorPane.getStyleClass().add("cells");
+            }
+        }
+        if (cell.getCard() != null) {
+            AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
+            if (getMainController().selectCardOrItem(game.getPlayer1(), cell.getCard().getInBattleCardId(), 0)) {
+                updateCells();
+                setCellMouseHover(anchorPane, false);
+                anchorPane.getStyleClass().remove(0);
+                anchorPane.getStyleClass().add("selectedCell");
+            }else {
+                errorBox.setText(getMainController().getErrorType().getMessage());
+                getMainController().setErrorType(null);
+            }
+        }
     }
 
-    private void removeCardFromHand() {
+    private void playMoveAnimation(Cell targetCell, Cell currentCell, AnchorPane anchorPane) {
+        anchorPane.getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
+                || node instanceof CardImageProperties);
+        Path path = new Path(new MoveTo((currentCell.getXCoordinate()-1)*100 +90,(currentCell.getYCoordinate()-1)*100+30),
+                new LineTo((targetCell.getXCoordinate()-1)*100 +90,(targetCell.getYCoordinate()-1)*100+30));
+        path.setVisible(false);
+        CardImageView cardImageView = new CardImageView(targetCell.getCard().getName(), CardImageView.Stance.RUNING);
+        cardImageView.setFitHeight(100);
+        cardImageView.setFitWidth(100);
+        center.getChildren().addAll(path,cardImageView);
+        PathTransition pathTransition = new PathTransition(Duration.millis(2000),path,cardImageView);
+        pathTransition.setCycleCount(1);
+        pathTransition.setAutoReverse(false);
+        anchorPane.getStyleClass().remove(0);
+        anchorPane.getStyleClass().add("cells");
+        pathTransition.setOnFinished(x->{
+            center.getChildren().removeAll(cardImageView,path);
+            updateCells();
+        });
+        pathTransition.play();
+    }
+
+    private void removeCardsFromHand() {
         for (Node child : deckBar.getChildren()) {
             ((AnchorPane) child).getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
                     || node instanceof CardImageProperties);
@@ -164,7 +215,7 @@ public class BattleViewController extends MenuController implements Initializabl
             manaImage.setFitWidth(50);
             manaImage.setFitHeight(50);
             attackImage.relocate(30, 120);
-            healthImage.relocate(110,120);
+            healthImage.relocate(110, 120);
             manaImage.relocate(20, 20);
             attack.getStyleClass().add("aPLabel");
             health.getStyleClass().add("hPLabel");
@@ -186,7 +237,7 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private void handleHandCardSelection(AnchorPane child, Card card) {
         for (Node childChild : child.getChildren()) {
-            if(childChild instanceof CardImageView){
+            if (childChild instanceof CardImageView) {
                 handSelectedCard = (CardImageView) childChild;
                 ImageView backGroundImage = ((ImageView) child.getChildren().get(0));
                 for (Node deckBarChild : deckBar.getChildren()) {
@@ -226,7 +277,7 @@ public class BattleViewController extends MenuController implements Initializabl
             health.setText(((SoldierCard) card).getHp() + "");
             healthImage.setFitHeight(35);
             attackImage.relocate(15, 60);
-            healthImage.relocate(55,60);
+            healthImage.relocate(55, 60);
             attack.getStyleClass().add("aPLabelSmall");
             health.getStyleClass().add("hPLabelSmall");
             attack.relocate(25, 70);
@@ -267,13 +318,20 @@ public class BattleViewController extends MenuController implements Initializabl
         for (int i = 0; i < cellsLength; i++) {
             for (int j = 0; j < cellsWeight; j++) {
                 Cell cell = game.getCell(i + 1, j + 1);
-                if(cell.getCard()!= null){
-                    addCardGifInGround(anchorPaneCells[j][i],cell.getCard());
+                AnchorPane anchorPane = anchorPaneCells[j][i];
+//                anchorPane.getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
+//                        || node instanceof CardImageProperties);
+                anchorPane.getStyleClass().remove(0);
+                anchorPane.getStyleClass().add("cells");
+                setCellMouseHover(anchorPane, true);
+                if (cell.getCard() != null) {
+                    addCardGifInGround(anchorPane, cell.getCard());
                 }
             }
         }
     }
-    class CardImageProperties extends ImageView{
+
+    class CardImageProperties extends ImageView {
         public CardImageProperties(Image image) {
             super(image);
         }

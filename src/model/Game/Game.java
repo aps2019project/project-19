@@ -209,26 +209,26 @@ public class Game {
     }
 
     public boolean pathIsBlocked(Cell srcCell, Cell targetCell) {
-        int xDeffrence = targetCell.getXCoordinate() - srcCell.getXCoordinate();
-        int yDeffrence = targetCell.getYCoordinate() - srcCell.getYCoordinate();
-        if (xDeffrence != 0 && yDeffrence != 0) {
+        int xDifference = targetCell.getXCoordinate() - srcCell.getXCoordinate();
+        int yDifference = targetCell.getYCoordinate() - srcCell.getYCoordinate();
+        if (xDifference != 0 && yDifference != 0) {
             return cells[targetCell.getYCoordinate() - 1][targetCell.getXCoordinate() - 1].getCard() != null;
         }
-        while (xDeffrence != 0) {
-            if (cells[srcCell.getYCoordinate() - 1][srcCell.getXCoordinate() + xDeffrence - 1].getCard() != null)
+        while (xDifference != 0) {
+            if (cells[srcCell.getYCoordinate() - 1][srcCell.getXCoordinate() + xDifference - 1].getCard() != null)
                 return true;
-            if (xDeffrence < 0)
-                xDeffrence++;
-            if (xDeffrence > 0)
-                xDeffrence--;
+            if (xDifference < 0)
+                xDifference++;
+            if (xDifference > 0)
+                xDifference--;
         }
-        while (yDeffrence != 0) {
-            if (cells[srcCell.getYCoordinate() + yDeffrence - 1][srcCell.getXCoordinate() - 1].getCard() != null)
+        while (yDifference != 0) {
+            if (cells[srcCell.getYCoordinate() + yDifference - 1][srcCell.getXCoordinate() - 1].getCard() != null)
                 return true;
-            if (yDeffrence < 0)
-                yDeffrence++;
-            if (yDeffrence > 0)
-                yDeffrence--;
+            if (yDifference < 0)
+                yDifference++;
+            if (yDifference > 0)
+                yDifference--;
         }
         return false;
     }

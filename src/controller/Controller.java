@@ -744,48 +744,51 @@ public class Controller {
         errorType = ErrorType.INVALID_CARD_ID;
     }
 
-    public void selectCardOrItem(Player player, String inBattleCardId, int itemId) {
+    public boolean selectCardOrItem(Player player, String inBattleCardId, int itemId) {
         if (player.containsCardInBattle(inBattleCardId)) {
             Card card = activePlayer.getInBattleCard(inBattleCardId);
             activePlayer.setSelectedCard(card);
             System.err.println(card.getName() + " " + card.getCardId() + " selected");
-            return;
+            return true;
         }
         if (player.getItems().containsKey(itemId)) {
             Item item = activePlayer.getItems().get(itemId);
             activePlayer.setSelectedItem(item);
             System.err.println(item.getName() + " selected");
-            return;
+            return true;
         }
         errorType = ErrorType.INVALID_CARD_ID;
+        return false;
     }
 
-    public void moveCard(int x, int y) {
+    public boolean moveCard(int x, int y) {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
-            return;
+            return false;
         }
         SoldierCard card = (SoldierCard) activePlayer.getSelectedCard();
         for (Buff buff : card.getBuffs()) {
             if (buff instanceof StunBuff) {
                 errorType = ErrorType.CARD_IS_STUNNED;
-                return;
+                return false;
             }
         }
         if (card.isMovedThisTurn()) {
             errorType = ErrorType.CAN_NOT_MOVE_AGAIN;
-            return;
+            return false;
         }
         if (!game.coordinateIsValid(x, y)) {
             errorType = ErrorType.INVALID_TARGET;
-            return;
+            return false;
         }
         Cell currentCell = activePlayer.getInBattleCards().get(card);
         Cell targetCell = game.getCell(x, y);
         if (targetCell.getCard() != null) {
             errorType = ErrorType.INVALID_TARGET;
+            return false;
         } else if (currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell, targetCell)) {
             errorType = ErrorType.INVALID_TARGET;
+            return false;
         } else {
             //removing old cell buffs
             card.removeCellBuffs();
@@ -803,6 +806,7 @@ public class Controller {
                 card.checkBUffTiming(card, false);
             }
             card.setMovedThisTurn(true);
+            return true;
         }
     }
 
