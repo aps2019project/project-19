@@ -44,4 +44,5 @@ public class CardImageView extends ImageView {
         }
 
         }
+
 }

@@ -120,7 +120,8 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private void removeCardFromHand() {
         for (Node child : deckBar.getChildren()) {
-            ((AnchorPane) child).getChildren().removeIf(node -> node instanceof CardImageView);
+            ((AnchorPane) child).getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
+                    || node instanceof CardImageProperties);
         }
     }
 
@@ -147,9 +148,9 @@ public class BattleViewController extends MenuController implements Initializabl
         cardImageView.setLayoutY(-50);
         child.getChildren().add(cardImageView);
         if (card instanceof SoldierCard) {
-            ImageView attackImage = new ImageView(new Image("view/Graphic/images/icon_atk.png"));
-            ImageView healthImage = new ImageView(new Image("view/Graphic/images/icon_hp.png"));
-            ImageView manaImage = new ImageView(new Image("view/Graphic/images/mana.png"));
+            ImageView attackImage = new CardImageProperties(new Image("view/Graphic/images/icon_atk.png"));
+            ImageView healthImage = new CardImageProperties(new Image("view/Graphic/images/icon_hp.png"));
+            ImageView manaImage = new CardImageProperties(new Image("view/Graphic/images/mana.png"));
             Label attack = new Label();
             Label health = new Label();
             Label mana = new Label();
@@ -214,8 +215,8 @@ public class BattleViewController extends MenuController implements Initializabl
         cardImageView.setPickOnBounds(true);
         anchorPane.getChildren().add(cardImageView);
         if (card instanceof SoldierCard) {
-            ImageView attackImage = new ImageView(new Image("view/Graphic/images/icon_atk.png"));
-            ImageView healthImage = new ImageView(new Image("view/Graphic/images/icon_hp.png"));
+            ImageView attackImage = new CardImageProperties(new Image("view/Graphic/images/icon_atk.png"));
+            ImageView healthImage = new CardImageProperties(new Image("view/Graphic/images/icon_hp.png"));
             Label attack = new Label();
             Label health = new Label();
             attack.setText(((SoldierCard) card).getAp() + "");
@@ -272,5 +273,13 @@ public class BattleViewController extends MenuController implements Initializabl
             }
         }
     }
+    class CardImageProperties extends ImageView{
+        public CardImageProperties(Image image) {
+            super(image);
+        }
 
+        public CardImageProperties(String url) {
+            super(url);
+        }
+    }
 }

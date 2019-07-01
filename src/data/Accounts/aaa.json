@@ -1,0 +1,61 @@
+{
+  "userName": "aaa",
+  "password": "aaa",
+  "numberOfWins": 0,
+  "money": 14000,
+  "matchHistory": [],
+  "collection": {
+    "items": [],
+    "decks": {},
+    "cards": [
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 3,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 5,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 2,
+          "name": "camandare torani",
+          "price": 500,
+          "mana": 1,
+          "description": "be carefull!he will shot your head from miles away!"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 3,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 5,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 1,
+          "name": "camandare torani",
+          "price": 500,
+          "mana": 1,
+          "description": "be carefull!he will shot your head from miles away!"
+        }
+      }
+    ]
+  }
+}
