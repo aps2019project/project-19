@@ -1320,5 +1320,27 @@
     "price": 50,
     "mana": 2,
     "description": "44"
+  },
+  {
+    "abilities": [],
+    "ap": 3,
+    "hp": 6,
+    "type": "MELEE",
+    "buffs": [],
+    "flagNumber": 0,
+    "attackRange": 0,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "abilityCastTime": "COMBO",
+    "cardId": 1,
+    "name": "shire zhian",
+    "price": 200,
+    "mana": 3,
+    "description": ""
   }
 ]
