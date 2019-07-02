@@ -15,7 +15,7 @@ public class CardImageView extends ImageView {
     }
 
     public CardImageView(String cardName,Stance stance){
-        super(new Image("view/Graphic/cards/" + cardName + " "+stance.getMessage()+".gif"));
+       super(new Image("view/Graphic/cards/" + cardName + " "+stance.getMessage()+".gif"));
         this.cardName=cardName;
     }
     public void changeImage(String cardName,Stance stance){

@@ -91,6 +91,7 @@ public class CollectionController extends MenuController {
             });
             deckView.setOnMouseClicked(event -> {
                 importButton.setText("export");
+                selectedDeckName = deck.getName();
                 super.setDeckName(deck.getName());
                 setMainDeckButton();
                 deckButtonLabel.setText("exit deck");

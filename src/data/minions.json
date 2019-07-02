@@ -1,5 +1,6 @@
 [
   {
+    "abilities": [],
     "ap": 4,
     "hp": 6,
     "type": "RANGED",
@@ -29,8 +30,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -55,6 +57,7 @@
     "description": "stun enemy for one turn"
   },
   {
+    "abilities": [],
     "ap": 3,
     "hp": 5,
     "type": "HYBRID",
@@ -75,6 +78,7 @@
     "description": ""
   },
   {
+    "abilities": [],
     "ap": 6,
     "hp": 10,
     "type": "MELEE",
@@ -95,6 +99,7 @@
     "description": ""
   },
   {
+    "abilities": [],
     "ap": 6,
     "hp": 24,
     "type": "MELEE",
@@ -115,6 +120,7 @@
     "description": "for every attack in last turn,deal 5 damage to enemy"
   },
   {
+    "abilities": [],
     "ap": 6,
     "hp": 24,
     "type": "MELEE",
@@ -136,6 +142,7 @@
     "description": "combo"
   },
   {
+    "abilities": [],
     "ap": 4,
     "hp": 3,
     "type": "RANGED",
@@ -156,6 +163,7 @@
     "description": "be carefull!he will shot your head from miles away!"
   },
   {
+    "abilities": [],
     "ap": 2,
     "hp": 4,
     "type": "RANGED",
@@ -176,6 +184,7 @@
     "description": "get away,his rocks will smash your head!"
   },
   {
+    "abilities": [],
     "ap": 4,
     "hp": 4,
     "type": "HYBRID",
@@ -205,8 +214,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       },
       {
@@ -218,8 +228,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -244,6 +255,7 @@
     "description": "disarm the enemy for 1 turn and poison him for 4 turns"
   },
   {
+    "abilities": [],
     "ap": 10,
     "hp": 3,
     "type": "MELEE",
@@ -264,6 +276,7 @@
     "description": "GHORZDAR SMASH!!!"
   },
   {
+    "abilities": [],
     "ap": 10,
     "hp": 6,
     "type": "MELEE",
@@ -285,6 +298,7 @@
     "description": "combo"
   },
   {
+    "abilities": [],
     "ap": 10,
     "hp": 14,
     "type": "HYBRID",
@@ -305,6 +319,7 @@
     "description": "gooraaaa!"
   },
   {
+    "abilities": [],
     "ap": 12,
     "hp": 12,
     "type": "RANGED",
@@ -337,8 +352,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -369,6 +385,7 @@
     "description": "increase health by 10"
   },
   {
+    "abilities": [],
     "ap": 8,
     "hp": 16,
     "type": "MELEE",
@@ -399,8 +416,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -441,8 +459,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -467,6 +486,7 @@
     "description": "poison enemy for 3 turn"
   },
   {
+    "abilities": [],
     "ap": 5,
     "hp": 9,
     "type": "RANGED",
@@ -487,6 +507,7 @@
     "description": "fireeee! fireeee!"
   },
   {
+    "abilities": [],
     "ap": 8,
     "hp": 1,
     "type": "MELEE",
@@ -519,8 +540,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -561,8 +583,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 2
+          "currentTurn": 0,
+          "castTurn": 2,
+          "isForCell": false
         }
       },
       {
@@ -574,8 +597,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 3
+          "currentTurn": 0,
+          "castTurn": 3,
+          "isForCell": false
         }
       }
     ],
@@ -610,8 +634,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 2
+          "currentTurn": 0,
+          "castTurn": 2,
+          "isForCell": false
         }
       }
     ],
@@ -646,8 +671,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 2
+          "currentTurn": 0,
+          "castTurn": 2,
+          "isForCell": false
         }
       }
     ],
@@ -684,8 +710,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       },
       {
@@ -699,8 +726,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -743,8 +771,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       },
       {
@@ -757,8 +786,9 @@
           "isContinuous": true,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -801,8 +831,9 @@
           "isContinuous": true,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -833,6 +864,7 @@
     "description": "be hameye minion haye khody 1 vahed afzayeshe ghodrat be soorate continuous midahad"
   },
   {
+    "abilities": [],
     "ap": 14,
     "hp": 10,
     "type": "MELEE",
@@ -854,6 +886,7 @@
     "description": "disarm nemishavad"
   },
   {
+    "abilities": [],
     "ap": 12,
     "hp": 20,
     "type": "MELEE",
@@ -875,6 +908,7 @@
     "description": "masmoom nemishavad"
   },
   {
+    "abilities": [],
     "ap": 7,
     "hp": 5,
     "type": "RANGED",
@@ -906,8 +940,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -948,8 +983,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -974,6 +1010,7 @@
     "description": "az nirooha ba ghodrat zarbeye kamtar attack nemikhorad"
   },
   {
+    "abilities": [],
     "ap": 20,
     "hp": 6,
     "type": "RANGED",
@@ -994,6 +1031,7 @@
     "description": "how dare you!!!"
   },
   {
+    "abilities": [],
     "ap": 8,
     "hp": 30,
     "type": "HYBRID",
@@ -1025,8 +1063,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -1060,8 +1099,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -1103,8 +1143,9 @@
           "isContinuous": true,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -1145,8 +1186,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -1177,6 +1219,7 @@
     "description": "deals 6 damage to enemy hero"
   },
   {
+    "abilities": [],
     "ap": 4,
     "hp": 10,
     "type": "MELEE",
@@ -1198,6 +1241,7 @@
     "description": "can attack multiple targets"
   },
   {
+    "abilities": [],
     "ap": 6,
     "hp": 6,
     "type": "MELEE",
@@ -1217,5 +1261,27 @@
     "price": 600,
     "mana": 3,
     "description": "combo"
+  },
+  {
+    "abilities": [],
+    "ap": 2,
+    "hp": 2,
+    "type": "RANGED",
+    "buffs": [],
+    "flagNumber": 0,
+    "attackRange": 2,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "abilityCastTime": "ON_ATTACK",
+    "cardId": 1,
+    "name": "a",
+    "price": 200,
+    "mana": 2,
+    "description": ""
   }
 ]

@@ -2,7 +2,7 @@
   "userName": "a",
   "password": "a",
   "numberOfWins": 0,
-  "money": 1000,
+  "money": 150,
   "matchHistory": [],
   "collection": {
     "mainDeck": {
@@ -37,31 +37,6 @@
             "cardStatus": "IN_DECK",
             "price": 8000,
             "mana": 0,
-            "description": ""
-          }
-        },
-        "2": {
-          "CLASSNAME": "model.Cards.Minion",
-          "INSTANCE": {
-            "abilities": [],
-            "ap": 4,
-            "hp": 6,
-            "type": "RANGED",
-            "buffs": [],
-            "flagNumber": 0,
-            "attackRange": 7,
-            "isAttackedThisTurn": false,
-            "isMovedThisTurn": false,
-            "antiDisArm": false,
-            "antiPoison": false,
-            "antiNegative": false,
-            "strongerAp": false,
-            "notAcceptingHolyBuff": false,
-            "cardId": 2,
-            "name": "camandare farse",
-            "cardStatus": "IN_DECK",
-            "price": 300,
-            "mana": 2,
             "description": ""
           }
         },
@@ -196,61 +171,6 @@
             "description": "poison enemy for 3 turn"
           }
         },
-        "7": {
-          "CLASSNAME": "model.Cards.Minion",
-          "INSTANCE": {
-            "abilities": [
-              {
-                "CLASSNAME": "model.Buff.AttackBuff",
-                "INSTANCE": {
-                  "damage": 6,
-                  "kind": "NEGATIVE",
-                  "duration": 1,
-                  "isContinuous": false,
-                  "numberOfUsage": 0,
-                  "onMoment": true,
-                  "currentTurn": 0,
-                  "castTurn": 2,
-                  "isForCell": false
-                }
-              },
-              {
-                "CLASSNAME": "model.Buff.AttackBuff",
-                "INSTANCE": {
-                  "damage": 4,
-                  "kind": "NEGATIVE",
-                  "duration": 1,
-                  "isContinuous": false,
-                  "numberOfUsage": 0,
-                  "onMoment": true,
-                  "currentTurn": 0,
-                  "castTurn": 3,
-                  "isForCell": false
-                }
-              }
-            ],
-            "ap": 2,
-            "hp": 8,
-            "type": "MELEE",
-            "buffs": [],
-            "flagNumber": 0,
-            "attackRange": 1,
-            "isAttackedThisTurn": false,
-            "isMovedThisTurn": false,
-            "antiDisArm": false,
-            "antiPoison": false,
-            "antiNegative": false,
-            "strongerAp": false,
-            "notAcceptingHolyBuff": false,
-            "abilityCastTime": "ON_ATTACK",
-            "cardId": 7,
-            "name": "gorge sephid",
-            "cardStatus": "IN_DECK",
-            "price": 400,
-            "mana": 5,
-            "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
-          }
-        },
         "8": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
@@ -302,12 +222,12 @@
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
             "abilities": [],
-            "ap": 6,
-            "hp": 10,
-            "type": "MELEE",
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 1,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -316,40 +236,23 @@
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
             "cardId": 9,
-            "name": "asb savare fars",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
-            "price": 200,
-            "mana": 4,
+            "price": 300,
+            "mana": 2,
             "description": ""
           }
         },
         "10": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
-            "abilities": [
-              {
-                "CLASSNAME": "model.Buff.PowerBuff",
-                "INSTANCE": {
-                  "hpIncrease": 10,
-                  "apIncrease": 0,
-                  "hasCasted": false,
-                  "kind": "POSITIVE",
-                  "duration": 1,
-                  "isContinuous": false,
-                  "numberOfUsage": 0,
-                  "onMoment": true,
-                  "currentTurn": 0,
-                  "castTurn": 1,
-                  "isForCell": false
-                }
-              }
-            ],
-            "ap": 2,
-            "hp": 0,
+            "abilities": [],
+            "ap": 4,
+            "hp": 6,
             "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 3,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -357,31 +260,24 @@
             "antiNegative": false,
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
-            "target": {
-              "type": "SOLDIER",
-              "areaSize": 0,
-              "soldierTargetType": "ITSELF",
-              "isaffectingCell": false
-            },
-            "abilityCastTime": "PASSIVE",
             "cardId": 10,
-            "name": "oghab",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
-            "price": 200,
+            "price": 300,
             "mana": 2,
-            "description": "increase health by 10"
+            "description": ""
           }
         },
         "11": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
             "abilities": [],
-            "ap": 8,
-            "hp": 16,
-            "type": "MELEE",
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 1,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -390,23 +286,23 @@
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
             "cardId": 11,
-            "name": "dive goraz savar",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
             "price": 300,
-            "mana": 6,
-            "description": "gooraaa!"
+            "mana": 2,
+            "description": ""
           }
         },
         "12": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
             "abilities": [],
-            "ap": 5,
-            "hp": 9,
+            "ap": 4,
+            "hp": 6,
             "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 4,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -415,38 +311,23 @@
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
             "cardId": 12,
-            "name": "ezhdehaye atash andaz",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
-            "price": 250,
-            "mana": 5,
-            "description": "fireeee! fireeee!"
+            "price": 300,
+            "mana": 2,
+            "description": ""
           }
         },
         "13": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
-            "abilities": [
-              {
-                "CLASSNAME": "model.Buff.AttackBuff",
-                "INSTANCE": {
-                  "damage": 6,
-                  "kind": "NEGATIVE",
-                  "duration": 1,
-                  "isContinuous": false,
-                  "numberOfUsage": 0,
-                  "onMoment": true,
-                  "currentTurn": 0,
-                  "castTurn": 2,
-                  "isForCell": false
-                }
-              }
-            ],
-            "ap": 1,
+            "abilities": [],
+            "ap": 4,
             "hp": 6,
-            "type": "MELEE",
+            "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 1,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -454,40 +335,24 @@
             "antiNegative": false,
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
-            "abilityCastTime": "ON_ATTACK",
             "cardId": 13,
-            "name": "gorg",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
-            "price": 400,
-            "mana": 3,
-            "description": "when attack a minion it damage in next turn by 6"
+            "price": 300,
+            "mana": 2,
+            "description": ""
           }
         },
         "14": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
-            "abilities": [
-              {
-                "CLASSNAME": "model.Buff.AttackBuff",
-                "INSTANCE": {
-                  "damage": 8,
-                  "kind": "NEGATIVE",
-                  "duration": 1,
-                  "isContinuous": false,
-                  "numberOfUsage": 0,
-                  "onMoment": true,
-                  "currentTurn": 0,
-                  "castTurn": 2,
-                  "isForCell": false
-                }
-              }
-            ],
-            "ap": 2,
+            "abilities": [],
+            "ap": 4,
             "hp": 6,
-            "type": "MELEE",
+            "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 1,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -495,54 +360,24 @@
             "antiNegative": false,
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
-            "abilityCastTime": "ON_ATTACK",
             "cardId": 14,
-            "name": "palang",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
-            "price": 400,
-            "mana": 4,
-            "description": "when attack a minion it damage in next turn by 8"
+            "price": 300,
+            "mana": 2,
+            "description": ""
           }
         },
         "15": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
-            "abilities": [
-              {
-                "CLASSNAME": "model.Buff.AttackBuff",
-                "INSTANCE": {
-                  "damage": 6,
-                  "kind": "NEGATIVE",
-                  "duration": 1,
-                  "isContinuous": false,
-                  "numberOfUsage": 0,
-                  "onMoment": true,
-                  "currentTurn": 0,
-                  "castTurn": 2,
-                  "isForCell": false
-                }
-              },
-              {
-                "CLASSNAME": "model.Buff.AttackBuff",
-                "INSTANCE": {
-                  "damage": 4,
-                  "kind": "NEGATIVE",
-                  "duration": 1,
-                  "isContinuous": false,
-                  "numberOfUsage": 0,
-                  "onMoment": true,
-                  "currentTurn": 0,
-                  "castTurn": 3,
-                  "isForCell": false
-                }
-              }
-            ],
-            "ap": 2,
-            "hp": 8,
-            "type": "MELEE",
+            "abilities": [],
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 1,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -550,42 +385,24 @@
             "antiNegative": false,
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
-            "abilityCastTime": "ON_ATTACK",
             "cardId": 15,
-            "name": "gorge sephid",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
-            "price": 400,
-            "mana": 5,
-            "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
+            "price": 300,
+            "mana": 2,
+            "description": ""
           }
         },
         "16": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
-            "abilities": [
-              {
-                "CLASSNAME": "model.Buff.PowerBuff",
-                "INSTANCE": {
-                  "hpIncrease": 10,
-                  "apIncrease": 0,
-                  "hasCasted": false,
-                  "kind": "POSITIVE",
-                  "duration": 1,
-                  "isContinuous": false,
-                  "numberOfUsage": 0,
-                  "onMoment": true,
-                  "currentTurn": 0,
-                  "castTurn": 1,
-                  "isForCell": false
-                }
-              }
-            ],
-            "ap": 2,
-            "hp": 0,
+            "abilities": [],
+            "ap": 4,
+            "hp": 6,
             "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 3,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -593,31 +410,24 @@
             "antiNegative": false,
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
-            "target": {
-              "type": "SOLDIER",
-              "areaSize": 0,
-              "soldierTargetType": "ITSELF",
-              "isaffectingCell": false
-            },
-            "abilityCastTime": "PASSIVE",
             "cardId": 16,
-            "name": "oghab",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
-            "price": 200,
+            "price": 300,
             "mana": 2,
-            "description": "increase health by 10"
+            "description": ""
           }
         },
         "17": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
             "abilities": [],
-            "ap": 8,
-            "hp": 16,
-            "type": "MELEE",
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 1,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -626,23 +436,23 @@
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
             "cardId": 17,
-            "name": "dive goraz savar",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
             "price": 300,
-            "mana": 6,
-            "description": "gooraaa!"
+            "mana": 2,
+            "description": ""
           }
         },
         "18": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
             "abilities": [],
-            "ap": 6,
-            "hp": 10,
-            "type": "MELEE",
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 1,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -651,10 +461,10 @@
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
             "cardId": 18,
-            "name": "asb savare fars",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
-            "price": 200,
-            "mana": 4,
+            "price": 300,
+            "mana": 2,
             "description": ""
           }
         },
@@ -687,12 +497,12 @@
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
             "abilities": [],
-            "ap": 6,
-            "hp": 10,
-            "type": "MELEE",
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 1,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -701,10 +511,10 @@
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
             "cardId": 20,
-            "name": "asb savare fars",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
-            "price": 200,
-            "mana": 4,
+            "price": 300,
+            "mana": 2,
             "description": ""
           }
         },
@@ -726,6 +536,56 @@
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
             "cardId": 21,
+            "name": "camandare farse",
+            "cardStatus": "IN_DECK",
+            "price": 300,
+            "mana": 2,
+            "description": ""
+          }
+        },
+        "22": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 7,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 22,
+            "name": "camandare farse",
+            "cardStatus": "IN_DECK",
+            "price": 300,
+            "mana": 2,
+            "description": ""
+          }
+        },
+        "23": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 7,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 23,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
             "price": 300,
@@ -770,31 +630,6 @@
               "cardStatus": "IN_DECK",
               "price": 8000,
               "mana": 0,
-              "description": ""
-            }
-          },
-          "2": {
-            "CLASSNAME": "model.Cards.Minion",
-            "INSTANCE": {
-              "abilities": [],
-              "ap": 4,
-              "hp": 6,
-              "type": "RANGED",
-              "buffs": [],
-              "flagNumber": 0,
-              "attackRange": 7,
-              "isAttackedThisTurn": false,
-              "isMovedThisTurn": false,
-              "antiDisArm": false,
-              "antiPoison": false,
-              "antiNegative": false,
-              "strongerAp": false,
-              "notAcceptingHolyBuff": false,
-              "cardId": 2,
-              "name": "camandare farse",
-              "cardStatus": "IN_DECK",
-              "price": 300,
-              "mana": 2,
               "description": ""
             }
           },
@@ -929,61 +764,6 @@
               "description": "poison enemy for 3 turn"
             }
           },
-          "7": {
-            "CLASSNAME": "model.Cards.Minion",
-            "INSTANCE": {
-              "abilities": [
-                {
-                  "CLASSNAME": "model.Buff.AttackBuff",
-                  "INSTANCE": {
-                    "damage": 6,
-                    "kind": "NEGATIVE",
-                    "duration": 1,
-                    "isContinuous": false,
-                    "numberOfUsage": 0,
-                    "onMoment": true,
-                    "currentTurn": 0,
-                    "castTurn": 2,
-                    "isForCell": false
-                  }
-                },
-                {
-                  "CLASSNAME": "model.Buff.AttackBuff",
-                  "INSTANCE": {
-                    "damage": 4,
-                    "kind": "NEGATIVE",
-                    "duration": 1,
-                    "isContinuous": false,
-                    "numberOfUsage": 0,
-                    "onMoment": true,
-                    "currentTurn": 0,
-                    "castTurn": 3,
-                    "isForCell": false
-                  }
-                }
-              ],
-              "ap": 2,
-              "hp": 8,
-              "type": "MELEE",
-              "buffs": [],
-              "flagNumber": 0,
-              "attackRange": 1,
-              "isAttackedThisTurn": false,
-              "isMovedThisTurn": false,
-              "antiDisArm": false,
-              "antiPoison": false,
-              "antiNegative": false,
-              "strongerAp": false,
-              "notAcceptingHolyBuff": false,
-              "abilityCastTime": "ON_ATTACK",
-              "cardId": 7,
-              "name": "gorge sephid",
-              "cardStatus": "IN_DECK",
-              "price": 400,
-              "mana": 5,
-              "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
-            }
-          },
           "8": {
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
@@ -1035,12 +815,12 @@
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
               "abilities": [],
-              "ap": 6,
-              "hp": 10,
-              "type": "MELEE",
+              "ap": 4,
+              "hp": 6,
+              "type": "RANGED",
               "buffs": [],
               "flagNumber": 0,
-              "attackRange": 1,
+              "attackRange": 7,
               "isAttackedThisTurn": false,
               "isMovedThisTurn": false,
               "antiDisArm": false,
@@ -1049,40 +829,23 @@
               "strongerAp": false,
               "notAcceptingHolyBuff": false,
               "cardId": 9,
-              "name": "asb savare fars",
+              "name": "camandare farse",
               "cardStatus": "IN_DECK",
-              "price": 200,
-              "mana": 4,
+              "price": 300,
+              "mana": 2,
               "description": ""
             }
           },
           "10": {
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
-              "abilities": [
-                {
-                  "CLASSNAME": "model.Buff.PowerBuff",
-                  "INSTANCE": {
-                    "hpIncrease": 10,
-                    "apIncrease": 0,
-                    "hasCasted": false,
-                    "kind": "POSITIVE",
-                    "duration": 1,
-                    "isContinuous": false,
-                    "numberOfUsage": 0,
-                    "onMoment": true,
-                    "currentTurn": 0,
-                    "castTurn": 1,
-                    "isForCell": false
-                  }
-                }
-              ],
-              "ap": 2,
-              "hp": 0,
+              "abilities": [],
+              "ap": 4,
+              "hp": 6,
               "type": "RANGED",
               "buffs": [],
               "flagNumber": 0,
-              "attackRange": 3,
+              "attackRange": 7,
               "isAttackedThisTurn": false,
               "isMovedThisTurn": false,
               "antiDisArm": false,
@@ -1090,31 +853,24 @@
               "antiNegative": false,
               "strongerAp": false,
               "notAcceptingHolyBuff": false,
-              "target": {
-                "type": "SOLDIER",
-                "areaSize": 0,
-                "soldierTargetType": "ITSELF",
-                "isaffectingCell": false
-              },
-              "abilityCastTime": "PASSIVE",
               "cardId": 10,
-              "name": "oghab",
+              "name": "camandare farse",
               "cardStatus": "IN_DECK",
-              "price": 200,
+              "price": 300,
               "mana": 2,
-              "description": "increase health by 10"
+              "description": ""
             }
           },
           "11": {
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
               "abilities": [],
-              "ap": 8,
-              "hp": 16,
-              "type": "MELEE",
+              "ap": 4,
+              "hp": 6,
+              "type": "RANGED",
               "buffs": [],
               "flagNumber": 0,
-              "attackRange": 1,
+              "attackRange": 7,
               "isAttackedThisTurn": false,
               "isMovedThisTurn": false,
               "antiDisArm": false,
@@ -1123,23 +879,23 @@
               "strongerAp": false,
               "notAcceptingHolyBuff": false,
               "cardId": 11,
-              "name": "dive goraz savar",
+              "name": "camandare farse",
               "cardStatus": "IN_DECK",
               "price": 300,
-              "mana": 6,
-              "description": "gooraaa!"
+              "mana": 2,
+              "description": ""
             }
           },
           "12": {
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
               "abilities": [],
-              "ap": 5,
-              "hp": 9,
+              "ap": 4,
+              "hp": 6,
               "type": "RANGED",
               "buffs": [],
               "flagNumber": 0,
-              "attackRange": 4,
+              "attackRange": 7,
               "isAttackedThisTurn": false,
               "isMovedThisTurn": false,
               "antiDisArm": false,
@@ -1148,38 +904,23 @@
               "strongerAp": false,
               "notAcceptingHolyBuff": false,
               "cardId": 12,
-              "name": "ezhdehaye atash andaz",
+              "name": "camandare farse",
               "cardStatus": "IN_DECK",
-              "price": 250,
-              "mana": 5,
-              "description": "fireeee! fireeee!"
+              "price": 300,
+              "mana": 2,
+              "description": ""
             }
           },
           "13": {
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
-              "abilities": [
-                {
-                  "CLASSNAME": "model.Buff.AttackBuff",
-                  "INSTANCE": {
-                    "damage": 6,
-                    "kind": "NEGATIVE",
-                    "duration": 1,
-                    "isContinuous": false,
-                    "numberOfUsage": 0,
-                    "onMoment": true,
-                    "currentTurn": 0,
-                    "castTurn": 2,
-                    "isForCell": false
-                  }
-                }
-              ],
-              "ap": 1,
+              "abilities": [],
+              "ap": 4,
               "hp": 6,
-              "type": "MELEE",
+              "type": "RANGED",
               "buffs": [],
               "flagNumber": 0,
-              "attackRange": 1,
+              "attackRange": 7,
               "isAttackedThisTurn": false,
               "isMovedThisTurn": false,
               "antiDisArm": false,
@@ -1187,40 +928,24 @@
               "antiNegative": false,
               "strongerAp": false,
               "notAcceptingHolyBuff": false,
-              "abilityCastTime": "ON_ATTACK",
               "cardId": 13,
-              "name": "gorg",
+              "name": "camandare farse",
               "cardStatus": "IN_DECK",
-              "price": 400,
-              "mana": 3,
-              "description": "when attack a minion it damage in next turn by 6"
+              "price": 300,
+              "mana": 2,
+              "description": ""
             }
           },
           "14": {
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
-              "abilities": [
-                {
-                  "CLASSNAME": "model.Buff.AttackBuff",
-                  "INSTANCE": {
-                    "damage": 8,
-                    "kind": "NEGATIVE",
-                    "duration": 1,
-                    "isContinuous": false,
-                    "numberOfUsage": 0,
-                    "onMoment": true,
-                    "currentTurn": 0,
-                    "castTurn": 2,
-                    "isForCell": false
-                  }
-                }
-              ],
-              "ap": 2,
+              "abilities": [],
+              "ap": 4,
               "hp": 6,
-              "type": "MELEE",
+              "type": "RANGED",
               "buffs": [],
               "flagNumber": 0,
-              "attackRange": 1,
+              "attackRange": 7,
               "isAttackedThisTurn": false,
               "isMovedThisTurn": false,
               "antiDisArm": false,
@@ -1228,54 +953,24 @@
               "antiNegative": false,
               "strongerAp": false,
               "notAcceptingHolyBuff": false,
-              "abilityCastTime": "ON_ATTACK",
               "cardId": 14,
-              "name": "palang",
+              "name": "camandare farse",
               "cardStatus": "IN_DECK",
-              "price": 400,
-              "mana": 4,
-              "description": "when attack a minion it damage in next turn by 8"
+              "price": 300,
+              "mana": 2,
+              "description": ""
             }
           },
           "15": {
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
-              "abilities": [
-                {
-                  "CLASSNAME": "model.Buff.AttackBuff",
-                  "INSTANCE": {
-                    "damage": 6,
-                    "kind": "NEGATIVE",
-                    "duration": 1,
-                    "isContinuous": false,
-                    "numberOfUsage": 0,
-                    "onMoment": true,
-                    "currentTurn": 0,
-                    "castTurn": 2,
-                    "isForCell": false
-                  }
-                },
-                {
-                  "CLASSNAME": "model.Buff.AttackBuff",
-                  "INSTANCE": {
-                    "damage": 4,
-                    "kind": "NEGATIVE",
-                    "duration": 1,
-                    "isContinuous": false,
-                    "numberOfUsage": 0,
-                    "onMoment": true,
-                    "currentTurn": 0,
-                    "castTurn": 3,
-                    "isForCell": false
-                  }
-                }
-              ],
-              "ap": 2,
-              "hp": 8,
-              "type": "MELEE",
+              "abilities": [],
+              "ap": 4,
+              "hp": 6,
+              "type": "RANGED",
               "buffs": [],
               "flagNumber": 0,
-              "attackRange": 1,
+              "attackRange": 7,
               "isAttackedThisTurn": false,
               "isMovedThisTurn": false,
               "antiDisArm": false,
@@ -1283,42 +978,24 @@
               "antiNegative": false,
               "strongerAp": false,
               "notAcceptingHolyBuff": false,
-              "abilityCastTime": "ON_ATTACK",
               "cardId": 15,
-              "name": "gorge sephid",
+              "name": "camandare farse",
               "cardStatus": "IN_DECK",
-              "price": 400,
-              "mana": 5,
-              "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
+              "price": 300,
+              "mana": 2,
+              "description": ""
             }
           },
           "16": {
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
-              "abilities": [
-                {
-                  "CLASSNAME": "model.Buff.PowerBuff",
-                  "INSTANCE": {
-                    "hpIncrease": 10,
-                    "apIncrease": 0,
-                    "hasCasted": false,
-                    "kind": "POSITIVE",
-                    "duration": 1,
-                    "isContinuous": false,
-                    "numberOfUsage": 0,
-                    "onMoment": true,
-                    "currentTurn": 0,
-                    "castTurn": 1,
-                    "isForCell": false
-                  }
-                }
-              ],
-              "ap": 2,
-              "hp": 0,
+              "abilities": [],
+              "ap": 4,
+              "hp": 6,
               "type": "RANGED",
               "buffs": [],
               "flagNumber": 0,
-              "attackRange": 3,
+              "attackRange": 7,
               "isAttackedThisTurn": false,
               "isMovedThisTurn": false,
               "antiDisArm": false,
@@ -1326,31 +1003,24 @@
               "antiNegative": false,
               "strongerAp": false,
               "notAcceptingHolyBuff": false,
-              "target": {
-                "type": "SOLDIER",
-                "areaSize": 0,
-                "soldierTargetType": "ITSELF",
-                "isaffectingCell": false
-              },
-              "abilityCastTime": "PASSIVE",
               "cardId": 16,
-              "name": "oghab",
+              "name": "camandare farse",
               "cardStatus": "IN_DECK",
-              "price": 200,
+              "price": 300,
               "mana": 2,
-              "description": "increase health by 10"
+              "description": ""
             }
           },
           "17": {
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
               "abilities": [],
-              "ap": 8,
-              "hp": 16,
-              "type": "MELEE",
+              "ap": 4,
+              "hp": 6,
+              "type": "RANGED",
               "buffs": [],
               "flagNumber": 0,
-              "attackRange": 1,
+              "attackRange": 7,
               "isAttackedThisTurn": false,
               "isMovedThisTurn": false,
               "antiDisArm": false,
@@ -1359,23 +1029,23 @@
               "strongerAp": false,
               "notAcceptingHolyBuff": false,
               "cardId": 17,
-              "name": "dive goraz savar",
+              "name": "camandare farse",
               "cardStatus": "IN_DECK",
               "price": 300,
-              "mana": 6,
-              "description": "gooraaa!"
+              "mana": 2,
+              "description": ""
             }
           },
           "18": {
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
               "abilities": [],
-              "ap": 6,
-              "hp": 10,
-              "type": "MELEE",
+              "ap": 4,
+              "hp": 6,
+              "type": "RANGED",
               "buffs": [],
               "flagNumber": 0,
-              "attackRange": 1,
+              "attackRange": 7,
               "isAttackedThisTurn": false,
               "isMovedThisTurn": false,
               "antiDisArm": false,
@@ -1384,10 +1054,10 @@
               "strongerAp": false,
               "notAcceptingHolyBuff": false,
               "cardId": 18,
-              "name": "asb savare fars",
+              "name": "camandare farse",
               "cardStatus": "IN_DECK",
-              "price": 200,
-              "mana": 4,
+              "price": 300,
+              "mana": 2,
               "description": ""
             }
           },
@@ -1420,12 +1090,12 @@
             "CLASSNAME": "model.Cards.Minion",
             "INSTANCE": {
               "abilities": [],
-              "ap": 6,
-              "hp": 10,
-              "type": "MELEE",
+              "ap": 4,
+              "hp": 6,
+              "type": "RANGED",
               "buffs": [],
               "flagNumber": 0,
-              "attackRange": 1,
+              "attackRange": 7,
               "isAttackedThisTurn": false,
               "isMovedThisTurn": false,
               "antiDisArm": false,
@@ -1434,10 +1104,10 @@
               "strongerAp": false,
               "notAcceptingHolyBuff": false,
               "cardId": 20,
-              "name": "asb savare fars",
+              "name": "camandare farse",
               "cardStatus": "IN_DECK",
-              "price": 200,
-              "mana": 4,
+              "price": 300,
+              "mana": 2,
               "description": ""
             }
           },
@@ -1465,12 +1135,300 @@
               "mana": 2,
               "description": ""
             }
+          },
+          "22": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 4,
+              "hp": 6,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 7,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 22,
+              "name": "camandare farse",
+              "cardStatus": "IN_DECK",
+              "price": 300,
+              "mana": 2,
+              "description": ""
+            }
+          },
+          "23": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 4,
+              "hp": 6,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 7,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 23,
+              "name": "camandare farse",
+              "cardStatus": "IN_DECK",
+              "price": 300,
+              "mana": 2,
+              "description": ""
+            }
           }
         },
         "items": {}
       }
     },
     "cards": [
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 12,
+          "hp": 12,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 4,
+          "name": "ghoole sang andaz",
+          "cardStatus": "IN_DECK",
+          "price": 300,
+          "mana": 9,
+          "description": "gooraaa!"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.StunBuff",
+              "INSTANCE": {
+                "kind": "NEGATIVE",
+                "duration": 2,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": false,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 6,
+          "hp": 4,
+          "type": "MELEE",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 1,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "abilityCastTime": "ON_ATTACK",
+          "cardId": 3,
+          "name": "shamshir zane fars",
+          "cardStatus": "IN_DECK",
+          "price": 400,
+          "mana": 2,
+          "description": "stun enemy for one turn"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Hero",
+        "INSTANCE": {
+          "coolDown": 0,
+          "coolDownWaiting": 0,
+          "ap": 7,
+          "hp": 55,
+          "type": "HYBRID",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 4,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "target": {
+            "type": "SOLDIER",
+            "areaSize": 0,
+            "soldierTargetType": "ITSELF",
+            "isaffectingCell": false
+          },
+          "cardId": 1,
+          "name": "rostam",
+          "cardStatus": "IN_DECK",
+          "price": 8000,
+          "mana": 0,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.PoisonBuff",
+              "INSTANCE": {
+                "hpDecrease": 1,
+                "kind": "NEGATIVE",
+                "duration": 3,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": false,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 6,
+          "hp": 5,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 4,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "abilityCastTime": "ON_ATTACK",
+          "cardId": 6,
+          "name": "mare sammi",
+          "cardStatus": "IN_DECK",
+          "price": 300,
+          "mana": 4,
+          "description": "poison enemy for 3 turn"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 10,
+          "hp": 14,
+          "type": "HYBRID",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 5,
+          "name": "dive siah",
+          "cardStatus": "IN_DECK",
+          "price": 300,
+          "mana": 9,
+          "description": "gooraaaa!"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 2,
+          "name": "camandare farse",
+          "cardStatus": "IN_DECK",
+          "price": 300,
+          "mana": 2,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 23,
+          "name": "camandare farse",
+          "cardStatus": "IN_DECK",
+          "price": 300,
+          "mana": 2,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 22,
+          "name": "camandare farse",
+          "cardStatus": "IN_DECK",
+          "price": 300,
+          "mana": 2,
+          "description": ""
+        }
+      },
       {
         "CLASSNAME": "model.Cards.Minion",
         "INSTANCE": {
@@ -1500,12 +1458,12 @@
         "CLASSNAME": "model.Cards.Minion",
         "INSTANCE": {
           "abilities": [],
-          "ap": 6,
-          "hp": 10,
-          "type": "MELEE",
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
           "buffs": [],
           "flagNumber": 0,
-          "attackRange": 1,
+          "attackRange": 7,
           "isAttackedThisTurn": false,
           "isMovedThisTurn": false,
           "antiDisArm": false,
@@ -1514,10 +1472,10 @@
           "strongerAp": false,
           "notAcceptingHolyBuff": false,
           "cardId": 20,
-          "name": "asb savare fars",
+          "name": "camandare farse",
           "cardStatus": "IN_DECK",
-          "price": 200,
-          "mana": 4,
+          "price": 300,
+          "mana": 2,
           "description": ""
         }
       },
@@ -1550,12 +1508,12 @@
         "CLASSNAME": "model.Cards.Minion",
         "INSTANCE": {
           "abilities": [],
-          "ap": 6,
-          "hp": 10,
-          "type": "MELEE",
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
           "buffs": [],
           "flagNumber": 0,
-          "attackRange": 1,
+          "attackRange": 7,
           "isAttackedThisTurn": false,
           "isMovedThisTurn": false,
           "antiDisArm": false,
@@ -1564,10 +1522,10 @@
           "strongerAp": false,
           "notAcceptingHolyBuff": false,
           "cardId": 18,
-          "name": "asb savare fars",
+          "name": "camandare farse",
           "cardStatus": "IN_DECK",
-          "price": 200,
-          "mana": 4,
+          "price": 300,
+          "mana": 2,
           "description": ""
         }
       },
@@ -1575,12 +1533,12 @@
         "CLASSNAME": "model.Cards.Minion",
         "INSTANCE": {
           "abilities": [],
-          "ap": 8,
-          "hp": 16,
-          "type": "MELEE",
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
           "buffs": [],
           "flagNumber": 0,
-          "attackRange": 1,
+          "attackRange": 7,
           "isAttackedThisTurn": false,
           "isMovedThisTurn": false,
           "antiDisArm": false,
@@ -1589,209 +1547,123 @@
           "strongerAp": false,
           "notAcceptingHolyBuff": false,
           "cardId": 17,
-          "name": "dive goraz savar",
+          "name": "camandare farse",
           "cardStatus": "IN_DECK",
           "price": 300,
-          "mana": 6,
-          "description": "gooraaa!"
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [
-            {
-              "CLASSNAME": "model.Buff.PowerBuff",
-              "INSTANCE": {
-                "hpIncrease": 10,
-                "apIncrease": 0,
-                "hasCasted": false,
-                "kind": "POSITIVE",
-                "duration": 1,
-                "isContinuous": false,
-                "numberOfUsage": 0,
-                "onMoment": true,
-                "currentTurn": 0,
-                "castTurn": 1,
-                "isForCell": false
-              }
-            }
-          ],
-          "ap": 2,
-          "hp": 0,
-          "type": "RANGED",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 3,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "target": {
-            "type": "SOLDIER",
-            "areaSize": 0,
-            "soldierTargetType": "ITSELF",
-            "isaffectingCell": false
-          },
-          "abilityCastTime": "PASSIVE",
-          "cardId": 16,
-          "name": "oghab",
-          "cardStatus": "IN_DECK",
-          "price": 200,
           "mana": 2,
-          "description": "increase health by 10"
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [
-            {
-              "CLASSNAME": "model.Buff.AttackBuff",
-              "INSTANCE": {
-                "damage": 6,
-                "kind": "NEGATIVE",
-                "duration": 1,
-                "isContinuous": false,
-                "numberOfUsage": 0,
-                "onMoment": true,
-                "currentTurn": 0,
-                "castTurn": 2,
-                "isForCell": false
-              }
-            },
-            {
-              "CLASSNAME": "model.Buff.AttackBuff",
-              "INSTANCE": {
-                "damage": 4,
-                "kind": "NEGATIVE",
-                "duration": 1,
-                "isContinuous": false,
-                "numberOfUsage": 0,
-                "onMoment": true,
-                "currentTurn": 0,
-                "castTurn": 3,
-                "isForCell": false
-              }
-            }
-          ],
-          "ap": 2,
-          "hp": 8,
-          "type": "MELEE",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 1,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "abilityCastTime": "ON_ATTACK",
-          "cardId": 15,
-          "name": "gorge sephid",
-          "cardStatus": "IN_DECK",
-          "price": 400,
-          "mana": 5,
-          "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [
-            {
-              "CLASSNAME": "model.Buff.AttackBuff",
-              "INSTANCE": {
-                "damage": 8,
-                "kind": "NEGATIVE",
-                "duration": 1,
-                "isContinuous": false,
-                "numberOfUsage": 0,
-                "onMoment": true,
-                "currentTurn": 0,
-                "castTurn": 2,
-                "isForCell": false
-              }
-            }
-          ],
-          "ap": 2,
-          "hp": 6,
-          "type": "MELEE",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 1,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "abilityCastTime": "ON_ATTACK",
-          "cardId": 14,
-          "name": "palang",
-          "cardStatus": "IN_DECK",
-          "price": 400,
-          "mana": 4,
-          "description": "when attack a minion it damage in next turn by 8"
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [
-            {
-              "CLASSNAME": "model.Buff.AttackBuff",
-              "INSTANCE": {
-                "damage": 6,
-                "kind": "NEGATIVE",
-                "duration": 1,
-                "isContinuous": false,
-                "numberOfUsage": 0,
-                "onMoment": true,
-                "currentTurn": 0,
-                "castTurn": 2,
-                "isForCell": false
-              }
-            }
-          ],
-          "ap": 1,
-          "hp": 6,
-          "type": "MELEE",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 1,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "abilityCastTime": "ON_ATTACK",
-          "cardId": 13,
-          "name": "gorg",
-          "cardStatus": "IN_DECK",
-          "price": 400,
-          "mana": 3,
-          "description": "when attack a minion it damage in next turn by 6"
+          "description": ""
         }
       },
       {
         "CLASSNAME": "model.Cards.Minion",
         "INSTANCE": {
           "abilities": [],
-          "ap": 5,
-          "hp": 9,
+          "ap": 4,
+          "hp": 6,
           "type": "RANGED",
           "buffs": [],
           "flagNumber": 0,
-          "attackRange": 4,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 16,
+          "name": "camandare farse",
+          "cardStatus": "IN_DECK",
+          "price": 300,
+          "mana": 2,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 15,
+          "name": "camandare farse",
+          "cardStatus": "IN_DECK",
+          "price": 300,
+          "mana": 2,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 14,
+          "name": "camandare farse",
+          "cardStatus": "IN_DECK",
+          "price": 300,
+          "mana": 2,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 13,
+          "name": "camandare farse",
+          "cardStatus": "IN_DECK",
+          "price": 300,
+          "mana": 2,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
           "isAttackedThisTurn": false,
           "isMovedThisTurn": false,
           "antiDisArm": false,
@@ -1800,23 +1672,23 @@
           "strongerAp": false,
           "notAcceptingHolyBuff": false,
           "cardId": 12,
-          "name": "ezhdehaye atash andaz",
+          "name": "camandare farse",
           "cardStatus": "IN_DECK",
-          "price": 250,
-          "mana": 5,
-          "description": "fireeee! fireeee!"
+          "price": 300,
+          "mana": 2,
+          "description": ""
         }
       },
       {
         "CLASSNAME": "model.Cards.Minion",
         "INSTANCE": {
           "abilities": [],
-          "ap": 8,
-          "hp": 16,
-          "type": "MELEE",
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
           "buffs": [],
           "flagNumber": 0,
-          "attackRange": 1,
+          "attackRange": 7,
           "isAttackedThisTurn": false,
           "isMovedThisTurn": false,
           "antiDisArm": false,
@@ -1825,40 +1697,23 @@
           "strongerAp": false,
           "notAcceptingHolyBuff": false,
           "cardId": 11,
-          "name": "dive goraz savar",
+          "name": "camandare farse",
           "cardStatus": "IN_DECK",
           "price": 300,
-          "mana": 6,
-          "description": "gooraaa!"
+          "mana": 2,
+          "description": ""
         }
       },
       {
         "CLASSNAME": "model.Cards.Minion",
         "INSTANCE": {
-          "abilities": [
-            {
-              "CLASSNAME": "model.Buff.PowerBuff",
-              "INSTANCE": {
-                "hpIncrease": 10,
-                "apIncrease": 0,
-                "hasCasted": false,
-                "kind": "POSITIVE",
-                "duration": 1,
-                "isContinuous": false,
-                "numberOfUsage": 0,
-                "onMoment": true,
-                "currentTurn": 0,
-                "castTurn": 1,
-                "isForCell": false
-              }
-            }
-          ],
-          "ap": 2,
-          "hp": 0,
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
           "type": "RANGED",
           "buffs": [],
           "flagNumber": 0,
-          "attackRange": 3,
+          "attackRange": 7,
           "isAttackedThisTurn": false,
           "isMovedThisTurn": false,
           "antiDisArm": false,
@@ -1866,31 +1721,24 @@
           "antiNegative": false,
           "strongerAp": false,
           "notAcceptingHolyBuff": false,
-          "target": {
-            "type": "SOLDIER",
-            "areaSize": 0,
-            "soldierTargetType": "ITSELF",
-            "isaffectingCell": false
-          },
-          "abilityCastTime": "PASSIVE",
           "cardId": 10,
-          "name": "oghab",
+          "name": "camandare farse",
           "cardStatus": "IN_DECK",
-          "price": 200,
+          "price": 300,
           "mana": 2,
-          "description": "increase health by 10"
+          "description": ""
         }
       },
       {
         "CLASSNAME": "model.Cards.Minion",
         "INSTANCE": {
           "abilities": [],
-          "ap": 6,
-          "hp": 10,
-          "type": "MELEE",
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
           "buffs": [],
           "flagNumber": 0,
-          "attackRange": 1,
+          "attackRange": 7,
           "isAttackedThisTurn": false,
           "isMovedThisTurn": false,
           "antiDisArm": false,
@@ -1899,10 +1747,10 @@
           "strongerAp": false,
           "notAcceptingHolyBuff": false,
           "cardId": 9,
-          "name": "asb savare fars",
+          "name": "camandare farse",
           "cardStatus": "IN_DECK",
-          "price": 200,
-          "mana": 4,
+          "price": 300,
+          "mana": 2,
           "description": ""
         }
       },
@@ -2006,194 +1854,6 @@
           "price": 400,
           "mana": 5,
           "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [
-            {
-              "CLASSNAME": "model.Buff.PoisonBuff",
-              "INSTANCE": {
-                "hpDecrease": 1,
-                "kind": "NEGATIVE",
-                "duration": 3,
-                "isContinuous": false,
-                "numberOfUsage": 0,
-                "onMoment": false,
-                "currentTurn": 0,
-                "castTurn": 1,
-                "isForCell": false
-              }
-            }
-          ],
-          "ap": 6,
-          "hp": 5,
-          "type": "RANGED",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 4,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "abilityCastTime": "ON_ATTACK",
-          "cardId": 6,
-          "name": "mare sammi",
-          "cardStatus": "IN_DECK",
-          "price": 300,
-          "mana": 4,
-          "description": "poison enemy for 3 turn"
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [],
-          "ap": 10,
-          "hp": 14,
-          "type": "HYBRID",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 7,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "cardId": 5,
-          "name": "dive siah",
-          "cardStatus": "IN_DECK",
-          "price": 300,
-          "mana": 9,
-          "description": "gooraaaa!"
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [],
-          "ap": 12,
-          "hp": 12,
-          "type": "RANGED",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 7,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "cardId": 4,
-          "name": "ghoole sang andaz",
-          "cardStatus": "IN_DECK",
-          "price": 300,
-          "mana": 9,
-          "description": "gooraaa!"
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [
-            {
-              "CLASSNAME": "model.Buff.StunBuff",
-              "INSTANCE": {
-                "kind": "NEGATIVE",
-                "duration": 2,
-                "isContinuous": false,
-                "numberOfUsage": 0,
-                "onMoment": false,
-                "currentTurn": 0,
-                "castTurn": 1,
-                "isForCell": false
-              }
-            }
-          ],
-          "ap": 6,
-          "hp": 4,
-          "type": "MELEE",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 1,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "abilityCastTime": "ON_ATTACK",
-          "cardId": 3,
-          "name": "shamshir zane fars",
-          "cardStatus": "IN_DECK",
-          "price": 400,
-          "mana": 2,
-          "description": "stun enemy for one turn"
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [],
-          "ap": 4,
-          "hp": 6,
-          "type": "RANGED",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 7,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "cardId": 2,
-          "name": "camandare farse",
-          "cardStatus": "IN_DECK",
-          "price": 300,
-          "mana": 2,
-          "description": ""
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Hero",
-        "INSTANCE": {
-          "coolDown": 0,
-          "coolDownWaiting": 0,
-          "ap": 7,
-          "hp": 55,
-          "type": "HYBRID",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 4,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "target": {
-            "type": "SOLDIER",
-            "areaSize": 0,
-            "soldierTargetType": "ITSELF",
-            "isaffectingCell": false
-          },
-          "cardId": 1,
-          "name": "rostam",
-          "cardStatus": "IN_DECK",
-          "price": 8000,
-          "mana": 0,
-          "description": ""
         }
       }
     ]
