@@ -1263,13 +1263,28 @@
     "description": "combo"
   },
   {
-    "abilities": [],
-    "ap": 2,
-    "hp": 2,
+    "abilities": [
+      {
+        "CLASSNAME": "model.Buff.AttackBuff",
+        "INSTANCE": {
+          "damage": 4,
+          "kind": "NEGATIVE",
+          "duration": 2,
+          "isContinuous": false,
+          "numberOfUsage": 0,
+          "onMoment": true,
+          "currentTurn": 1,
+          "castTurn": 2,
+          "isForCell": false
+        }
+      }
+    ],
+    "ap": 5,
+    "hp": 6,
     "type": "RANGED",
     "buffs": [],
     "flagNumber": 0,
-    "attackRange": 2,
+    "attackRange": 3,
     "isAttackedThisTurn": false,
     "isMovedThisTurn": false,
     "antiDisArm": false,
@@ -1280,8 +1295,30 @@
     "abilityCastTime": "ON_ATTACK",
     "cardId": 1,
     "name": "a",
-    "price": 200,
+    "price": 400,
+    "mana": 4,
+    "description": "sfsdaf"
+  },
+  {
+    "abilities": [],
+    "ap": 4,
+    "hp": 4,
+    "type": "MELEE",
+    "buffs": [],
+    "flagNumber": 0,
+    "attackRange": 0,
+    "isAttackedThisTurn": false,
+    "isMovedThisTurn": false,
+    "antiDisArm": false,
+    "antiPoison": false,
+    "antiNegative": false,
+    "strongerAp": false,
+    "notAcceptingHolyBuff": false,
+    "abilityCastTime": "ON_ATTACK",
+    "cardId": 1,
+    "name": "b",
+    "price": 50,
     "mana": 2,
-    "description": ""
+    "description": "44"
   }
 ]

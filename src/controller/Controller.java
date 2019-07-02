@@ -744,48 +744,51 @@ public class Controller {
         errorType = ErrorType.INVALID_CARD_ID;
     }
 
-    public void selectCardOrItem(Player player, String inBattleCardId, int itemId) {
+    public boolean selectCardOrItem(Player player, String inBattleCardId, int itemId) {
         if (player.containsCardInBattle(inBattleCardId)) {
             Card card = activePlayer.getInBattleCard(inBattleCardId);
             activePlayer.setSelectedCard(card);
             System.err.println(card.getName() + " " + card.getCardId() + " selected");
-            return;
+            return true;
         }
         if (player.getItems().containsKey(itemId)) {
             Item item = activePlayer.getItems().get(itemId);
             activePlayer.setSelectedItem(item);
             System.err.println(item.getName() + " selected");
-            return;
+            return true;
         }
         errorType = ErrorType.INVALID_CARD_ID;
+        return false;
     }
 
-    public void moveCard(int x, int y) {
+    public boolean moveCard(int x, int y) {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
-            return;
+            return false;
         }
         SoldierCard card = (SoldierCard) activePlayer.getSelectedCard();
         for (Buff buff : card.getBuffs()) {
             if (buff instanceof StunBuff) {
                 errorType = ErrorType.CARD_IS_STUNNED;
-                return;
+                return false;
             }
         }
         if (card.isMovedThisTurn()) {
             errorType = ErrorType.CAN_NOT_MOVE_AGAIN;
-            return;
+            return false;
         }
         if (!game.coordinateIsValid(x, y)) {
             errorType = ErrorType.INVALID_TARGET;
-            return;
+            return false;
         }
         Cell currentCell = activePlayer.getInBattleCards().get(card);
         Cell targetCell = game.getCell(x, y);
         if (targetCell.getCard() != null) {
             errorType = ErrorType.INVALID_TARGET;
+            return false;
         } else if (currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell, targetCell)) {
             errorType = ErrorType.INVALID_TARGET;
+            return false;
         } else {
             //removing old cell buffs
             card.removeCellBuffs();
@@ -803,6 +806,7 @@ public class Controller {
                 card.checkBUffTiming(card, false);
             }
             card.setMovedThisTurn(true);
+            return true;
         }
     }
 
@@ -821,39 +825,46 @@ public class Controller {
         }
     }
 
-    public void attack(String defenderInBattleId) {
+    public int attack(String defenderInBattleId) {
+        // return -1 if error occurred
+        // return 0 if attack had no counter Attack
+        // return 1 if attack had counter attack
+        int result = -1;
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
-            return;
+            return -1;
         }
         SoldierCard attacker = (SoldierCard) activePlayer.getSelectedCard();
         if (attacker.isAttackedThisTurn()) {
             errorType = ErrorType.CAN_NOT_ATTACK_AGAIN;
-            return;
+            return -1;
         }
         if (!deactivePlayer.containsCardInBattle(defenderInBattleId)) {
             errorType = ErrorType.INVALID_CARD_ID;
-            return;
+            return -1;
         }
         SoldierCard defender = (SoldierCard) deactivePlayer.getInBattleCard(defenderInBattleId);
         Cell attackerCell = activePlayer.getInBattleCards().get(attacker);
         Cell defenderCell = deactivePlayer.getInBattleCards().get(defender);
         if (!attacker.targetIsInRange(attackerCell, defenderCell)) {
             errorType = ErrorType.TARGET_NOT_IN_RANGE;
-            return;
+            return -1;
         }
         attacker.attack(defender);
         useUsable(activePlayer, WhenToUse.ON_ATTACK);
         attacker.setAttackedThisTurn(true);
         System.err.println("attacked");
+        result = 0;
         if (defender.targetIsInRange(defenderCell, attackerCell)) {
             defender.counterAttack(attacker);
-            System.err.println("counter attaacked");
+            System.err.println("counter attacked");
             checkDeadCard(activePlayer, attacker);
+            result = 1;
         }
         checkDeadCard(deactivePlayer, defender);
         if (game.gameIsOver())
             endTurn();
+        return result;
     }
 
     public void useSpecialPower(int x, int y) {
