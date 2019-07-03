@@ -13,11 +13,11 @@ import javafx.stage.Stage;
 
 
 public class Graphic extends Application {
-    private static Stage stage;
-    private static Controller mainController;
+    private Stage stage;
+    private Controller mainController;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
         Font.loadFont(
                 Graphic.class.getResource("Lato-Light.ttf").toExternalForm(),
                 10);
@@ -25,27 +25,29 @@ public class Graphic extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("loginView.fxml"));
         Parent root = (Parent) loader.load();
         LoginController controller = (LoginController) loader.getController();
-        controller.setStage(primaryStage);
+        controller.setStage(stage);
         controller.setMainController(mainController);
-        primaryStage.setTitle("Duelyst");
-        stage = primaryStage;
-        primaryStage.setFullScreen(true);
-        primaryStage.setScene(new Scene(root));
+        stage.setTitle("Duelyst");
+        this.stage = stage;
+        stage.setFullScreen(true);
+        stage.setScene(new Scene(root));
         Image image = new Image("view/Graphic/images/mouseCursor.png");
-        primaryStage.getScene().setCursor(new ImageCursor(image));
-        primaryStage.getScene();
-        primaryStage.getScene().getStylesheets().add("view/Graphic/Styles.css");
-        primaryStage.show();
+        stage.getScene().setCursor(new ImageCursor(image));
+        stage.getScene();
+        stage.getScene().getStylesheets().add("view/Graphic/Styles.css");
+        stage.show();
 
     }
 
-    public static void main(String[] args, Controller controller) {
+    public void main(String[] args, Controller controller) {
         mainController = controller;
         launch(args);
     }
+    public void showNewStage(){
 
+    }
 
-    public static Stage getStage() {
+    public Stage getStage() {
         return stage;
     }
 }

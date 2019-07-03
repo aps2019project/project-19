@@ -1,5 +1,6 @@
 package netWork;
 
+import controller.Controller;
 import view.Graphic.Graphic;
 
 import java.io.IOException;
@@ -17,11 +18,12 @@ public class Client {
     public static void main(String[] args) throws IOException {
         Client client = new Client();
         client.connectToServer();
-//        Graphic.main(args,);
-    }
+        new Graphic().main(args,new Controller(System.in));
+        while (true){}
+        }
 
     private void connectToServer() throws IOException {
-        socket = new Socket("localhost", 8550);
+        socket = new Socket("localhost", Server.SERVER_PORT);
         scanner = new Scanner(System.in);
         serverFormatter = new PrintStream(socket.getOutputStream(), true);
         serverScanner = new Scanner(socket.getInputStream());

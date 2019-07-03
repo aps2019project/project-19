@@ -58,7 +58,7 @@ public class CollectionController extends MenuController {
 
     public void putCardsInCollection() {
         collectionPane.getChildren().removeIf(node -> node instanceof AnchorPane);
-        Controller controller = Controller.getInstance();
+        Controller controller = getMainController();
         ArrayList<Object> products = new ArrayList<>();
         if (searchBar.getText().equals("")) {
             products.addAll(controller.getLoggedInAccount().getCollection().getCards());
