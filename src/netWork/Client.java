@@ -1,32 +1,30 @@
+package netWork;
 
 import view.Graphic.Graphic;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Formatter;
 import java.util.Scanner;
 
 public class Client {
     private Socket socket;
-    private Formatter serverFormatter;
+    private PrintStream serverFormatter;
     private Scanner scanner;
     private Scanner serverScanner;
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
         Client client = new Client();
-        try {
-            client.connectToServer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        client.connectToServer();
 //        Graphic.main(args,);
     }
 
     private void connectToServer() throws IOException {
-        socket = new Socket("localhost", 8888);
+        socket = new Socket("localhost", 8550);
         scanner = new Scanner(System.in);
-        serverFormatter = new Formatter(socket.getOutputStream());
+        serverFormatter = new PrintStream(socket.getOutputStream(), true);
         serverScanner = new Scanner(socket.getInputStream());
-
     }
 
 }
