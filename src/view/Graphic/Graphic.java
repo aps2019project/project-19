@@ -9,15 +9,16 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
+import netWork.Client;
+import netWork.ClientController;
 
 
 public class Graphic extends Application {
-    private Stage stage;
-    private Controller mainController;
+    private static Stage stage;
+    private static ClientController mainController;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage primaryStage) throws Exception {
         Font.loadFont(
                 Graphic.class.getResource("Lato-Light.ttf").toExternalForm(),
                 10);
@@ -25,26 +26,23 @@ public class Graphic extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("loginView.fxml"));
         Parent root = (Parent) loader.load();
         LoginController controller = (LoginController) loader.getController();
-        controller.setStage(stage);
+        controller.setStage(primaryStage);
         controller.setMainController(mainController);
-        stage.setTitle("Duelyst");
-        this.stage = stage;
-        stage.setFullScreen(true);
-        stage.setScene(new Scene(root));
+        primaryStage.setTitle("Duelyst");
+        stage = primaryStage;
+        primaryStage.setFullScreen(true);
+        primaryStage.setScene(new Scene(root));
         Image image = new Image("view/Graphic/images/mouseCursor.png");
-        stage.getScene().setCursor(new ImageCursor(image));
-        stage.getScene();
-        stage.getScene().getStylesheets().add("view/Graphic/Styles.css");
-        stage.show();
+        primaryStage.getScene().setCursor(new ImageCursor(image));
+        primaryStage.getScene();
+        primaryStage.getScene().getStylesheets().add("view/Graphic/Styles.css");
+        primaryStage.show();
 
     }
 
-    public void main(String[] args, Controller controller) {
+    public static void main(String[] args, ClientController controller) {
         mainController = controller;
         launch(args);
-    }
-    public void showNewStage(){
-
     }
 
     public Stage getStage() {

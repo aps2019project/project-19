@@ -21,7 +21,7 @@ public class Server {
         ServerSocket serverSocket = new ServerSocket(SERVER_PORT);
         while (true) {
             Socket client = serverSocket.accept();
-            Controller controller = new Controller(client.getInputStream());
+            Controller controller = new Controller(client.getInputStream(),client.getOutputStream());
             ManageClient manageClient = new ManageClient(client, controller);
             manageClient.start();
         }
@@ -35,7 +35,7 @@ class ManageClient extends Thread {
 
     @Override
     public void run() {
-
+        controller.run();
     }
 
     public ManageClient(Socket clientSocket, Controller controller) {

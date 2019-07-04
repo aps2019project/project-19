@@ -14,9 +14,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         CardInitializer cardInitializer = CardInitializer.getInstance();
         cardInitializer.createCards();
-//        Controller controller = Controller.getInstance();
         AccountManagement.readAccounts();
-//        Graphic.main(args,controller);
         Server.main(args);
     }
 

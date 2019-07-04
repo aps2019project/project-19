@@ -68,17 +68,9 @@ public class Request {
     }
 
     public void getNewCommand() {
-//        do {
-//            command = scanner.nextLine().trim().toLowerCase();
-//        } while (command.equals(""));
-        while (command.equals("waiting")) {
-//            try {
-//                Thread.sleep(300);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-        }
-        command = command.trim();
+        do {
+            command = scanner.nextLine().trim().toLowerCase();
+        } while (command.equals(""));
         System.err.println(command);
     }
 
@@ -348,9 +340,9 @@ public class Request {
                 case "keep the flag":
                     gameMode = GameMode.KEEP_THE_FLAG;
                     break;
-                default:
-                    errorType = ErrorType.INVALID_COMMAND;
-                    break;
+//                default:
+//                    errorType = ErrorType.INVALID_COMMAND;
+//                    break;
             }
         }
     }
@@ -385,7 +377,7 @@ public class Request {
             gameMode = GameMode.KEEP_THE_FLAG;
             return;
         }
-        errorType = ErrorType.INVALID_COMMAND;
+//        errorType = ErrorType.INVALID_COMMAND;
     }
 
     private void parseSearchInCollection() {

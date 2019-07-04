@@ -3,18 +3,31 @@ package view;
 import controller.MenuType;
 import model.Shop;
 
+import java.io.*;
+
 public class View {
-    private static final View VIEW = new View();
-
-    public static View getInstance() {
-        return VIEW;
+    private PrintStream printStream;
+    private OutputStream outputStream;
+    private ObjectOutputStream objectOutputStream;
+    public View(OutputStream outputStream) {
+        this.outputStream = outputStream;
+        printStream = new PrintStream(outputStream);
+        try {
+            objectOutputStream = new ObjectOutputStream(outputStream);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
-    private View() {
-    }
 
-    public void printError(ErrorType errorType) {
-        System.out.println(errorType.getMessage());
+    public void printError (ErrorType errorType) {
+        if(errorType == null)
+            errorType = ErrorType.NO_ERROR;
+        try {
+            objectOutputStream.writeObject(errorType);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void printEnterPassword() {

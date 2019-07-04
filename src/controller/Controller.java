@@ -10,23 +10,28 @@ import view.*;
 import model.Game.*;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
 public class Controller {
-    private final static Controller CONTROLLER = new Controller(System.in);
 
 //    public static Controller getInstance() {
 //        return CONTROLLER;
 //    }
 
-    public Controller(InputStream inputStream) {
-        this.inputStream = inputStream;
-        request = new Request(inputStream);
+    public Controller() {
     }
 
+    public Controller(InputStream inputStream,OutputStream outputStream) {
+        this.inputStream = inputStream;
+        this.outputStream = outputStream;
+        request = new Request(inputStream);
+        view = new View(outputStream);
+    }
+    private OutputStream outputStream;
     private InputStream inputStream;
     private Shop shop = Shop.getInstance();
     private MenuType menuType = MenuType.ACCOUNT;
@@ -36,7 +41,7 @@ public class Controller {
     private Player activePlayer;
     private Player deactivePlayer;
     private ErrorType errorType = null;
-    private View view = View.getInstance();
+    private View view;
     private Deck aiDeck;
     private Ai ai;
 
@@ -48,7 +53,7 @@ public class Controller {
         this.errorType = errorType;
     }
 
-    /*
+
         public void run() {
             //mainLoop:
             do {
@@ -60,19 +65,11 @@ public class Controller {
                 } else request.getNewCommand();
                 request.setRequestType(menuType);
                 request.parseCommand();
-                if (game != null) {
-                    if (game.isTurnOfPlayerOne()) {
-                        activePlayer = game.getPlayer1();
-                        deactivePlayer = game.getPlayer2();
-                    } else {
-                        activePlayer = game.getPlayer2();
-                        deactivePlayer = game.getPlayer1();
-                    }
-                }
+                setActivePlayer();
                 switch (request.getRequestType()) {
-                    case ERROR:
-                        errorType = ErrorType.INVALID_COMMAND;
-                        break;
+//                    case ERROR:
+//                        errorType = ErrorType.INVALID_COMMAND;
+//                        break;
                     ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
                     case SHOW_LEADER_BOARD:
                         showLeaderBoard();
@@ -90,8 +87,8 @@ public class Controller {
                         save();
                         break;
                     ///////////////////////////// SHOP  ///////////////////////////
-                    case SEARCH_IN_SHOP:
-    //                    searchInShop();
+ /*                   case SEARCH_IN_SHOP:
+                        searchInShop();
                         break;
                     case SEARCH_IN_COLLECTION:
                         searchInCollection();
@@ -227,6 +224,7 @@ public class Controller {
                     case END_GAME:
                         endGame();
                         break;
+                        */
                     /////////////////////////////////            //////////////////////
                     case EXIT_MENU:
                         exitMenu();
@@ -238,14 +236,12 @@ public class Controller {
                         view.showHelp(menuType);
                         break;
                 }
-                if (errorType != null) {
-                    view.printError(errorType);
-                    request.setErrorType(errorType);
-                    errorType = null;
-                }
+                view.printError(errorType);
+//                request.setErrorType(errorType);
+                errorType = null;
             } while (true);
         }
-    */
+
     public boolean exportDeck(Deck deck, String fileName) {
         if (!deck.deckIsValid()) {
             errorType = ErrorType.INVALID_DECK;
@@ -363,7 +359,7 @@ public class Controller {
 
     private void selectMultiPlayerMode() {
         if (game == null) {
-            errorType = ErrorType.INVALID_COMMAND;
+//            errorType = ErrorType.INVALID_COMMAND;
             return;
         }
         game.setGameMode(request.getGameMode());
@@ -398,29 +394,32 @@ public class Controller {
         System.err.println("game started");
     }
 
-    public boolean createNewAccount(String userName, String password) {
-        if (Account.userNameIsValid(userName)) {
+    public boolean createNewAccount() {
+        if (Account.userNameIsValid(request.getUserName())) {
             errorType = ErrorType.USERNAME_TAKEN;
             return false;
         }
-        Account newAccount = new Account(userName, password);
+        request.getNewCommand();
+        Account newAccount = new Account(request.getUserName(),request.getCommand());
         Account.addAccount(newAccount);
         System.out.println("account created");
         return true;
     }
 
-    public boolean login(String userName, String password) {
-        if (!Account.userNameIsValid(userName)) {
+
+    public boolean login() {
+        if (!Account.userNameIsValid(request.getUserName())) {
             errorType = ErrorType.INVALID_USERNAME;
             return false;
         }
-        if (!Account.passwordIsValid(password, userName)) {
+        request.getNewCommand();
+        if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
             errorType = ErrorType.INVALID_PASSWORD;
             return false;
         }
-        loggedInAccount = Account.getAccounts().get(userName);
+        loggedInAccount = Account.getAccounts().get(request.getUserName());
         menuType = MenuType.MAINMENU;
-        System.out.println("logged into " + userName);
+        System.out.println("logged into " + request.getUserName());
         return true;
     }
 
@@ -515,7 +514,7 @@ public class Controller {
                     menuType = MenuType.GRAVEYARD;
                 break;
         }
-        errorType = ErrorType.INVALID_COMMAND;
+//        errorType = ErrorType.INVALID_COMMAND;
     }
 
     public void showCollectionItems() {

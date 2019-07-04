@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import model.Cards.*;
 import model.Deck;
 import model.Item;
+import netWork.Client;
+import netWork.ClientController;
 import view.ErrorType;
 
 import java.util.ArrayList;
@@ -28,13 +30,13 @@ public class MenuController {
     private String customGameDeck;
 
     private Stage stage;
-    private Controller mainController;
+    private ClientController mainController;
 
     public void setCustomGameDeck(String customGameDeck) {
         this.customGameDeck = customGameDeck;
     }
 
-    public void setMainController(Controller mainController) {
+    public void setMainController(ClientController mainController) {
         this.mainController = mainController;
     }
 
@@ -46,7 +48,7 @@ public class MenuController {
         return stage;
     }
 
-    public Controller getMainController() {
+    public ClientController getMainController() {
         return mainController;
     }
 
