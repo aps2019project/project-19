@@ -27,11 +27,15 @@ public class ClientController extends Controller {
 
     public boolean createNewAccount(String userName, String password) {
         sendCommandToServer("create account "+userName);
+        if(!readErrors())
+            return false;
         sendCommandToServer(password);
         return readErrors();
     }
     public boolean login(String userName, String password) {
         sendCommandToServer("login "+userName);
+        if(!readErrors())
+            return false;
         sendCommandToServer(password);
         return readErrors();
     }

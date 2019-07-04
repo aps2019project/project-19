@@ -16,7 +16,6 @@ public class Request {
     private Scanner scanner;
     private String command;
     private RequestType requestType;
-    private ErrorType errorType;
     private String deckName;
     private String cardName;
     private String searchingName;
@@ -419,9 +418,6 @@ public class Request {
         this.requestType = findTypeOfRequest(menuType);
     }
 
-    public void setErrorType(ErrorType errorType) {
-        this.errorType = errorType;
-    }
 
     public ArrayList<String> getComboAttackers() {
         return comboAttackers;
@@ -455,9 +451,6 @@ public class Request {
         return requestType;
     }
 
-    public ErrorType getErrorType() {
-        return errorType;
-    }
 
     public String getDeckName() {
         return deckName;

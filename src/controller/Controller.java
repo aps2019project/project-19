@@ -58,7 +58,7 @@ public class Controller {
             //mainLoop:
             do {
                 System.out.println("Menu: " + menuType + " ");
-                request.resetProperties();
+//                request.resetProperties();
                 if (ai != null && !game.isTurnOfPlayerOne()) {
                     request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
                     System.err.println("ai requested: " + request.getCommand());
@@ -399,6 +399,7 @@ public class Controller {
             errorType = ErrorType.USERNAME_TAKEN;
             return false;
         }
+        view.printError(errorType);
         request.getNewCommand();
         Account newAccount = new Account(request.getUserName(),request.getCommand());
         Account.addAccount(newAccount);
@@ -412,6 +413,7 @@ public class Controller {
             errorType = ErrorType.INVALID_USERNAME;
             return false;
         }
+        view.printError(errorType);
         request.getNewCommand();
         if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
             errorType = ErrorType.INVALID_PASSWORD;
