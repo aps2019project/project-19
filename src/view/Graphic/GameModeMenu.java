@@ -40,8 +40,10 @@ public class GameModeMenu extends MenuController implements Initializable {
     public void exit() {
         if (isCustomGame()) {
             setCustomGame(false);
+            getMainController().exitMenu();
             changeMenu("singleGameCustomMode.fxml");
         } else {
+            getMainController().exitMenu();
             changeMenu("startNewGame.fxml");
         }
     }

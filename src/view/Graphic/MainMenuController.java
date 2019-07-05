@@ -39,10 +39,12 @@ public class MainMenuController extends MenuController implements Initializable 
     }
 
     public void goToCollection() {
+        getMainController().enterMenu("collection");
         changeMenu("collectionView.fxml");
     }
 
     public void goToStartNewGame() {
+        getMainController().enterMenu("battle");
         changeMenu("startNewGame.fxml");
     }
 
@@ -52,12 +54,11 @@ public class MainMenuController extends MenuController implements Initializable 
     }
 
     public void deleteAccount() {
-        if (AccountManagement.deleteAccount(getMainController().getLoggedInAccount())) {
+        if (getMainController().removeAccount()) {
             AlertBox.display(Alert.AlertType.INFORMATION, "Account", "Account deleted successfully");
-            getMainController().logOut();
             changeMenu("loginView.fxml");
         } else {
-            AlertBox.display(Alert.AlertType.ERROR, "Account", "Account has not been saved yet");
+            AlertBox.display(Alert.AlertType.ERROR, "Account", getMainController().getErrorType().getMessage());
         }
     }
 }

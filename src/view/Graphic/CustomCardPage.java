@@ -330,6 +330,7 @@ public class CustomCardPage extends MenuController implements Initializable {
     }
 
     public void exit() {
+        getMainController().exitMenu();
         changeMenu("shopView.fxml");
     }
 

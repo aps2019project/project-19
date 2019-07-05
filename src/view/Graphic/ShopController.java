@@ -64,10 +64,12 @@ public class ShopController extends MenuController {
     }
 
     public void exit() {
+        getMainController().exitMenu();
         changeMenu("MainMenu.fxml");
     }
 
     public void goToCustomCardMenu() {
+        getMainController().enterMenu("custom card menu");
         changeMenu("customCardPage.fxml");
     }
 }

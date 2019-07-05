@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import javafx.scene.control.Alert;
 import model.*;
 import model.Buff.Buff;
 import model.Buff.DispellBuff;
@@ -10,6 +11,7 @@ import model.Cards.*;
 import model.Target.Type;
 import view.*;
 import model.Game.*;
+import view.Graphic.AlertBox;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -93,9 +95,6 @@ public class Controller {
                 case GET_ACCOUNT:
                     getLoggedInAccount();
                     break;
-                case GET_ERROR:
-                    getErrorType();
-                    break;
                 ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
                 case SHOW_LEADER_BOARD:
                     showLeaderBoard();
@@ -111,6 +110,9 @@ public class Controller {
                     break;
                 case SAVE:
                     save();
+                    break;
+                case DELETE_ACCOUNT:
+                    deleteAccount();
                     break;
                 ///////////////////////////// SHOP  ///////////////////////////
  /*                   case SEARCH_IN_SHOP:
@@ -167,29 +169,29 @@ public class Controller {
                         break;
                     case IMPORT_DECK:
                         importDeck();
-                        break;
-                    ///////////////////////////////// CREATING GAME ///////////////////////
-                    case SHOW_ALL_PLAYERS:
-                        showAllPlayer();
-                        break;
-                    case SELECT_OPPONENT_USER:
-                        selectOpponent();
-                        break;
-                    case SELECT_MULTI_PLAYER_MODE:
-                        selectMultiPlayerMode();
-                        // TODO: 2019-04- test
-                        break;
-                    case SELECT_STORY_LEVEL:
-                        selectStoryLevel();
-                        break;
-                    case CHOOSE_HERO:
-                        chooseHero();
-                        break;
-                    case SELECT_CUSTOM_GAME_GAMEMODE:
-                        createCustomGame();
-                        break;
-                    ///////////////////////////////// BATTLE  ////////////////////////
-                    case INSERT_CARD:
+                        break;*/
+                ///////////////////////////////// CREATING GAME ///////////////////////
+                case SHOW_ALL_PLAYERS:
+                    showAllPlayer();
+                    break;
+                case SELECT_OPPONENT_USER:
+                    selectOpponent();
+                    break;
+                case SELECT_MULTI_PLAYER_MODE:
+                    selectMultiPlayerMode();
+                    // TODO: 2019-04- test
+                    break;
+                case SELECT_STORY_LEVEL:
+                    selectStoryLevel();
+                    break;
+                case CHOOSE_HERO:
+                    chooseHero();
+                    break;
+                case SELECT_CUSTOM_GAME_GAMEMODE:
+                    createCustomGame();
+                    break;
+                ///////////////////////////////// BATTLE  ////////////////////////
+                    /*case INSERT_CARD:
                         insertCard();
                         break;
                     case SHOW_GAME_INFO:
@@ -268,6 +270,14 @@ public class Controller {
         } while (true);
     }
 
+    public void deleteAccount() {
+        if (AccountManagement.deleteAccount(loggedInAccount)) {
+            logOut();
+        } else {
+            errorType = ErrorType.ACCOUNT_NOT_SAVED;
+        }
+    }
+
     public boolean exportDeck(Deck deck, String fileName) {
         if (!deck.deckIsValid()) {
             errorType = ErrorType.INVALID_DECK;
@@ -311,21 +321,21 @@ public class Controller {
         return loggedInAccount;
     }
 
-    public void createCustomGame(GameMode gameMode, String deckName, int numOfFlags) {
+    public void createCustomGame() {
         if (aiDeck == null) {
             System.out.println("ai deck is null");
             errorType = ErrorType.OPPONENT_HERO_NOT_SELECTED;
         } else {
-            if (loggedInAccount.getCollection().getDecks().containsKey(deckName)) {
+            if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
                 Player player1 = new Player(loggedInAccount,
-                        loggedInAccount.getCollection().getDecks().get(deckName));
+                        loggedInAccount.getCollection().getDecks().get(request.getDeckName()));
                 ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
                 game = new Game(player1, ai.getPlayer());
-                game.setGameMode(gameMode);
-                if (gameMode.equals(GameMode.CAPTURE_THE_FLAGS)) {
-                    game.setNumOfFlags(numOfFlags);
+                game.setGameMode(request.getGameMode());
+                if (request.getGameMode().equals(GameMode.CAPTURE_THE_FLAGS)) {
+                    game.setNumOfFlags(request.getNumOfFlags());
                 }
-                initNewGame(gameMode);
+                initNewGame(request.getGameMode());
                 game.setPrize(1000);
             } else {
                 errorType = ErrorType.DECK_NOT_EXISTS;
@@ -333,12 +343,11 @@ public class Controller {
         }
     }
 
-    public void chooseHero(String heroName) {
-        Card newHero = shop.findCard(heroName);
+    public void chooseHero() {
+        Card newHero = shop.findCard(request.getCardName());
         if (newHero == null || !(newHero instanceof Hero))
             errorType = ErrorType.WRONG_HERO_NAME;
         else {
-            //todo check if a maindeck is available
             aiDeck = new Deck(loggedInAccount.getCollection().getMainDeck());
             Card postHero = aiDeck.getHero();
             aiDeck.getCards().remove(postHero.getCardId());
@@ -346,25 +355,25 @@ public class Controller {
         }
     }
 
-    public void selectStoryLevel(int storyLevel) {
+    public void selectStoryLevel() {
         Player player1 = new Player(loggedInAccount, loggedInAccount.getCollection().getMainDeck());
-        if (storyLevel > 4 || storyLevel < 1) {
+        if (request.getStoryLevel() > 4 || request.getStoryLevel() < 1) {
             errorType = ErrorType.INVALID_LEVEL;
             return;
         }
         game = new Game();
         game.initStoryDecks(shop);
-        aiDeck = game.getStoryLevelDecks().get(storyLevel - 1);
+        aiDeck = game.getStoryLevelDecks().get(request.getStoryLevel() - 1);
         ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
         game = new Game(player1, ai.getPlayer());
-        if (storyLevel == 1)
+        if (request.getStoryLevel() == 1)
             game.setGameMode(GameMode.DEATH_MATCH);
-        if (storyLevel == 2)
+        if (request.getStoryLevel() == 2)
             game.setGameMode(GameMode.CAPTURE_THE_FLAGS);
-        if (storyLevel == 3)
+        if (request.getStoryLevel() == 3)
             game.setGameMode(GameMode.KEEP_THE_FLAG);
         initNewGame(game.getGameMode());
-        game.setStoryPrize(storyLevel);
+        game.setStoryPrize(request.getStoryLevel());
     }
 
     private void selectOpponent() {

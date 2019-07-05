@@ -29,6 +29,7 @@ public class SingleGameStoryMode extends MenuController implements Initializable
     }
 
     public void exit() {
+        getMainController().exitMenu();
         changeMenu("singleGameMenu.fxml");
     }
 }

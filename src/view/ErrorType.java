@@ -1,7 +1,7 @@
 package view;
 
 public enum ErrorType {
-//    INVALID_COMMAND("invalid command."),
+    //    INVALID_COMMAND("invalid command."),
     USERNAME_TAKEN("this user name is already taken."),
     INVALID_USERNAME("this user name does not exists."),
     INVALID_PASSWORD("your password is wrong."),
@@ -41,7 +41,8 @@ public enum ErrorType {
     YOU_DONT_HAVE_THE_CARD("you don't have deck cards"),
     //    LOGGED_IN("you must logout from your account before creating new account or login into another"),
 //    NOT_LOGGED_IN("you must login to your account to");
-    NO_ERROR("no error");
+    NO_ERROR("no error"),
+    ACCOUNT_NOT_SAVED("Account has not been saved yet");
     private String message;
 
     ErrorType(String message) {

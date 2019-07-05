@@ -78,8 +78,6 @@ public class Request {
             return RequestType.GET_SHOP;
         else if (command.matches("getaccount"))
             return RequestType.GET_ACCOUNT;
-        else if (command.matches("geterror"))
-            return RequestType.GET_ERROR;
         switch (menuType) {
             case ACCOUNT:
                 if (command.matches("create account \\w+"))
@@ -94,6 +92,8 @@ public class Request {
                     return RequestType.SAVE;
                 if (command.matches("logout"))
                     return RequestType.LOGOUT;
+                if (command.matches("delete account"))
+                    return RequestType.DELETE_ACCOUNT;
                 break;
             case COLLECTION:
                 if (command.matches("show"))
@@ -409,6 +409,8 @@ public class Request {
             enteringMenu = MenuType.SINGLE_GAME_STORY_MODE;
         else if (enteringMenuName.equals("graveyard"))
             enteringMenu = MenuType.GRAVEYARD;
+        else if(enteringMenuName.equals("custom card menu"))
+            enteringMenu = MenuType.CUSTOM_CARD_MENU;
     }
 
     public void parseMoveCard() {

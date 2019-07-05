@@ -10,6 +10,7 @@ public enum RequestType {
     LOGIN,
     SHOW_LEADER_BOARD,
     SAVE,
+    DELETE_ACCOUNT,
     LOGOUT,
     ///////// COLLECTION /////////
     SHOW_COLLECTION_ITEMS,
@@ -62,5 +63,4 @@ public enum RequestType {
     ////////default////////
     GET_SHOP,
     GET_ACCOUNT,
-    GET_ERROR,
 }
