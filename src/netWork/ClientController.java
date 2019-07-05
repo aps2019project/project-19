@@ -2,17 +2,20 @@ package netWork;
 
 import com.sun.corba.se.spi.ior.ObjectKey;
 import controller.Controller;
+import model.Account;
+import model.Shop;
 import view.ErrorType;
 
 import java.io.*;
 import java.util.Scanner;
 
 public class ClientController extends Controller {
-    InputStream inputStream;
-    OutputStream outputStream;
-    PrintStream serverPrinter;
-    Scanner serverScanner;
-    ObjectInputStream objectInputStream;
+    private InputStream inputStream;
+    private OutputStream outputStream;
+    private PrintStream serverPrinter;
+    private Scanner serverScanner;
+    private ObjectInputStream objectInputStream;
+
     public ClientController(InputStream inputStream, OutputStream outputStream) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
@@ -40,7 +43,12 @@ public class ClientController extends Controller {
         return readErrors();
     }
 
-    private void sendCommandToServer(String command){
+    public boolean enterMenu(String menuName) {
+        sendCommandToServer("enter " + menuName);
+        return readErrors();
+    }
+
+    private void sendCommandToServer(String command) {
         serverPrinter.println(command);
         serverPrinter.flush();
     }

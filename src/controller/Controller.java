@@ -25,7 +25,7 @@ public class Controller {
     public Controller() {
     }
 
-    public Controller(InputStream inputStream,OutputStream outputStream) {
+    public Controller(InputStream inputStream, OutputStream outputStream) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
         request = new Request(inputStream);
@@ -44,6 +44,10 @@ public class Controller {
     private View view;
     private Deck aiDeck;
     private Ai ai;
+
+    public void setLoggedInAccount(Account loggedInAccount) {
+        this.loggedInAccount = loggedInAccount;
+    }
 
     public Shop getShop() {
         return shop;
@@ -70,23 +74,23 @@ public class Controller {
 //                    case ERROR:
 //                        errorType = ErrorType.INVALID_COMMAND;
 //                        break;
-                    ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
-                    case SHOW_LEADER_BOARD:
-                        showLeaderBoard();
-                        break;
-                    case CREATE_ACCOUNT:
-                        createNewAccount();
-                        break;
-                    case LOGIN:
-                        login();
-                        break;
-                    case LOGOUT:
-                        logOut();
-                        break;
-                    case SAVE:
-                        save();
-                        break;
-                    ///////////////////////////// SHOP  ///////////////////////////
+                ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
+                case SHOW_LEADER_BOARD:
+                    showLeaderBoard();
+                    break;
+                case CREATE_ACCOUNT:
+                    createNewAccount();
+                    break;
+                case LOGIN:
+                    login();
+                    break;
+                case LOGOUT:
+                    logOut();
+                    break;
+                case SAVE:
+                    save();
+                    break;
+                ///////////////////////////// SHOP  ///////////////////////////
  /*                   case SEARCH_IN_SHOP:
                         searchInShop();
                         break;
@@ -399,7 +403,6 @@ public class Controller {
             errorType = ErrorType.USERNAME_TAKEN;
             return false;
         }
-        view.printError(errorType);
         request.getNewCommand();
         Account newAccount = new Account(request.getUserName(),request.getCommand());
         Account.addAccount(newAccount);
@@ -413,7 +416,6 @@ public class Controller {
             errorType = ErrorType.INVALID_USERNAME;
             return false;
         }
-        view.printError(errorType);
         request.getNewCommand();
         if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
             errorType = ErrorType.INVALID_PASSWORD;
