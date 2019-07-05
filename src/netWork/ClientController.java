@@ -78,8 +78,11 @@ public class ClientController extends Controller {
         sendCommandToServer("add " + id + " to deck " + deckName);
     }
 
-    @Override
     public void removeFromDeck(String deckName, int id) {
         sendCommandToServer("remove " + id + " from deck " + deckName);
+    }
+
+    public void selectMainDeck(String deckName) {
+        sendCommandToServer("select deck " + deckName);
     }
 }

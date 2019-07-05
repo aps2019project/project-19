@@ -132,10 +132,10 @@ public class Controller {
                         /*
                     case VALIDATE_DECK:
                         validateDeck();
-                        break;
+                        break;*/
                     case SELECT_MAIN_DECK:
                         selectMainDeck();
-                        break;*/
+                        break;
                     case REMOVE_FROM_DECK:
                         removeFromDeck();
                         //todo: test for items
@@ -622,11 +622,11 @@ public class Controller {
         else errorType = ErrorType.INVALID_DECK;
     }
 
-    public void selectMainDeck(String deckName) {
-        if (!loggedInAccount.getCollection().getDecks().containsKey(deckName))
+    public void selectMainDeck() {
+        if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
             errorType = ErrorType.DECK_NOT_EXISTS;
-        else if (loggedInAccount.getCollection().getDecks().get(deckName).deckIsValid()) {
-            loggedInAccount.getCollection().setMainDeck(deckName);
+        else if (loggedInAccount.getCollection().getDecks().get(request.getDeckName()).deckIsValid()) {
+            loggedInAccount.getCollection().setMainDeck(request.getDeckName());
             view.show("deck has selected");
         } else errorType = ErrorType.INVALID_DECK;
     }
