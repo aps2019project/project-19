@@ -65,7 +65,7 @@ public class ClientController extends Controller {
     public Account getLoggedInAccount() {
         sendCommandToServer("getAccount");
         Account account = gson.fromJson(serverScanner.nextLine(), Account.class);
-        //boolean x = readErrors();
+        readErrors();
         return account;
     }
 
