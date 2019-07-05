@@ -1,6 +1,5 @@
 package view;
 
-import controller.Controller;
 import controller.MenuType;
 import model.Deck;
 import model.Game.GameMode;
@@ -76,6 +75,10 @@ public class Request {
 
 
     public RequestType findTypeOfRequest(MenuType menuType) {
+        if (command.matches("getshop"))
+            return RequestType.GET_SHOP;
+        if (command.matches("getaccount"))
+            return RequestType.GET_ACCOUNT;
         switch (menuType) {
             case ACCOUNT:
                 if (command.matches("create account \\w+"))

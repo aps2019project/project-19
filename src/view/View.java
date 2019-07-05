@@ -9,24 +9,32 @@ public class View {
     private PrintStream printStream;
     private OutputStream outputStream;
     private ObjectOutputStream objectOutputStream;
+
     public View(OutputStream outputStream) {
         this.outputStream = outputStream;
         printStream = new PrintStream(outputStream);
         try {
             objectOutputStream = new ObjectOutputStream(outputStream);
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    public void printError (ErrorType errorType) {
-        if(errorType == null)
-            errorType = ErrorType.NO_ERROR;
-        try {
-            objectOutputStream.writeObject(errorType);
-        }catch (Exception e){
-            e.printStackTrace();
+    public void printError(ErrorType errorType) {
+//        if(errorType == null)
+//            errorType = ErrorType.NO_ERROR;
+//        try {
+//            objectOutputStream.writeObject(errorType);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+        if (errorType != null) {
+            try {
+                objectOutputStream.writeObject(errorType);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

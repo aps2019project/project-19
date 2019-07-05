@@ -1,5 +1,7 @@
 package controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import model.*;
 import model.Buff.Buff;
 import model.Buff.DispellBuff;
@@ -11,6 +13,7 @@ import model.Game.*;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -30,8 +33,14 @@ public class Controller {
         this.outputStream = outputStream;
         request = new Request(inputStream);
         view = new View(outputStream);
+        printStream = new PrintStream(outputStream, true);
     }
 
+    private PrintStream printStream;
+    private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
+            .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
+            .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
+            .create();
     private OutputStream outputStream;
     private InputStream inputStream;
     private Shop shop = Shop.getInstance();
@@ -51,6 +60,8 @@ public class Controller {
     }
 
     public Shop getShop() {
+        printStream.println(gson.toJson(shop));
+        printStream.flush();
         return shop;
     }
 
@@ -74,6 +85,13 @@ public class Controller {
 //                    case ERROR:
 //                        errorType = ErrorType.INVALID_COMMAND;
 //                        break;
+                /////////////////////////////default//////////////////////////////
+                case GET_SHOP:
+                    getShop();
+                    break;
+                case GET_ACCOUNT:
+                    getLoggedInAccount();
+                    break;
                 ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
                 case SHOW_LEADER_BOARD:
                     showLeaderBoard();
@@ -284,6 +302,8 @@ public class Controller {
 
 
     public Account getLoggedInAccount() {
+        printStream.println(gson.toJson(loggedInAccount));
+        printStream.flush();
         return loggedInAccount;
     }
 
