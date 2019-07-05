@@ -5,6 +5,7 @@ public enum ErrorType {
     USERNAME_TAKEN("this user name is already taken."),
     INVALID_USERNAME("this user name does not exists."),
     INVALID_PASSWORD("your password is wrong."),
+    USER_IS_ONLINE("this user is already online"),
     NOT_FOUND("card or item not found"),
     NOT_ENOUGH_MONEY("not enough money"),
     FULL_ITEMS("you have already three items"),

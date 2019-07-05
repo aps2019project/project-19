@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import netWork.ClientController;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class ShopController extends MenuController {
     public void putCards() {
         shopPane.getChildren().removeIf(node -> node instanceof AnchorPane);
         collectionInShopPane.getChildren().removeIf(node -> node instanceof AnchorPane);
-        Controller controller = getMainController();
+        ClientController controller = getMainController();
         ArrayList<Object> shopProducts = new ArrayList<>();
         ArrayList<Object> collectionProducts = new ArrayList<>();
         if (searchBar.getText().equals("")) {

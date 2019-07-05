@@ -88,6 +88,10 @@ public class Request {
                     return RequestType.SHOW_LEADER_BOARD;
                 break;
             case MAINMENU:
+                if(command.equals("getchats"))
+                    return RequestType.GET_CHATS;
+                if(command.equals("recivechat"))
+                    return RequestType.RECIVE_CHAT;
                 if (command.matches("save"))
                     return RequestType.SAVE;
                 if (command.matches("logout"))
@@ -201,6 +205,8 @@ public class Request {
                     return RequestType.SHOW_SHOP;
                 break;
         }
+        if (command.matches("logout") && menuType!=MenuType.ACCOUNT)
+            return RequestType.LOGOUT;
         if (command.matches("help"))
             return RequestType.HELP;
         if (command.matches("exit"))

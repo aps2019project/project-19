@@ -5,6 +5,8 @@ public enum RequestType {
     HELP,
     EXIT_MENU,
     ENTER_MENU,
+    GET_CHATS,
+    RECIVE_CHAT,
     /////////// ACCOUNT /////////
     CREATE_ACCOUNT,
     LOGIN,
