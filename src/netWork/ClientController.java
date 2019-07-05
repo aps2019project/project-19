@@ -63,7 +63,7 @@ public class ClientController extends Controller {
     public Shop getShop() {
         sendCommandToServer("getShop");
         Shop shop = gson.fromJson(serverScanner.nextLine(), Shop.class);
-        //boolean x = readErrors();
+        readErrors();
         return shop;
     }
 
@@ -80,21 +80,10 @@ public class ClientController extends Controller {
         serverPrinter.flush();
     }
 
-    @Override
-    public ErrorType getErrorType() {
-        sendCommandToServer("getError");
-        ErrorType errorType = gson.fromJson(serverScanner.nextLine(), ErrorType.class);
-        return errorType;
-    }
 
     public boolean readErrors() {
         ErrorType errorType = null;
-        try {
-            errorType = (ErrorType) objectInputStream.readObject();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        errorType = gson.fromJson(serverScanner.nextLine(), ErrorType.class);
         if (errorType.equals(ErrorType.NO_ERROR)) {
             setErrorType(null);
             return true;

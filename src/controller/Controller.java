@@ -1487,8 +1487,6 @@ public class Controller {
     }
 
     public ErrorType getErrorType() {
-        printStream.println(gson.toJson(errorType));
-        printStream.flush();
         return errorType;
     }
 
