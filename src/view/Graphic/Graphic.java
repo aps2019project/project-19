@@ -31,6 +31,9 @@ public class Graphic extends Application {
         primaryStage.setTitle("Duelyst");
         stage = primaryStage;
         primaryStage.setFullScreen(true);
+        primaryStage.setOnCloseRequest((event)->{
+            System.err.println("clooosing");
+        });
         primaryStage.setScene(new Scene(root));
         Image image = new Image("view/Graphic/images/mouseCursor.png");
         primaryStage.getScene().setCursor(new ImageCursor(image));

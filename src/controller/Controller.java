@@ -69,19 +69,20 @@ public class Controller {
         this.errorType = errorType;
     }
 
-    public void run() {
-        //mainLoop:
-        do {
-            System.out.println("Menu: " + menuType + " ");
-            request.resetProperties();
-            if (ai != null && !game.isTurnOfPlayerOne()) {
-                request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
-                System.err.println("ai requested: " + request.getCommand());
-            } else request.getNewCommand();
-            request.setRequestType(menuType);
-            request.parseCommand();
-            setActivePlayer();
-            switch (request.getRequestType()) {
+
+        public void run() {
+            //mainLoop:
+            do {
+                System.out.println("Menu: " + menuType + " ");
+//                request.resetProperties();
+                if (ai != null && !game.isTurnOfPlayerOne()) {
+                    request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
+                    System.err.println("ai requested: " + request.getCommand());
+                } else request.getNewCommand();
+                request.setRequestType(menuType);
+                request.parseCommand();
+                setActivePlayer();
+                switch (request.getRequestType()) {
 //                    case ERROR:
 //                        errorType = ErrorType.INVALID_COMMAND;
 //                        break;
@@ -247,22 +248,22 @@ public class Controller {
                         endGame();
                         break;
                         */
-                /////////////////////////////////            //////////////////////
-                case EXIT_MENU:
-                    exitMenu();
-                    break;
-                case ENTER_MENU:
-                    enterMenu();
-                    break;
-                case HELP:
-                    view.showHelp(menuType);
-                    break;
-            }
-            view.printError(errorType);
+                    /////////////////////////////////            //////////////////////
+                    case EXIT_MENU:
+                        exitMenu();
+                        break;
+                    case ENTER_MENU:
+                        enterMenu();
+                        break;
+                    case HELP:
+                        view.showHelp(menuType);
+                        break;
+                }
+                view.printError(errorType);
 //                request.setErrorType(errorType);
-            errorType = null;
-        } while (true);
-    }
+                errorType = null;
+            } while (true);
+        }
 
     public boolean exportDeck(Deck deck, String fileName) {
         if (!deck.deckIsValid()) {
@@ -423,8 +424,9 @@ public class Controller {
             errorType = ErrorType.USERNAME_TAKEN;
             return false;
         }
+        view.printError(errorType);
         request.getNewCommand();
-        Account newAccount = new Account(request.getUserName(), request.getCommand());
+        Account newAccount = new Account(request.getUserName(),request.getCommand());
         Account.addAccount(newAccount);
         System.out.println("account created");
         return true;
@@ -436,6 +438,7 @@ public class Controller {
             errorType = ErrorType.INVALID_USERNAME;
             return false;
         }
+        view.printError(errorType);
         request.getNewCommand();
         if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
             errorType = ErrorType.INVALID_PASSWORD;
