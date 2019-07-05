@@ -20,7 +20,6 @@ public class ClientController extends Controller {
     private OutputStream outputStream;
     private PrintStream serverPrinter;
     private Scanner serverScanner;
-    private ObjectInputStream objectInputStream;
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
             .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
             .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
@@ -31,11 +30,6 @@ public class ClientController extends Controller {
         this.outputStream = outputStream;
         serverPrinter = new PrintStream(outputStream);
         serverScanner = new Scanner(inputStream);
-        try {
-            objectInputStream = new ObjectInputStream(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public boolean createNewAccount(String userName, String password) {
