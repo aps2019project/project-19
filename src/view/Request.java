@@ -76,14 +76,15 @@ public class Request {
     public RequestType findTypeOfRequest(MenuType menuType) {
         if (command.matches("getshop"))
             return RequestType.GET_SHOP;
-        else if (command.matches("getaccount"))
+        if (command.matches("getaccount"))
             return RequestType.GET_ACCOUNT;
-        else if (command.matches("getgame"))
+        if (command.matches("getgame"))
             return RequestType.GET_GAME;
-        else if (command.matches("getactiveplayer"))
+        if (command.matches("getactiveplayer"))
             return RequestType.GET_ACTIVE_PLAYER;
-        else if (command.matches("getdeactiveplayer"))
+        if (command.matches("getdeactiveplayer"))
             return RequestType.GET_DEACTIVE_PLAYER;
+
         switch (menuType) {
             case ACCOUNT:
                 if (command.matches("create account \\w+"))

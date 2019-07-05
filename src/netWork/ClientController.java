@@ -111,7 +111,9 @@ public class ClientController extends Controller {
     @Override
     public Game getGame() {
         sendCommandToServer("getGame");
-        Game game = gson.fromJson(serverScanner.nextLine(), Game.class);
+        String x = serverScanner.nextLine();
+        System.out.println("x ix : " + x);
+        Game game = gson.fromJson(x, Game.class);
         readErrors();
         return game;
     }
@@ -134,6 +136,7 @@ public class ClientController extends Controller {
 
     public void selectStoryLevel(int storyLevel) {
         sendCommandToServer("enter level " + storyLevel);
+        readErrors();
     }
 
     public void chooseHero(String heroName) {

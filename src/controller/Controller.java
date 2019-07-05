@@ -2,7 +2,6 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import javafx.scene.control.Alert;
 import model.*;
 import model.Buff.Buff;
 import model.Buff.DispellBuff;
@@ -11,7 +10,6 @@ import model.Cards.*;
 import model.Target.Type;
 import view.*;
 import model.Game.*;
-import view.Graphic.AlertBox;
 
 import java.io.InputStream;
 import java.io.OutputStream;
