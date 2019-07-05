@@ -10,7 +10,9 @@ import model.Account;
 import model.Buff.Buff;
 import model.Cards.Card;
 import model.Cards.SoldierCard;
+import model.Game.Game;
 import model.Game.GameMode;
+import model.Player;
 import model.Shop;
 import view.ErrorType;
 
@@ -59,17 +61,19 @@ public class ClientController extends Controller {
     @Override
     public ArrayList<String> getChats() {
         sendCommandToServer("getchats");
-        ArrayList<String> chats = gson.fromJson(serverScanner.nextLine(),new TypeToken<ArrayList<String>>() {
+        ArrayList<String> chats = gson.fromJson(serverScanner.nextLine(), new TypeToken<ArrayList<String>>() {
         }.getType());
         readErrors();
         return chats;
     }
-    public void sendChat(String message){
+
+    public void sendChat(String message) {
         //todo: must get account and send userName with message
         sendCommandToServer("recivechat");
         sendCommandToServer(message);
         readErrors();
     }
+
     @Override
     public Shop getShop() {
         sendCommandToServer("getShop");
@@ -102,6 +106,30 @@ public class ClientController extends Controller {
     public void logOut() {
         sendCommandToServer("logout");
         readErrors();
+    }
+
+    @Override
+    public Game getGame() {
+        sendCommandToServer("getGame");
+        Game game = gson.fromJson(serverScanner.nextLine(), Game.class);
+        readErrors();
+        return game;
+    }
+
+    @Override
+    public Player getActivePlayer() {
+        sendCommandToServer("getActivePlayer");
+        Player player = gson.fromJson(serverScanner.nextLine(), Player.class);
+        readErrors();
+        return player;
+    }
+
+    @Override
+    public Player getDeactivePlayer() {
+        sendCommandToServer("getDeActivePlayer");
+        Player player = gson.fromJson(serverScanner.nextLine(), Player.class);
+        readErrors();
+        return player;
     }
 
     public void selectStoryLevel(int storyLevel) {

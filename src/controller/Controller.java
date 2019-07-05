@@ -24,7 +24,6 @@ import java.util.HashMap;
 public class Controller {
 
 
-
     public Controller() {
     }
 
@@ -35,6 +34,7 @@ public class Controller {
         view = new View(outputStream);
         printStream = new PrintStream(outputStream, true);
     }
+
     private static ArrayList<Account> onlineAccounts = new ArrayList<>();
     private static ArrayList<String> chats = new ArrayList<>();
     private PrintStream printStream;
@@ -55,28 +55,34 @@ public class Controller {
     private View view;
     private Deck aiDeck;
     private Ai ai;
-    public static void addOnlineAccount(Account account){
+
+    public static void addOnlineAccount(Account account) {
         onlineAccounts.add(account);
     }
-    public static void removeOnlineAccount(Account account){
+
+    public static void removeOnlineAccount(Account account) {
         onlineAccounts.remove(account);
     }
-    public ArrayList<String> getChats(){
+
+    public ArrayList<String> getChats() {
         printStream.println(gson.toJson(chats));
         printStream.flush();
         return chats;
     }
-    public void reciveChat(){
+
+    public void reciveChat() {
         request.getNewCommand();
         chats.add(request.getCommand());
     }
-    public static boolean userIsOnline(String userName){
+
+    public static boolean userIsOnline(String userName) {
         for (Account onlineAccount : onlineAccounts) {
             if (onlineAccount.getUserName().equals(userName))
                 return true;
         }
         return false;
     }
+
     public void setLoggedInAccount(Account loggedInAccount) {
         this.loggedInAccount = loggedInAccount;
     }
@@ -114,6 +120,15 @@ public class Controller {
                     break;
                 case GET_ACCOUNT:
                     getLoggedInAccount();
+                    break;
+                case GET_GAME:
+                    getGame();
+                    break;
+                case GET_ACTIVE_PLAYER:
+                    getActivePlayer();
+                    break;
+                case GET_DEACTIVE_PLAYER:
+                    getDeactivePlayer();
                     break;
                 ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
                 case RECIVE_CHAT:
@@ -476,7 +491,7 @@ public class Controller {
             errorType = ErrorType.INVALID_USERNAME;
             return false;
         }
-        if(userIsOnline(request.getUserName())){
+        if (userIsOnline(request.getUserName())) {
             errorType = ErrorType.USER_IS_ONLINE;
             return false;
         }
@@ -1389,6 +1404,8 @@ public class Controller {
     }
 
     public Game getGame() {
+        printStream.println(gson.toJson(game));
+        printStream.flush();
         return game;
     }
 
@@ -1538,4 +1555,15 @@ public class Controller {
         }
     }
 
+    public Player getActivePlayer() {
+        printStream.println(gson.toJson(activePlayer));
+        printStream.flush();
+        return activePlayer;
+    }
+
+    public Player getDeactivePlayer() {
+        printStream.println(gson.toJson(deactivePlayer));
+        printStream.flush();
+        return deactivePlayer;
+    }
 }

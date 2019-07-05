@@ -78,6 +78,12 @@ public class Request {
             return RequestType.GET_SHOP;
         else if (command.matches("getaccount"))
             return RequestType.GET_ACCOUNT;
+        else if (command.matches("getgame"))
+            return RequestType.GET_GAME;
+        else if (command.matches("getactiveplayer"))
+            return RequestType.GET_ACTIVE_PLAYER;
+        else if (command.matches("getdeactiveplayer"))
+            return RequestType.GET_DEACTIVE_PLAYER;
         switch (menuType) {
             case ACCOUNT:
                 if (command.matches("create account \\w+"))
@@ -88,9 +94,9 @@ public class Request {
                     return RequestType.SHOW_LEADER_BOARD;
                 break;
             case MAINMENU:
-                if(command.equals("getchats"))
+                if (command.equals("getchats"))
                     return RequestType.GET_CHATS;
-                if(command.equals("recivechat"))
+                if (command.equals("recivechat"))
                     return RequestType.RECIVE_CHAT;
                 if (command.matches("save"))
                     return RequestType.SAVE;
@@ -205,7 +211,7 @@ public class Request {
                     return RequestType.SHOW_SHOP;
                 break;
         }
-        if (command.matches("logout") && menuType!=MenuType.ACCOUNT)
+        if (command.matches("logout") && menuType != MenuType.ACCOUNT)
             return RequestType.LOGOUT;
         if (command.matches("help"))
             return RequestType.HELP;
@@ -415,7 +421,7 @@ public class Request {
             enteringMenu = MenuType.SINGLE_GAME_STORY_MODE;
         else if (enteringMenuName.equals("graveyard"))
             enteringMenu = MenuType.GRAVEYARD;
-        else if(enteringMenuName.equals("custom card menu"))
+        else if (enteringMenuName.equals("custom card menu"))
             enteringMenu = MenuType.CUSTOM_CARD_MENU;
     }
 
