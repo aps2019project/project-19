@@ -240,7 +240,7 @@ public class MenuController {
                     putUnusedCard(pane);
                 }
                 ShopController.getController().getErrorLabel().setText("");
-                if (mainController.getErrorType() != null) {
+                if (!mainController.readErrors()) {
                     AlertBox.display(Alert.AlertType.ERROR, "Shop", mainController.getErrorType().getMessage());
                     mainController.setErrorType(null);
                 }

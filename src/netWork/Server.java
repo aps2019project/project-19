@@ -13,7 +13,7 @@ import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Server {
-    public static int SERVER_PORT = 8550;
+    public static int SERVER_PORT = 8551;
     private static PrintStream outPut;
     private static Scanner input;
 

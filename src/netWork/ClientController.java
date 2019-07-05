@@ -40,7 +40,7 @@ public class ClientController extends Controller {
         serverPrinter.println(command);
         serverPrinter.flush();
     }
-    private boolean readErrors() {
+    public boolean readErrors() {
         ErrorType errorType = null;
         try {
             errorType = (ErrorType) objectInputStream.readObject();
@@ -56,5 +56,30 @@ public class ClientController extends Controller {
             return false;
         }
 
+    }
+
+    public void buyFromShop(String name) {
+        sendCommandToServer("buy " + name);
+    }
+
+    public void sellToShop(int id) {
+        sendCommandToServer("sell " + id);
+    }
+
+    public void createDeck(String name) {
+        sendCommandToServer("create deck " + name);
+    }
+
+    public void deleteDeck(String deckName) {
+        sendCommandToServer("delete deck " + deckName);
+    }
+
+    public void addToDeck(String deckName, int id) {
+        sendCommandToServer("add " + id + " to deck " + deckName);
+    }
+
+    @Override
+    public void removeFromDeck(String deckName, int id) {
+        sendCommandToServer("remove " + id + " from deck " + deckName);
     }
 }

@@ -92,13 +92,14 @@ public class Controller {
                         break;
                     case SEARCH_IN_COLLECTION:
                         searchInCollection();
-                        break;
+                        break;*/
                     case BUY_FROM_SHOP:
                         buyFromShop();
                         break;
                     case SELL_TO_SHOP:
                         sellToShop();
                         break;
+                        /*
                     case SHOW_SHOP:
                         showShop();
                         break;
@@ -110,32 +111,36 @@ public class Controller {
                         saveCollection();
                         // todo: saveCollection
                         break;
+                        */
                     case CREATE_DECK:
                         createDeck();
                         break;
                     case DELETE_DECK:
                         deleteDeck();
                         break;
+                        /*
                     case SHOW_DECK:
                         showDeck();
                         break;
                     case SHOW_ALL_DECKS:
                         showAllDecks();
-                        break;
+                        break;*/
                     case ADD_TO_DECK:
                         addToDeck();
                         // todo: test for items
                         break;
+                        /*
                     case VALIDATE_DECK:
                         validateDeck();
                         break;
                     case SELECT_MAIN_DECK:
                         selectMainDeck();
-                        break;
+                        break;*/
                     case REMOVE_FROM_DECK:
                         removeFromDeck();
                         //todo: test for items
                         break;
+                        /*
                     case EXPORT_DECK:
                         exportDeck();
                         break;
@@ -560,51 +565,51 @@ public class Controller {
         view.show("saved!");
     }
 
-    public void createDeck(String name) {
-        if (loggedInAccount.getCollection().getDecks().containsKey(name)) {
+    public void createDeck() {
+        if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
             errorType = ErrorType.DECK_EXISTS;
             return;
         }
-        Deck deck = new Deck(name);
-        loggedInAccount.getCollection().getDecks().put(name, deck);
-        view.show(name + " created");
+        Deck deck = new Deck(request.getDeckName());
+        loggedInAccount.getCollection().getDecks().put(request.getDeckName(), deck);
+        view.show(request.getDeckName() + " created");
     }
 
-    public void deleteDeck(String deckName) {
-        if (loggedInAccount.getCollection().getDecks().containsKey(deckName)) {
-            loggedInAccount.getCollection().getDecks().remove(deckName);
-            view.show(deckName + " deleted");
+    public void deleteDeck() {
+        if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
+            loggedInAccount.getCollection().getDecks().remove(request.getDeckName());
+            view.show(request.getDeckName() + " deleted");
             return;
         }
         errorType = ErrorType.DECK_NOT_EXISTS;
     }
 
-    public void addToDeck(String deckName, int id) {
-        if (!loggedInAccount.getCollection().getDecks().containsKey(deckName))
+    public void addToDeck() {
+        if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
             errorType = ErrorType.DECK_NOT_EXISTS;
-        else if (!loggedInAccount.getCollection().existsInCollection(id))
+        else if (!loggedInAccount.getCollection().existsInCollection(request.getCardOrItemID()))
             errorType = ErrorType.NOT_FOUND;
-        else if (loggedInAccount.getCollection().existsInDeck(deckName, id))
+        else if (loggedInAccount.getCollection().existsInDeck(request.getDeckName(), request.getCardOrItemID()))
             errorType = ErrorType.EXISTS_IN_DECK;
-        else if (loggedInAccount.getCollection().deckIsFull(deckName, id))
+        else if (loggedInAccount.getCollection().deckIsFull(request.getDeckName(), request.getCardOrItemID()))
             errorType = ErrorType.DECK_IS_FULL;
-        else if (loggedInAccount.getCollection().isHero(id) &&
-                loggedInAccount.getCollection().getDecks().get(deckName).deckHasHero())
+        else if (loggedInAccount.getCollection().isHero(request.getCardOrItemID()) &&
+                loggedInAccount.getCollection().getDecks().get(request.getDeckName()).deckHasHero())
             errorType = ErrorType.DECK_HAS_HERO;
         else {
-            loggedInAccount.getCollection().addToDeck(id, deckName);
-            view.show("card " + id + " added to deck " + deckName);
+            loggedInAccount.getCollection().addToDeck(request.getCardOrItemID(), request.getDeckName());
+            view.show("card " + request.getCardOrItemID() + " added to deck " + request.getDeckName());
         }
     }
 
-    public void removeFromDeck(String deckName, int id) {
-        if (!loggedInAccount.getCollection().getDecks().containsKey(deckName))
+    public void removeFromDeck() {
+        if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
             errorType = ErrorType.DECK_NOT_EXISTS;
-        else if (!loggedInAccount.getCollection().existsInDeck(deckName, id))
+        else if (!loggedInAccount.getCollection().existsInDeck(request.getDeckName(), request.getCardOrItemID()))
             errorType = ErrorType.NOT_FOUND;
         else {
-            loggedInAccount.getCollection().removeFromDeck(deckName, id);
-            view.show("card " + id + " removed from deck " + deckName);
+            loggedInAccount.getCollection().removeFromDeck(request.getDeckName(), request.getCardOrItemID());
+            view.show("card " + request.getCardOrItemID() + " removed from deck " + request.getDeckName());
         }
 
     }
@@ -659,24 +664,24 @@ public class Controller {
 //        errorType = ErrorType.NOT_FOUND;
     }
 
-    public void buyFromShop(String name) {
-        if (!shop.existsInShop(name))
+    public void buyFromShop() {
+        if (!shop.existsInShop(request.getProductName()))
             errorType = ErrorType.NOT_FOUND;
-        else if (!shop.priceIsEnough(name, loggedInAccount))
+        else if (!shop.priceIsEnough(request.getProductName(), loggedInAccount))
             errorType = ErrorType.NOT_ENOUGH_MONEY;
-        else if (!shop.validateNumberOfItems(name, loggedInAccount))
+        else if (!shop.validateNumberOfItems(request.getProductName(), loggedInAccount))
             errorType = ErrorType.FULL_ITEMS;
         else {
-            shop.buy(name, loggedInAccount);
+            shop.buy(request.getProductName(), loggedInAccount);
             view.show("Successful purchase");
         }
     }
 
-    public void sellToShop(int id) {
-        if (!loggedInAccount.getCollection().existsInCollection(id))
+    public void sellToShop() {
+        if (!loggedInAccount.getCollection().existsInCollection(request.getProductId()))
             errorType = ErrorType.NOT_FOUND;
         else {
-            shop.sell(id, loggedInAccount);
+            shop.sell(request.getProductId(), loggedInAccount);
             view.show("Successful sale");
         }
     }

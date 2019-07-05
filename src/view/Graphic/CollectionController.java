@@ -135,7 +135,7 @@ public class CollectionController extends MenuController {
             return;
         }
         getMainController().createDeck(deckName.getText());
-        if (getMainController().getErrorType() != null) {
+        if (!getMainController().readErrors()) {
             AlertBox.display(Alert.AlertType.ERROR, "Collection", getMainController().getErrorType().getMessage());
             getMainController().setErrorType(null);
         }
