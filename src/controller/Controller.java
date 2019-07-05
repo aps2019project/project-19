@@ -1,5 +1,7 @@
 package controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import model.*;
 import model.Buff.Buff;
 import model.Buff.DispellBuff;
@@ -11,6 +13,7 @@ import model.Game.*;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -25,12 +28,19 @@ public class Controller {
     public Controller() {
     }
 
-    public Controller(InputStream inputStream,OutputStream outputStream) {
+    public Controller(InputStream inputStream, OutputStream outputStream) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
         request = new Request(inputStream);
         view = new View(outputStream);
+        printStream = new PrintStream(outputStream, true);
     }
+
+    private PrintStream printStream;
+    private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
+            .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
+            .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
+            .create();
     private OutputStream outputStream;
     private InputStream inputStream;
     private Shop shop = Shop.getInstance();
@@ -45,7 +55,13 @@ public class Controller {
     private Deck aiDeck;
     private Ai ai;
 
+    public void setLoggedInAccount(Account loggedInAccount) {
+        this.loggedInAccount = loggedInAccount;
+    }
+
     public Shop getShop() {
+        printStream.println(gson.toJson(shop));
+        printStream.flush();
         return shop;
     }
 
@@ -54,39 +70,49 @@ public class Controller {
     }
 
 
-        public void run() {
-            //mainLoop:
-            do {
-                System.out.println("Menu: " + menuType + " ");
-                request.resetProperties();
-                if (ai != null && !game.isTurnOfPlayerOne()) {
-                    request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
-                    System.err.println("ai requested: " + request.getCommand());
-                } else request.getNewCommand();
-                request.setRequestType(menuType);
-                request.parseCommand();
-                setActivePlayer();
-                switch (request.getRequestType()) {
+    public void run() {
+        //mainLoop:
+        do {
+            System.out.println("Menu: " + menuType + " ");
+//                request.resetProperties();
+            if (ai != null && !game.isTurnOfPlayerOne()) {
+                request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
+                System.err.println("ai requested: " + request.getCommand());
+            } else request.getNewCommand();
+            request.setRequestType(menuType);
+            request.parseCommand();
+            setActivePlayer();
+            switch (request.getRequestType()) {
 //                    case ERROR:
 //                        errorType = ErrorType.INVALID_COMMAND;
 //                        break;
-                    ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
-                    case SHOW_LEADER_BOARD:
-                        showLeaderBoard();
-                        break;
-                    case CREATE_ACCOUNT:
-                        createNewAccount();
-                        break;
-                    case LOGIN:
-                        login();
-                        break;
-                    case LOGOUT:
-                        logOut();
-                        break;
-                    case SAVE:
-                        save();
-                        break;
-                    ///////////////////////////// SHOP  ///////////////////////////
+                /////////////////////////////default//////////////////////////////
+                case GET_SHOP:
+                    getShop();
+                    break;
+                case GET_ACCOUNT:
+                    getLoggedInAccount();
+                    break;
+                case GET_ERROR:
+                    getErrorType();
+                    break;
+                ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
+                case SHOW_LEADER_BOARD:
+                    showLeaderBoard();
+                    break;
+                case CREATE_ACCOUNT:
+                    createNewAccount();
+                    break;
+                case LOGIN:
+                    login();
+                    break;
+                case LOGOUT:
+                    logOut();
+                    break;
+                case SAVE:
+                    save();
+                    break;
+                ///////////////////////////// SHOP  ///////////////////////////
  /*                   case SEARCH_IN_SHOP:
                         searchInShop();
                         break;
@@ -230,22 +256,22 @@ public class Controller {
                         endGame();
                         break;
                         */
-                    /////////////////////////////////            //////////////////////
-                    case EXIT_MENU:
-                        exitMenu();
-                        break;
-                    case ENTER_MENU:
-                        enterMenu();
-                        break;
-                    case HELP:
-                        view.showHelp(menuType);
-                        break;
-                }
-                view.printError(errorType);
+                /////////////////////////////////            //////////////////////
+                case EXIT_MENU:
+                    exitMenu();
+                    break;
+                case ENTER_MENU:
+                    enterMenu();
+                    break;
+                case HELP:
+                    view.showHelp(menuType);
+                    break;
+            }
+            view.printError(errorType);
 //                request.setErrorType(errorType);
-                errorType = null;
-            } while (true);
-        }
+            errorType = null;
+        } while (true);
+    }
 
     public boolean exportDeck(Deck deck, String fileName) {
         if (!deck.deckIsValid()) {
@@ -285,6 +311,8 @@ public class Controller {
 
 
     public Account getLoggedInAccount() {
+        printStream.println(gson.toJson(loggedInAccount));
+        printStream.flush();
         return loggedInAccount;
     }
 
@@ -404,8 +432,9 @@ public class Controller {
             errorType = ErrorType.USERNAME_TAKEN;
             return false;
         }
+        view.printError(errorType);
         request.getNewCommand();
-        Account newAccount = new Account(request.getUserName(),request.getCommand());
+        Account newAccount = new Account(request.getUserName(), request.getCommand());
         Account.addAccount(newAccount);
         System.out.println("account created");
         return true;
@@ -417,6 +446,7 @@ public class Controller {
             errorType = ErrorType.INVALID_USERNAME;
             return false;
         }
+        view.printError(errorType);
         request.getNewCommand();
         if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
             errorType = ErrorType.INVALID_PASSWORD;
@@ -1457,6 +1487,8 @@ public class Controller {
     }
 
     public ErrorType getErrorType() {
+        printStream.println(gson.toJson(errorType));
+        printStream.flush();
         return errorType;
     }
 

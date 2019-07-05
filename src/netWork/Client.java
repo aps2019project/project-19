@@ -1,9 +1,18 @@
 package netWork;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import controller.AbstractClassAdapters;
 import controller.Controller;
+import model.Account;
+import model.Buff.Buff;
+import model.Cards.Card;
+import model.Cards.SoldierCard;
+import model.Shop;
 import view.Graphic.Graphic;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Formatter;
@@ -17,9 +26,9 @@ public class Client {
         Client client = new Client();
         client.connectToServer();
         //todo:must recive controller from server
-        Graphic.main(args,new ClientController(socket.getInputStream(),socket.getOutputStream()));
-        while (true){}
-        }
+        ClientController clientController = new ClientController(socket.getInputStream(), socket.getOutputStream());
+        Graphic.main(args, clientController);
+    }
 
     private void connectToServer() throws IOException {
         socket = new Socket("localhost", Server.SERVER_PORT);

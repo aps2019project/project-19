@@ -1,6 +1,5 @@
 package view;
 
-import controller.Controller;
 import controller.MenuType;
 import model.Deck;
 import model.Game.GameMode;
@@ -16,7 +15,6 @@ public class Request {
     private Scanner scanner;
     private String command;
     private RequestType requestType;
-    private ErrorType errorType;
     private String deckName;
     private String cardName;
     private String searchingName;
@@ -76,6 +74,12 @@ public class Request {
 
 
     public RequestType findTypeOfRequest(MenuType menuType) {
+        if (command.matches("getshop"))
+            return RequestType.GET_SHOP;
+        else if (command.matches("getaccount"))
+            return RequestType.GET_ACCOUNT;
+        else if (command.matches("geterror"))
+            return RequestType.GET_ERROR;
         switch (menuType) {
             case ACCOUNT:
                 if (command.matches("create account \\w+"))
@@ -419,9 +423,6 @@ public class Request {
         this.requestType = findTypeOfRequest(menuType);
     }
 
-    public void setErrorType(ErrorType errorType) {
-        this.errorType = errorType;
-    }
 
     public ArrayList<String> getComboAttackers() {
         return comboAttackers;
@@ -455,9 +456,6 @@ public class Request {
         return requestType;
     }
 
-    public ErrorType getErrorType() {
-        return errorType;
-    }
 
     public String getDeckName() {
         return deckName;

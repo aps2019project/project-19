@@ -59,4 +59,8 @@ public enum RequestType {
     SELECT_MULTI_PLAYER_MODE,
     CHOOSE_HERO,
     SELECT_CUSTOM_GAME_GAMEMODE,
+    ////////default////////
+    GET_SHOP,
+    GET_ACCOUNT,
+    GET_ERROR,
 }

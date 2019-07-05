@@ -52,8 +52,9 @@ public class LoginController extends MenuController implements Initializable {
         } else
             logInMessage.setText(getMainController().getErrorType().getMessage());
     }
-    public void exitGame(){
-                System.exit(0);
+
+    public void exitGame() {
+        System.exit(0);
     }
 
 }
