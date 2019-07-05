@@ -22,20 +22,20 @@ public class View {
 
 
     public void printError(ErrorType errorType) {
-//        if(errorType == null)
-//            errorType = ErrorType.NO_ERROR;
-//        try {
-//            objectOutputStream.writeObject(errorType);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-        if (errorType != null) {
-            try {
-                objectOutputStream.writeObject(errorType);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        if (errorType == null)
+            errorType = ErrorType.NO_ERROR;
+        try {
+            objectOutputStream.writeObject(errorType);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+//        if (errorType != null) {
+//            try {
+//                objectOutputStream.writeObject(errorType);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     public void printEnterPassword() {

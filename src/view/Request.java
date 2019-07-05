@@ -76,8 +76,10 @@ public class Request {
     public RequestType findTypeOfRequest(MenuType menuType) {
         if (command.matches("getshop"))
             return RequestType.GET_SHOP;
-        if (command.matches("getaccount"))
+        else if (command.matches("getaccount"))
             return RequestType.GET_ACCOUNT;
+        else if (command.matches("geterror"))
+            return RequestType.GET_ERROR;
         switch (menuType) {
             case ACCOUNT:
                 if (command.matches("create account \\w+"))

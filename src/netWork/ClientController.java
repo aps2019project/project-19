@@ -32,22 +32,23 @@ public class ClientController extends Controller {
         serverPrinter = new PrintStream(outputStream);
         serverScanner = new Scanner(inputStream);
         try {
-        objectInputStream = new ObjectInputStream(inputStream);
-        }catch (IOException e){
+            objectInputStream = new ObjectInputStream(inputStream);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public boolean createNewAccount(String userName, String password) {
-        sendCommandToServer("create account "+userName);
-        if(!readErrors())
+        sendCommandToServer("create account " + userName);
+        if (!readErrors())
             return false;
         sendCommandToServer(password);
         return readErrors();
     }
+
     public boolean login(String userName, String password) {
-        sendCommandToServer("login "+userName);
-        if(!readErrors())
+        sendCommandToServer("login " + userName);
+        if (!readErrors())
             return false;
         sendCommandToServer(password);
         return readErrors();
@@ -78,18 +79,26 @@ public class ClientController extends Controller {
         serverPrinter.println(command);
         serverPrinter.flush();
     }
+
+    @Override
+    public ErrorType getErrorType() {
+        sendCommandToServer("getError");
+        ErrorType errorType = gson.fromJson(serverScanner.nextLine(), ErrorType.class);
+        return errorType;
+    }
+
     private boolean readErrors() {
         ErrorType errorType = null;
         try {
             errorType = (ErrorType) objectInputStream.readObject();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if(errorType.equals(ErrorType.NO_ERROR)) {
+        if (errorType.equals(ErrorType.NO_ERROR)) {
             setErrorType(null);
             return true;
-        }else {
+        } else {
             setErrorType(errorType);
             return false;
         }

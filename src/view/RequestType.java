@@ -62,4 +62,5 @@ public enum RequestType {
     ////////default////////
     GET_SHOP,
     GET_ACCOUNT,
+    GET_ERROR,
 }
