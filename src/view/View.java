@@ -1,6 +1,12 @@
 package view;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import controller.AbstractClassAdapters;
 import controller.MenuType;
+import model.Buff.Buff;
+import model.Cards.Card;
+import model.Cards.SoldierCard;
 import model.Shop;
 
 import java.io.*;
@@ -8,34 +14,22 @@ import java.io.*;
 public class View {
     private PrintStream printStream;
     private OutputStream outputStream;
-    private ObjectOutputStream objectOutputStream;
+    private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
+            .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
+            .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
+            .create();
 
     public View(OutputStream outputStream) {
         this.outputStream = outputStream;
         printStream = new PrintStream(outputStream);
-        try {
-            objectOutputStream = new ObjectOutputStream(outputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 
     public void printError(ErrorType errorType) {
         if (errorType == null)
             errorType = ErrorType.NO_ERROR;
-        try {
-            objectOutputStream.writeObject(errorType);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        if (errorType != null) {
-//            try {
-//                objectOutputStream.writeObject(errorType);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+        printStream.println(gson.toJson(errorType));
+        printStream.flush();
     }
 
     public void printEnterPassword() {
