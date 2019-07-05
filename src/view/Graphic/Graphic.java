@@ -32,7 +32,8 @@ public class Graphic extends Application {
         stage = primaryStage;
         primaryStage.setFullScreen(true);
         primaryStage.setOnCloseRequest((event)->{
-            System.err.println("clooosing");
+            System.out.println("gdafdf");
+            mainController.logOut();
         });
         primaryStage.setScene(new Scene(root));
         Image image = new Image("view/Graphic/images/mouseCursor.png");

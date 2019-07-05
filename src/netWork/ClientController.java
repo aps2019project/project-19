@@ -2,6 +2,7 @@ package netWork;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.sun.corba.se.spi.ior.ObjectKey;
 import controller.AbstractClassAdapters;
 import controller.Controller;
@@ -13,6 +14,7 @@ import model.Shop;
 import view.ErrorType;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientController extends Controller {
@@ -54,11 +56,31 @@ public class ClientController extends Controller {
     }
 
     @Override
+    public ArrayList<String> getChats() {
+        sendCommandToServer("getchats");
+        ArrayList<String> chats = gson.fromJson(serverScanner.nextLine(),new TypeToken<ArrayList<String>>() {
+        }.getType());
+        readErrors();
+        return chats;
+    }
+    public void sendChat(String message){
+        //todo: must get account and send userName with message
+        sendCommandToServer("recivechat");
+        sendCommandToServer(message);
+        readErrors();
+    }
+    @Override
     public Shop getShop() {
         sendCommandToServer("getShop");
         Shop shop = gson.fromJson(serverScanner.nextLine(), Shop.class);
         readErrors();
         return shop;
+    }
+
+    @Override
+    public void logOut() {
+        sendCommandToServer("logout");
+        readErrors();
     }
 
     @Override

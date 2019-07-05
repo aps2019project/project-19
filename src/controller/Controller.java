@@ -21,9 +21,7 @@ import java.util.HashMap;
 
 public class Controller {
 
-//    public static Controller getInstance() {
-//        return CONTROLLER;
-//    }
+
 
     public Controller() {
     }
@@ -35,7 +33,8 @@ public class Controller {
         view = new View(outputStream);
         printStream = new PrintStream(outputStream, true);
     }
-
+    private static ArrayList<Account> onlineAccounts = new ArrayList<>();
+    private static ArrayList<String> chats = new ArrayList<>();
     private PrintStream printStream;
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
             .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
@@ -54,7 +53,28 @@ public class Controller {
     private View view;
     private Deck aiDeck;
     private Ai ai;
-
+    public static void addOnlineAccount(Account account){
+        onlineAccounts.add(account);
+    }
+    public static void removeOnlineAccount(Account account){
+        onlineAccounts.remove(account);
+    }
+    public ArrayList<String> getChats(){
+        printStream.println(gson.toJson(chats));
+        printStream.flush();
+        return chats;
+    }
+    public void reciveChat(){
+        request.getNewCommand();
+        chats.add(request.getCommand());
+    }
+    public static boolean userIsOnline(String userName){
+        for (Account onlineAccount : onlineAccounts) {
+            if (onlineAccount.getUserName().equals(userName))
+                return true;
+        }
+        return false;
+    }
     public void setLoggedInAccount(Account loggedInAccount) {
         this.loggedInAccount = loggedInAccount;
     }
@@ -97,6 +117,12 @@ public class Controller {
                     getErrorType();
                     break;
                 ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
+                case RECIVE_CHAT:
+                    reciveChat();
+                    break;
+                case GET_CHATS:
+                    getChats();
+                    break;
                 case SHOW_LEADER_BOARD:
                     showLeaderBoard();
                     break;
@@ -441,6 +467,10 @@ public class Controller {
             errorType = ErrorType.INVALID_USERNAME;
             return false;
         }
+        if(userIsOnline(request.getUserName())){
+            errorType = ErrorType.USER_IS_ONLINE;
+            return false;
+        }
         view.printError(errorType);
         request.getNewCommand();
         if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
@@ -448,6 +478,7 @@ public class Controller {
             return false;
         }
         loggedInAccount = Account.getAccounts().get(request.getUserName());
+        addOnlineAccount(loggedInAccount);
         menuType = MenuType.MAINMENU;
         System.out.println("logged into " + request.getUserName());
         return true;
@@ -463,6 +494,7 @@ public class Controller {
 
     public void logOut() {
         menuType = MenuType.ACCOUNT;
+        removeOnlineAccount(loggedInAccount);
         System.out.println("logged out from " + loggedInAccount.getUserName());
         loggedInAccount = null;
     }
