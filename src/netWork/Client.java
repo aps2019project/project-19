@@ -27,8 +27,6 @@ public class Client {
         client.connectToServer();
         //todo:must recive controller from server
         ClientController clientController = new ClientController(socket.getInputStream(), socket.getOutputStream());
-        Shop shop = clientController.getShop();
-        System.out.println(shop.toString());
         Graphic.main(args, clientController);
     }
 
