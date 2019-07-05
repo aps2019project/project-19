@@ -403,6 +403,7 @@ public class Controller {
             errorType = ErrorType.USERNAME_TAKEN;
             return false;
         }
+        view.printError(errorType);
         request.getNewCommand();
         Account newAccount = new Account(request.getUserName(),request.getCommand());
         Account.addAccount(newAccount);
@@ -416,6 +417,7 @@ public class Controller {
             errorType = ErrorType.INVALID_USERNAME;
             return false;
         }
+        view.printError(errorType);
         request.getNewCommand();
         if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
             errorType = ErrorType.INVALID_PASSWORD;
