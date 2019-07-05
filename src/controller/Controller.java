@@ -25,12 +25,13 @@ public class Controller {
     public Controller() {
     }
 
-    public Controller(InputStream inputStream,OutputStream outputStream) {
+    public Controller(InputStream inputStream, OutputStream outputStream) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
         request = new Request(inputStream);
         view = new View(outputStream);
     }
+
     private OutputStream outputStream;
     private InputStream inputStream;
     private Shop shop = Shop.getInstance();
@@ -45,6 +46,10 @@ public class Controller {
     private Deck aiDeck;
     private Ai ai;
 
+    public void setLoggedInAccount(Account loggedInAccount) {
+        this.loggedInAccount = loggedInAccount;
+    }
+
     public Shop getShop() {
         return shop;
     }
@@ -53,40 +58,39 @@ public class Controller {
         this.errorType = errorType;
     }
 
-
-        public void run() {
-            //mainLoop:
-            do {
-                System.out.println("Menu: " + menuType + " ");
-                request.resetProperties();
-                if (ai != null && !game.isTurnOfPlayerOne()) {
-                    request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
-                    System.err.println("ai requested: " + request.getCommand());
-                } else request.getNewCommand();
-                request.setRequestType(menuType);
-                request.parseCommand();
-                setActivePlayer();
-                switch (request.getRequestType()) {
+    public void run() {
+        //mainLoop:
+        do {
+            System.out.println("Menu: " + menuType + " ");
+            request.resetProperties();
+            if (ai != null && !game.isTurnOfPlayerOne()) {
+                request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
+                System.err.println("ai requested: " + request.getCommand());
+            } else request.getNewCommand();
+            request.setRequestType(menuType);
+            request.parseCommand();
+            setActivePlayer();
+            switch (request.getRequestType()) {
 //                    case ERROR:
 //                        errorType = ErrorType.INVALID_COMMAND;
 //                        break;
-                    ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
-                    case SHOW_LEADER_BOARD:
-                        showLeaderBoard();
-                        break;
-                    case CREATE_ACCOUNT:
-                        createNewAccount();
-                        break;
-                    case LOGIN:
-                        login();
-                        break;
-                    case LOGOUT:
-                        logOut();
-                        break;
-                    case SAVE:
-                        save();
-                        break;
-                    ///////////////////////////// SHOP  ///////////////////////////
+                ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
+                case SHOW_LEADER_BOARD:
+                    showLeaderBoard();
+                    break;
+                case CREATE_ACCOUNT:
+                    createNewAccount();
+                    break;
+                case LOGIN:
+                    login();
+                    break;
+                case LOGOUT:
+                    logOut();
+                    break;
+                case SAVE:
+                    save();
+                    break;
+                ///////////////////////////// SHOP  ///////////////////////////
  /*                   case SEARCH_IN_SHOP:
                         searchInShop();
                         break;
@@ -225,22 +229,22 @@ public class Controller {
                         endGame();
                         break;
                         */
-                    /////////////////////////////////            //////////////////////
-                    case EXIT_MENU:
-                        exitMenu();
-                        break;
-                    case ENTER_MENU:
-                        enterMenu();
-                        break;
-                    case HELP:
-                        view.showHelp(menuType);
-                        break;
-                }
-                view.printError(errorType);
+                /////////////////////////////////            //////////////////////
+                case EXIT_MENU:
+                    exitMenu();
+                    break;
+                case ENTER_MENU:
+                    enterMenu();
+                    break;
+                case HELP:
+                    view.showHelp(menuType);
+                    break;
+            }
+            view.printError(errorType);
 //                request.setErrorType(errorType);
-                errorType = null;
-            } while (true);
-        }
+            errorType = null;
+        } while (true);
+    }
 
     public boolean exportDeck(Deck deck, String fileName) {
         if (!deck.deckIsValid()) {
@@ -400,7 +404,7 @@ public class Controller {
             return false;
         }
         request.getNewCommand();
-        Account newAccount = new Account(request.getUserName(),request.getCommand());
+        Account newAccount = new Account(request.getUserName(), request.getCommand());
         Account.addAccount(newAccount);
         System.out.println("account created");
         return true;
