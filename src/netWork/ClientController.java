@@ -139,8 +139,7 @@ public class ClientController extends Controller {
     }
 
     public void createCustomCard(Card card) {
-        sendCommandToServer("create custom card");
-        sendCommandToServer(gson.toJson(card));
+        sendCommandToServer("create custom card " + gson.toJson(card));
         readErrors();
     }
 
@@ -219,7 +218,7 @@ public class ClientController extends Controller {
     }
 
     public ArrayList<Object> searchInCollection(String name) {
-        Account loggedInAccount =getLoggedInAccount();
+        Account loggedInAccount = getLoggedInAccount();
         ArrayList<Object> results = new ArrayList<>();
         for (Item item : loggedInAccount.getCollection().getItems()) {
             if (item.getName().matches(name + "[\\w ]*")) results.add(item);
@@ -238,7 +237,7 @@ public class ClientController extends Controller {
                 results.add(card);
         }
         for (Item item : shop.getItems()) {
-            if (item.getName().matches(name+ "[\\w ]*"))
+            if (item.getName().matches(name + "[\\w ]*"))
                 results.add(item);
         }
 //        sendCommandToServer("search " + name);
