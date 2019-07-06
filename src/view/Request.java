@@ -1,6 +1,12 @@
 package view;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import controller.AbstractClassAdapters;
 import controller.MenuType;
+import model.Buff.Buff;
+import model.Cards.Card;
+import model.Cards.SoldierCard;
 import model.Deck;
 import model.Game.GameMode;
 
@@ -34,6 +40,11 @@ public class Request {
     private boolean hasXY;
     private Deck export;
     private String deckFileName;
+    private Card customCard;
+    private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
+            .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
+            .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
+            .create();
 
     public Request(InputStream inputStream) {
         this.scanner = new Scanner(inputStream);
@@ -63,6 +74,7 @@ public class Request {
         hasXY = false;
         export = null;
         deckFileName = null;
+        customCard = null;
     }
 
     public void getNewCommand() {
@@ -198,7 +210,7 @@ public class Request {
                 if (command.matches("show cards"))
                     return RequestType.SHOW_All_CARDS_IN_GRAVEYARD;
             case SHOP:
-                if (command.matches("create custom card"))
+                if (command.startsWith("create custom card"))
                     return RequestType.CUSTOM_CARD;
                 if (command.matches("show collection"))
                     return RequestType.SHOW_COLLECTION_ITEMS;
@@ -247,6 +259,9 @@ public class Request {
                 break;
             case SELL_TO_SHOP:
                 productId = Integer.parseInt(command.split(" ")[1]);
+                break;
+            case CUSTOM_CARD:
+                customCard = gson.fromJson(command.split("create custom card ")[1], Card.class);
                 break;
             /////////////////// COLLECTION /////////////////
             case CREATE_DECK:
@@ -572,6 +587,10 @@ public class Request {
 
     public String getDeckFileName() {
         return deckFileName;
+    }
+
+    public Card getCustomCard() {
+        return customCard;
     }
 }
 

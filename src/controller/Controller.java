@@ -28,13 +28,13 @@ public class Controller {
         request = new Request(inputStream);
         view = new View(outputStream);
         printStream = new PrintStream(outputStream, true);
-        scanner = new Scanner(inputStream);
+        //scanner = new Scanner(inputStream);
     }
 
     private static ArrayList<Account> onlineAccounts = new ArrayList<>();
     private static ArrayList<String> chats = new ArrayList<>();
     private PrintStream printStream;
-    private Scanner scanner;
+    //private Scanner scanner;
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
             .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
             .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
@@ -319,7 +319,7 @@ public class Controller {
     }
 
     public void createCustomCard() {
-        Card card = gson.fromJson(scanner.nextLine(), Card.class);
+        Card card = request.getCustomCard();
         shop.getCards().add(card);
         //CardInitializer.addCustomCardToFile(card);
     }
