@@ -7,7 +7,9 @@ import controller.Controller;
 import model.Account;
 import model.Buff.Buff;
 import model.Cards.Card;
+import model.Cards.Hero;
 import model.Cards.SoldierCard;
+import model.Cards.SoldierTypes;
 import model.Shop;
 import view.Graphic.Graphic;
 

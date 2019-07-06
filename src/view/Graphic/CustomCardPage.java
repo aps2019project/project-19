@@ -420,16 +420,22 @@ public class CustomCardPage extends MenuController implements Initializable {
                 (checkTextField(heroCoolDown) && customCard.isTargetAvailable()))) {
             customCard.setAp(Integer.parseInt(heroAP.getText()));
             customCard.setHp(Integer.parseInt(heroHP.getText()));
+            if (customCard.getSpecialPowers().size() != 0)
+                customCard.setCoolDown(Integer.parseInt(heroCoolDown.getText()));
             createCard("hero");
         } else
             AlertBox.display(Alert.AlertType.ERROR, "Inputs", "Enter all inputs correctly");
     }
 
     private void createCard(String cardType) {
+        if (getMainController().getShop().existsInShop(name.getText())) {
+            AlertBox.display(Alert.AlertType.ERROR, "Custom Card", "A card exists with this name");
+            return;
+        }
         setGeneralFields();
         customCard.setType(cardType);
         Card card = customCard.createCard();
-        getMainController().getShop().getCards().add(card);
+        getMainController().createCustomCard(card);
         AlertBox.display(Alert.AlertType.INFORMATION, "Custom Card", "Custom Card created successfully");
         changeMenu("shopView.fxml");
     }
