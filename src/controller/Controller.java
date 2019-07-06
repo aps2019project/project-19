@@ -159,21 +159,19 @@ public class Controller {
                 case CUSTOM_CARD:
                     createCustomCard();
                     break;
- /*                   case SEARCH_IN_SHOP:
-                        searchInShop();
                     case SEARCH_IN_SHOP:
 //                        searchInShop();
                         break;
                     case SEARCH_IN_COLLECTION:
 //                        searchInCollection();
-                        break;*/
-                case BUY_FROM_SHOP:
-                    buyFromShop();
-                    break;
-                case SELL_TO_SHOP:
-                    sellToShop();
-                    break;
-                        /*
+                        break;
+                    case BUY_FROM_SHOP:
+                        buyFromShop();
+                        break;
+                    case SELL_TO_SHOP:
+                        sellToShop();
+                        break;
+
                     case SHOW_SHOP:
                         showShop();
                         break;
@@ -185,35 +183,34 @@ public class Controller {
                         saveCollection();
                         // todo: saveCollection
                         break;
-                        */
-                case CREATE_DECK:
-                    createDeck();
-                    break;
-                case DELETE_DECK:
-                    deleteDeck();
-                    break;
-                        /*
+                    case CREATE_DECK:
+                        createDeck();
+                        break;
+                    case DELETE_DECK:
+                        deleteDeck();
+                        break;
+
                     case SHOW_DECK:
                         showDeck();
                         break;
                     case SHOW_ALL_DECKS:
                         showAllDecks();
-                        break;*/
-                case ADD_TO_DECK:
-                    addToDeck();
-                    // todo: test for items
-                    break;
+                        break;
+                    case ADD_TO_DECK:
+                        addToDeck();
+                        // todo: test for items
+                        break;
                         /*
                     case VALIDATE_DECK:
                         validateDeck();
                         break;*/
-                case SELECT_MAIN_DECK:
-                    selectMainDeck();
-                    break;
-                case REMOVE_FROM_DECK:
-                    removeFromDeck();
-                    //todo: test for items
-                    break;
+                    case SELECT_MAIN_DECK:
+                        selectMainDeck();
+                        break;
+                    case REMOVE_FROM_DECK:
+                        removeFromDeck();
+                        //todo: test for items
+                        break;
                         /*
                     case EXPORT_DECK:
                         exportDeck();
@@ -688,7 +685,6 @@ public class Controller {
     }
 
     public void addToDeck() {
-        System.out.println("hello");
         if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
             errorType = ErrorType.DECK_NOT_EXISTS;
         else if (!loggedInAccount.getCollection().existsInCollection(request.getCardOrItemID()))

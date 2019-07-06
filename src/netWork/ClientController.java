@@ -71,9 +71,9 @@ public class ClientController extends Controller {
     }
 
     public void sendChat(String message) {
-        //todo: must get account and send userName with message
+        Account account = getLoggedInAccount();
         sendCommandToServer("recivechat");
-        sendCommandToServer(message);
+        sendCommandToServer( account.getUserName()+" : "+message);
         readErrors();
     }
 
