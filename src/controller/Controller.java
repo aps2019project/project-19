@@ -166,7 +166,7 @@ public class Controller {
                         break;
                     case SEARCH_IN_COLLECTION:
 //                        searchInCollection();
-                        break;
+                        break;*/
                     case BUY_FROM_SHOP:
                         buyFromShop();
                         break;
@@ -685,6 +685,7 @@ public class Controller {
     }
 
     public void addToDeck() {
+        System.out.println("hello");
         if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
             errorType = ErrorType.DECK_NOT_EXISTS;
         else if (!loggedInAccount.getCollection().existsInCollection(request.getCardOrItemID()))

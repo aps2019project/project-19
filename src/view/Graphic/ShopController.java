@@ -63,6 +63,7 @@ public class ShopController extends MenuController implements Initializable {
         ArrayList<Object> shopProducts = new ArrayList<>();
         ArrayList<Object> collectionProducts = new ArrayList<>();
         Shop shop = controller.getShop();
+        System.out.println("shop.getCards().size() = " + shop.getCards().size());
         Collection collection = controller.getLoggedInAccount().getCollection();
         if (searchBar.getText().equals("")) {
             shopProducts.addAll(shop.getCards());
