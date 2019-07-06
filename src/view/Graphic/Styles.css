@@ -240,3 +240,6 @@
     -fx-font-size: 15px;
     -fx-background-radius: 10px;
 }
+.chat{
+    -fx-font-size: 16;
+}

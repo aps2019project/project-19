@@ -159,8 +159,6 @@ public class Controller {
                 case CUSTOM_CARD:
                     createCustomCard();
                     break;
- /*                   case SEARCH_IN_SHOP:
-                        searchInShop();
                     case SEARCH_IN_SHOP:
 //                        searchInShop();
                         break;
@@ -173,7 +171,7 @@ public class Controller {
                     case SELL_TO_SHOP:
                         sellToShop();
                         break;
-                        /*
+
                     case SHOW_SHOP:
                         showShop();
                         break;
@@ -185,20 +183,19 @@ public class Controller {
                         saveCollection();
                         // todo: saveCollection
                         break;
-                        */
                     case CREATE_DECK:
                         createDeck();
                         break;
                     case DELETE_DECK:
                         deleteDeck();
                         break;
-                        /*
+
                     case SHOW_DECK:
                         showDeck();
                         break;
                     case SHOW_ALL_DECKS:
                         showAllDecks();
-                        break;*/
+                        break;
                     case ADD_TO_DECK:
                         addToDeck();
                         // todo: test for items
