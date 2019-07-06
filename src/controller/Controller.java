@@ -28,13 +28,13 @@ public class Controller {
         request = new Request(inputStream);
         view = new View(outputStream);
         printStream = new PrintStream(outputStream, true);
-        scanner = new Scanner(inputStream);
+        //scanner = new Scanner(inputStream);
     }
 
     private static ArrayList<Account> onlineAccounts = new ArrayList<>();
     private static ArrayList<String> chats = new ArrayList<>();
     private PrintStream printStream;
-    private Scanner scanner;
+    //private Scanner scanner;
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
             .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
             .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
@@ -159,21 +159,19 @@ public class Controller {
                 case CUSTOM_CARD:
                     createCustomCard();
                     break;
- /*                   case SEARCH_IN_SHOP:
-                        searchInShop();
                     case SEARCH_IN_SHOP:
 //                        searchInShop();
                         break;
                     case SEARCH_IN_COLLECTION:
 //                        searchInCollection();
-                        break;*/
+                        break;
                     case BUY_FROM_SHOP:
                         buyFromShop();
                         break;
                     case SELL_TO_SHOP:
                         sellToShop();
                         break;
-                        /*
+
                     case SHOW_SHOP:
                         showShop();
                         break;
@@ -185,20 +183,19 @@ public class Controller {
                         saveCollection();
                         // todo: saveCollection
                         break;
-                        */
                     case CREATE_DECK:
                         createDeck();
                         break;
                     case DELETE_DECK:
                         deleteDeck();
                         break;
-                        /*
+
                     case SHOW_DECK:
                         showDeck();
                         break;
                     case SHOW_ALL_DECKS:
                         showAllDecks();
-                        break;*/
+                        break;
                     case ADD_TO_DECK:
                         addToDeck();
                         // todo: test for items
@@ -322,7 +319,7 @@ public class Controller {
     }
 
     public void createCustomCard() {
-        Card card = gson.fromJson(scanner.nextLine(), Card.class);
+        Card card = request.getCustomCard();
         shop.getCards().add(card);
         //CardInitializer.addCustomCardToFile(card);
     }
@@ -685,7 +682,6 @@ public class Controller {
     }
 
     public void addToDeck() {
-        System.out.println("hello");
         if (!loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName()))
             errorType = ErrorType.DECK_NOT_EXISTS;
         else if (!loggedInAccount.getCollection().existsInCollection(request.getCardOrItemID()))

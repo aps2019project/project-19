@@ -1,10 +1,13 @@
 package view.Graphic;
 
 import controller.AccountManagement;
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -42,23 +45,46 @@ public class MainMenuController extends MenuController implements Initializable 
     public void sendMessage(){
         if(messageTextField.getText().trim().equals(""))
             return;
-        System.out.println("seeending");
         getMainController().sendChat(messageTextField.getText().trim());
-
+        messageTextField.setText("");
+        showMessages();
     }
     public void showMessages(){
-        //todo: must add messages to vbox and creat a mechanism for auto updating
+        messageBox.getChildren().clear();
         for (String chat : getMainController().getChats()) {
-            System.err.println("said "+chat);
+            Label label = new Label(chat);
+            label.getStyleClass().add("chat");
+            messageBox.getChildren().add(label);
         }
     }
     public void showChatroom(){
-        if(chatAnchoreShown)
+        AnimationTimer requestShowMessage = new AnimationTimer() {
+            //every 200 milisecond sends a request to server to show messages
+            private long lastTime = 0;
+            private double time = 0;
+            private long second = 1000000000;
+            @Override
+            public void handle(long now) {
+                if (lastTime == 0) {
+                    lastTime = now;
+                }
+                if (now > lastTime + second / 5) {
+                    lastTime = now;
+                    showMessages();
+                }
+            }
+        };
+        if(chatAnchoreShown) {
             root.getChildren().remove(chatAnchor);
-        else
+                requestShowMessage.stop();
+        }
+        else {
             root.getChildren().add(chatAnchor);
+            requestShowMessage.start();
+        }
         chatAnchoreShown = !chatAnchoreShown;
     }
+
     public void goToShop() {
         getMainController().enterMenu("shop");
         changeMenu("shopView.fxml");
