@@ -14,16 +14,10 @@ import model.Game.*;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 public class Controller {
 
-//    public static Controller getInstance() {
-//        return CONTROLLER;
-//    }
 
     public Controller() {
     }
@@ -34,9 +28,13 @@ public class Controller {
         request = new Request(inputStream);
         view = new View(outputStream);
         printStream = new PrintStream(outputStream, true);
+        scanner = new Scanner(inputStream);
     }
 
+    private static ArrayList<Account> onlineAccounts = new ArrayList<>();
+    private static ArrayList<String> chats = new ArrayList<>();
     private PrintStream printStream;
+    private Scanner scanner;
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
             .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
             .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
@@ -54,6 +52,33 @@ public class Controller {
     private View view;
     private Deck aiDeck;
     private Ai ai;
+
+    public static void addOnlineAccount(Account account) {
+        onlineAccounts.add(account);
+    }
+
+    public static void removeOnlineAccount(Account account) {
+        onlineAccounts.remove(account);
+    }
+
+    public ArrayList<String> getChats() {
+        printStream.println(gson.toJson(chats));
+        printStream.flush();
+        return chats;
+    }
+
+    public void reciveChat() {
+        request.getNewCommand();
+        chats.add(request.getCommand());
+    }
+
+    public static boolean userIsOnline(String userName) {
+        for (Account onlineAccount : onlineAccounts) {
+            if (onlineAccount.getUserName().equals(userName))
+                return true;
+        }
+        return false;
+    }
 
     public void setLoggedInAccount(Account loggedInAccount) {
         this.loggedInAccount = loggedInAccount;
@@ -97,10 +122,22 @@ public class Controller {
                 case GET_ACCOUNT:
                     getLoggedInAccount();
                     break;
-                case GET_ERROR:
-                    getErrorType();
+                case GET_GAME:
+                    getGame();
+                    break;
+                case GET_ACTIVE_PLAYER:
+                    getActivePlayer();
+                    break;
+                case GET_DEACTIVE_PLAYER:
+                    getDeactivePlayer();
                     break;
                 ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
+                case RECIVE_CHAT:
+                    reciveChat();
+                    break;
+                case GET_CHATS:
+                    getChats();
+                    break;
                 case SHOW_LEADER_BOARD:
                     showLeaderBoard();
                     break;
@@ -116,7 +153,15 @@ public class Controller {
                 case SAVE:
                     save();
                     break;
+                case DELETE_ACCOUNT:
+                    deleteAccount();
+                    break;
                 ///////////////////////////// SHOP  ///////////////////////////
+                case CUSTOM_CARD:
+                    createCustomCard();
+                    break;
+ /*                   case SEARCH_IN_SHOP:
+                        searchInShop();
                     case SEARCH_IN_SHOP:
 //                        searchInShop();
                         break;
@@ -176,29 +221,29 @@ public class Controller {
                         break;
                     case IMPORT_DECK:
                         importDeck();
-                        break;
-                    ///////////////////////////////// CREATING GAME ///////////////////////
-                    case SHOW_ALL_PLAYERS:
-                        showAllPlayer();
-                        break;
-                    case SELECT_OPPONENT_USER:
-                        selectOpponent();
-                        break;
-                    case SELECT_MULTI_PLAYER_MODE:
-                        selectMultiPlayerMode();
-                        // TODO: 2019-04- test
-                        break;
-                    case SELECT_STORY_LEVEL:
-                        selectStoryLevel();
-                        break;
-                    case CHOOSE_HERO:
-                        chooseHero();
-                        break;
-                    case SELECT_CUSTOM_GAME_GAMEMODE:
-                        createCustomGame();
-                        break;
-                    ///////////////////////////////// BATTLE  ////////////////////////
-                    case INSERT_CARD:
+                        break;*/
+                ///////////////////////////////// CREATING GAME ///////////////////////
+                case SHOW_ALL_PLAYERS:
+                    showAllPlayer();
+                    break;
+                case SELECT_OPPONENT_USER:
+                    selectOpponent();
+                    break;
+                case SELECT_MULTI_PLAYER_MODE:
+                    selectMultiPlayerMode();
+                    // TODO: 2019-04- test
+                    break;
+                case SELECT_STORY_LEVEL:
+                    selectStoryLevel();
+                    break;
+                case CHOOSE_HERO:
+                    chooseHero();
+                    break;
+                case SELECT_CUSTOM_GAME_GAMEMODE:
+                    createCustomGame();
+                    break;
+                ///////////////////////////////// BATTLE  ////////////////////////
+                    /*case INSERT_CARD:
                         insertCard();
                         break;
                     case SHOW_GAME_INFO:
@@ -277,6 +322,20 @@ public class Controller {
         } while (true);
     }
 
+    public void createCustomCard() {
+        Card card = gson.fromJson(scanner.nextLine(), Card.class);
+        shop.getCards().add(card);
+        //CardInitializer.addCustomCardToFile(card);
+    }
+
+    public void deleteAccount() {
+        if (AccountManagement.deleteAccount(loggedInAccount)) {
+            logOut();
+        } else {
+            errorType = ErrorType.ACCOUNT_NOT_SAVED;
+        }
+    }
+
     public boolean exportDeck(Deck deck, String fileName) {
         if (!deck.deckIsValid()) {
             errorType = ErrorType.INVALID_DECK;
@@ -320,21 +379,21 @@ public class Controller {
         return loggedInAccount;
     }
 
-    public void createCustomGame(GameMode gameMode, String deckName, int numOfFlags) {
+    public void createCustomGame() {
         if (aiDeck == null) {
             System.out.println("ai deck is null");
             errorType = ErrorType.OPPONENT_HERO_NOT_SELECTED;
         } else {
-            if (loggedInAccount.getCollection().getDecks().containsKey(deckName)) {
+            if (loggedInAccount.getCollection().getDecks().containsKey(request.getDeckName())) {
                 Player player1 = new Player(loggedInAccount,
-                        loggedInAccount.getCollection().getDecks().get(deckName));
+                        loggedInAccount.getCollection().getDecks().get(request.getDeckName()));
                 ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
                 game = new Game(player1, ai.getPlayer());
-                game.setGameMode(gameMode);
-                if (gameMode.equals(GameMode.CAPTURE_THE_FLAGS)) {
-                    game.setNumOfFlags(numOfFlags);
+                game.setGameMode(request.getGameMode());
+                if (request.getGameMode().equals(GameMode.CAPTURE_THE_FLAGS)) {
+                    game.setNumOfFlags(request.getNumOfFlags());
                 }
-                initNewGame(gameMode);
+                initNewGame(request.getGameMode());
                 game.setPrize(1000);
             } else {
                 errorType = ErrorType.DECK_NOT_EXISTS;
@@ -342,12 +401,11 @@ public class Controller {
         }
     }
 
-    public void chooseHero(String heroName) {
-        Card newHero = shop.findCard(heroName);
+    public void chooseHero() {
+        Card newHero = shop.findCard(request.getCardName());
         if (newHero == null || !(newHero instanceof Hero))
             errorType = ErrorType.WRONG_HERO_NAME;
         else {
-            //todo check if a maindeck is available
             aiDeck = new Deck(loggedInAccount.getCollection().getMainDeck());
             Card postHero = aiDeck.getHero();
             aiDeck.getCards().remove(postHero.getCardId());
@@ -355,25 +413,25 @@ public class Controller {
         }
     }
 
-    public void selectStoryLevel(int storyLevel) {
+    public void selectStoryLevel() {
         Player player1 = new Player(loggedInAccount, loggedInAccount.getCollection().getMainDeck());
-        if (storyLevel > 4 || storyLevel < 1) {
+        if (request.getStoryLevel() > 4 || request.getStoryLevel() < 1) {
             errorType = ErrorType.INVALID_LEVEL;
             return;
         }
         game = new Game();
         game.initStoryDecks(shop);
-        aiDeck = game.getStoryLevelDecks().get(storyLevel - 1);
+        aiDeck = game.getStoryLevelDecks().get(request.getStoryLevel() - 1);
         ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
         game = new Game(player1, ai.getPlayer());
-        if (storyLevel == 1)
+        if (request.getStoryLevel() == 1)
             game.setGameMode(GameMode.DEATH_MATCH);
-        if (storyLevel == 2)
+        if (request.getStoryLevel() == 2)
             game.setGameMode(GameMode.CAPTURE_THE_FLAGS);
-        if (storyLevel == 3)
+        if (request.getStoryLevel() == 3)
             game.setGameMode(GameMode.KEEP_THE_FLAG);
         initNewGame(game.getGameMode());
-        game.setStoryPrize(storyLevel);
+        game.setStoryPrize(request.getStoryLevel());
     }
 
     private void selectOpponent() {
@@ -450,6 +508,10 @@ public class Controller {
             errorType = ErrorType.INVALID_USERNAME;
             return false;
         }
+        if (userIsOnline(request.getUserName())) {
+            errorType = ErrorType.USER_IS_ONLINE;
+            return false;
+        }
         view.printError(errorType);
         request.getNewCommand();
         if (!Account.passwordIsValid(request.getCommand(), request.getUserName())) {
@@ -457,6 +519,7 @@ public class Controller {
             return false;
         }
         loggedInAccount = Account.getAccounts().get(request.getUserName());
+        addOnlineAccount(loggedInAccount);
         menuType = MenuType.MAINMENU;
         System.out.println("logged into " + request.getUserName());
         return true;
@@ -472,6 +535,7 @@ public class Controller {
 
     public void logOut() {
         menuType = MenuType.ACCOUNT;
+        removeOnlineAccount(loggedInAccount);
         System.out.println("logged out from " + loggedInAccount.getUserName());
         loggedInAccount = null;
     }
@@ -1361,6 +1425,8 @@ public class Controller {
     }
 
     public Game getGame() {
+        printStream.println(gson.toJson(game));
+        printStream.flush();
         return game;
     }
 
@@ -1510,4 +1576,15 @@ public class Controller {
         }
     }
 
+    public Player getActivePlayer() {
+        printStream.println(gson.toJson(activePlayer));
+        printStream.flush();
+        return activePlayer;
+    }
+
+    public Player getDeactivePlayer() {
+        printStream.println(gson.toJson(deactivePlayer));
+        printStream.flush();
+        return deactivePlayer;
+    }
 }

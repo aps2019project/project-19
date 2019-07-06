@@ -55,6 +55,7 @@ public class CollectionController extends MenuController {
     }
 
     public void exit() {
+        getMainController().exitMenu();
         changeMenu("MainMenu.fxml");
     }
 

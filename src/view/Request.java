@@ -76,10 +76,15 @@ public class Request {
     public RequestType findTypeOfRequest(MenuType menuType) {
         if (command.matches("getshop"))
             return RequestType.GET_SHOP;
-        else if (command.matches("getaccount"))
+        if (command.matches("getaccount"))
             return RequestType.GET_ACCOUNT;
-        else if (command.matches("geterror"))
-            return RequestType.GET_ERROR;
+        if (command.matches("getgame"))
+            return RequestType.GET_GAME;
+        if (command.matches("getactiveplayer"))
+            return RequestType.GET_ACTIVE_PLAYER;
+        if (command.matches("getdeactiveplayer"))
+            return RequestType.GET_DEACTIVE_PLAYER;
+
         switch (menuType) {
             case ACCOUNT:
                 if (command.matches("create account \\w+"))
@@ -90,10 +95,16 @@ public class Request {
                     return RequestType.SHOW_LEADER_BOARD;
                 break;
             case MAINMENU:
+                if (command.equals("getchats"))
+                    return RequestType.GET_CHATS;
+                if (command.equals("recivechat"))
+                    return RequestType.RECIVE_CHAT;
                 if (command.matches("save"))
                     return RequestType.SAVE;
                 if (command.matches("logout"))
                     return RequestType.LOGOUT;
+                if (command.matches("delete account"))
+                    return RequestType.DELETE_ACCOUNT;
                 break;
             case COLLECTION:
                 if (command.matches("show"))
@@ -187,6 +198,8 @@ public class Request {
                 if (command.matches("show cards"))
                     return RequestType.SHOW_All_CARDS_IN_GRAVEYARD;
             case SHOP:
+                if (command.matches("create custom card"))
+                    return RequestType.CUSTOM_CARD;
                 if (command.matches("show collection"))
                     return RequestType.SHOW_COLLECTION_ITEMS;
                 if (command.matches("search collection (\\w+ ?)+"))
@@ -201,6 +214,8 @@ public class Request {
                     return RequestType.SHOW_SHOP;
                 break;
         }
+        if (command.matches("logout") && menuType != MenuType.ACCOUNT)
+            return RequestType.LOGOUT;
         if (command.matches("help"))
             return RequestType.HELP;
         if (command.matches("exit"))
@@ -409,6 +424,8 @@ public class Request {
             enteringMenu = MenuType.SINGLE_GAME_STORY_MODE;
         else if (enteringMenuName.equals("graveyard"))
             enteringMenu = MenuType.GRAVEYARD;
+        else if (enteringMenuName.equals("custom card menu"))
+            enteringMenu = MenuType.CUSTOM_CARD_MENU;
     }
 
     public void parseMoveCard() {

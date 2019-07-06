@@ -5,11 +5,14 @@ public enum RequestType {
     HELP,
     EXIT_MENU,
     ENTER_MENU,
+    GET_CHATS,
+    RECIVE_CHAT,
     /////////// ACCOUNT /////////
     CREATE_ACCOUNT,
     LOGIN,
     SHOW_LEADER_BOARD,
     SAVE,
+    DELETE_ACCOUNT,
     LOGOUT,
     ///////// COLLECTION /////////
     SHOW_COLLECTION_ITEMS,
@@ -62,5 +65,8 @@ public enum RequestType {
     ////////default////////
     GET_SHOP,
     GET_ACCOUNT,
-    GET_ERROR,
+    GET_GAME,
+    GET_ACTIVE_PLAYER,
+    GET_DEACTIVE_PLAYER,
+    CUSTOM_CARD,
 }

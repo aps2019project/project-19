@@ -11,6 +11,7 @@ import model.Collection;
 import model.Shop;
 import netWork.Client;
 import netWork.ClientController;
+import netWork.ClientController;
 
 import java.util.ArrayList;
 
@@ -75,10 +76,12 @@ public class ShopController extends MenuController {
     }
 
     public void exit() {
+        getMainController().exitMenu();
         changeMenu("MainMenu.fxml");
     }
 
     public void goToCustomCardMenu() {
+        getMainController().enterMenu("custom card menu");
         changeMenu("customCardPage.fxml");
     }
 }

@@ -11,6 +11,9 @@ import model.Account;
 import model.Buff.Buff;
 import model.Cards.Card;
 import model.Cards.SoldierCard;
+import model.Game.Game;
+import model.Game.GameMode;
+import model.Player;
 import model.Item;
 import model.Shop;
 import view.ErrorType;
@@ -18,6 +21,7 @@ import view.ErrorType;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientController extends Controller {
@@ -53,9 +57,25 @@ public class ClientController extends Controller {
         return readErrors();
     }
 
-    public boolean enterMenu(String menuName) {
+    public void enterMenu(String menuName) {
         sendCommandToServer("enter " + menuName);
-        return readErrors();
+        readErrors();
+    }
+
+    @Override
+    public ArrayList<String> getChats() {
+        sendCommandToServer("getchats");
+        ArrayList<String> chats = gson.fromJson(serverScanner.nextLine(), new TypeToken<ArrayList<String>>() {
+        }.getType());
+        readErrors();
+        return chats;
+    }
+
+    public void sendChat(String message) {
+        //todo: must get account and send userName with message
+        sendCommandToServer("recivechat");
+        sendCommandToServer(message);
+        readErrors();
     }
 
     @Override
@@ -74,13 +94,83 @@ public class ClientController extends Controller {
         return account;
     }
 
+    @Override
+    public void save() {
+        sendCommandToServer("save");
+        readErrors();
+    }
+
+    @Override
+    public void exitMenu() {
+        sendCommandToServer("exit");
+        readErrors();
+    }
+
+    @Override
+    public void logOut() {
+        sendCommandToServer("logout");
+        readErrors();
+    }
+
+    @Override
+    public Game getGame() {
+        sendCommandToServer("getGame");
+        String x = serverScanner.nextLine();
+        System.out.println("x ix : " + x);
+        Game game = gson.fromJson(x, Game.class);
+        readErrors();
+        return game;
+    }
+
+    @Override
+    public Player getActivePlayer() {
+        sendCommandToServer("getActivePlayer");
+        Player player = gson.fromJson(serverScanner.nextLine(), Player.class);
+        readErrors();
+        return player;
+    }
+
+    @Override
+    public Player getDeactivePlayer() {
+        sendCommandToServer("getDeActivePlayer");
+        Player player = gson.fromJson(serverScanner.nextLine(), Player.class);
+        readErrors();
+        return player;
+    }
+
+    public void createCustomCard(Card card) {
+        sendCommandToServer("create custom card");
+        sendCommandToServer(gson.toJson(card));
+        readErrors();
+    }
+
+    public void selectStoryLevel(int storyLevel) {
+        sendCommandToServer("enter level " + storyLevel);
+        readErrors();
+    }
+
+    public void chooseHero(String heroName) {
+        sendCommandToServer("take " + heroName);
+        readErrors();
+    }
+
+    public void createCustomGame(GameMode gameMode, String deckName, int numOfFlags) {
+        sendCommandToServer("start game " + deckName + " " + gameMode.toString() + " " + numOfFlags);
+        readErrors();
+    }
+
+    public boolean removeAccount() {
+        sendCommandToServer("delete account");
+        return readErrors();
+    }
+
     private void sendCommandToServer(String command) {
         serverPrinter.println(command);
         serverPrinter.flush();
     }
 
 
-    public boolean readErrors() {
+    private boolean readErrors() {
         ErrorType errorType = null;
         errorType = gson.fromJson(serverScanner.nextLine(), ErrorType.class);
         if (errorType.equals(ErrorType.NO_ERROR)) {
@@ -155,4 +245,5 @@ public class ClientController extends Controller {
 //        return gson.fromJson(serverScanner.nextLine(), new TypeToken<List<Object>>() {}.getType());
         return results;
     }
+
 }

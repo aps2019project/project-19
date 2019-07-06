@@ -12,14 +12,17 @@ public class SingleGameMenu extends MenuController implements Initializable {
     }
 
     public void goToStoryMode() {
+        getMainController().enterMenu("story mode");
         changeMenu("singleGameStoryMode.fxml");
     }
 
     public void goToCustomMode() {
+        getMainController().enterMenu("custom game");
         changeMenu("singleGameCustomMode.fxml");
     }
 
     public void exit() {
+        getMainController().exitMenu();
         changeMenu("startNewGame.fxml");
     }
 }

@@ -18,7 +18,6 @@ public class View {
             .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
             .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
             .create();
-
     public View(OutputStream outputStream) {
         this.outputStream = outputStream;
         printStream = new PrintStream(outputStream);
@@ -28,8 +27,9 @@ public class View {
     public void printError(ErrorType errorType) {
         if (errorType == null)
             errorType = ErrorType.NO_ERROR;
-        printStream.println(gson.toJson(errorType));
-        printStream.flush();
+            printStream.println(gson.toJson(errorType));
+            printStream.flush();
+
     }
 
     public void printEnterPassword() {

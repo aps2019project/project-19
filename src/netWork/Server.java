@@ -17,6 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -24,7 +25,6 @@ public class Server {
     public static int SERVER_PORT = 8551;
     private static PrintStream outPut;
     private static Scanner input;
-
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(SERVER_PORT);
         System.err.println("Server is running in port " + SERVER_PORT + " :");
