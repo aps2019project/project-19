@@ -97,7 +97,6 @@ public class Controller {
 
 
     public void run() {
-        //mainLoop:
         do {
             System.out.println("Menu: " + menuType + " ");
 //                request.resetProperties();
@@ -556,48 +555,49 @@ public class Controller {
     }
 
     public void enterMenu() {
-        switch (menuType) {
-            case MAINMENU:
-                if (request.getEnteringMenu() == MenuType.SHOP ||
-                        request.getEnteringMenu() == MenuType.COLLECTION) {
-                    menuType = request.getEnteringMenu();
-                    return;
-                }
-                if (request.getEnteringMenu() == MenuType.START_NEW_GAME) {
-                    if (loggedInAccount.getCollection().getMainDeck() == null ||
-                            !loggedInAccount.getCollection().getMainDeck().deckIsValid()) {
-                        errorType = ErrorType.INVALID_DECK;
-                        return;
-                    }
-                    menuType = request.getEnteringMenu();
-                    return;
-                }
-
-                break;
-            case START_NEW_GAME:
-                if (request.getEnteringMenu() == MenuType.SINGLE_GAME_MENU ||
-                        request.getEnteringMenu() == MenuType.MULTI_GAME_MENU) {
-                    menuType = request.getEnteringMenu();
-                    return;
-                }
-                break;
-            case SINGLE_GAME_MENU:
-                if (request.getEnteringMenu() == MenuType.SINGLE_GAME_CUSTOM_MODE ||
-                        request.getEnteringMenu() == MenuType.SINGLE_GAME_STORY_MODE) {
-                    menuType = request.getEnteringMenu();
-                    if (menuType.equals(MenuType.SINGLE_GAME_STORY_MODE))
-                        view.showStoryModes();
-                    else if (menuType.equals(MenuType.SINGLE_GAME_CUSTOM_MODE)) {
-                        view.showHeros();
-                    }
-                    return;
-                }
-                break;
-            case BATTLE:
-                if (request.getEnteringMenu() == MenuType.GRAVEYARD)
-                    menuType = MenuType.GRAVEYARD;
-                break;
-        }
+        menuType = request.getEnteringMenu();
+//        switch (menuType) {
+//            case MAINMENU:
+//                if (request.getEnteringMenu() == MenuType.SHOP ||
+//                        request.getEnteringMenu() == MenuType.COLLECTION) {
+//                    menuType = request.getEnteringMenu();
+//                    return;
+//                }
+//                if (request.getEnteringMenu() == MenuType.START_NEW_GAME) {
+//                    if (loggedInAccount.getCollection().getMainDeck() == null ||
+//                            !loggedInAccount.getCollection().getMainDeck().deckIsValid()) {
+//                        errorType = ErrorType.INVALID_DECK;
+//                        return;
+//                    }
+//                    menuType = request.getEnteringMenu();
+//                    return;
+//                }
+//
+//                break;
+//            case START_NEW_GAME:
+//                if (request.getEnteringMenu() == MenuType.SINGLE_GAME_MENU ||
+//                        request.getEnteringMenu() == MenuType.MULTI_GAME_MENU) {
+//                    menuType = request.getEnteringMenu();
+//                    return;
+//                }
+//                break;
+//            case SINGLE_GAME_MENU:
+//                if (request.getEnteringMenu() == MenuType.SINGLE_GAME_CUSTOM_MODE ||
+//                        request.getEnteringMenu() == MenuType.SINGLE_GAME_STORY_MODE) {
+//                    menuType = request.getEnteringMenu();
+//                    if (menuType.equals(MenuType.SINGLE_GAME_STORY_MODE))
+//                        view.showStoryModes();
+//                    else if (menuType.equals(MenuType.SINGLE_GAME_CUSTOM_MODE)) {
+//                        view.showHeros();
+//                    }
+//                    return;
+//                }
+//                break;
+//            case BATTLE:
+//                if (request.getEnteringMenu() == MenuType.GRAVEYARD)
+//                    menuType = MenuType.GRAVEYARD;
+//                break;
+//        }
 //        errorType = ErrorType.INVALID_COMMAND;
     }
 

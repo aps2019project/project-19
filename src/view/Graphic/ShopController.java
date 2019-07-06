@@ -3,14 +3,17 @@ package view.Graphic;
 import com.jfoenix.controls.JFXMasonryPane;
 import controller.Controller;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import netWork.ClientController;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class ShopController extends MenuController {
+public class ShopController extends MenuController implements Initializable {
     private static ShopController controller = new ShopController();
     @FXML
     private JFXMasonryPane shopPane = new JFXMasonryPane();
@@ -31,6 +34,11 @@ public class ShopController extends MenuController {
         ShopController.controller = controller;
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
     public Label getErrorLabel() {
         return errorLabel;
     }
@@ -40,6 +48,8 @@ public class ShopController extends MenuController {
     }
 
     public void putCards() {
+        if(getMainController() == null)
+            return;
         shopPane.getChildren().removeIf(node -> node instanceof AnchorPane);
         collectionInShopPane.getChildren().removeIf(node -> node instanceof AnchorPane);
         ClientController controller = getMainController();
