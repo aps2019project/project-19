@@ -225,18 +225,24 @@ public class MenuController {
                     ShopController.getController().putCards();
                 }
                 if (pane.getId().equals("collectionPane") && CollectionController.getController().isInDeck()) {
-                    Object card = mainController.searchInCollection(((Label) cardView.lookup("#nameLabel")).getText()).get(0);
+                    ArrayList<Object> cards = mainController.searchInCollection(((Label) cardView.lookup("#nameLabel")).getText());
                     System.out.println(((Label) cardView.lookup("#nameLabel")).getText());
-                    if (card instanceof Card) {
-                        gotError = !getMainController().addToDeck(deckName, ((Card) card).getCardId());
-                        mainController.getLoggedInAccount().getCollection().getCards().remove(card);
-                        mainController.getLoggedInAccount().getCollection().getCards().add(((Card) card));
-                    }
+                    for (int i = 0; i < cards.size(); i++) {
+//                        System.out.println( i +" + " + cards.size());
+                        Object card = cards.get(i);
+                        if (card instanceof Card) {
+                            gotError = !getMainController().addToDeck(deckName, ((Card) card).getCardId());
+//                            mainController.getLoggedInAccount().getCollection().getCards().remove(card);
+//                            mainController.getLoggedInAccount().getCollection().getCards().add(((Card) card));
+                        }
 
-                    if (card instanceof Item) {
-                        gotError = !mainController.addToDeck(deckName, ((Item) card).getItemId());
-                        mainController.getLoggedInAccount().getCollection().getItems().remove(card);
-                        mainController.getLoggedInAccount().getCollection().getItems().add(((Item) card));
+                        if (card instanceof Item) {
+                            gotError = !mainController.addToDeck(deckName, ((Item) card).getItemId());
+//                            mainController.getLoggedInAccount().getCollection().getItems().remove(card);
+//                            mainController.getLoggedInAccount().getCollection().getItems().add(((Item) card));
+                        }
+                        if (!gotError)
+                            break;
                     }
                     CollectionController.getController().putCardInDeck(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName));
                     putUnusedCard(pane);
