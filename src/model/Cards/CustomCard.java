@@ -1,6 +1,5 @@
 package model.Cards;
 
-import controller.CardInitializer;
 import model.AbilityCastTime;
 import model.Buff.Buff;
 import model.Shop;
@@ -37,7 +36,6 @@ public class CustomCard {
                     attackRange = 0;
                 Minion minion = new Minion(Shop.getNewId(), name, cost, mana, ap, hp,
                         attackType, attackRange, desc, abilityCastTime, specialPowers);
-                CardInitializer.addCustomCardToFile(minion);
                 return minion;
             case "hero":
                 if (!attackType.equals(SoldierTypes.RANGED))
@@ -47,14 +45,12 @@ public class CustomCard {
                 heroTarget = new Target(targetType, areaSize, soldierTargetType);
                 Hero hero = new Hero(Shop.getNewId(), name, cost, mana, ap, hp,
                         attackType, attackRange, desc, specialPowers.get(0), coolDown, heroTarget);
-                CardInitializer.addCustomCardToFile(hero);
                 return hero;
             case "spell":
                 if (!targetType.equals(Type.AREA))
                     areaSize = 0;
                 spellTarget = new Target(targetType, areaSize, soldierTargetType);
                 SpellCard spell = new SpellCard(Shop.getNewId(), name, cost, mana, desc, spellBuffs, spellTarget);
-                CardInitializer.addCustomCardToFile(spell);
                 return spell;
         }
         return null;

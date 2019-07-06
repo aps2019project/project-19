@@ -68,4 +68,5 @@ public enum RequestType {
     GET_GAME,
     GET_ACTIVE_PLAYER,
     GET_DEACTIVE_PLAYER,
+    CUSTOM_CARD,
 }

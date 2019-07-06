@@ -198,6 +198,8 @@ public class Request {
                 if (command.matches("show cards"))
                     return RequestType.SHOW_All_CARDS_IN_GRAVEYARD;
             case SHOP:
+                if (command.matches("create custom card"))
+                    return RequestType.CUSTOM_CARD;
                 if (command.matches("show collection"))
                     return RequestType.SHOW_COLLECTION_ITEMS;
                 if (command.matches("search collection (\\w+ ?)+"))

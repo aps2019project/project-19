@@ -14,10 +14,7 @@ import model.Game.*;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 public class Controller {
 
@@ -31,11 +28,13 @@ public class Controller {
         request = new Request(inputStream);
         view = new View(outputStream);
         printStream = new PrintStream(outputStream, true);
+        scanner = new Scanner(inputStream);
     }
 
     private static ArrayList<Account> onlineAccounts = new ArrayList<>();
     private static ArrayList<String> chats = new ArrayList<>();
     private PrintStream printStream;
+    private Scanner scanner;
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
             .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
             .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
@@ -154,6 +153,9 @@ public class Controller {
                     deleteAccount();
                     break;
                 ///////////////////////////// SHOP  ///////////////////////////
+                case CUSTOM_CARD:
+                    createCustomCard();
+                    break;
  /*                   case SEARCH_IN_SHOP:
                         searchInShop();
                         break;
@@ -307,6 +309,12 @@ public class Controller {
 //                request.setErrorType(errorType);
             errorType = null;
         } while (true);
+    }
+
+    public void createCustomCard() {
+        Card card = gson.fromJson(scanner.nextLine(), Card.class);
+        shop.getCards().add(card);
+        //CardInitializer.addCustomCardToFile(card);
     }
 
     public void deleteAccount() {

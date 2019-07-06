@@ -134,6 +134,12 @@ public class ClientController extends Controller {
         return player;
     }
 
+    public void createCustomCard(Card card) {
+        sendCommandToServer("create custom card");
+        sendCommandToServer(gson.toJson(card));
+        readErrors();
+    }
+
     public void selectStoryLevel(int storyLevel) {
         sendCommandToServer("enter level " + storyLevel);
         readErrors();
