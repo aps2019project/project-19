@@ -2,17 +2,22 @@ package netWork;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.sun.corba.se.spi.ior.ObjectKey;
 import controller.AbstractClassAdapters;
 import controller.Controller;
+import controller.MenuType;
 import model.Account;
 import model.Buff.Buff;
 import model.Cards.Card;
 import model.Cards.SoldierCard;
+import model.Item;
 import model.Shop;
 import view.ErrorType;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ClientController extends Controller {
@@ -88,31 +93,66 @@ public class ClientController extends Controller {
 
     }
 
-    public void buyFromShop(String name) {
+    public boolean buyFromShop(String name) {
         sendCommandToServer("buy " + name);
+        return readErrors();
     }
 
-    public void sellToShop(int id) {
+    public boolean sellToShop(int id) {
         sendCommandToServer("sell " + id);
+        return readErrors();
     }
 
-    public void createDeck(String name) {
+    public boolean createDeck(String name) {
         sendCommandToServer("create deck " + name);
+        return readErrors();
     }
 
-    public void deleteDeck(String deckName) {
+    public boolean deleteDeck(String deckName) {
         sendCommandToServer("delete deck " + deckName);
+        return readErrors();
     }
 
-    public void addToDeck(String deckName, int id) {
+    public boolean addToDeck(String deckName, int id) {
         sendCommandToServer("add " + id + " to deck " + deckName);
+        return readErrors();
     }
 
-    public void removeFromDeck(String deckName, int id) {
+    public boolean removeFromDeck(String deckName, int id) {
         sendCommandToServer("remove " + id + " from deck " + deckName);
+        return readErrors();
     }
 
-    public void selectMainDeck(String deckName) {
+    public boolean selectMainDeck(String deckName) {
         sendCommandToServer("select deck " + deckName);
+        return readErrors();
+    }
+
+    public ArrayList<Object> searchInCollection(String name) {
+        Account loggedInAccount =getLoggedInAccount();
+        ArrayList<Object> results = new ArrayList<>();
+        for (Item item : loggedInAccount.getCollection().getItems()) {
+            if (item.getName().matches(name + "[\\w ]*")) results.add(item);
+        }
+        for (Card card : loggedInAccount.getCollection().getCards()) {
+            if (card.getName().matches(name + "[\\w ]*")) results.add(card);
+        }
+        return results;
+    }
+
+    public ArrayList<Object> searchInShop(String name) {
+        Shop shop = getShop();
+        ArrayList<Object> results = new ArrayList<>();
+        for (Card card : shop.getCards()) {
+            if (card.getName().matches(name + "[\\w ]*"))
+                results.add(card);
+        }
+        for (Item item : shop.getItems()) {
+            if (item.getName().matches(name+ "[\\w ]*"))
+                results.add(item);
+        }
+//        sendCommandToServer("search " + name);
+//        return gson.fromJson(serverScanner.nextLine(), new TypeToken<List<Object>>() {}.getType());
+        return results;
     }
 }

@@ -14,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.Cards.Card;
 import model.Deck;
+import netWork.Client;
+import netWork.ClientController;
 
 import java.util.ArrayList;
 
@@ -58,7 +60,7 @@ public class CollectionController extends MenuController {
 
     public void putCardsInCollection() {
         collectionPane.getChildren().removeIf(node -> node instanceof AnchorPane);
-        Controller controller = getMainController();
+        ClientController controller = getMainController();
         ArrayList<Object> products = new ArrayList<>();
         if (searchBar.getText().equals("")) {
             products.addAll(controller.getLoggedInAccount().getCollection().getCards());
@@ -134,8 +136,7 @@ public class CollectionController extends MenuController {
             AlertBox.display(Alert.AlertType.ERROR, "collection", "enter deck name");
             return;
         }
-        getMainController().createDeck(deckName.getText());
-        if (!getMainController().readErrors()) {
+        if (!getMainController().createDeck(deckName.getText())) {
             AlertBox.display(Alert.AlertType.ERROR, "Collection", getMainController().getErrorType().getMessage());
             getMainController().setErrorType(null);
         }
@@ -190,8 +191,7 @@ public class CollectionController extends MenuController {
         setMain.setOnMouseExited(event -> mainButton.setImage(mainButtonImage));
         setMain.setOnMouseClicked(event -> {
             System.err.println(selectedDeckName);
-            getMainController().selectMainDeck(selectedDeckName);
-            if (!getMainController().readErrors())
+            if (!getMainController().selectMainDeck(selectedDeckName))
                 AlertBox.display(Alert.AlertType.ERROR, "Deck", getMainController().getErrorType().getMessage());
         });
     }

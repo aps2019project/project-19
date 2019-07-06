@@ -59,6 +59,10 @@ public class Controller {
         this.loggedInAccount = loggedInAccount;
     }
 
+    public MenuType getMenuType() {
+        return menuType;
+    }
+
     public Shop getShop() {
         printStream.println(gson.toJson(shop));
         printStream.flush();
@@ -113,12 +117,12 @@ public class Controller {
                     save();
                     break;
                 ///////////////////////////// SHOP  ///////////////////////////
- /*                   case SEARCH_IN_SHOP:
-                        searchInShop();
+                    case SEARCH_IN_SHOP:
+//                        searchInShop();
                         break;
                     case SEARCH_IN_COLLECTION:
-                        searchInCollection();
-                        break;*/
+//                        searchInCollection();
+                        break;
                     case BUY_FROM_SHOP:
                         buyFromShop();
                         break;
@@ -577,14 +581,16 @@ public class Controller {
         }
     }
 
-    public ArrayList<Object> searchInCollection(String name) {
+    public ArrayList<Object> searchInCollection() {
         ArrayList<Object> results = new ArrayList<>();
         for (Item item : loggedInAccount.getCollection().getItems()) {
-            if (item.getName().matches(name + "[\\w ]*")) results.add(item);
+            if (item.getName().matches(request.getSearchingName() + "[\\w ]*")) results.add(item);
         }
         for (Card card : loggedInAccount.getCollection().getCards()) {
-            if (card.getName().matches(name + "[\\w ]*")) results.add(card);
+            if (card.getName().matches(request.getSearchingName() + "[\\w ]*")) results.add(card);
         }
+        printStream.println(gson.toJson(results));
+        printStream.flush();
 //        if (results.size() == 0) {
 //            errorType = ErrorType.NOT_FOUND;
 //        }
@@ -678,16 +684,18 @@ public class Controller {
         }
     }
 
-    public ArrayList searchInShop(String name) {
+    public ArrayList searchInShop() {
         ArrayList<Object> results = new ArrayList<>();
         for (Card card : shop.getCards()) {
-            if (card.getName().matches(name + "[\\w ]*"))
+            if (card.getName().matches(request.getSearchingName() + "[\\w ]*"))
                 results.add(card);
         }
         for (Item item : shop.getItems()) {
-            if (item.getName().matches(name + "[\\w ]*"))
+            if (item.getName().matches(request.getSearchingName() + "[\\w ]*"))
                 results.add(item);
         }
+        printStream.println(gson.toJson(results));
+        printStream.flush();
         return results;
         //todo:all arraylists must set to hashmap
         //duplicated code with existsInShop in Shop class

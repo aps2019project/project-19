@@ -77,6 +77,7 @@ public class MenuController {
             controller.setMainController(this.getMainController());
             if (controller instanceof ShopController) {
                 ShopController.setController(((ShopController) controller));
+                ((ShopController) controller).changeTab();
             }
             if (controller instanceof CollectionController) {
                 ((CollectionController) controller).putCardsInCollection();
@@ -208,31 +209,32 @@ public class MenuController {
             });
 
             cardView.setOnMouseClicked(event -> {
+                boolean gotError =true;
                 if (pane.getId().equals("heroPane"))
                     customGame(((Label) cardView.lookup("#nameLabel")).getText());
                 if (pane.getId().equals("shopPane"))
-                    mainController.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());
+                    gotError = !mainController.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());
                 if (pane.getId().equals("collectionInShopPane")) {
                     Object selling = mainController.searchInCollection(((Label) cardView.lookup("#nameLabel")).getText()).get(0);
                     if (selling instanceof SoldierCard)
-                        mainController.sellToShop(((SoldierCard) selling).getCardId());
+                        gotError = !mainController.sellToShop(((SoldierCard) selling).getCardId());
                     if (selling instanceof SpellCard)
-                        mainController.sellToShop(((SpellCard) selling).getCardId());
+                        gotError = !mainController.sellToShop(((SpellCard) selling).getCardId());
                     if (selling instanceof Item)
-                        mainController.sellToShop(((Item) selling).getItemId());
+                        gotError = !mainController.sellToShop(((Item) selling).getItemId());
                     ShopController.getController().putCards();
                 }
                 if (pane.getId().equals("collectionPane") && CollectionController.getController().isInDeck()) {
                     Object card = mainController.searchInCollection(((Label) cardView.lookup("#nameLabel")).getText()).get(0);
                     System.out.println(((Label) cardView.lookup("#nameLabel")).getText());
                     if (card instanceof Card) {
-                        getMainController().addToDeck(deckName, ((Card) card).getCardId());
+                        gotError = !getMainController().addToDeck(deckName, ((Card) card).getCardId());
                         mainController.getLoggedInAccount().getCollection().getCards().remove(card);
                         mainController.getLoggedInAccount().getCollection().getCards().add(((Card) card));
                     }
 
                     if (card instanceof Item) {
-                        mainController.addToDeck(deckName, ((Item) card).getItemId());
+                        gotError = !mainController.addToDeck(deckName, ((Item) card).getItemId());
                         mainController.getLoggedInAccount().getCollection().getItems().remove(card);
                         mainController.getLoggedInAccount().getCollection().getItems().add(((Item) card));
                     }
@@ -240,7 +242,7 @@ public class MenuController {
                     putUnusedCard(pane);
                 }
                 ShopController.getController().getErrorLabel().setText("");
-                if (!mainController.readErrors()) {
+                if (gotError) {
                     AlertBox.display(Alert.AlertType.ERROR, "Shop", mainController.getErrorType().getMessage());
                     mainController.setErrorType(null);
                 }
