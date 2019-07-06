@@ -324,6 +324,7 @@ public class Controller {
     public void createCustomCard() {
         Card card = request.getCustomCard();
         shop.getCards().add(card);
+        System.out.println("every thing is done");
         //CardInitializer.addCustomCardToFile(card);
     }
 
@@ -566,6 +567,9 @@ public class Controller {
                 menuType = MenuType.BATTLE;
                 break;
             case BATTLE:
+                break;
+            case CUSTOM_CARD_MENU:
+                menuType = MenuType.SHOP;
                 break;
             default:
                 menuType = MenuType.MAINMENU;

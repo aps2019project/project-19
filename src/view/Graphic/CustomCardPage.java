@@ -437,6 +437,7 @@ public class CustomCardPage extends MenuController implements Initializable {
         Card card = customCard.createCard();
         getMainController().createCustomCard(card);
         AlertBox.display(Alert.AlertType.INFORMATION, "Custom Card", "Custom Card created successfully");
+        getMainController().exitMenu();
         changeMenu("shopView.fxml");
     }
 
