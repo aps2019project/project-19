@@ -95,7 +95,7 @@ public class Request {
             return RequestType.GET_ACTIVE_PLAYER;
         if (command.matches("getdeactiveplayer"))
             return RequestType.GET_DEACTIVE_PLAYER;
-        if(command.matches("isgamestarted"))
+        if (command.matches("isgamestarted"))
             return RequestType.IS_GAME_STARTED;
 
         switch (menuType) {
