@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import model.Cards.*;
 import model.Deck;
 import model.Item;
+import model.Shop;
 import netWork.Client;
 import netWork.ClientController;
 import view.ErrorType;
@@ -215,13 +216,15 @@ public class MenuController {
                 if (pane.getId().equals("shopPane"))
                     gotError = !mainController.buyFromShop(((Label) cardView.lookup("#nameLabel")).getText());
                 if (pane.getId().equals("collectionInShopPane")) {
-                    Object selling = mainController.searchInCollection(((Label) cardView.lookup("#nameLabel")).getText()).get(0);
+                    String name = ((Label) cardView.lookup("#nameLabel")).getText();
+                    Object selling = mainController.searchInCollection(name).get(0);
                     if (selling instanceof SoldierCard)
                         gotError = !mainController.sellToShop(((SoldierCard) selling).getCardId());
                     if (selling instanceof SpellCard)
                         gotError = !mainController.sellToShop(((SpellCard) selling).getCardId());
                     if (selling instanceof Item)
                         gotError = !mainController.sellToShop(((Item) selling).getItemId());
+//                    mainController.getShop().increaseNumber(name);
                     ShopController.getController().putCards();
                 }
                 if (pane.getId().equals("collectionPane") && CollectionController.getController().isInDeck()) {

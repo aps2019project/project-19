@@ -11,6 +11,7 @@ public class Item {
     private int itemId;
     private String name;
     private int price;
+    private int number;
     private Cell cell;
     private ArrayList<Buff> buffs = new ArrayList<>();
     private int hpChanges;
@@ -120,6 +121,14 @@ public class Item {
     public WhenToUse getWhenToUse() {
         return whenToUse;
     }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void increaseNumber() {number++;}
+
+    public void decreaseNumber() {number--;}
 
     @Override
     public String toString() {

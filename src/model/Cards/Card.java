@@ -7,6 +7,7 @@ public abstract class Card {
     private String inBattleCardId;
     private String name;
     private CardStatus cardStatus;
+    private int number;
     private int price;
     private int mana;
     private String description;
@@ -85,6 +86,14 @@ public abstract class Card {
 
     public void castSpell(Card targetCard) {
     }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void increaseNumber() {number++;}
+
+    public void decreaseNumber() {number--;}
 
     public abstract String toInfoString();
 

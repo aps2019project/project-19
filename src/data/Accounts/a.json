@@ -2,13 +2,46 @@
   "userName": "a",
   "password": "a",
   "numberOfWins": 0,
-  "money": 100,
+  "money": 2200,
   "matchHistory": [],
   "collection": {
     "mainDeck": {
       "name": "s",
       "cards": {
-        "4": {
+        "1": {
+          "CLASSNAME": "model.Cards.Hero",
+          "INSTANCE": {
+            "coolDown": 0,
+            "coolDownWaiting": 0,
+            "ap": 7,
+            "hp": 55,
+            "type": "HYBRID",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 4,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "target": {
+              "type": "SOLDIER",
+              "areaSize": 0,
+              "soldierTargetType": "ITSELF",
+              "isaffectingCell": false
+            },
+            "cardId": 1,
+            "name": "rostam",
+            "cardStatus": "IN_DECK",
+            "number": 5,
+            "price": 8000,
+            "mana": 0,
+            "description": ""
+          }
+        },
+        "3": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
             "abilities": [],
@@ -28,6 +61,7 @@
             "cardId": 4,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -53,6 +87,7 @@
             "cardId": 5,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -78,6 +113,7 @@
             "cardId": 6,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -103,6 +139,7 @@
             "cardId": 7,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -128,6 +165,7 @@
             "cardId": 8,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -153,6 +191,7 @@
             "cardId": 9,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -178,6 +217,7 @@
             "cardId": 10,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -203,6 +243,7 @@
             "cardId": 11,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -228,6 +269,7 @@
             "cardId": 12,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -253,6 +295,7 @@
             "cardId": 13,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -278,6 +321,7 @@
             "cardId": 14,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -303,6 +347,7 @@
             "cardId": 15,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -328,6 +373,7 @@
             "cardId": 16,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -360,6 +406,7 @@
             "cardId": 17,
             "name": "rostam",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 8000,
             "mana": 0,
             "description": ""
@@ -385,6 +432,7 @@
             "cardId": 18,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -410,6 +458,7 @@
             "cardId": 19,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -435,6 +484,7 @@
             "cardId": 20,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -460,6 +510,7 @@
             "cardId": 21,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -485,6 +536,7 @@
             "cardId": 22,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -510,6 +562,7 @@
             "cardId": 23,
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
+            "number": 5,
             "price": 300,
             "mana": 2,
             "description": ""
@@ -573,6 +626,7 @@
               "cardId": 4,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -598,6 +652,7 @@
               "cardId": 5,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -623,6 +678,7 @@
               "cardId": 6,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -648,6 +704,7 @@
               "cardId": 7,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -673,6 +730,7 @@
               "cardId": 8,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -698,6 +756,7 @@
               "cardId": 9,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -723,6 +782,7 @@
               "cardId": 10,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -748,6 +808,7 @@
               "cardId": 11,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -773,6 +834,7 @@
               "cardId": 12,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -798,6 +860,7 @@
               "cardId": 13,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -823,6 +886,7 @@
               "cardId": 14,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -848,6 +912,7 @@
               "cardId": 15,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -873,6 +938,7 @@
               "cardId": 16,
               "name": "camandare farse",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 300,
               "mana": 2,
               "description": ""
@@ -905,183 +971,9 @@
               "cardId": 17,
               "name": "rostam",
               "cardStatus": "IN_DECK",
+              "number": 5,
               "price": 8000,
               "mana": 0,
-              "description": ""
-            }
-          },
-          "18": {
-            "CLASSNAME": "model.Cards.Minion",
-            "INSTANCE": {
-              "abilities": [],
-              "ap": 4,
-              "hp": 6,
-              "type": "RANGED",
-              "buffs": [],
-              "flagNumber": 0,
-              "attackRange": 7,
-              "isAttackedThisTurn": false,
-              "isMovedThisTurn": false,
-              "antiDisArm": false,
-              "antiPoison": false,
-              "antiNegative": false,
-              "strongerAp": false,
-              "notAcceptingHolyBuff": false,
-              "cardId": 18,
-              "name": "camandare farse",
-              "cardStatus": "IN_DECK",
-              "price": 300,
-              "mana": 2,
-              "description": ""
-            }
-          },
-          "19": {
-            "CLASSNAME": "model.Cards.Minion",
-            "INSTANCE": {
-              "abilities": [],
-              "ap": 4,
-              "hp": 6,
-              "type": "RANGED",
-              "buffs": [],
-              "flagNumber": 0,
-              "attackRange": 7,
-              "isAttackedThisTurn": false,
-              "isMovedThisTurn": false,
-              "antiDisArm": false,
-              "antiPoison": false,
-              "antiNegative": false,
-              "strongerAp": false,
-              "notAcceptingHolyBuff": false,
-              "cardId": 19,
-              "name": "camandare farse",
-              "cardStatus": "IN_DECK",
-              "price": 300,
-              "mana": 2,
-              "description": ""
-            }
-          },
-          "20": {
-            "CLASSNAME": "model.Cards.Minion",
-            "INSTANCE": {
-              "abilities": [],
-              "ap": 4,
-              "hp": 6,
-              "type": "RANGED",
-              "buffs": [],
-              "flagNumber": 0,
-              "attackRange": 7,
-              "isAttackedThisTurn": false,
-              "isMovedThisTurn": false,
-              "antiDisArm": false,
-              "antiPoison": false,
-              "antiNegative": false,
-              "strongerAp": false,
-              "notAcceptingHolyBuff": false,
-              "cardId": 20,
-              "name": "camandare farse",
-              "cardStatus": "IN_DECK",
-              "price": 300,
-              "mana": 2,
-              "description": ""
-            }
-          },
-          "21": {
-            "CLASSNAME": "model.Cards.Minion",
-            "INSTANCE": {
-              "abilities": [],
-              "ap": 4,
-              "hp": 6,
-              "type": "RANGED",
-              "buffs": [],
-              "flagNumber": 0,
-              "attackRange": 7,
-              "isAttackedThisTurn": false,
-              "isMovedThisTurn": false,
-              "antiDisArm": false,
-              "antiPoison": false,
-              "antiNegative": false,
-              "strongerAp": false,
-              "notAcceptingHolyBuff": false,
-              "cardId": 21,
-              "name": "camandare farse",
-              "cardStatus": "IN_DECK",
-              "price": 300,
-              "mana": 2,
-              "description": ""
-            }
-          },
-          "22": {
-            "CLASSNAME": "model.Cards.Minion",
-            "INSTANCE": {
-              "abilities": [],
-              "ap": 4,
-              "hp": 6,
-              "type": "RANGED",
-              "buffs": [],
-              "flagNumber": 0,
-              "attackRange": 7,
-              "isAttackedThisTurn": false,
-              "isMovedThisTurn": false,
-              "antiDisArm": false,
-              "antiPoison": false,
-              "antiNegative": false,
-              "strongerAp": false,
-              "notAcceptingHolyBuff": false,
-              "cardId": 22,
-              "name": "camandare farse",
-              "cardStatus": "IN_DECK",
-              "price": 300,
-              "mana": 2,
-              "description": ""
-            }
-          },
-          "23": {
-            "CLASSNAME": "model.Cards.Minion",
-            "INSTANCE": {
-              "abilities": [],
-              "ap": 4,
-              "hp": 6,
-              "type": "RANGED",
-              "buffs": [],
-              "flagNumber": 0,
-              "attackRange": 7,
-              "isAttackedThisTurn": false,
-              "isMovedThisTurn": false,
-              "antiDisArm": false,
-              "antiPoison": false,
-              "antiNegative": false,
-              "strongerAp": false,
-              "notAcceptingHolyBuff": false,
-              "cardId": 23,
-              "name": "camandare farse",
-              "cardStatus": "IN_DECK",
-              "price": 300,
-              "mana": 2,
-              "description": ""
-            }
-          },
-          "24": {
-            "CLASSNAME": "model.Cards.Minion",
-            "INSTANCE": {
-              "abilities": [],
-              "ap": 4,
-              "hp": 6,
-              "type": "RANGED",
-              "buffs": [],
-              "flagNumber": 0,
-              "attackRange": 7,
-              "isAttackedThisTurn": false,
-              "isMovedThisTurn": false,
-              "antiDisArm": false,
-              "antiPoison": false,
-              "antiNegative": false,
-              "strongerAp": false,
-              "notAcceptingHolyBuff": false,
-              "cardId": 24,
-              "name": "camandare farse",
-              "cardStatus": "IN_DECK",
-              "price": 300,
-              "mana": 2,
               "description": ""
             }
           }
@@ -1095,181 +987,6 @@
       }
     },
     "cards": [
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [],
-          "ap": 4,
-          "hp": 6,
-          "type": "RANGED",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 7,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "cardId": 24,
-          "name": "camandare farse",
-          "cardStatus": "IN_DECK",
-          "price": 300,
-          "mana": 2,
-          "description": ""
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [],
-          "ap": 4,
-          "hp": 6,
-          "type": "RANGED",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 7,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "cardId": 23,
-          "name": "camandare farse",
-          "cardStatus": "IN_DECK",
-          "price": 300,
-          "mana": 2,
-          "description": ""
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [],
-          "ap": 4,
-          "hp": 6,
-          "type": "RANGED",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 7,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "cardId": 22,
-          "name": "camandare farse",
-          "cardStatus": "IN_DECK",
-          "price": 300,
-          "mana": 2,
-          "description": ""
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [],
-          "ap": 4,
-          "hp": 6,
-          "type": "RANGED",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 7,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "cardId": 21,
-          "name": "camandare farse",
-          "cardStatus": "IN_DECK",
-          "price": 300,
-          "mana": 2,
-          "description": ""
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [],
-          "ap": 4,
-          "hp": 6,
-          "type": "RANGED",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 7,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "cardId": 20,
-          "name": "camandare farse",
-          "cardStatus": "IN_DECK",
-          "price": 300,
-          "mana": 2,
-          "description": ""
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [],
-          "ap": 4,
-          "hp": 6,
-          "type": "RANGED",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 7,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "cardId": 19,
-          "name": "camandare farse",
-          "cardStatus": "IN_DECK",
-          "price": 300,
-          "mana": 2,
-          "description": ""
-        }
-      },
-      {
-        "CLASSNAME": "model.Cards.Minion",
-        "INSTANCE": {
-          "abilities": [],
-          "ap": 4,
-          "hp": 6,
-          "type": "RANGED",
-          "buffs": [],
-          "flagNumber": 0,
-          "attackRange": 7,
-          "isAttackedThisTurn": false,
-          "isMovedThisTurn": false,
-          "antiDisArm": false,
-          "antiPoison": false,
-          "antiNegative": false,
-          "strongerAp": false,
-          "notAcceptingHolyBuff": false,
-          "cardId": 18,
-          "name": "camandare farse",
-          "cardStatus": "IN_DECK",
-          "price": 300,
-          "mana": 2,
-          "description": ""
-        }
-      },
       {
         "CLASSNAME": "model.Cards.Hero",
         "INSTANCE": {
@@ -1297,6 +1014,7 @@
           "cardId": 17,
           "name": "rostam",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 8000,
           "mana": 0,
           "description": ""
@@ -1322,6 +1040,7 @@
           "cardId": 16,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1347,6 +1066,7 @@
           "cardId": 15,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1372,6 +1092,7 @@
           "cardId": 14,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1397,6 +1118,7 @@
           "cardId": 13,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1422,6 +1144,7 @@
           "cardId": 12,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1447,6 +1170,7 @@
           "cardId": 11,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1472,6 +1196,7 @@
           "cardId": 10,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1497,6 +1222,7 @@
           "cardId": 9,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1522,6 +1248,7 @@
           "cardId": 8,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1547,6 +1274,7 @@
           "cardId": 7,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1572,6 +1300,7 @@
           "cardId": 6,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1597,6 +1326,7 @@
           "cardId": 5,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1622,6 +1352,7 @@
           "cardId": 4,
           "name": "camandare farse",
           "cardStatus": "IN_DECK",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1646,6 +1377,7 @@
           "notAcceptingHolyBuff": false,
           "cardId": 3,
           "name": "camandare farse",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1670,6 +1402,7 @@
           "notAcceptingHolyBuff": false,
           "cardId": 2,
           "name": "camandare farse",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""
@@ -1694,6 +1427,7 @@
           "notAcceptingHolyBuff": false,
           "cardId": 1,
           "name": "camandare farse",
+          "number": 5,
           "price": 300,
           "mana": 2,
           "description": ""

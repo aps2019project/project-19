@@ -97,6 +97,20 @@ public class Shop {
         return true;
     }
 
+    public boolean isFinished(String productName){
+        for (Card card : cards) {
+            if (card.getName().equals(productName))
+                if (card.getNumber() > 0)
+                    return false;
+        }
+        for (Item item : items) {
+            if (item.getName().equals(productName))
+                if (item.getNumber() > 0)
+                    return false;
+        }
+        return true;
+    }
+
     public void buy(String productName, Account account) {
         generateNewId(account);
         for (Card card : cards) {
@@ -118,6 +132,7 @@ public class Shop {
                     card1.setCardId(id);
                     account.getCollection().getCards().add(0, card1);
                 }
+//                card.decreaseNumber();
                 account.increaseMoney(-card.getPrice());
                 return;
             }
@@ -128,18 +143,24 @@ public class Shop {
                 item1.setItemId(id);
                 account.getCollection().getItems().add(0, item1);
                 account.increaseMoney(-item.getPrice());
+//                item.decreaseNumber();
             }
         }
     }
 
     public void sell(int productId, Account account) {
+        String name = "";
         for (Card card : account.getCollection().getCards()) {
-            if (card.getCardId() == productId)
+            if (card.getCardId() == productId) {
                 account.increaseMoney(card.getPrice());
+                name = card.getName();
+            }
         }
         for (Item item : account.getCollection().getItems()) {
-            if (item.getItemId() == productId)
+            if (item.getItemId() == productId) {
                 account.increaseMoney(item.getPrice());
+                name = item.getName();
+            }
         }
         for (Deck deck : account.getCollection().getDecks().values()) {
             deck.getCards().remove(productId);
@@ -147,6 +168,7 @@ public class Shop {
         }
         account.getCollection().getCards().removeIf(card -> card.getCardId() == productId);
         account.getCollection().getItems().removeIf(item -> item.getItemId() == productId);
+//        increaseNumber(name);
     }
 
     public void sellItem(int itemId) {
@@ -160,5 +182,14 @@ public class Shop {
     public static int getNewId() {
         id++;
         return id;
+    }
+
+    public void increaseNumber(String productName) {
+        for (int i = 0; i < this.getCards().size(); i++) {
+            if (this.getCards().get(i).getName().equals(productName)) this.getCards().get(i).increaseNumber();
+        }
+        for (int i = 0; i < this.getItems().size(); i++) {
+            if (this.getItems().get(i).getName().equals(productName)) this.getItems().get(i).increaseNumber();
+        }
     }
 }
