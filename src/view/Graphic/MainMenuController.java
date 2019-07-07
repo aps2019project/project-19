@@ -59,7 +59,7 @@ public class MainMenuController extends MenuController implements Initializable 
     }
     public void showChatroom(){
         AnimationTimer requestShowMessage = new AnimationTimer() {
-            //every 200 milisecond sends a request to server to show messages
+//            every 200 milisecond sends a request to server to show messages
             private long lastTime = 0;
             private double time = 0;
             private long second = 1000000000;
@@ -68,7 +68,7 @@ public class MainMenuController extends MenuController implements Initializable 
                 if (lastTime == 0) {
                     lastTime = now;
                 }
-                if (now > lastTime + second / 5) {
+                if (now > lastTime + second / 1) {
                     lastTime = now;
                     showMessages();
                 }

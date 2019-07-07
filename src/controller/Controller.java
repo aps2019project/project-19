@@ -33,6 +33,10 @@ public class Controller {
 
     private static ArrayList<Account> onlineAccounts = new ArrayList<>();
     private static ArrayList<String> chats = new ArrayList<>();
+    private static ArrayList<Account> deathMatchWaiters = new ArrayList<>();
+    private static ArrayList<Account> keepTheFlagWaiters = new ArrayList<>();
+    private static ArrayList<Account> captureTheFlagWaiters = new ArrayList<>();
+
     private PrintStream printStream;
     //private Scanner scanner;
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
