@@ -245,7 +245,6 @@ public class MenuController {
                         }
                         if (!gotError || !mainController.getErrorType().equals(ErrorType.EXISTS_IN_DECK))
                             break;
-                        else System.out.println(mainController.getErrorType().getMessage());
                     }
                     if (gotError) {
                         AlertBox.display(Alert.AlertType.ERROR, "Deck", mainController.getErrorType().getMessage());

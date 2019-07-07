@@ -28,7 +28,6 @@ public class Controller {
         request = new Request(inputStream);
         view = new View(outputStream);
         printStream = new PrintStream(outputStream, true);
-        //scanner = new Scanner(inputStream);
     }
 
     private static ArrayList<Account> onlineAccounts = new ArrayList<>();
