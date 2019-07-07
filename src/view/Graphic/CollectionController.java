@@ -163,7 +163,8 @@ public class CollectionController extends MenuController {
             decksPane.getChildren().add(cardView);
             cardView.setOnMouseClicked(event -> {
                 getMainController().removeFromDeck(deck.getName(), card.getCardId());
-                putCardInDeck(deck);
+                Deck newDeck = getMainController().getLoggedInAccount().getCollection().getDecks().get(deck.getName());
+                putCardInDeck(newDeck);
                 putUnusedCard(collectionPane);
             });
         }

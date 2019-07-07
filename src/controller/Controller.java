@@ -708,7 +708,6 @@ public class Controller {
             loggedInAccount.getCollection().removeFromDeck(request.getDeckName(), request.getCardOrItemID());
             view.show("card " + request.getCardOrItemID() + " removed from deck " + request.getDeckName());
         }
-
     }
 
     public void validateDeck() {

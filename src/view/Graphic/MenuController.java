@@ -228,7 +228,6 @@ public class MenuController {
                     ArrayList<Object> cards = mainController.searchInCollection(((Label) cardView.lookup("#nameLabel")).getText());
                     System.out.println(((Label) cardView.lookup("#nameLabel")).getText());
                     for (int i = 0; i < cards.size(); i++) {
-//                        System.out.println( i +" + " + cards.size());
                         Object card = cards.get(i);
                         if (card instanceof Card) {
                             gotError = !getMainController().addToDeck(deckName, ((Card) card).getCardId());
@@ -246,6 +245,8 @@ public class MenuController {
                     }
                     CollectionController.getController().putCardInDeck(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName));
                     putUnusedCard(pane);
+                    if (!gotError)
+                        return;
                 }
                 ShopController.getController().getErrorLabel().setText("");
                 if (gotError) {
