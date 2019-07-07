@@ -258,5 +258,15 @@ public class ClientController extends Controller {
 //        return gson.fromJson(serverScanner.nextLine(), new TypeToken<List<Object>>() {}.getType());
         return results;
     }
-
+    public void waitForOpponent(GameMode gameMode,int numberOfFlags){
+        if(gameMode == GameMode.CAPTURE_THE_FLAGS)
+            sendCommandToServer("start multiplayer game " + gameMode.toString()+" "+numberOfFlags);
+        else
+            sendCommandToServer("start multiplayer game " +gameMode.toString());
+        readErrors();
+    }
+    public boolean isGameStarted(){
+        sendCommandToServer("isGameStarted");
+        return readErrors();
+    }
 }

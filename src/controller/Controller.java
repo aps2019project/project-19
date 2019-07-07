@@ -33,6 +33,10 @@ public class Controller {
 
     private static ArrayList<Account> onlineAccounts = new ArrayList<>();
     private static ArrayList<String> chats = new ArrayList<>();
+    private static ArrayList<Account> deathMatchWaiters = new ArrayList<>();
+    private static ArrayList<Account> keepTheFlagWaiters = new ArrayList<>();
+    private static ArrayList<Account> captureTheFlagWaiters = new ArrayList<>();
+
     private PrintStream printStream;
     //private Scanner scanner;
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
@@ -226,7 +230,10 @@ public class Controller {
                     showAllPlayer();
                     break;
                 case SELECT_OPPONENT_USER:
-                    selectOpponent();
+//                    selectOpponent();
+                    break;
+                case IS_GAME_STARTED:
+                    isGameStarted();
                     break;
                 case SELECT_MULTI_PLAYER_MODE:
                     selectMultiPlayerMode();
@@ -319,6 +326,11 @@ public class Controller {
 //                request.setErrorType(errorType);
             errorType = null;
         } while (true);
+    }
+
+    private void isGameStarted() {
+        if(game == null)
+            errorType = ErrorType.GAME_IS_NOT_STARTED;
     }
 
     public void createCustomCard() {
@@ -434,18 +446,18 @@ public class Controller {
         game.setStoryPrize(request.getStoryLevel());
     }
 
-    private void selectOpponent() {
-        if (!Account.userNameIsValid(request.getUserName()) ||
-                loggedInAccount.getUserName().equals(request.getUserName())) {
-            errorType = ErrorType.INVALID_OPPONENT;
-            return;
-        }
+    private void selectOpponent(String userName) {
+//        if (!Account.userNameIsValid(userName) ||
+//                loggedInAccount.getUserName().equals(request.getUserName())) {
+//            errorType = ErrorType.INVALID_OPPONENT;
+//            return;
+//        }
         Account opponentAccount = Account.getAccounts().get(request.getUserName());
-        if (opponentAccount.getCollection().getMainDeck() == null ||
-                !opponentAccount.getCollection().getMainDeck().deckIsValid()) {
-            errorType = ErrorType.INVALID_OPPONENT_DECK;
-            return;
-        }
+//        if (opponentAccount.getCollection().getMainDeck() == null ||
+//                !opponentAccount.getCollection().getMainDeck().deckIsValid()) {
+//            errorType = ErrorType.INVALID_OPPONENT_DECK;
+//            return;
+//        }
         Player player1 = new Player(loggedInAccount, new Deck(loggedInAccount.getCollection().getMainDeck()));
         Player player2 = new Player(opponentAccount, new Deck(opponentAccount.getCollection().getMainDeck()));
         game = new Game(player1, player2);
@@ -453,9 +465,34 @@ public class Controller {
     }
 
     private void selectMultiPlayerMode() {
-        if (game == null) {
-//            errorType = ErrorType.INVALID_COMMAND;
-            return;
+        switch (request.getGameMode()) {
+            case DEATH_MATCH:
+                if (!deathMatchWaiters.isEmpty()) {
+                    selectOpponent(deathMatchWaiters.get(0).getUserName());
+                }
+                else {
+                    deathMatchWaiters.add(loggedInAccount);
+                    return;
+                }
+                break;
+            case KEEP_THE_FLAG:
+                if(!keepTheFlagWaiters.isEmpty())
+                    selectOpponent(keepTheFlagWaiters.get(0).getUserName());
+                else {
+                    keepTheFlagWaiters.add(loggedInAccount);
+                    return;
+                }
+                break;
+            case CAPTURE_THE_FLAGS:
+                if(!captureTheFlagWaiters.isEmpty()) {
+                    selectOpponent(captureTheFlagWaiters.get(0).getUserName());
+                }
+                else {
+                    captureTheFlagWaiters.add(loggedInAccount);
+                    return;
+                }
+                break;
+
         }
         game.setGameMode(request.getGameMode());
         if (request.getGameMode() == GameMode.CAPTURE_THE_FLAGS)
@@ -578,7 +615,6 @@ public class Controller {
     }
 
     public void enterMenu() {
-        menuType = request.getEnteringMenu();
 //        switch (menuType) {
 //            case MAINMENU:
 //                if (request.getEnteringMenu() == MenuType.SHOP ||
@@ -586,15 +622,17 @@ public class Controller {
 //                    menuType = request.getEnteringMenu();
 //                    return;
 //                }
-//                if (request.getEnteringMenu() == MenuType.START_NEW_GAME) {
-//                    if (loggedInAccount.getCollection().getMainDeck() == null ||
-//                            !loggedInAccount.getCollection().getMainDeck().deckIsValid()) {
-//                        errorType = ErrorType.INVALID_DECK;
-//                        return;
-//                    }
-//                    menuType = request.getEnteringMenu();
-//                    return;
-//                }
+        if (request.getEnteringMenu() == MenuType.START_NEW_GAME) {
+            if (loggedInAccount.getCollection().getMainDeck() == null ||
+                    !loggedInAccount.getCollection().getMainDeck().deckIsValid()) {
+                errorType = ErrorType.INVALID_DECK;
+                return;
+            }
+            menuType = request.getEnteringMenu();
+            return;
+        }
+        menuType = request.getEnteringMenu();
+
 //
 //                break;
 //            case START_NEW_GAME:

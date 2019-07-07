@@ -6,7 +6,7 @@
   "matchHistory": [],
   "collection": {
     "mainDeck": {
-      "name": "test",
+      "name": "s",
       "cards": {
         "1": {
           "CLASSNAME": "model.Cards.Hero",
@@ -44,50 +44,9 @@
         "3": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
-            "abilities": [
-              {
-                "CLASSNAME": "model.Buff.StunBuff",
-                "INSTANCE": {
-                  "kind": "NEGATIVE",
-                  "duration": 2,
-                  "isContinuous": false,
-                  "numberOfUsage": 0,
-                  "onMoment": false,
-                  "currentTurn": 0,
-                  "castTurn": 1,
-                  "isForCell": false
-                }
-              }
-            ],
-            "ap": 6,
-            "hp": 4,
-            "type": "MELEE",
-            "buffs": [],
-            "flagNumber": 0,
-            "attackRange": 1,
-            "isAttackedThisTurn": false,
-            "isMovedThisTurn": false,
-            "antiDisArm": false,
-            "antiPoison": false,
-            "antiNegative": false,
-            "strongerAp": false,
-            "notAcceptingHolyBuff": false,
-            "abilityCastTime": "ON_ATTACK",
-            "cardId": 3,
-            "name": "shamshir zane fars",
-            "cardStatus": "IN_DECK",
-            "number": 5,
-            "price": 400,
-            "mana": 2,
-            "description": "stun enemy for one turn"
-          }
-        },
-        "4": {
-          "CLASSNAME": "model.Cards.Minion",
-          "INSTANCE": {
             "abilities": [],
-            "ap": 12,
-            "hp": 12,
+            "ap": 4,
+            "hp": 6,
             "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
@@ -100,21 +59,21 @@
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
             "cardId": 4,
-            "name": "ghoole sang andaz",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
             "number": 5,
             "price": 300,
-            "mana": 9,
-            "description": "gooraaa!"
+            "mana": 2,
+            "description": ""
           }
         },
         "5": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
             "abilities": [],
-            "ap": 10,
-            "hp": 14,
-            "type": "HYBRID",
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
             "attackRange": 7,
@@ -126,39 +85,24 @@
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
             "cardId": 5,
-            "name": "dive siah",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
             "number": 5,
             "price": 300,
-            "mana": 9,
-            "description": "gooraaaa!"
+            "mana": 2,
+            "description": ""
           }
         },
         "6": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
-            "abilities": [
-              {
-                "CLASSNAME": "model.Buff.PoisonBuff",
-                "INSTANCE": {
-                  "hpDecrease": 1,
-                  "kind": "NEGATIVE",
-                  "duration": 3,
-                  "isContinuous": false,
-                  "numberOfUsage": 0,
-                  "onMoment": false,
-                  "currentTurn": 0,
-                  "castTurn": 1,
-                  "isForCell": false
-                }
-              }
-            ],
-            "ap": 6,
-            "hp": 5,
+            "abilities": [],
+            "ap": 4,
+            "hp": 6,
             "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 4,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -166,41 +110,51 @@
             "antiNegative": false,
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
-            "abilityCastTime": "ON_ATTACK",
             "cardId": 6,
-            "name": "mare sammi",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
             "number": 5,
             "price": 300,
-            "mana": 4,
-            "description": "poison enemy for 3 turn"
+            "mana": 2,
+            "description": ""
+          }
+        },
+        "7": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 7,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 7,
+            "name": "camandare farse",
+            "cardStatus": "IN_DECK",
+            "number": 5,
+            "price": 300,
+            "mana": 2,
+            "description": ""
           }
         },
         "8": {
           "CLASSNAME": "model.Cards.Minion",
           "INSTANCE": {
-            "abilities": [
-              {
-                "CLASSNAME": "model.Buff.AttackBuff",
-                "INSTANCE": {
-                  "damage": 6,
-                  "kind": "NEGATIVE",
-                  "duration": 1,
-                  "isContinuous": false,
-                  "numberOfUsage": 0,
-                  "onMoment": true,
-                  "currentTurn": 0,
-                  "castTurn": 1,
-                  "isForCell": false
-                }
-              }
-            ],
-            "ap": 5,
-            "hp": 8,
-            "type": "MELEE",
+            "abilities": [],
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 1,
+            "attackRange": 7,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -208,20 +162,13 @@
             "antiNegative": false,
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
-            "target": {
-              "type": "SOLDIER",
-              "areaSize": 0,
-              "soldierTargetType": "ENEMY_HERO",
-              "isaffectingCell": false
-            },
-            "abilityCastTime": "ON_DEATH",
             "cardId": 8,
-            "name": "siavash",
+            "name": "camandare farse",
             "cardStatus": "IN_DECK",
             "number": 5,
-            "price": 350,
-            "mana": 4,
-            "description": "deals 6 damage to enemy hero"
+            "price": 300,
+            "mana": 2,
+            "description": ""
           }
         },
         "9": {
@@ -433,15 +380,16 @@
           }
         },
         "17": {
-          "CLASSNAME": "model.Cards.Minion",
+          "CLASSNAME": "model.Cards.Hero",
           "INSTANCE": {
-            "abilities": [],
-            "ap": 4,
-            "hp": 6,
-            "type": "RANGED",
+            "coolDown": 0,
+            "coolDownWaiting": 0,
+            "ap": 7,
+            "hp": 55,
+            "type": "HYBRID",
             "buffs": [],
             "flagNumber": 0,
-            "attackRange": 7,
+            "attackRange": 4,
             "isAttackedThisTurn": false,
             "isMovedThisTurn": false,
             "antiDisArm": false,
@@ -449,12 +397,18 @@
             "antiNegative": false,
             "strongerAp": false,
             "notAcceptingHolyBuff": false,
+            "target": {
+              "type": "SOLDIER",
+              "areaSize": 0,
+              "soldierTargetType": "ITSELF",
+              "isaffectingCell": false
+            },
             "cardId": 17,
-            "name": "camandare farse",
+            "name": "rostam",
             "cardStatus": "IN_DECK",
             "number": 5,
-            "price": 300,
-            "mana": 2,
+            "price": 8000,
+            "mana": 0,
             "description": ""
           }
         },
@@ -609,6 +563,31 @@
             "name": "camandare farse",
             "cardStatus": "IN_DECK",
             "number": 5,
+            "price": 300,
+            "mana": 2,
+            "description": ""
+          }
+        },
+        "24": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 7,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 24,
+            "name": "camandare farse",
+            "cardStatus": "IN_DECK",
             "price": 300,
             "mana": 2,
             "description": ""

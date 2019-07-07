@@ -7,13 +7,11 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.image.*?>
-<AnchorPane prefHeight="1600.0" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" styleClass="playMode" stylesheets="@Styles.css"
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.Graphic.MultiGameMenu">
-    <ImageView fitHeight="100.0" fitWidth="80.0" onMouseClicked="#exit" AnchorPane.leftAnchor="0.0"
-               AnchorPane.topAnchor="0.0">
-        <Image url="@images/backButton.png">
-        </Image>
-    </ImageView>
+    <Label layoutX="800" styleClass="gameStatus"  layoutY="500" text = "Waiting For An Oponent..." prefHeight="80" prefWidth="320"/>
+    <Button layoutY="580" layoutX="900" prefWidth="120" prefHeight="80" text="Abort" />
+
 </AnchorPane>
