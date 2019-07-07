@@ -55,6 +55,7 @@ public class GameModeMenu extends MenuController implements Initializable {
             changeMenu("BattleView.fxml");
         } else {
             System.out.println("multiplayer");
+            getMainController().waitForOpponent(gameMode,numberOfFlags);
             changeMenu("multiGameMenu.fxml");
         }
     }

@@ -13,6 +13,7 @@ import model.Cards.SoldierTypes;
 import model.Shop;
 import view.Graphic.Graphic;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
@@ -23,7 +24,6 @@ import java.util.Scanner;
 public class Client {
     private static Socket socket;
 
-
     public static void main(String[] args) throws IOException {
         Client client = new Client();
         client.connectToServer();
@@ -33,7 +33,10 @@ public class Client {
     }
 
     private void connectToServer() throws IOException {
-        socket = new Socket("localhost", Server.SERVER_PORT);
+        Scanner config = new Scanner(new FileInputStream("src/netWork/config.txt"));
+        int port = Integer.parseInt(config.nextLine());
+        String serverIp = config.nextLine();
+        socket = new Socket(serverIp,port);
 //        scanner = new Scanner(System.in);
 //        serverFormatter = new PrintStream(socket.getOutputStream(), true);
 //        serverScanner = new Scanner(socket.getInputStream());

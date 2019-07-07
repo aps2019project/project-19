@@ -60,8 +60,8 @@ public class BattleViewController extends MenuController implements Initializabl
     public void loadGame() {
         game = getMainController().getGame();
         //System.out.println(game);
-        cellsLength = getMainController().getGame().getLength();
-        cellsWeight = getMainController().getGame().getWidth();
+        cellsLength = game.getLength();
+        cellsWeight = game.getWidth();
         anchorPaneCells = new AnchorPane[cellsWeight][cellsLength];
         for (int i = 0; i < cellsWeight; i++) {
             for (int j = 0; j < cellsLength; j++) {
@@ -76,7 +76,7 @@ public class BattleViewController extends MenuController implements Initializabl
                 anchorPane.setLayoutY(j * 100);
                 center.getChildren().add(anchorPane);
                 anchorPaneCells[j][i] = anchorPane;
-                Cell cell = getMainController().getGame().getCell(i + 1, j + 1);
+                Cell cell = game.getCell(i + 1, j + 1);
                 setCellMouseHover(anchorPane, true);
                 anchorPane.setOnMouseClicked(x -> {
                     handleCellsMouseClick(cell);
@@ -84,12 +84,12 @@ public class BattleViewController extends MenuController implements Initializabl
 
             }
         updateCells();
-        ArrayList<Card> hand = new ArrayList<>(getMainController().getGame().getPlayer1().getHandCards().values());
+        ArrayList<Card> hand = new ArrayList<>(game.getPlayer1().getHandCards().values());
         putHandsCards(hand);
-        rightManaLabel.setText(getMainController().getGame().getPlayer1().getMana() + "/" + getMainController().getGame().getPlayer1().getMaxMana());
-        leftManaLabel.setText(getMainController().getGame().getPlayer2().getMana() + "/" + getMainController().getGame().getPlayer2().getMaxMana());
-        addHeroIcons(rightHeroAnchor, getMainController().getGame().getPlayer1().getHero().getName(), false);
-        addHeroIcons(leftHeroAnchor, getMainController().getGame().getPlayer2().getHero().getName(), true);
+        rightManaLabel.setText(game.getPlayer1().getMana() + "/" + game.getPlayer1().getMaxMana());
+        leftManaLabel.setText(game.getPlayer2().getMana() + "/" + game.getPlayer2().getMaxMana());
+        addHeroIcons(rightHeroAnchor,game.getPlayer1().getHero().getName(), false);
+        addHeroIcons(leftHeroAnchor, game.getPlayer2().getHero().getName(), true);
     }
 
     private void setCellMouseHover(AnchorPane anchorPane, boolean on) {
@@ -352,9 +352,10 @@ public class BattleViewController extends MenuController implements Initializabl
     }
 
     private void updateStatus() {
-        rightManaLabel.setText(getMainController().getGame().getPlayer1().getMana() + "/" + getMainController().getGame().getPlayer1().getMaxMana());
-        leftManaLabel.setText(getMainController().getGame().getPlayer2().getMana() + "/" + getMainController().getGame().getPlayer2().getMaxMana());
-        putHandsCards(new ArrayList<>(getMainController().getGame().getPlayer1().getHandCards().values()));
+        Game game = getMainController().getGame();
+        rightManaLabel.setText(game.getPlayer1().getMana() + "/" + getMainController().getGame().getPlayer1().getMaxMana());
+        leftManaLabel.setText(game.getPlayer2().getMana() + "/" + getMainController().getGame().getPlayer2().getMaxMana());
+        putHandsCards(new ArrayList<>(game.getPlayer1().getHandCards().values()));
     }
 
     private void updateCells() {
