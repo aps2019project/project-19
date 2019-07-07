@@ -37,7 +37,6 @@ public class Request {
     private int storyLevel;
     private ArrayList<String> comboAttackers = new ArrayList<>();
     private boolean hasXY;
-    private Deck export;
     private String deckFileName;
     private Card customCard;
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
@@ -71,7 +70,6 @@ public class Request {
         storyLevel = 0;
         comboAttackers = new ArrayList<>();
         hasXY = false;
-        export = null;
         deckFileName = null;
         customCard = null;
     }
@@ -144,6 +142,10 @@ public class Request {
                     return RequestType.SHOW_ALL_DECKS;
                 if (command.matches("show deck \\w+"))
                     return RequestType.SHOW_DECK;
+                if (command.matches("export deck[\\w+ ]+with name[\\w+ ]+"))
+                    return RequestType.EXPORT_DECK;
+                if (command.matches("import deck[\\w+ ]+"))
+                    return RequestType.IMPORT_DECK;
                 break;
             case START_NEW_GAME:
                 break;
@@ -292,6 +294,12 @@ public class Request {
             case SHOW_DECK:
                 deckName = command.split(" ")[2];
                 break;
+            case EXPORT_DECK:
+                parseExportDeck();
+                break;
+            case IMPORT_DECK:
+                deckFileName = command.split("import deck ")[1];
+                break;
             /////////////////////// CREATING GAME /////////////////
             case SELECT_CUSTOM_GAME_GAMEMODE:
                 parseCustomGameMode();
@@ -344,6 +352,15 @@ public class Request {
                 break;
             case USE_SPECIAL_POWER:
                 parseUseSpecialPower();
+        }
+    }
+
+    private void parseExportDeck() {
+        Pattern pattern = Pattern.compile("export deck(?<deckname>[\\w+ ]+)with name(?<filename>[\\w+ ]+)");
+        Matcher matcher = pattern.matcher(command);
+        if (matcher.matches()) {
+            deckName = matcher.group("deckname").trim();
+            deckFileName = matcher.group("filename").trim();
         }
     }
 
@@ -597,9 +614,6 @@ public class Request {
         return hasXY;
     }
 
-    public Deck getExport() {
-        return export;
-    }
 
     public String getDeckFileName() {
         return deckFileName;

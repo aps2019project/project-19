@@ -33,6 +33,7 @@ public enum RequestType {
     BUY_FROM_SHOP,
     SELL_TO_SHOP,
     SHOW_SHOP,
+    CUSTOM_CARD,
     /////// BATTLE ///////
     SHOW_GAME_INFO,
     SHOW_MY_MINIONS,
@@ -69,5 +70,4 @@ public enum RequestType {
     GET_GAME,
     GET_ACTIVE_PLAYER,
     GET_DEACTIVE_PLAYER,
-    CUSTOM_CARD,
 }

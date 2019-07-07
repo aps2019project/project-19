@@ -240,8 +240,13 @@ public class MenuController {
 //                            mainController.getLoggedInAccount().getCollection().getItems().remove(card);
 //                            mainController.getLoggedInAccount().getCollection().getItems().add(((Item) card));
                         }
-                        if (!gotError)
+                        if (!gotError || !mainController.getErrorType().equals(ErrorType.EXISTS_IN_DECK))
                             break;
+                        else System.out.println(mainController.getErrorType().getMessage());
+                    }
+                    if (gotError) {
+                        AlertBox.display(Alert.AlertType.ERROR, "Deck", mainController.getErrorType().getMessage());
+                        mainController.setErrorType(null);
                     }
                     CollectionController.getController().putCardInDeck(mainController.getLoggedInAccount().getCollection().getDecks().get(deckName));
                     putUnusedCard(pane);

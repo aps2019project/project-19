@@ -73,7 +73,7 @@ public class ClientController extends Controller {
     public void sendChat(String message) {
         Account account = getLoggedInAccount();
         sendCommandToServer("recivechat");
-        sendCommandToServer( account.getUserName()+" : "+message);
+        sendCommandToServer(account.getUserName() + " : " + message);
         readErrors();
     }
 
@@ -135,6 +135,16 @@ public class ClientController extends Controller {
         Player player = gson.fromJson(serverScanner.nextLine(), Player.class);
         readErrors();
         return player;
+    }
+
+    public boolean exportDeck(String deckName, String fileName) {
+        sendCommandToServer("export deck " + deckName + " with name " + fileName);
+        return readErrors();
+    }
+
+    public boolean importDeck(String fileName) {
+        sendCommandToServer("import deck " + fileName);
+        return readErrors();
     }
 
     public void createCustomCard(Card card) {

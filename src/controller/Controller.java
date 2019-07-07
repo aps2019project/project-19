@@ -215,7 +215,10 @@ public class Controller {
                     removeFromDeck();
                     //todo: test for items
                     break;
-                        /*
+                case EXPORT_DECK:
+                    exportDeck();
+                    break;
+                    /*
                     case EXPORT_DECK:
                         exportDeck();
                         break;
@@ -344,12 +347,13 @@ public class Controller {
         }
     }
 
-    public boolean exportDeck(Deck deck, String fileName) {
+    public boolean exportDeck() {
+        Deck deck = loggedInAccount.getCollection().getDecks().get(request.getDeckName());
         if (!deck.deckIsValid()) {
             errorType = ErrorType.INVALID_DECK;
             return false;
         }
-        boolean isDone = DeckManagement.exportDeck(deck, fileName);
+        boolean isDone = DeckManagement.exportDeck(deck, request.getDeckFileName());
         if (isDone) {
             return true;
         } else {
@@ -358,8 +362,8 @@ public class Controller {
         }
     }
 
-    public boolean importDeck(String fileName) {
-        Deck deck = DeckManagement.importDeck(fileName);
+    public boolean importDeck() {
+        Deck deck = DeckManagement.importDeck(request.getDeckFileName());
         if (deck == null) {
             errorType = ErrorType.INVALID_DECK_FILE_NAME;
             return false;
