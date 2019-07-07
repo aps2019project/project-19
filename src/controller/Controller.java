@@ -776,6 +776,8 @@ public class Controller {
             errorType = ErrorType.NOT_ENOUGH_MONEY;
         else if (!shop.validateNumberOfItems(request.getProductName(), loggedInAccount))
             errorType = ErrorType.FULL_ITEMS;
+        else if (shop.isFinished(request.getProductName()))
+            errorType = ErrorType.FINISH;
         else {
             shop.buy(request.getProductName(), loggedInAccount);
             view.show("Successful purchase");
