@@ -1,0 +1,12 @@
+{
+  "userName": "a",
+  "password": "a",
+  "numberOfWins": 0,
+  "money": 15000,
+  "matchHistory": [],
+  "collection": {
+    "items": [],
+    "decks": {},
+    "cards": []
+  }
+}
