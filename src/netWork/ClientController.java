@@ -153,7 +153,7 @@ public class ClientController extends Controller {
         else if (card instanceof Hero)
             sendCommandToServer("create custom card hero " + gson.toJson(card));
         else if (card instanceof SpellCard)
-            sendCommandToServer("create custom card spell" + gson.toJson(card));
+            sendCommandToServer("create custom card spell " + gson.toJson(card));
         readErrors();
     }
 
@@ -258,14 +258,16 @@ public class ClientController extends Controller {
 //        return gson.fromJson(serverScanner.nextLine(), new TypeToken<List<Object>>() {}.getType());
         return results;
     }
-    public void waitForOpponent(GameMode gameMode,int numberOfFlags){
-        if(gameMode == GameMode.CAPTURE_THE_FLAGS)
-            sendCommandToServer("start multiplayer game " + gameMode.toString()+" "+numberOfFlags);
+
+    public void waitForOpponent(GameMode gameMode, int numberOfFlags) {
+        if (gameMode == GameMode.CAPTURE_THE_FLAGS)
+            sendCommandToServer("start multiplayer game " + gameMode.toString() + " " + numberOfFlags);
         else
-            sendCommandToServer("start multiplayer game " +gameMode.toString());
+            sendCommandToServer("start multiplayer game " + gameMode.toString());
         readErrors();
     }
-    public boolean isGameStarted(){
+
+    public boolean isGameStarted() {
         sendCommandToServer("isGameStarted");
         return readErrors();
     }

@@ -3,6 +3,7 @@
     "itemId": 2,
     "name": "namoose separ",
     "price": 400,
+    "number": 15,
     "buffs": [
       {
         "CLASSNAME": "model.Buff.HolyBuff",
@@ -14,8 +15,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -35,6 +37,7 @@
     "itemId": 3,
     "name": "camane damol",
     "price": 30000,
+    "number": 15,
     "buffs": [
       {
         "CLASSNAME": "model.Buff.DisArmBuff",
@@ -44,8 +47,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -65,6 +69,7 @@
     "itemId": 4,
     "name": "noosh daroo",
     "price": 0,
+    "number": 15,
     "buffs": [],
     "hpChanges": 6,
     "apChanges": 0,
@@ -82,6 +87,7 @@
     "itemId": 5,
     "name": "tire do shakh",
     "price": 0,
+    "number": 15,
     "buffs": [],
     "hpChanges": 0,
     "apChanges": 2,
@@ -99,6 +105,7 @@
     "itemId": 6,
     "name": "pare simorhg",
     "price": 3500,
+    "number": 15,
     "buffs": [],
     "hpChanges": 0,
     "apChanges": -2,
@@ -116,6 +123,7 @@
     "itemId": 7,
     "name": "exir",
     "price": 0,
+    "number": 15,
     "buffs": [
       {
         "CLASSNAME": "model.Buff.PowerBuff",
@@ -128,8 +136,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -149,6 +158,7 @@
     "itemId": 9,
     "name": "maajoone rooyeen tani",
     "price": 0,
+    "number": 15,
     "buffs": [
       {
         "CLASSNAME": "model.Buff.HolyBuff",
@@ -160,8 +170,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -181,6 +192,7 @@
     "itemId": 10,
     "name": "nefrine marg",
     "price": 0,
+    "number": 15,
     "buffs": [],
     "hpChanges": -8,
     "apChanges": 0,
@@ -198,6 +210,7 @@
     "itemId": 11,
     "name": "random damage",
     "price": 0,
+    "number": 15,
     "buffs": [],
     "hpChanges": 0,
     "apChanges": -2,
@@ -215,6 +228,7 @@
     "itemId": 12,
     "name": "terror hood",
     "price": 5000,
+    "number": 15,
     "buffs": [
       {
         "CLASSNAME": "model.Buff.WeaknessBuff",
@@ -227,8 +241,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -248,6 +263,7 @@
     "itemId": 13,
     "name": "blades of agility",
     "price": 0,
+    "number": 15,
     "buffs": [],
     "hpChanges": 0,
     "apChanges": 6,
@@ -265,6 +281,7 @@
     "itemId": 15,
     "name": "assassination dagger",
     "price": 1500,
+    "number": 15,
     "buffs": [],
     "hpChanges": -1,
     "apChanges": 0,
@@ -282,6 +299,7 @@
     "itemId": 16,
     "name": "poisonous dagger",
     "price": 7000,
+    "number": 15,
     "buffs": [
       {
         "CLASSNAME": "model.Buff.PoisonBuff",
@@ -292,8 +310,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -313,6 +332,7 @@
     "itemId": 17,
     "name": "shock hammer",
     "price": 15000,
+    "number": 15,
     "buffs": [
       {
         "CLASSNAME": "model.Buff.DisArmBuff",
@@ -322,8 +342,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -343,6 +364,7 @@
     "itemId": 18,
     "name": "soul eater",
     "price": 25000,
+    "number": 15,
     "buffs": [
       {
         "CLASSNAME": "model.Buff.PowerBuff",
@@ -355,8 +377,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -376,6 +399,7 @@
     "itemId": 19,
     "name": "ghosle taamid",
     "price": 20000,
+    "number": 15,
     "buffs": [
       {
         "CLASSNAME": "model.Buff.HolyBuff",
@@ -387,8 +411,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -408,6 +433,7 @@
     "itemId": 20,
     "name": "shamshire chini",
     "price": 0,
+    "number": 15,
     "buffs": [],
     "hpChanges": 0,
     "apChanges": 5,
