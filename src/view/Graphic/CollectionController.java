@@ -213,8 +213,7 @@ public class CollectionController extends MenuController {
             String name = TextReceiver.getText("Export", "please enter a name for exporting deck");
             if (!(name == null || name.equals(""))) {
 
-                if (getMainController().exportDeck(
-                        getMainController().getLoggedInAccount().getCollection().getDecks().get(selectedDeckName), name)) {
+                if (getMainController().exportDeck(selectedDeckName, name)) {
                     AlertBox.display(Alert.AlertType.INFORMATION, "Export", "Deck exported with name : " + name);
                 } else {
                     AlertBox.display(Alert.AlertType.ERROR, "Export", getMainController().getErrorType().getMessage());

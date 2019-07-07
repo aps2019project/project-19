@@ -16,7 +16,7 @@ public class DeckManagement {
             .setPrettyPrinting().create();
     private static File file = new File("src/data/Decks");
 
-    //returns false is the name exists
+    //returns false if the name exists
     public static boolean exportDeck(Deck deck, String name) {
         String[] decks = file.list();
         for (String fileName : decks) {

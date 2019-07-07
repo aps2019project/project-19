@@ -159,59 +159,62 @@ public class Controller {
                 case CUSTOM_CARD:
                     createCustomCard();
                     break;
-                    case SEARCH_IN_SHOP:
+                case SEARCH_IN_SHOP:
 //                        searchInShop();
-                        break;
-                    case SEARCH_IN_COLLECTION:
+                    break;
+                case SEARCH_IN_COLLECTION:
 //                        searchInCollection();
-                        break;
-                    case BUY_FROM_SHOP:
-                        buyFromShop();
-                        break;
-                    case SELL_TO_SHOP:
-                        sellToShop();
-                        break;
+                    break;
+                case BUY_FROM_SHOP:
+                    buyFromShop();
+                    break;
+                case SELL_TO_SHOP:
+                    sellToShop();
+                    break;
 
-                    case SHOW_SHOP:
-                        showShop();
-                        break;
-                    //////////////////////////// COLLECTION /////////////////////////
-                    case SHOW_COLLECTION_ITEMS:
-                        showCollectionItems();
-                        break;
-                    case SAVE_COLLECTION:
-                        saveCollection();
-                        // todo: saveCollection
-                        break;
-                    case CREATE_DECK:
-                        createDeck();
-                        break;
-                    case DELETE_DECK:
-                        deleteDeck();
-                        break;
+                case SHOW_SHOP:
+                    showShop();
+                    break;
+                //////////////////////////// COLLECTION /////////////////////////
+                case SHOW_COLLECTION_ITEMS:
+                    showCollectionItems();
+                    break;
+                case SAVE_COLLECTION:
+                    saveCollection();
+                    // todo: saveCollection
+                    break;
+                case CREATE_DECK:
+                    createDeck();
+                    break;
+                case DELETE_DECK:
+                    deleteDeck();
+                    break;
 
-                    case SHOW_DECK:
-                        showDeck();
-                        break;
-                    case SHOW_ALL_DECKS:
-                        showAllDecks();
-                        break;
-                    case ADD_TO_DECK:
-                        addToDeck();
-                        // todo: test for items
-                        break;
+                case SHOW_DECK:
+                    showDeck();
+                    break;
+                case SHOW_ALL_DECKS:
+                    showAllDecks();
+                    break;
+                case ADD_TO_DECK:
+                    addToDeck();
+                    // todo: test for items
+                    break;
                         /*
                     case VALIDATE_DECK:
                         validateDeck();
                         break;*/
-                    case SELECT_MAIN_DECK:
-                        selectMainDeck();
-                        break;
-                    case REMOVE_FROM_DECK:
-                        removeFromDeck();
-                        //todo: test for items
-                        break;
-                        /*
+                case SELECT_MAIN_DECK:
+                    selectMainDeck();
+                    break;
+                case REMOVE_FROM_DECK:
+                    removeFromDeck();
+                    //todo: test for items
+                    break;
+                case EXPORT_DECK:
+                    exportDeck();
+                    break;
+                    /*
                     case EXPORT_DECK:
                         exportDeck();
                         break;
@@ -332,12 +335,13 @@ public class Controller {
         }
     }
 
-    public boolean exportDeck(Deck deck, String fileName) {
+    public boolean exportDeck() {
+        Deck deck = loggedInAccount.getCollection().getDecks().get(request.getDeckName());
         if (!deck.deckIsValid()) {
             errorType = ErrorType.INVALID_DECK;
             return false;
         }
-        boolean isDone = DeckManagement.exportDeck(deck, fileName);
+        boolean isDone = DeckManagement.exportDeck(deck, request.getDeckFileName());
         if (isDone) {
             return true;
         } else {
@@ -346,8 +350,8 @@ public class Controller {
         }
     }
 
-    public boolean importDeck(String fileName) {
-        Deck deck = DeckManagement.importDeck(fileName);
+    public boolean importDeck() {
+        Deck deck = DeckManagement.importDeck(request.getDeckFileName());
         if (deck == null) {
             errorType = ErrorType.INVALID_DECK_FILE_NAME;
             return false;
