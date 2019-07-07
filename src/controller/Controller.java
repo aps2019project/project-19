@@ -329,14 +329,15 @@ public class Controller {
     }
 
     private void isGameStarted() {
-        if(game == null)
+        if (game == null)
             errorType = ErrorType.GAME_IS_NOT_STARTED;
     }
 
     public void createCustomCard() {
         Card card = request.getCustomCard();
         shop.getCards().add(card);
-        //CardInitializer.addCustomCardToFile(card);
+        CardInitializer.addCustomCardToFile(card);
+
     }
 
     public void deleteAccount() {
@@ -469,14 +470,13 @@ public class Controller {
             case DEATH_MATCH:
                 if (!deathMatchWaiters.isEmpty()) {
                     selectOpponent(deathMatchWaiters.get(0).getUserName());
-                }
-                else {
+                } else {
                     deathMatchWaiters.add(loggedInAccount);
                     return;
                 }
                 break;
             case KEEP_THE_FLAG:
-                if(!keepTheFlagWaiters.isEmpty())
+                if (!keepTheFlagWaiters.isEmpty())
                     selectOpponent(keepTheFlagWaiters.get(0).getUserName());
                 else {
                     keepTheFlagWaiters.add(loggedInAccount);
@@ -484,10 +484,9 @@ public class Controller {
                 }
                 break;
             case CAPTURE_THE_FLAGS:
-                if(!captureTheFlagWaiters.isEmpty()) {
+                if (!captureTheFlagWaiters.isEmpty()) {
                     selectOpponent(captureTheFlagWaiters.get(0).getUserName());
-                }
-                else {
+                } else {
                     captureTheFlagWaiters.add(loggedInAccount);
                     return;
                 }

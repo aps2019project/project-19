@@ -9,8 +9,9 @@
           "isContinuous": true,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -22,6 +23,7 @@
     },
     "cardId": 201,
     "name": "total disarm",
+    "number": 15,
     "price": 1000,
     "mana": 0,
     "description": "disarm forever"
@@ -38,8 +40,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -50,6 +53,7 @@
     },
     "cardId": 202,
     "name": "area dispel",
+    "number": 15,
     "price": 1500,
     "mana": 2,
     "description": "eliminate enemy\u0027s positive buffs and friendly negatives buffs"
@@ -67,8 +71,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -80,6 +85,7 @@
     },
     "cardId": 203,
     "name": "empower",
+    "number": 15,
     "price": 250,
     "mana": 1,
     "description": "increase friendly force power by 2"
@@ -95,8 +101,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -108,6 +115,7 @@
     },
     "cardId": 204,
     "name": "fire ball",
+    "number": 15,
     "price": 400,
     "mana": 1,
     "description": "damage enemy by 4"
@@ -125,8 +133,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -138,6 +147,7 @@
     },
     "cardId": 205,
     "name": "god strength",
+    "number": 15,
     "price": 450,
     "mana": 2,
     "description": "give friendly hero 4 strength"
@@ -153,8 +163,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -165,6 +176,7 @@
     },
     "cardId": 206,
     "name": "hell fire",
+    "number": 15,
     "price": 600,
     "mana": 3,
     "description": "create fire effect on target cells for 2 turns"
@@ -180,8 +192,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -193,6 +206,7 @@
     },
     "cardId": 207,
     "name": "lighting bolt",
+    "number": 15,
     "price": 1250,
     "mana": 2,
     "description": "damage enemy hero by 8"
@@ -208,8 +222,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -220,6 +235,7 @@
     },
     "cardId": 208,
     "name": "poison lake",
+    "number": 15,
     "price": 900,
     "mana": 5,
     "description": "create poison effect on target cells for 1 turn"
@@ -237,8 +253,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       },
       {
@@ -249,8 +266,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -262,6 +280,7 @@
     },
     "cardId": 209,
     "name": "madness",
+    "number": 15,
     "price": 650,
     "mana": 0,
     "description": "increase friendly force power by 4 for 3 turns but disarm it"
@@ -276,8 +295,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -289,6 +309,7 @@
     },
     "cardId": 210,
     "name": "all disarm",
+    "number": 15,
     "price": 2000,
     "mana": 9,
     "description": "disarm for 1 turn"
@@ -304,8 +325,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -317,6 +339,7 @@
     },
     "cardId": 211,
     "name": "all poison",
+    "number": 15,
     "price": 1500,
     "mana": 8,
     "description": "all force poisoned for 4 turns"
@@ -333,8 +356,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -346,6 +370,7 @@
     },
     "cardId": 212,
     "name": "dispel",
+    "number": 15,
     "price": 2100,
     "mana": 0,
     "description": "eliminate enemy\u0027s positive buffs and friendly negatives buffs"
@@ -363,8 +388,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       },
       {
@@ -377,8 +403,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -390,6 +417,7 @@
     },
     "cardId": 213,
     "name": "health with profit",
+    "number": 15,
     "price": 2250,
     "mana": 0,
     "description": "decrease friendly force health by 6 but give it 2 holy buff for 3 turns"
@@ -407,8 +435,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -420,6 +449,7 @@
     },
     "cardId": 214,
     "name": "power up",
+    "number": 15,
     "price": 2500,
     "mana": 2,
     "description": "increase force power by 6"
@@ -437,8 +467,9 @@
           "isContinuous": true,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -450,6 +481,7 @@
     },
     "cardId": 215,
     "name": "all power",
+    "number": 15,
     "price": 2000,
     "mana": 4,
     "description": "give all friendly force 2 power buff continuously"
@@ -465,8 +497,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -478,6 +511,7 @@
     },
     "cardId": 216,
     "name": "all attack",
+    "number": 15,
     "price": 1500,
     "mana": 4,
     "description": "damage all enemy force by 6"
@@ -495,8 +529,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -508,6 +543,7 @@
     },
     "cardId": 217,
     "name": "weakening",
+    "number": 15,
     "price": 1000,
     "mana": 1,
     "description": "decrease one enemy minion,s power by 4"
@@ -525,8 +561,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       },
       {
@@ -540,8 +577,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -553,6 +591,7 @@
     },
     "cardId": 218,
     "name": "sacrifice",
+    "number": 15,
     "price": 1600,
     "mana": 2,
     "description": "give friendly minion weakness buff with decreasing health by 6 and power buff with increasing power by 8"
@@ -567,8 +606,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": true,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -580,6 +620,7 @@
     },
     "cardId": 219,
     "name": "kings guard",
+    "number": 15,
     "price": 1750,
     "mana": 9,
     "description": "kill enemy"
@@ -594,8 +635,9 @@
           "isContinuous": false,
           "numberOfUsage": 0,
           "onMoment": false,
-          "currnetTurn": 1,
-          "castTurn": 1
+          "currentTurn": 0,
+          "castTurn": 1,
+          "isForCell": false
         }
       }
     ],
@@ -607,6 +649,7 @@
     },
     "cardId": 220,
     "name": "shock",
+    "number": 15,
     "price": 1200,
     "mana": 1,
     "description": "stun enemy force for two turn  "

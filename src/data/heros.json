@@ -11,8 +11,9 @@
         "isContinuous": true,
         "numberOfUsage": 0,
         "onMoment": true,
-        "currnetTurn": 1,
-        "castTurn": 1
+        "currentTurn": 0,
+        "castTurn": 1,
+        "isForCell": false
       }
     },
     "coolDown": 2,
@@ -38,6 +39,7 @@
     },
     "cardId": 301,
     "name": "dive sepid",
+    "number": 15,
     "price": 8000,
     "mana": 1,
     "description": "give itself power buff with increasing power by 4 continuously"
@@ -51,8 +53,9 @@
         "isContinuous": false,
         "numberOfUsage": 0,
         "onMoment": false,
-        "currnetTurn": 1,
-        "castTurn": 1
+        "currentTurn": 0,
+        "castTurn": 1,
+        "isForCell": false
       }
     },
     "coolDown": 8,
@@ -78,6 +81,7 @@
     },
     "cardId": 302,
     "name": "simorgh",
+    "number": 15,
     "price": 9000,
     "mana": 5,
     "description": "stun all enemy\u0027s forces for 1 turn"
@@ -91,8 +95,9 @@
         "isContinuous": false,
         "numberOfUsage": 0,
         "onMoment": false,
-        "currnetTurn": 1,
-        "castTurn": 1
+        "currentTurn": 0,
+        "castTurn": 1,
+        "isForCell": false
       }
     },
     "coolDown": 1,
@@ -118,6 +123,7 @@
     },
     "cardId": 303,
     "name": "seven head dragon",
+    "number": 15,
     "price": 8000,
     "mana": 0,
     "description": "disarm one enemy"
@@ -131,8 +137,9 @@
         "isContinuous": false,
         "numberOfUsage": 0,
         "onMoment": false,
-        "currnetTurn": 1,
-        "castTurn": 1
+        "currentTurn": 0,
+        "castTurn": 1,
+        "isForCell": false
       }
     },
     "coolDown": 2,
@@ -158,6 +165,7 @@
     },
     "cardId": 304,
     "name": "rakhsh",
+    "number": 15,
     "price": 8000,
     "mana": 1,
     "description": "stun one enemy for 1 turn"
@@ -172,8 +180,9 @@
         "isContinuous": false,
         "numberOfUsage": 0,
         "onMoment": false,
-        "currnetTurn": 1,
-        "castTurn": 1
+        "currentTurn": 0,
+        "castTurn": 1,
+        "isForCell": false
       }
     },
     "coolDown": 0,
@@ -200,6 +209,7 @@
     "abilityCastTime": "ON_ATTACK",
     "cardId": 305,
     "name": "zahack",
+    "number": 15,
     "price": 10000,
     "mana": 0,
     "description": "on attack poison enemy for 3 turn"
@@ -215,8 +225,9 @@
         "isContinuous": false,
         "numberOfUsage": 0,
         "onMoment": false,
-        "currnetTurn": 1,
-        "castTurn": 1
+        "currentTurn": 0,
+        "castTurn": 1,
+        "isForCell": false
       }
     },
     "coolDown": 3,
@@ -241,6 +252,7 @@
     },
     "cardId": 306,
     "name": "kaveh",
+    "number": 15,
     "price": 8000,
     "mana": 1,
     "description": "make one cell holy for 3 turn"
@@ -255,8 +267,9 @@
         "isContinuous": false,
         "numberOfUsage": 0,
         "onMoment": true,
-        "currnetTurn": 1,
-        "castTurn": 1
+        "currentTurn": 0,
+        "castTurn": 1,
+        "isForCell": false
       }
     },
     "coolDown": 2,
@@ -282,6 +295,7 @@
     },
     "cardId": 307,
     "name": "arash",
+    "number": 15,
     "price": 10000,
     "mana": 2,
     "description": "give all enemy force in row with it 4 damage"
@@ -297,8 +311,9 @@
         "isContinuous": false,
         "numberOfUsage": 0,
         "onMoment": true,
-        "currnetTurn": 1,
-        "castTurn": 1
+        "currentTurn": 0,
+        "castTurn": 1,
+        "isForCell": false
       }
     },
     "coolDown": 2,
@@ -324,6 +339,7 @@
     },
     "cardId": 308,
     "name": "afsaneh",
+    "number": 15,
     "price": 11000,
     "mana": 1,
     "description": "dispel one enemy force"
@@ -339,8 +355,9 @@
         "isContinuous": true,
         "numberOfUsage": 0,
         "onMoment": false,
-        "currnetTurn": 1,
-        "castTurn": 1
+        "currentTurn": 0,
+        "castTurn": 1,
+        "isForCell": false
       }
     },
     "coolDown": 0,
@@ -367,6 +384,7 @@
     "abilityCastTime": "ON_DEFEND",
     "cardId": 309,
     "name": "esfandiar",
+    "number": 15,
     "price": 12000,
     "mana": 0,
     "description": "have 3 holy buff continuously"
@@ -395,6 +413,7 @@
     },
     "cardId": 310,
     "name": "rostam",
+    "number": 15,
     "price": 8000,
     "mana": 0,
     "description": ""
