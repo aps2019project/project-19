@@ -8,6 +8,7 @@ import model.Buff.DispellBuff;
 import model.Buff.StunBuff;
 import model.Cards.*;
 import model.Target.Type;
+import netWork.Server;
 import view.*;
 import model.Game.*;
 
@@ -452,7 +453,7 @@ public class Controller {
 //            errorType = ErrorType.INVALID_OPPONENT;
 //            return;
 //        }
-        Account opponentAccount = Account.getAccounts().get(request.getUserName());
+        Account opponentAccount = Account.getAccounts().get(userName);
 //        if (opponentAccount.getCollection().getMainDeck() == null ||
 //                !opponentAccount.getCollection().getMainDeck().deckIsValid()) {
 //            errorType = ErrorType.INVALID_OPPONENT_DECK;
@@ -461,6 +462,8 @@ public class Controller {
         Player player1 = new Player(loggedInAccount, new Deck(loggedInAccount.getCollection().getMainDeck()));
         Player player2 = new Player(opponentAccount, new Deck(opponentAccount.getCollection().getMainDeck()));
         game = new Game(player1, player2);
+        Controller opponentController = Server.getClientController(opponentAccount.getUserName());
+        opponentController.setGame(game);
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
 
@@ -1627,5 +1630,9 @@ public class Controller {
         printStream.println(gson.toJson(deactivePlayer));
         printStream.flush();
         return deactivePlayer;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

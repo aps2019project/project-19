@@ -27,11 +27,7 @@ public class ServerGraphic extends Application {
         controller.setMainController(mainController);
         primaryStage.setTitle("Duelyst server");
         stage = primaryStage;
-        primaryStage.setFullScreen(true);
-//        primaryStage.setOnCloseRequest((event)->{
-//            System.out.println("gdafdf");
-//            mainController.logOut();
-//        });
+        primaryStage.setFullScreen(false);
         primaryStage.setScene(new Scene(root));
         Image image = new Image("view/Graphic/images/mouseCursor.png");
         primaryStage.getScene().setCursor(new ImageCursor(image));

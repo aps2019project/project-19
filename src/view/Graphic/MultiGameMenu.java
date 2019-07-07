@@ -22,7 +22,7 @@ public class MultiGameMenu extends MenuController implements Initializable {
                 if (lastTime == 0) {
                     lastTime = now;
                 }
-                if (now > lastTime + second / 2) {
+                if (now > lastTime + 5*second ) {
                     lastTime = now;
                     if (getMainController().isGameStarted()) {
                         System.out.println("isStarteeeed");
