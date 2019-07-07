@@ -38,13 +38,19 @@ public class CustomCard {
                         attackType, attackRange, desc, abilityCastTime, specialPowers);
                 return minion;
             case "hero":
+                Hero hero;
                 if (!attackType.equals(SoldierTypes.RANGED))
                     attackRange = 0;
-                if (!targetType.equals(Type.AREA))
+                if (targetType != null && !targetType.equals(Type.AREA))
                     areaSize = 0;
-                heroTarget = new Target(targetType, areaSize, soldierTargetType);
-                Hero hero = new Hero(Shop.getNewId(), name, cost, mana, ap, hp,
-                        attackType, attackRange, desc, specialPowers.get(0), coolDown, heroTarget);
+                if (specialPowers.size() != 0) {
+                    heroTarget = new Target(targetType, areaSize, soldierTargetType);
+                    hero = new Hero(Shop.getNewId(), name, cost, mana, ap, hp,
+                            attackType, attackRange, desc, specialPowers.get(0), coolDown, heroTarget);
+                } else
+                    hero = new Hero(Shop.getNewId(), name, cost, mana, ap, hp,
+                            attackType, attackRange, desc, null, 0, null);
+
                 return hero;
             case "spell":
                 if (!targetType.equals(Type.AREA))

@@ -564,6 +564,9 @@ public class Controller {
                 break;
             case BATTLE:
                 break;
+            case CUSTOM_CARD_MENU:
+                menuType = MenuType.SHOP;
+                break;
             default:
                 menuType = MenuType.MAINMENU;
                 break;

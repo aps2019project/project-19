@@ -428,15 +428,12 @@ public class CustomCardPage extends MenuController implements Initializable {
     }
 
     private void createCard(String cardType) {
-        if (getMainController().getShop().existsInShop(name.getText())) {
-            AlertBox.display(Alert.AlertType.ERROR, "Custom Card", "A card exists with this name");
-            return;
-        }
         setGeneralFields();
         customCard.setType(cardType);
         Card card = customCard.createCard();
         getMainController().createCustomCard(card);
         AlertBox.display(Alert.AlertType.INFORMATION, "Custom Card", "Custom Card created successfully");
+        getMainController().exitMenu();
         changeMenu("shopView.fxml");
     }
 

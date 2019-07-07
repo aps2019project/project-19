@@ -5,8 +5,7 @@ import com.google.gson.GsonBuilder;
 import controller.AbstractClassAdapters;
 import controller.MenuType;
 import model.Buff.Buff;
-import model.Cards.Card;
-import model.Cards.SoldierCard;
+import model.Cards.*;
 import model.Deck;
 import model.Game.GameMode;
 
@@ -79,8 +78,10 @@ public class Request {
 
     public void getNewCommand() {
         do {
-            command = scanner.nextLine().trim().toLowerCase();
+            command = scanner.nextLine().trim();
         } while (command.equals(""));
+        if (!command.startsWith("create custom card"))
+            command = command.toLowerCase();
         System.err.println(command);
     }
 
@@ -210,8 +211,6 @@ public class Request {
                 if (command.matches("show cards"))
                     return RequestType.SHOW_All_CARDS_IN_GRAVEYARD;
             case SHOP:
-                if (command.startsWith("create custom card"))
-                    return RequestType.CUSTOM_CARD;
                 if (command.matches("show collection"))
                     return RequestType.SHOW_COLLECTION_ITEMS;
                 if (command.matches("search collection (\\w+ ?)+"))
@@ -224,6 +223,10 @@ public class Request {
                     return RequestType.SELL_TO_SHOP;
                 if (command.matches("show"))
                     return RequestType.SHOW_SHOP;
+                break;
+            case CUSTOM_CARD_MENU:
+                if (command.startsWith("create custom card"))
+                    return RequestType.CUSTOM_CARD;
                 break;
         }
         if (command.matches("logout") && menuType != MenuType.ACCOUNT)
@@ -261,7 +264,7 @@ public class Request {
                 productId = Integer.parseInt(command.split(" ")[1]);
                 break;
             case CUSTOM_CARD:
-                customCard = gson.fromJson(command.split("create custom card ")[1], Card.class);
+                parseCustomCard();
                 break;
             /////////////////// COLLECTION /////////////////
             case CREATE_DECK:
@@ -340,6 +343,17 @@ public class Request {
             case USE_SPECIAL_POWER:
                 parseUseSpecialPower();
         }
+    }
+
+    private void parseCustomCard() {
+        String[] strings = command.split(" ");
+        String cardGson = command.split("create custom card \\w+")[1];
+        if (strings[3].equals("minion"))
+            customCard = gson.fromJson(cardGson, Minion.class);
+        else if (strings[3].equals("hero"))
+            customCard = gson.fromJson(cardGson, Hero.class);
+        else if (strings[3].equals("spell"))
+            customCard = gson.fromJson(cardGson, SpellCard.class);
     }
 
     private void parseUseSpecialPower() {

@@ -9,8 +9,7 @@ import controller.Controller;
 import controller.MenuType;
 import model.Account;
 import model.Buff.Buff;
-import model.Cards.Card;
-import model.Cards.SoldierCard;
+import model.Cards.*;
 import model.Game.Game;
 import model.Game.GameMode;
 import model.Player;
@@ -139,7 +138,12 @@ public class ClientController extends Controller {
     }
 
     public void createCustomCard(Card card) {
-        sendCommandToServer("create custom card " + gson.toJson(card));
+        if (card instanceof Minion)
+            sendCommandToServer("create custom card minion " + gson.toJson(card));
+        else if (card instanceof Hero)
+            sendCommandToServer("create custom card hero " + gson.toJson(card));
+        else if (card instanceof SpellCard)
+            sendCommandToServer("create custom card spell" + gson.toJson(card));
         readErrors();
     }
 
