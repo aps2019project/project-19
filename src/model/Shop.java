@@ -132,7 +132,7 @@ public class Shop {
                     card1.setCardId(id);
                     account.getCollection().getCards().add(0, card1);
                 }
-                card.decreaseNumber();
+//                card.decreaseNumber();
                 account.increaseMoney(-card.getPrice());
                 return;
             }
@@ -143,7 +143,7 @@ public class Shop {
                 item1.setItemId(id);
                 account.getCollection().getItems().add(0, item1);
                 account.increaseMoney(-item.getPrice());
-                item.decreaseNumber();
+//                item.decreaseNumber();
             }
         }
     }
@@ -168,7 +168,7 @@ public class Shop {
         }
         account.getCollection().getCards().removeIf(card -> card.getCardId() == productId);
         account.getCollection().getItems().removeIf(item -> item.getItemId() == productId);
-        increaseNumber(name);
+//        increaseNumber(name);
     }
 
     public void sellItem(int itemId) {

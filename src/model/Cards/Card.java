@@ -7,7 +7,7 @@ public abstract class Card {
     private String inBattleCardId;
     private String name;
     private CardStatus cardStatus;
-    private int number = 5;
+    private int number;
     private int price;
     private int mana;
     private String description;
