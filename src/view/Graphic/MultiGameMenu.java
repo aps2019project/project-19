@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 public class MultiGameMenu extends MenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("waiting menu");
         AnimationTimer requestShowMessage = new AnimationTimer() {
             //            every 200 milisecond sends a request to server to see if game is started or not
             private long lastTime = 0;
@@ -32,6 +33,7 @@ public class MultiGameMenu extends MenuController implements Initializable {
             }
         };
         requestShowMessage.start();
+
     }
 
     public void exit() {

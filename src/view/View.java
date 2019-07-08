@@ -27,9 +27,9 @@ public class View {
     public void printError(ErrorType errorType) {
         if (errorType == null)
             errorType = ErrorType.NO_ERROR;
+            System.err.println(errorType + " "+ this.toString());
             printStream.println(gson.toJson(errorType));
             printStream.flush();
-
     }
 
     public void printEnterPassword() {

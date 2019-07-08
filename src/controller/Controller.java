@@ -372,7 +372,7 @@ public class Controller {
             errorType = ErrorType.INVALID_DECK_FILE_NAME;
             return false;
         } else {
-            if (getLoggedInAccount().getCollection().getDecks().containsKey(deck.getName())) {
+            if (loggedInAccount.getCollection().getDecks().containsKey(deck.getName())) {
                 errorType = ErrorType.SAME_DECK;
                 return false;
             } else {
@@ -387,9 +387,13 @@ public class Controller {
             }
         }
     }
+    public Account getLoggedInAccount(){
+       return getLoggedInAccount(true);
+    }
 
-
-    public Account getLoggedInAccount() {
+    public Account getLoggedInAccount(boolean send) {
+        if(!send)
+            return loggedInAccount;
         printStream.println(gson.toJson(loggedInAccount));
         printStream.flush();
         return loggedInAccount;

@@ -111,6 +111,7 @@ public class BattleViewController extends MenuController implements Initializabl
     }
 
     private void handleCellsMouseClick(Cell cell) {
+        game = getMainController().getGame();
         if (handSelectedCard != null) {
             //insert card block
             if (getMainController().insertCard(handSelectedCard.getCardName(), cell.getXCoordinate(), cell.getYCoordinate())) {
@@ -125,8 +126,8 @@ public class BattleViewController extends MenuController implements Initializabl
             }
         }
 
-        if (getMainController().getGame().getPlayer1().isAnyCardSelected()) {
-            Cell currentCell = getMainController().getGame().getPlayer1().getInBattleCards().get(getMainController().getGame().getPlayer1().getSelectedCard());
+        if (game.getPlayer1().isAnyCardSelected()) {
+            Cell currentCell = game.getPlayer1().getInBattleCards().get(game.getPlayer1().getSelectedCard());
             AnchorPane currentAnchorePane = anchorPaneCells[currentCell.getYCoordinate() - 1][currentCell.getXCoordinate() - 1];
             if (cell.getCard() == null) {
 
@@ -138,7 +139,7 @@ public class BattleViewController extends MenuController implements Initializabl
                 } else {
                     errorBox.setText(getMainController().getErrorType().getMessage());
                     getMainController().setErrorType(null);
-                    getMainController().getGame().getPlayer1().setSelectedCard(null);
+                    game.getPlayer1().setSelectedCard(null);
                     currentAnchorePane.getStyleClass().remove(0);
                     currentAnchorePane.getStyleClass().add("cells");
                 }
@@ -155,7 +156,7 @@ public class BattleViewController extends MenuController implements Initializabl
                     case -1:
                         errorBox.setText(getMainController().getErrorType().getMessage());
                         getMainController().setErrorType(null);
-                        getMainController().getGame().getPlayer1().setSelectedCard(null);
+                        game.getPlayer1().setSelectedCard(null);
                         currentAnchorePane.getStyleClass().remove(0);
                         currentAnchorePane.getStyleClass().add("cells");
                 }
@@ -164,7 +165,7 @@ public class BattleViewController extends MenuController implements Initializabl
         if (cell.getCard() != null) {
             //select Card Block
             AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
-            if (getMainController().selectCardOrItem(getMainController().getGame().getPlayer1(), cell.getCard().getInBattleCardId(), 0)) {
+            if (getMainController().selectCardOrItem(game.getPlayer1(), cell.getCard().getInBattleCardId(), 0)) {
                 updateCells();
                 setCellMouseHover(anchorPane, false);
                 anchorPane.getStyleClass().remove(0);
@@ -352,9 +353,9 @@ public class BattleViewController extends MenuController implements Initializabl
     }
 
     private void updateStatus() {
-        Game game = getMainController().getGame();
-        rightManaLabel.setText(game.getPlayer1().getMana() + "/" + getMainController().getGame().getPlayer1().getMaxMana());
-        leftManaLabel.setText(game.getPlayer2().getMana() + "/" + getMainController().getGame().getPlayer2().getMaxMana());
+        game = getMainController().getGame();
+        rightManaLabel.setText(game.getPlayer1().getMana() + "/" + game.getPlayer1().getMaxMana());
+        leftManaLabel.setText(game.getPlayer2().getMana() + "/" + game.getPlayer2().getMaxMana());
         putHandsCards(new ArrayList<>(game.getPlayer1().getHandCards().values()));
     }
 

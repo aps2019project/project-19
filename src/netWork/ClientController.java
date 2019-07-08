@@ -183,6 +183,7 @@ public class ClientController extends Controller {
     }
 
     private void sendCommandToServer(String command) {
+        System.out.println("sending: "+command);
         serverPrinter.println(command);
         serverPrinter.flush();
     }
@@ -190,7 +191,9 @@ public class ClientController extends Controller {
 
     private boolean readErrors() {
         ErrorType errorType = null;
-        errorType = gson.fromJson(serverScanner.nextLine(), ErrorType.class);
+        String error = serverScanner.nextLine();
+        System.err.println(error);
+        errorType = gson.fromJson(error, ErrorType.class);
         if (errorType.equals(ErrorType.NO_ERROR)) {
             setErrorType(null);
             return true;
@@ -198,7 +201,6 @@ public class ClientController extends Controller {
             setErrorType(errorType);
             return false;
         }
-
     }
 
     public boolean buyFromShop(String name) {

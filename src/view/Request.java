@@ -80,7 +80,7 @@ public class Request {
         } while (command.equals(""));
         if (!command.startsWith("create custom card"))
             command = command.toLowerCase();
-        System.err.println(command);
+        System.err.println(command +" " + this.toString());
     }
 
 
