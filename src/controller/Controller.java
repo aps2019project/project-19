@@ -56,6 +56,8 @@ public class Controller {
     private Deck aiDeck;
     private Ai ai;
 
+    public static ArrayList<Account> getOnlineAccounts() { return onlineAccounts; }
+
     public static void addOnlineAccount(Account account) {
         onlineAccounts.add(account);
     }
@@ -133,6 +135,10 @@ public class Controller {
                 case GET_DEACTIVE_PLAYER:
                     getDeactivePlayer();
                     break;
+                case GET_ONLINE_ACCOUNTS:
+                    getOnlines();
+                    break;
+
                 ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
                 case RECIVE_CHAT:
                     reciveChat();
@@ -555,13 +561,18 @@ public class Controller {
         }
         loggedInAccount = Account.getAccounts().get(request.getUserName());
         addOnlineAccount(loggedInAccount);
+        System.out.println(onlineAccounts.size());
+        System.out.println(Controller.getOnlineAccounts().size());
         menuType = MenuType.MAINMENU;
         System.out.println("logged into " + request.getUserName());
         return true;
     }
 
-    public void showLeaderBoard() {
-        view.show(Account.printAccounts());
+    public String showLeaderBoard() {
+        printStream.println(gson.toJson(Account.printAccounts()));
+        printStream.flush();
+//        view.show(Account.printAccounts());
+        return Account.printAccounts();
     }
 
     public void save() {
@@ -1627,5 +1638,11 @@ public class Controller {
         printStream.println(gson.toJson(deactivePlayer));
         printStream.flush();
         return deactivePlayer;
+    }
+
+    public ArrayList<Account> getOnlines() {
+        printStream.println(gson.toJson(getOnlineAccounts()));
+        printStream.flush();
+        return getOnlineAccounts();
     }
 }

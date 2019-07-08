@@ -76,6 +76,8 @@ public class MenuController {
             MenuController controller = loader.getController();
             controller.setStage(this.getStage());
             controller.setMainController(this.getMainController());
+            if (controller instanceof LeaderBoardController)
+                ((LeaderBoardController) controller).getLeaderBoard();
             if (controller instanceof ShopController) {
                 ShopController.setController(((ShopController) controller));
                 ((ShopController) controller).changeTab();

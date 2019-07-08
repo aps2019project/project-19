@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXMasonryPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.Graphic.LeaderBoardController">
+    <ImageView fitHeight="100.0" fitWidth="80.0" onMouseClicked="#exit" AnchorPane.leftAnchor="0.0"
+               AnchorPane.topAnchor="0.0">
+    <Image url="@images/backButton.png">
+    </Image>
+    </ImageView>
+    <ScrollPane prefHeight="900.0" prefWidth="919.0" style="-fx-background-color: transparent"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="80.0">
+        <JFXMasonryPane fx:id="leaderBoardPane" prefHeight="5400.0" prefWidth="900.0"
+                        style="-fx-background-color: transparent">
+        </JFXMasonryPane>
+    </ScrollPane>
+</AnchorPane>

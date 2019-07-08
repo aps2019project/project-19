@@ -17,7 +17,7 @@
         <Label onMouseClicked="#saveAccount" text="Save" />
         <Label text="WATCH" />
         <Label onMouseClicked="#goToCollection" text="COLLECTION" />
-        <Label text="MYSTERY CRATES" />
+        <Label onMouseClicked="#showLeaderBoard" text="LEADERBOARD" />
         <Label onMouseClicked="#logOut" text="LOG OUT" />
         <Label onMouseClicked="#exitGame" text="EXIT" />
     </VBox>
