@@ -16,6 +16,13 @@ public class CardImageView extends ImageView {
     public CardImageView(){
         super();
     }
+    public static void testImage(String cardName,Stance stance){
+        try {
+            new Image("view/Graphic/cards/" + cardName + " "+stance.getMessage()+".gif");
+        }catch (Exception e){
+            System.err.println(cardName + " have problem " + stance.toString());
+        }
+    }
     public CardImageView(String cardName,Stance stance){
         super(new Image("view/Graphic/cards/" + cardName + " "+stance.getMessage()+".gif"));
         try {

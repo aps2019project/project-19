@@ -76,6 +76,7 @@ public class BattleViewController extends MenuController implements Initializabl
                 if (now > lastTime + second ) {
                     lastTime = now;
                     if (!isYourTurn(game)) {
+                        System.err.println("not my turn");
                         updateCells();
                         updateStatus();
                     }
@@ -109,7 +110,7 @@ public class BattleViewController extends MenuController implements Initializabl
                 center.getChildren().add(anchorPane);
                 anchorPaneCells[j][i] = anchorPane;
                 Cell cell = game.getCell(i + 1, j + 1);
-                setCellMouseHover(anchorPane, true,game);
+                setCellMouseHover(anchorPane, true);
                 anchorPane.setOnMouseClicked(x -> {
                     handleCellsMouseClick(cell);
                 });
@@ -128,13 +129,18 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private void graveYardHandler() {
         leftGraveYard.setOnMouseEntered(e -> {
-            leftGraveYard.setImage(new Image("images/graveYard.png", 495.0, 505.0, false, true));
+            leftGraveYard.setImage(new Image("view/Graphic/images/graveYard.png", 495.0, 505.0, false, true));
         });
     }
 
-    private void setCellMouseHover(AnchorPane anchorPane, boolean on,Game game) {
-        if(!isYourTurn(game))
+    private void setCellMouseHover(AnchorPane anchorPane, boolean on) {
+        if(!isYourTurn(game)) {
+            anchorPane.setOnMouseEntered(x -> {
+            });
+            anchorPane.setOnMouseExited(x -> {
+            });
             return;
+        }
         if (!on) {
             anchorPane.setOnMouseEntered(x -> {
             });
@@ -211,7 +217,7 @@ public class BattleViewController extends MenuController implements Initializabl
             AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
             if (getMainController().selectCardOrItem(game.getPlayer(myAccount.getUserName()), cell.getCard().getInBattleCardId(), 0)) {
                 updateCells();
-                setCellMouseHover(anchorPane, false,game);
+                setCellMouseHover(anchorPane, false);
                 anchorPane.getStyleClass().remove(0);
                 anchorPane.getStyleClass().add("selectedCell");
             } else {
@@ -289,6 +295,8 @@ public class BattleViewController extends MenuController implements Initializabl
                 return;
             }
         }
+        //todo remove khate paiin
+        CardImageView.testImage(card.getName(),CardImageView.Stance.IDLING);
         CardImageView cardImageView = new CardImageView(card.getName(), CardImageView.Stance.IDLING);
         cardImageView.setPreserveRatio(true);
         cardImageView.setPickOnBounds(true);
@@ -402,7 +410,6 @@ public class BattleViewController extends MenuController implements Initializabl
     public void endTurn() {
         handSelectedCard = null;
         getMainController().endTurn();
-        getMainController().endTurn();
         game = getMainController().getGame();
         updateStatus();
     }
@@ -421,7 +428,7 @@ public class BattleViewController extends MenuController implements Initializabl
                 AnchorPane anchorPane = anchorPaneCells[j][i];
                 anchorPane.getStyleClass().remove(0);
                 anchorPane.getStyleClass().add("cells");
-                setCellMouseHover(anchorPane, true,game);
+                setCellMouseHover(anchorPane, true);
                 if (cell.getCard() != null) {
                     anchorPane.getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
                             || node instanceof CardImageProperties);

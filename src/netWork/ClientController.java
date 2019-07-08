@@ -288,6 +288,11 @@ public class ClientController extends Controller {
         return readErrors();
     }
 
+    @Override
+    public void endTurn() {
+        sendCommandToServer("end turn");
+        readErrors();
+    }
 
     public boolean isGameStarted() {
         sendCommandToServer("isGameStarted");
