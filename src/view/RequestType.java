@@ -7,6 +7,7 @@ public enum RequestType {
     ENTER_MENU,
     GET_CHATS,
     RECIVE_CHAT,
+    GET_OPPONENT_ACCOUNT,
     /////////// ACCOUNT /////////
     CREATE_ACCOUNT,
     LOGIN,

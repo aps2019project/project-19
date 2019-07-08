@@ -32,7 +32,6 @@ public class Graphic extends Application {
         stage = primaryStage;
         primaryStage.setFullScreen(true);
         primaryStage.setOnCloseRequest((event)->{
-            System.out.println("gdafdf");
             mainController.logOut();
         });
         primaryStage.setScene(new Scene(root));

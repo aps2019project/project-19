@@ -1,10 +1,8 @@
 package view.Graphic;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;
-import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -17,6 +15,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
+import model.Account;
 import model.Cards.Card;
 import model.Cards.SoldierCard;
 import model.Cell;
@@ -37,10 +36,18 @@ public class BattleViewController extends MenuController implements Initializabl
     Label leftManaLabel;
     @FXML
     Label errorBox;
+    @FXML
+    ImageView rightGraveYard;
+    @FXML
+    ImageView leftGraveYard;
+
 
     private Game game;
+    private Account myAccount;
+    private Account enemyAccount;
     private int cellsLength;
     private int cellsWeight;
+    AnimationTimer requestUpdate;
     private CardImageView handSelectedCard;
     //todo: maybe we should change all getPlayer1 's to getActivePlayer
     //private final int cellsLength = 9;
@@ -53,21 +60,46 @@ public class BattleViewController extends MenuController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        requestUpdate = new AnimationTimer() {
+            //            every 200 milisecond sends a request to server to see if game is started or not
+            private long lastTime = 0;
+            private long second = 1000000000;
+            private double time = 0;
 
+            @Override
+            public void handle(long now) {
+                if (lastTime == 0) {
+                    lastTime = now;
+                }
+                if(getMainController()==null)
+                    return;
+                if (now > lastTime + second ) {
+                    lastTime = now;
+                    if (!isYourTurn(game)) {
+                        updateCells();
+                        updateStatus();
+                    }
+                }
+            }
+        };
 
     }
 
     public void loadGame() {
         game = getMainController().getGame();
-        //System.out.println(game);
+        graveYardHandler();
+        myAccount = getMainController().getLoggedInAccount();
+        enemyAccount = getMainController().getOpponentAccount();
         cellsLength = game.getLength();
         cellsWeight = game.getWidth();
         anchorPaneCells = new AnchorPane[cellsWeight][cellsLength];
+        //create battleGround cells
         for (int i = 0; i < cellsWeight; i++) {
             for (int j = 0; j < cellsLength; j++) {
                 anchorPaneCells[i][j] = new AnchorPane();
             }
         }
+
         for (int i = 0; i < cellsLength; i++)
             for (int j = 0; j < cellsWeight; j++) {
                 AnchorPane anchorPane = new AnchorPane();
@@ -77,22 +109,32 @@ public class BattleViewController extends MenuController implements Initializabl
                 center.getChildren().add(anchorPane);
                 anchorPaneCells[j][i] = anchorPane;
                 Cell cell = game.getCell(i + 1, j + 1);
-                setCellMouseHover(anchorPane, true);
+                setCellMouseHover(anchorPane, true,game);
                 anchorPane.setOnMouseClicked(x -> {
                     handleCellsMouseClick(cell);
                 });
 
             }
+
         updateCells();
-        ArrayList<Card> hand = new ArrayList<>(game.getPlayer1().getHandCards().values());
+        ArrayList<Card> hand = new ArrayList<>(game.getPlayer(myAccount.getUserName()).getHandCards().values());
         putHandsCards(hand);
-        rightManaLabel.setText(game.getPlayer1().getMana() + "/" + game.getPlayer1().getMaxMana());
-        leftManaLabel.setText(game.getPlayer2().getMana() + "/" + game.getPlayer2().getMaxMana());
-        addHeroIcons(rightHeroAnchor,game.getPlayer1().getHero().getName(), false);
-        addHeroIcons(leftHeroAnchor, game.getPlayer2().getHero().getName(), true);
+        rightManaLabel.setText(game.getPlayer(myAccount.getUserName()).getMana() + "/" + game.getPlayer(myAccount.getUserName()).getMaxMana());
+        leftManaLabel.setText(game.getPlayer(enemyAccount.getUserName()).getMana() + "/" + game.getPlayer(enemyAccount.getUserName()).getMaxMana());
+        addHeroIcons(rightHeroAnchor, game.getPlayer(myAccount.getUserName()).getHero().getName(), false);
+        addHeroIcons(leftHeroAnchor, game.getPlayer(enemyAccount.getUserName()).getHero().getName(), true);
+        requestUpdate.start();
     }
 
-    private void setCellMouseHover(AnchorPane anchorPane, boolean on) {
+    private void graveYardHandler() {
+        leftGraveYard.setOnMouseEntered(e -> {
+            leftGraveYard.setImage(new Image("images/graveYard.png", 495.0, 505.0, false, true));
+        });
+    }
+
+    private void setCellMouseHover(AnchorPane anchorPane, boolean on,Game game) {
+        if(!isYourTurn(game))
+            return;
         if (!on) {
             anchorPane.setOnMouseEntered(x -> {
             });
@@ -111,6 +153,9 @@ public class BattleViewController extends MenuController implements Initializabl
     }
 
     private void handleCellsMouseClick(Cell cell) {
+        game = getMainController().getGame();
+        if(!isYourTurn(game))
+            return;
         if (handSelectedCard != null) {
             //insert card block
             if (getMainController().insertCard(handSelectedCard.getCardName(), cell.getXCoordinate(), cell.getYCoordinate())) {
@@ -125,8 +170,8 @@ public class BattleViewController extends MenuController implements Initializabl
             }
         }
 
-        if (getMainController().getGame().getPlayer1().isAnyCardSelected()) {
-            Cell currentCell = getMainController().getGame().getPlayer1().getInBattleCards().get(getMainController().getGame().getPlayer1().getSelectedCard());
+        if (game.getPlayer(myAccount.getUserName()).isAnyCardSelected()) {
+            Cell currentCell = game.getPlayer(myAccount.getUserName()).getInBattleCards().get(game.getPlayer(myAccount.getUserName()).getSelectedCard());
             AnchorPane currentAnchorePane = anchorPaneCells[currentCell.getYCoordinate() - 1][currentCell.getXCoordinate() - 1];
             if (cell.getCard() == null) {
 
@@ -138,7 +183,7 @@ public class BattleViewController extends MenuController implements Initializabl
                 } else {
                     errorBox.setText(getMainController().getErrorType().getMessage());
                     getMainController().setErrorType(null);
-                    getMainController().getGame().getPlayer1().setSelectedCard(null);
+                    game.getPlayer(myAccount.getUserName()).setSelectedCard(null);
                     currentAnchorePane.getStyleClass().remove(0);
                     currentAnchorePane.getStyleClass().add("cells");
                 }
@@ -155,7 +200,7 @@ public class BattleViewController extends MenuController implements Initializabl
                     case -1:
                         errorBox.setText(getMainController().getErrorType().getMessage());
                         getMainController().setErrorType(null);
-                        getMainController().getGame().getPlayer1().setSelectedCard(null);
+                        game.getPlayer(myAccount.getUserName()).setSelectedCard(null);
                         currentAnchorePane.getStyleClass().remove(0);
                         currentAnchorePane.getStyleClass().add("cells");
                 }
@@ -164,9 +209,9 @@ public class BattleViewController extends MenuController implements Initializabl
         if (cell.getCard() != null) {
             //select Card Block
             AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
-            if (getMainController().selectCardOrItem(getMainController().getGame().getPlayer1(), cell.getCard().getInBattleCardId(), 0)) {
+            if (getMainController().selectCardOrItem(game.getPlayer(myAccount.getUserName()), cell.getCard().getInBattleCardId(), 0)) {
                 updateCells();
-                setCellMouseHover(anchorPane, false);
+                setCellMouseHover(anchorPane, false,game);
                 anchorPane.getStyleClass().remove(0);
                 anchorPane.getStyleClass().add("selectedCell");
             } else {
@@ -174,6 +219,16 @@ public class BattleViewController extends MenuController implements Initializabl
                 getMainController().setErrorType(null);
             }
         }
+    }
+
+    private boolean isYourTurn(Game game) {
+        if (game == null)
+            return true;
+        String user1 = game.getPlayer1().getAccount().getUserName();
+        String user2 = game.getPlayer2().getAccount().getUserName();
+        if (game.isTurnOfPlayerOne())
+            return user1.equals(myAccount.getUserName());
+        else return user2.equals(myAccount.getUserName());
     }
 
     private void playAttackAnimation(AnchorPane anchorPane) {
@@ -222,11 +277,11 @@ public class BattleViewController extends MenuController implements Initializabl
     private void putHandsCards(ArrayList<Card> hand) {
         for (int i = 0; i < hand.size(); i++) {
             AnchorPane child = (AnchorPane) deckBar.getChildren().get(i);
-            addCardGifInDeck((AnchorPane) child, hand.get(i));
+            addCardGifInHand((AnchorPane) child, hand.get(i));
         }
     }
 
-    private void addCardGifInDeck(AnchorPane child, Card card) {
+    private void addCardGifInHand(AnchorPane child, Card card) {
         ((ImageView) child.getChildren().get(0)).setImage(new Image("view/Graphic/images/card_background.png"));
         for (Node childChild : child.getChildren()) {
             if (childChild instanceof CardImageView) {
@@ -348,24 +403,25 @@ public class BattleViewController extends MenuController implements Initializabl
         handSelectedCard = null;
         getMainController().endTurn();
         getMainController().endTurn();
+        game = getMainController().getGame();
         updateStatus();
     }
 
     private void updateStatus() {
-        Game game = getMainController().getGame();
-        rightManaLabel.setText(game.getPlayer1().getMana() + "/" + getMainController().getGame().getPlayer1().getMaxMana());
-        leftManaLabel.setText(game.getPlayer2().getMana() + "/" + getMainController().getGame().getPlayer2().getMaxMana());
-        putHandsCards(new ArrayList<>(game.getPlayer1().getHandCards().values()));
+        rightManaLabel.setText(game.getPlayer(myAccount.getUserName()).getMana() + "/" + game.getPlayer(myAccount.getUserName()).getMaxMana());
+        leftManaLabel.setText(game.getPlayer(enemyAccount.getUserName()).getMana() + "/" + game.getPlayer(enemyAccount.getUserName()).getMaxMana());
+        putHandsCards(new ArrayList<>(game.getPlayer(myAccount.getUserName()).getHandCards().values()));
     }
 
     private void updateCells() {
+        game = getMainController().getGame();
         for (int i = 0; i < cellsLength; i++) {
             for (int j = 0; j < cellsWeight; j++) {
-                Cell cell = getMainController().getGame().getCell(i + 1, j + 1);
+                Cell cell = game.getCell(i + 1, j + 1);
                 AnchorPane anchorPane = anchorPaneCells[j][i];
                 anchorPane.getStyleClass().remove(0);
                 anchorPane.getStyleClass().add("cells");
-                setCellMouseHover(anchorPane, true);
+                setCellMouseHover(anchorPane, true,game);
                 if (cell.getCard() != null) {
                     anchorPane.getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
                             || node instanceof CardImageProperties);

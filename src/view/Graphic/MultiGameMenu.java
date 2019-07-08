@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 public class MultiGameMenu extends MenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("waiting menu");
         AnimationTimer requestShowMessage = new AnimationTimer() {
             //            every 200 milisecond sends a request to server to see if game is started or not
             private long lastTime = 0;
@@ -22,16 +23,18 @@ public class MultiGameMenu extends MenuController implements Initializable {
                 if (lastTime == 0) {
                     lastTime = now;
                 }
-                if (now > lastTime + second / 2) {
+                if (now > lastTime + 5*second ) {
                     lastTime = now;
                     if (getMainController().isGameStarted()) {
                         System.out.println("isStarteeeed");
                         changeMenu("BattleView.fxml");
+                        this.stop();
                     }
                 }
             }
         };
         requestShowMessage.start();
+
     }
 
     public void exit() {

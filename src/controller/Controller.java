@@ -8,6 +8,7 @@ import model.Buff.DispellBuff;
 import model.Buff.StunBuff;
 import model.Cards.*;
 import model.Target.Type;
+import netWork.Server;
 import view.*;
 import model.Game.*;
 
@@ -48,6 +49,7 @@ public class Controller {
     private MenuType menuType = MenuType.ACCOUNT;
     private Request request;
     private Account loggedInAccount;
+    private Account opponentAccount;
     private Game game;
     private Player activePlayer;
     private Player deactivePlayer;
@@ -128,6 +130,9 @@ public class Controller {
                 case GET_ACCOUNT:
                     getLoggedInAccount();
                     break;
+                case GET_OPPONENT_ACCOUNT:
+                    getOpponentAccount();
+                    break;
                 case GET_GAME:
                     getGame();
                     break;
@@ -199,6 +204,7 @@ public class Controller {
                 case DELETE_DECK:
                     deleteDeck();
                     break;
+
                 case SHOW_DECK:
                     showDeck();
                     break;
@@ -250,7 +256,7 @@ public class Controller {
                     createCustomGame();
                     break;
                 ///////////////////////////////// BATTLE  ////////////////////////
-                    /*case INSERT_CARD:
+                    case INSERT_CARD:
                         insertCard();
                         break;
                     case SHOW_GAME_INFO:
@@ -269,16 +275,16 @@ public class Controller {
                         showCardInfoInBattle();
                         break;
                     case SELECT_CARD_OR_COLLECTABLE:
-                        selectCardOrItem(activePlayer);
+//                        selectCardOrItem(activePlayer);
                         break;
                     case MOVE_CARD:
-                        moveCard();
+//                        moveCard();
                         break;
                     case ATTACK:
-                        attack();
+//                        attack();
                         break;
                     case COMBO_ATTACK:
-                        comboAttack();
+//                        comboAttack();
                         break;
                     case SHOW_HAND:
                         showHand();
@@ -306,12 +312,12 @@ public class Controller {
                         showAllCardsInGraveYard();
                         break;
                     case USE_SPECIAL_POWER:
-                        useSpecialPower();
+//                        useSpecialPower();
                         break;
                     case END_GAME:
                         endGame();
                         break;
-                        */
+
                 /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
@@ -328,6 +334,8 @@ public class Controller {
             errorType = null;
         } while (true);
     }
+
+
 
     private void isGameStarted() {
         if (game == null)
@@ -364,13 +372,19 @@ public class Controller {
         }
     }
 
+    public Account getOpponentAccount() {
+        printStream.println(gson.toJson(opponentAccount));
+        printStream.flush();
+        return opponentAccount;
+    }
+
     public boolean importDeck() {
         Deck deck = DeckManagement.importDeck(request.getDeckFileName());
         if (deck == null) {
             errorType = ErrorType.INVALID_DECK_FILE_NAME;
             return false;
         } else {
-            if (getLoggedInAccount().getCollection().getDecks().containsKey(deck.getName())) {
+            if (loggedInAccount.getCollection().getDecks().containsKey(deck.getName())) {
                 errorType = ErrorType.SAME_DECK;
                 return false;
             } else {
@@ -386,8 +400,13 @@ public class Controller {
         }
     }
 
-
     public Account getLoggedInAccount() {
+        return getLoggedInAccount(true);
+    }
+
+    public Account getLoggedInAccount(boolean send) {
+        if (!send)
+            return loggedInAccount;
         printStream.println(gson.toJson(loggedInAccount));
         printStream.flush();
         return loggedInAccount;
@@ -438,6 +457,7 @@ public class Controller {
         aiDeck = game.getStoryLevelDecks().get(request.getStoryLevel() - 1);
         ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
         game = new Game(player1, ai.getPlayer());
+        opponentAccount = ai.getPlayer().getAccount();
         if (request.getStoryLevel() == 1)
             game.setGameMode(GameMode.DEATH_MATCH);
         if (request.getStoryLevel() == 2)
@@ -454,7 +474,7 @@ public class Controller {
 //            errorType = ErrorType.INVALID_OPPONENT;
 //            return;
 //        }
-        Account opponentAccount = Account.getAccounts().get(request.getUserName());
+        opponentAccount = Account.getAccounts().get(userName);
 //        if (opponentAccount.getCollection().getMainDeck() == null ||
 //                !opponentAccount.getCollection().getMainDeck().deckIsValid()) {
 //            errorType = ErrorType.INVALID_OPPONENT_DECK;
@@ -463,6 +483,10 @@ public class Controller {
         Player player1 = new Player(loggedInAccount, new Deck(loggedInAccount.getCollection().getMainDeck()));
         Player player2 = new Player(opponentAccount, new Deck(opponentAccount.getCollection().getMainDeck()));
         game = new Game(player1, player2);
+        Controller opponentController = Server.getClientController(opponentAccount.getUserName());
+        opponentController.setGame(game);
+        opponentController.setOpponentAccount(loggedInAccount);
+        opponentController.setMenuType(MenuType.BATTLE);
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
 
@@ -473,6 +497,7 @@ public class Controller {
                     selectOpponent(deathMatchWaiters.get(0).getUserName());
                 } else {
                     deathMatchWaiters.add(loggedInAccount);
+                    errorType = ErrorType.GAME_IS_NOT_STARTED;
                     return;
                 }
                 break;
@@ -480,6 +505,7 @@ public class Controller {
                 if (!keepTheFlagWaiters.isEmpty())
                     selectOpponent(keepTheFlagWaiters.get(0).getUserName());
                 else {
+                    errorType = ErrorType.GAME_IS_NOT_STARTED;
                     keepTheFlagWaiters.add(loggedInAccount);
                     return;
                 }
@@ -488,6 +514,7 @@ public class Controller {
                 if (!captureTheFlagWaiters.isEmpty()) {
                     selectOpponent(captureTheFlagWaiters.get(0).getUserName());
                 } else {
+                    errorType = ErrorType.GAME_IS_NOT_STARTED;
                     captureTheFlagWaiters.add(loggedInAccount);
                     return;
                 }
@@ -500,6 +527,10 @@ public class Controller {
         System.err.println("game mode seted");
         game.setPrize(1000);
         initNewGame(request.getGameMode());
+    }
+
+    public void setMenuType(MenuType menuType) {
+        this.menuType = menuType;
     }
 
     public void initNewGame(GameMode gameMode) {
@@ -1181,15 +1212,15 @@ public class Controller {
         view.show(activePlayer.handInfo());
     }
 
-    public boolean insertCard(String cardName, int x, int y) {
+    public boolean insertCard() {
         Player player = activePlayer;
         ArrayList<Card> cards = new ArrayList<>(player.getHandCards().values());
-        Card card = findCardInHandByName(cards, cardName);
+        Card card = findCardInHandByName(cards, request.getCardName());
         if (card == null) {
             errorType = ErrorType.INVALID_CARDNAME;
             return false;
         }
-        if (!game.coordinateIsValid(x, y)) {
+        if (!game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return false;
         }
@@ -1197,14 +1228,14 @@ public class Controller {
             errorType = ErrorType.NOT_ENOUGH_MANA;
             return false;
         }
-        Cell insertionCell = game.getCell(x, y);
+        Cell insertionCell = game.getCell(request.getX(), request.getY());
         if (card instanceof SpellCard) {
             if (!((SpellCard) card).getTargetArea().checkTargetValidation(game,
-                    activePlayer, deactivePlayer, x, y)) {
+                    activePlayer, deactivePlayer, request.getX(), request.getY())) {
                 errorType = ErrorType.INVALID_TARGET;
                 return false;
             }
-            castSpell((SpellCard) card, x, y);
+            castSpell((SpellCard) card, request.getX(), request.getY());
             card.setCardStatus(CardStatus.IN_GRAVEYARD);
             activePlayer.getGraveYard().put(card.getInBattleCardId(), card);
         } else {
@@ -1217,7 +1248,7 @@ public class Controller {
                 insertionCell.setCard(card);
                 card.setInBattleCardId(generateInBattleCardId(card));
                 view.show(card.getName() + " with " + card.getInBattleCardId() +
-                        " inserted to (" + x + ", " + y + ")");
+                        " inserted to (" + request.getX() + ", " + request.getY() + ")");
             }
             useUsable(activePlayer, WhenToUse.ON_SPAWN);
             player.getHandCards().remove(card.getCardId(), card);
@@ -1639,5 +1670,13 @@ public class Controller {
         printStream.println(gson.toJson(getOnlineAccounts()));
         printStream.flush();
         return getOnlineAccounts();
+    }
+
+    public void setOpponentAccount(Account opponentAccount) {
+        this.opponentAccount = opponentAccount;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

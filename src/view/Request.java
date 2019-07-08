@@ -80,7 +80,7 @@ public class Request {
         } while (command.equals(""));
         if (!command.startsWith("create custom card"))
             command = command.toLowerCase();
-        System.err.println(command);
+        System.err.println(command +" " + this.toString());
     }
 
 
@@ -89,6 +89,8 @@ public class Request {
             return RequestType.GET_SHOP;
         if (command.matches("getaccount"))
             return RequestType.GET_ACCOUNT;
+        if(command.equals("getopponentaccount"))
+            return RequestType.GET_OPPONENT_ACCOUNT;
         if (command.matches("getgame"))
             return RequestType.GET_GAME;
         if (command.matches("getactiveplayer"))

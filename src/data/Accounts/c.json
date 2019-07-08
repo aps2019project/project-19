@@ -1,0 +1,2538 @@
+{
+  "userName": "c",
+  "password": "c",
+  "numberOfWins": 0,
+  "money": 150,
+  "matchHistory": [],
+  "collection": {
+    "mainDeck": {
+      "name": "a",
+      "cards": {
+        "1": {
+          "CLASSNAME": "model.Cards.Hero",
+          "INSTANCE": {
+            "specialPower": {
+              "CLASSNAME": "model.Buff.PowerBuff",
+              "INSTANCE": {
+                "hpIncrease": 0,
+                "apIncrease": 4,
+                "hasCasted": false,
+                "kind": "POSITIVE",
+                "duration": 1,
+                "isContinuous": true,
+                "numberOfUsage": 0,
+                "onMoment": true,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            },
+            "coolDown": 2,
+            "coolDownWaiting": 0,
+            "ap": 4,
+            "hp": 50,
+            "type": "MELEE",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 1,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "target": {
+              "type": "SOLDIER",
+              "areaSize": 0,
+              "soldierTargetType": "ITSELF",
+              "isaffectingCell": false
+            },
+            "cardId": 1,
+            "name": "dive sepid",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 8000,
+            "mana": 1,
+            "description": "give itself power buff with increasing power by 4 continuously"
+          }
+        },
+        "3": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 10,
+            "hp": 14,
+            "type": "HYBRID",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 7,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 3,
+            "name": "dive siah",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 300,
+            "mana": 9,
+            "description": "gooraaaa!"
+          }
+        },
+        "5": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 8,
+            "hp": 16,
+            "type": "MELEE",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 1,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 5,
+            "name": "dive goraz savar",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 300,
+            "mana": 6,
+            "description": "gooraaa!"
+          }
+        },
+        "6": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 6,
+            "hp": 24,
+            "type": "MELEE",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 1,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 6,
+            "name": "pahlavane fars",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 600,
+            "mana": 9,
+            "description": "for every attack in last turn,deal 5 damage to enemy"
+          }
+        },
+        "7": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [
+              {
+                "CLASSNAME": "model.Buff.StunBuff",
+                "INSTANCE": {
+                  "kind": "NEGATIVE",
+                  "duration": 2,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": false,
+                  "currentTurn": 0,
+                  "castTurn": 1,
+                  "isForCell": false
+                }
+              }
+            ],
+            "ap": 6,
+            "hp": 4,
+            "type": "MELEE",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 1,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "abilityCastTime": "ON_ATTACK",
+            "cardId": 7,
+            "name": "shamshir zane fars",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 400,
+            "mana": 2,
+            "description": "stun enemy for one turn"
+          }
+        },
+        "9": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 6,
+            "hp": 10,
+            "type": "MELEE",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 1,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 9,
+            "name": "asb savare fars",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 200,
+            "mana": 4,
+            "description": ""
+          }
+        },
+        "10": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 6,
+            "hp": 10,
+            "type": "MELEE",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 1,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 10,
+            "name": "asb savare fars",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 200,
+            "mana": 4,
+            "description": ""
+          }
+        },
+        "11": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 7,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 11,
+            "name": "camandare farse",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 300,
+            "mana": 2,
+            "description": ""
+          }
+        },
+        "12": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 4,
+            "hp": 6,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 7,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 12,
+            "name": "camandare farse",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 300,
+            "mana": 2,
+            "description": ""
+          }
+        },
+        "13": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 5,
+            "hp": 9,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 4,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 13,
+            "name": "ezhdehaye atash andaz",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 250,
+            "mana": 5,
+            "description": "fireeee! fireeee!"
+          }
+        },
+        "14": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 5,
+            "hp": 9,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 4,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 14,
+            "name": "ezhdehaye atash andaz",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 250,
+            "mana": 5,
+            "description": "fireeee! fireeee!"
+          }
+        },
+        "15": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [],
+            "ap": 5,
+            "hp": 9,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 4,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "cardId": 15,
+            "name": "ezhdehaye atash andaz",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 250,
+            "mana": 5,
+            "description": "fireeee! fireeee!"
+          }
+        },
+        "16": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [
+              {
+                "CLASSNAME": "model.Buff.PoisonBuff",
+                "INSTANCE": {
+                  "hpDecrease": 1,
+                  "kind": "NEGATIVE",
+                  "duration": 3,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": false,
+                  "currentTurn": 0,
+                  "castTurn": 1,
+                  "isForCell": false
+                }
+              }
+            ],
+            "ap": 6,
+            "hp": 5,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 4,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "abilityCastTime": "ON_ATTACK",
+            "cardId": 16,
+            "name": "mare sammi",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 300,
+            "mana": 4,
+            "description": "poison enemy for 3 turn"
+          }
+        },
+        "17": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [
+              {
+                "CLASSNAME": "model.Buff.PoisonBuff",
+                "INSTANCE": {
+                  "hpDecrease": 1,
+                  "kind": "NEGATIVE",
+                  "duration": 3,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": false,
+                  "currentTurn": 0,
+                  "castTurn": 1,
+                  "isForCell": false
+                }
+              }
+            ],
+            "ap": 6,
+            "hp": 5,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 4,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "abilityCastTime": "ON_ATTACK",
+            "cardId": 17,
+            "name": "mare sammi",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 300,
+            "mana": 4,
+            "description": "poison enemy for 3 turn"
+          }
+        },
+        "18": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [
+              {
+                "CLASSNAME": "model.Buff.AttackBuff",
+                "INSTANCE": {
+                  "damage": 6,
+                  "kind": "NEGATIVE",
+                  "duration": 1,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": true,
+                  "currentTurn": 0,
+                  "castTurn": 2,
+                  "isForCell": false
+                }
+              },
+              {
+                "CLASSNAME": "model.Buff.AttackBuff",
+                "INSTANCE": {
+                  "damage": 4,
+                  "kind": "NEGATIVE",
+                  "duration": 1,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": true,
+                  "currentTurn": 0,
+                  "castTurn": 3,
+                  "isForCell": false
+                }
+              }
+            ],
+            "ap": 2,
+            "hp": 8,
+            "type": "MELEE",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 1,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "abilityCastTime": "ON_ATTACK",
+            "cardId": 18,
+            "name": "gorge sephid",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 400,
+            "mana": 5,
+            "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
+          }
+        },
+        "19": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [
+              {
+                "CLASSNAME": "model.Buff.AttackBuff",
+                "INSTANCE": {
+                  "damage": 6,
+                  "kind": "NEGATIVE",
+                  "duration": 1,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": true,
+                  "currentTurn": 0,
+                  "castTurn": 2,
+                  "isForCell": false
+                }
+              },
+              {
+                "CLASSNAME": "model.Buff.AttackBuff",
+                "INSTANCE": {
+                  "damage": 4,
+                  "kind": "NEGATIVE",
+                  "duration": 1,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": true,
+                  "currentTurn": 0,
+                  "castTurn": 3,
+                  "isForCell": false
+                }
+              }
+            ],
+            "ap": 2,
+            "hp": 8,
+            "type": "MELEE",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 1,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "abilityCastTime": "ON_ATTACK",
+            "cardId": 19,
+            "name": "gorge sephid",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 400,
+            "mana": 5,
+            "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
+          }
+        },
+        "21": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [
+              {
+                "CLASSNAME": "model.Buff.PowerBuff",
+                "INSTANCE": {
+                  "hpIncrease": 10,
+                  "apIncrease": 0,
+                  "hasCasted": false,
+                  "kind": "POSITIVE",
+                  "duration": 1,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": true,
+                  "currentTurn": 0,
+                  "castTurn": 1,
+                  "isForCell": false
+                }
+              }
+            ],
+            "ap": 2,
+            "hp": 0,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 3,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "target": {
+              "type": "SOLDIER",
+              "areaSize": 0,
+              "soldierTargetType": "ITSELF",
+              "isaffectingCell": false
+            },
+            "abilityCastTime": "PASSIVE",
+            "cardId": 21,
+            "name": "oghab",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 200,
+            "mana": 2,
+            "description": "increase health by 10"
+          }
+        },
+        "22": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [
+              {
+                "CLASSNAME": "model.Buff.PowerBuff",
+                "INSTANCE": {
+                  "hpIncrease": 10,
+                  "apIncrease": 0,
+                  "hasCasted": false,
+                  "kind": "POSITIVE",
+                  "duration": 1,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": true,
+                  "currentTurn": 0,
+                  "castTurn": 1,
+                  "isForCell": false
+                }
+              }
+            ],
+            "ap": 2,
+            "hp": 0,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 3,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "target": {
+              "type": "SOLDIER",
+              "areaSize": 0,
+              "soldierTargetType": "ITSELF",
+              "isaffectingCell": false
+            },
+            "abilityCastTime": "PASSIVE",
+            "cardId": 22,
+            "name": "oghab",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 200,
+            "mana": 2,
+            "description": "increase health by 10"
+          }
+        },
+        "23": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [
+              {
+                "CLASSNAME": "model.Buff.PowerBuff",
+                "INSTANCE": {
+                  "hpIncrease": 10,
+                  "apIncrease": 0,
+                  "hasCasted": false,
+                  "kind": "POSITIVE",
+                  "duration": 1,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": true,
+                  "currentTurn": 0,
+                  "castTurn": 1,
+                  "isForCell": false
+                }
+              }
+            ],
+            "ap": 2,
+            "hp": 0,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 3,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "target": {
+              "type": "SOLDIER",
+              "areaSize": 0,
+              "soldierTargetType": "ITSELF",
+              "isaffectingCell": false
+            },
+            "abilityCastTime": "PASSIVE",
+            "cardId": 23,
+            "name": "oghab",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 200,
+            "mana": 2,
+            "description": "increase health by 10"
+          }
+        },
+        "24": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [
+              {
+                "CLASSNAME": "model.Buff.PowerBuff",
+                "INSTANCE": {
+                  "hpIncrease": 10,
+                  "apIncrease": 0,
+                  "hasCasted": false,
+                  "kind": "POSITIVE",
+                  "duration": 1,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": true,
+                  "currentTurn": 0,
+                  "castTurn": 1,
+                  "isForCell": false
+                }
+              }
+            ],
+            "ap": 2,
+            "hp": 0,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 3,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "target": {
+              "type": "SOLDIER",
+              "areaSize": 0,
+              "soldierTargetType": "ITSELF",
+              "isaffectingCell": false
+            },
+            "abilityCastTime": "PASSIVE",
+            "cardId": 24,
+            "name": "oghab",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 200,
+            "mana": 2,
+            "description": "increase health by 10"
+          }
+        },
+        "25": {
+          "CLASSNAME": "model.Cards.Minion",
+          "INSTANCE": {
+            "abilities": [
+              {
+                "CLASSNAME": "model.Buff.PowerBuff",
+                "INSTANCE": {
+                  "hpIncrease": 10,
+                  "apIncrease": 0,
+                  "hasCasted": false,
+                  "kind": "POSITIVE",
+                  "duration": 1,
+                  "isContinuous": false,
+                  "numberOfUsage": 0,
+                  "onMoment": true,
+                  "currentTurn": 0,
+                  "castTurn": 1,
+                  "isForCell": false
+                }
+              }
+            ],
+            "ap": 2,
+            "hp": 0,
+            "type": "RANGED",
+            "buffs": [],
+            "flagNumber": 0,
+            "attackRange": 3,
+            "isAttackedThisTurn": false,
+            "isMovedThisTurn": false,
+            "antiDisArm": false,
+            "antiPoison": false,
+            "antiNegative": false,
+            "strongerAp": false,
+            "notAcceptingHolyBuff": false,
+            "target": {
+              "type": "SOLDIER",
+              "areaSize": 0,
+              "soldierTargetType": "ITSELF",
+              "isaffectingCell": false
+            },
+            "abilityCastTime": "PASSIVE",
+            "cardId": 25,
+            "name": "oghab",
+            "cardStatus": "IN_DECK",
+            "number": 15,
+            "price": 200,
+            "mana": 2,
+            "description": "increase health by 10"
+          }
+        }
+      },
+      "items": {}
+    },
+    "items": [],
+    "decks": {
+      "a": {
+        "name": "a",
+        "cards": {
+          "1": {
+            "CLASSNAME": "model.Cards.Hero",
+            "INSTANCE": {
+              "specialPower": {
+                "CLASSNAME": "model.Buff.PowerBuff",
+                "INSTANCE": {
+                  "hpIncrease": 0,
+                  "apIncrease": 4,
+                  "hasCasted": false,
+                  "kind": "POSITIVE",
+                  "duration": 1,
+                  "isContinuous": true,
+                  "numberOfUsage": 0,
+                  "onMoment": true,
+                  "currentTurn": 0,
+                  "castTurn": 1,
+                  "isForCell": false
+                }
+              },
+              "coolDown": 2,
+              "coolDownWaiting": 0,
+              "ap": 4,
+              "hp": 50,
+              "type": "MELEE",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 1,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "target": {
+                "type": "SOLDIER",
+                "areaSize": 0,
+                "soldierTargetType": "ITSELF",
+                "isaffectingCell": false
+              },
+              "cardId": 1,
+              "name": "dive sepid",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 8000,
+              "mana": 1,
+              "description": "give itself power buff with increasing power by 4 continuously"
+            }
+          },
+          "3": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 10,
+              "hp": 14,
+              "type": "HYBRID",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 7,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 3,
+              "name": "dive siah",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 300,
+              "mana": 9,
+              "description": "gooraaaa!"
+            }
+          },
+          "5": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 8,
+              "hp": 16,
+              "type": "MELEE",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 1,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 5,
+              "name": "dive goraz savar",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 300,
+              "mana": 6,
+              "description": "gooraaa!"
+            }
+          },
+          "6": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 6,
+              "hp": 24,
+              "type": "MELEE",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 1,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 6,
+              "name": "pahlavane fars",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 600,
+              "mana": 9,
+              "description": "for every attack in last turn,deal 5 damage to enemy"
+            }
+          },
+          "7": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [
+                {
+                  "CLASSNAME": "model.Buff.StunBuff",
+                  "INSTANCE": {
+                    "kind": "NEGATIVE",
+                    "duration": 2,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": false,
+                    "currentTurn": 0,
+                    "castTurn": 1,
+                    "isForCell": false
+                  }
+                }
+              ],
+              "ap": 6,
+              "hp": 4,
+              "type": "MELEE",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 1,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "abilityCastTime": "ON_ATTACK",
+              "cardId": 7,
+              "name": "shamshir zane fars",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 400,
+              "mana": 2,
+              "description": "stun enemy for one turn"
+            }
+          },
+          "9": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 6,
+              "hp": 10,
+              "type": "MELEE",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 1,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 9,
+              "name": "asb savare fars",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 200,
+              "mana": 4,
+              "description": ""
+            }
+          },
+          "10": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 6,
+              "hp": 10,
+              "type": "MELEE",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 1,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 10,
+              "name": "asb savare fars",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 200,
+              "mana": 4,
+              "description": ""
+            }
+          },
+          "11": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 4,
+              "hp": 6,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 7,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 11,
+              "name": "camandare farse",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 300,
+              "mana": 2,
+              "description": ""
+            }
+          },
+          "12": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 4,
+              "hp": 6,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 7,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 12,
+              "name": "camandare farse",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 300,
+              "mana": 2,
+              "description": ""
+            }
+          },
+          "13": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 5,
+              "hp": 9,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 4,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 13,
+              "name": "ezhdehaye atash andaz",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 250,
+              "mana": 5,
+              "description": "fireeee! fireeee!"
+            }
+          },
+          "14": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 5,
+              "hp": 9,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 4,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 14,
+              "name": "ezhdehaye atash andaz",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 250,
+              "mana": 5,
+              "description": "fireeee! fireeee!"
+            }
+          },
+          "15": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [],
+              "ap": 5,
+              "hp": 9,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 4,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "cardId": 15,
+              "name": "ezhdehaye atash andaz",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 250,
+              "mana": 5,
+              "description": "fireeee! fireeee!"
+            }
+          },
+          "16": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [
+                {
+                  "CLASSNAME": "model.Buff.PoisonBuff",
+                  "INSTANCE": {
+                    "hpDecrease": 1,
+                    "kind": "NEGATIVE",
+                    "duration": 3,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": false,
+                    "currentTurn": 0,
+                    "castTurn": 1,
+                    "isForCell": false
+                  }
+                }
+              ],
+              "ap": 6,
+              "hp": 5,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 4,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "abilityCastTime": "ON_ATTACK",
+              "cardId": 16,
+              "name": "mare sammi",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 300,
+              "mana": 4,
+              "description": "poison enemy for 3 turn"
+            }
+          },
+          "17": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [
+                {
+                  "CLASSNAME": "model.Buff.PoisonBuff",
+                  "INSTANCE": {
+                    "hpDecrease": 1,
+                    "kind": "NEGATIVE",
+                    "duration": 3,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": false,
+                    "currentTurn": 0,
+                    "castTurn": 1,
+                    "isForCell": false
+                  }
+                }
+              ],
+              "ap": 6,
+              "hp": 5,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 4,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "abilityCastTime": "ON_ATTACK",
+              "cardId": 17,
+              "name": "mare sammi",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 300,
+              "mana": 4,
+              "description": "poison enemy for 3 turn"
+            }
+          },
+          "18": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [
+                {
+                  "CLASSNAME": "model.Buff.AttackBuff",
+                  "INSTANCE": {
+                    "damage": 6,
+                    "kind": "NEGATIVE",
+                    "duration": 1,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": true,
+                    "currentTurn": 0,
+                    "castTurn": 2,
+                    "isForCell": false
+                  }
+                },
+                {
+                  "CLASSNAME": "model.Buff.AttackBuff",
+                  "INSTANCE": {
+                    "damage": 4,
+                    "kind": "NEGATIVE",
+                    "duration": 1,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": true,
+                    "currentTurn": 0,
+                    "castTurn": 3,
+                    "isForCell": false
+                  }
+                }
+              ],
+              "ap": 2,
+              "hp": 8,
+              "type": "MELEE",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 1,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "abilityCastTime": "ON_ATTACK",
+              "cardId": 18,
+              "name": "gorge sephid",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 400,
+              "mana": 5,
+              "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
+            }
+          },
+          "19": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [
+                {
+                  "CLASSNAME": "model.Buff.AttackBuff",
+                  "INSTANCE": {
+                    "damage": 6,
+                    "kind": "NEGATIVE",
+                    "duration": 1,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": true,
+                    "currentTurn": 0,
+                    "castTurn": 2,
+                    "isForCell": false
+                  }
+                },
+                {
+                  "CLASSNAME": "model.Buff.AttackBuff",
+                  "INSTANCE": {
+                    "damage": 4,
+                    "kind": "NEGATIVE",
+                    "duration": 1,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": true,
+                    "currentTurn": 0,
+                    "castTurn": 3,
+                    "isForCell": false
+                  }
+                }
+              ],
+              "ap": 2,
+              "hp": 8,
+              "type": "MELEE",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 1,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "abilityCastTime": "ON_ATTACK",
+              "cardId": 19,
+              "name": "gorge sephid",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 400,
+              "mana": 5,
+              "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
+            }
+          },
+          "21": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [
+                {
+                  "CLASSNAME": "model.Buff.PowerBuff",
+                  "INSTANCE": {
+                    "hpIncrease": 10,
+                    "apIncrease": 0,
+                    "hasCasted": false,
+                    "kind": "POSITIVE",
+                    "duration": 1,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": true,
+                    "currentTurn": 0,
+                    "castTurn": 1,
+                    "isForCell": false
+                  }
+                }
+              ],
+              "ap": 2,
+              "hp": 0,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 3,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "target": {
+                "type": "SOLDIER",
+                "areaSize": 0,
+                "soldierTargetType": "ITSELF",
+                "isaffectingCell": false
+              },
+              "abilityCastTime": "PASSIVE",
+              "cardId": 21,
+              "name": "oghab",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 200,
+              "mana": 2,
+              "description": "increase health by 10"
+            }
+          },
+          "22": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [
+                {
+                  "CLASSNAME": "model.Buff.PowerBuff",
+                  "INSTANCE": {
+                    "hpIncrease": 10,
+                    "apIncrease": 0,
+                    "hasCasted": false,
+                    "kind": "POSITIVE",
+                    "duration": 1,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": true,
+                    "currentTurn": 0,
+                    "castTurn": 1,
+                    "isForCell": false
+                  }
+                }
+              ],
+              "ap": 2,
+              "hp": 0,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 3,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "target": {
+                "type": "SOLDIER",
+                "areaSize": 0,
+                "soldierTargetType": "ITSELF",
+                "isaffectingCell": false
+              },
+              "abilityCastTime": "PASSIVE",
+              "cardId": 22,
+              "name": "oghab",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 200,
+              "mana": 2,
+              "description": "increase health by 10"
+            }
+          },
+          "23": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [
+                {
+                  "CLASSNAME": "model.Buff.PowerBuff",
+                  "INSTANCE": {
+                    "hpIncrease": 10,
+                    "apIncrease": 0,
+                    "hasCasted": false,
+                    "kind": "POSITIVE",
+                    "duration": 1,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": true,
+                    "currentTurn": 0,
+                    "castTurn": 1,
+                    "isForCell": false
+                  }
+                }
+              ],
+              "ap": 2,
+              "hp": 0,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 3,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "target": {
+                "type": "SOLDIER",
+                "areaSize": 0,
+                "soldierTargetType": "ITSELF",
+                "isaffectingCell": false
+              },
+              "abilityCastTime": "PASSIVE",
+              "cardId": 23,
+              "name": "oghab",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 200,
+              "mana": 2,
+              "description": "increase health by 10"
+            }
+          },
+          "24": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [
+                {
+                  "CLASSNAME": "model.Buff.PowerBuff",
+                  "INSTANCE": {
+                    "hpIncrease": 10,
+                    "apIncrease": 0,
+                    "hasCasted": false,
+                    "kind": "POSITIVE",
+                    "duration": 1,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": true,
+                    "currentTurn": 0,
+                    "castTurn": 1,
+                    "isForCell": false
+                  }
+                }
+              ],
+              "ap": 2,
+              "hp": 0,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 3,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "target": {
+                "type": "SOLDIER",
+                "areaSize": 0,
+                "soldierTargetType": "ITSELF",
+                "isaffectingCell": false
+              },
+              "abilityCastTime": "PASSIVE",
+              "cardId": 24,
+              "name": "oghab",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 200,
+              "mana": 2,
+              "description": "increase health by 10"
+            }
+          },
+          "25": {
+            "CLASSNAME": "model.Cards.Minion",
+            "INSTANCE": {
+              "abilities": [
+                {
+                  "CLASSNAME": "model.Buff.PowerBuff",
+                  "INSTANCE": {
+                    "hpIncrease": 10,
+                    "apIncrease": 0,
+                    "hasCasted": false,
+                    "kind": "POSITIVE",
+                    "duration": 1,
+                    "isContinuous": false,
+                    "numberOfUsage": 0,
+                    "onMoment": true,
+                    "currentTurn": 0,
+                    "castTurn": 1,
+                    "isForCell": false
+                  }
+                }
+              ],
+              "ap": 2,
+              "hp": 0,
+              "type": "RANGED",
+              "buffs": [],
+              "flagNumber": 0,
+              "attackRange": 3,
+              "isAttackedThisTurn": false,
+              "isMovedThisTurn": false,
+              "antiDisArm": false,
+              "antiPoison": false,
+              "antiNegative": false,
+              "strongerAp": false,
+              "notAcceptingHolyBuff": false,
+              "target": {
+                "type": "SOLDIER",
+                "areaSize": 0,
+                "soldierTargetType": "ITSELF",
+                "isaffectingCell": false
+              },
+              "abilityCastTime": "PASSIVE",
+              "cardId": 25,
+              "name": "oghab",
+              "cardStatus": "IN_DECK",
+              "number": 15,
+              "price": 200,
+              "mana": 2,
+              "description": "increase health by 10"
+            }
+          }
+        },
+        "items": {}
+      }
+    },
+    "cards": [
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.PowerBuff",
+              "INSTANCE": {
+                "hpIncrease": 10,
+                "apIncrease": 0,
+                "hasCasted": false,
+                "kind": "POSITIVE",
+                "duration": 1,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": true,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 2,
+          "hp": 0,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 3,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "target": {
+            "type": "SOLDIER",
+            "areaSize": 0,
+            "soldierTargetType": "ITSELF",
+            "isaffectingCell": false
+          },
+          "abilityCastTime": "PASSIVE",
+          "cardId": 25,
+          "name": "oghab",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 200,
+          "mana": 2,
+          "description": "increase health by 10"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.PowerBuff",
+              "INSTANCE": {
+                "hpIncrease": 10,
+                "apIncrease": 0,
+                "hasCasted": false,
+                "kind": "POSITIVE",
+                "duration": 1,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": true,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 2,
+          "hp": 0,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 3,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "target": {
+            "type": "SOLDIER",
+            "areaSize": 0,
+            "soldierTargetType": "ITSELF",
+            "isaffectingCell": false
+          },
+          "abilityCastTime": "PASSIVE",
+          "cardId": 24,
+          "name": "oghab",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 200,
+          "mana": 2,
+          "description": "increase health by 10"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.PowerBuff",
+              "INSTANCE": {
+                "hpIncrease": 10,
+                "apIncrease": 0,
+                "hasCasted": false,
+                "kind": "POSITIVE",
+                "duration": 1,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": true,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 2,
+          "hp": 0,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 3,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "target": {
+            "type": "SOLDIER",
+            "areaSize": 0,
+            "soldierTargetType": "ITSELF",
+            "isaffectingCell": false
+          },
+          "abilityCastTime": "PASSIVE",
+          "cardId": 23,
+          "name": "oghab",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 200,
+          "mana": 2,
+          "description": "increase health by 10"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.PowerBuff",
+              "INSTANCE": {
+                "hpIncrease": 10,
+                "apIncrease": 0,
+                "hasCasted": false,
+                "kind": "POSITIVE",
+                "duration": 1,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": true,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 2,
+          "hp": 0,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 3,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "target": {
+            "type": "SOLDIER",
+            "areaSize": 0,
+            "soldierTargetType": "ITSELF",
+            "isaffectingCell": false
+          },
+          "abilityCastTime": "PASSIVE",
+          "cardId": 22,
+          "name": "oghab",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 200,
+          "mana": 2,
+          "description": "increase health by 10"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.PowerBuff",
+              "INSTANCE": {
+                "hpIncrease": 10,
+                "apIncrease": 0,
+                "hasCasted": false,
+                "kind": "POSITIVE",
+                "duration": 1,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": true,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 2,
+          "hp": 0,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 3,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "target": {
+            "type": "SOLDIER",
+            "areaSize": 0,
+            "soldierTargetType": "ITSELF",
+            "isaffectingCell": false
+          },
+          "abilityCastTime": "PASSIVE",
+          "cardId": 21,
+          "name": "oghab",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 200,
+          "mana": 2,
+          "description": "increase health by 10"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.PowerBuff",
+              "INSTANCE": {
+                "hpIncrease": 10,
+                "apIncrease": 0,
+                "hasCasted": false,
+                "kind": "POSITIVE",
+                "duration": 1,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": true,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 2,
+          "hp": 0,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 3,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "target": {
+            "type": "SOLDIER",
+            "areaSize": 0,
+            "soldierTargetType": "ITSELF",
+            "isaffectingCell": false
+          },
+          "abilityCastTime": "PASSIVE",
+          "cardId": 20,
+          "name": "oghab",
+          "number": 15,
+          "price": 200,
+          "mana": 2,
+          "description": "increase health by 10"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.AttackBuff",
+              "INSTANCE": {
+                "damage": 6,
+                "kind": "NEGATIVE",
+                "duration": 1,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": true,
+                "currentTurn": 0,
+                "castTurn": 2,
+                "isForCell": false
+              }
+            },
+            {
+              "CLASSNAME": "model.Buff.AttackBuff",
+              "INSTANCE": {
+                "damage": 4,
+                "kind": "NEGATIVE",
+                "duration": 1,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": true,
+                "currentTurn": 0,
+                "castTurn": 3,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 2,
+          "hp": 8,
+          "type": "MELEE",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 1,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "abilityCastTime": "ON_ATTACK",
+          "cardId": 19,
+          "name": "gorge sephid",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 400,
+          "mana": 5,
+          "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.AttackBuff",
+              "INSTANCE": {
+                "damage": 6,
+                "kind": "NEGATIVE",
+                "duration": 1,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": true,
+                "currentTurn": 0,
+                "castTurn": 2,
+                "isForCell": false
+              }
+            },
+            {
+              "CLASSNAME": "model.Buff.AttackBuff",
+              "INSTANCE": {
+                "damage": 4,
+                "kind": "NEGATIVE",
+                "duration": 1,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": true,
+                "currentTurn": 0,
+                "castTurn": 3,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 2,
+          "hp": 8,
+          "type": "MELEE",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 1,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "abilityCastTime": "ON_ATTACK",
+          "cardId": 18,
+          "name": "gorge sephid",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 400,
+          "mana": 5,
+          "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.PoisonBuff",
+              "INSTANCE": {
+                "hpDecrease": 1,
+                "kind": "NEGATIVE",
+                "duration": 3,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": false,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 6,
+          "hp": 5,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 4,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "abilityCastTime": "ON_ATTACK",
+          "cardId": 17,
+          "name": "mare sammi",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 300,
+          "mana": 4,
+          "description": "poison enemy for 3 turn"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.PoisonBuff",
+              "INSTANCE": {
+                "hpDecrease": 1,
+                "kind": "NEGATIVE",
+                "duration": 3,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": false,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 6,
+          "hp": 5,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 4,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "abilityCastTime": "ON_ATTACK",
+          "cardId": 16,
+          "name": "mare sammi",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 300,
+          "mana": 4,
+          "description": "poison enemy for 3 turn"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 5,
+          "hp": 9,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 4,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 15,
+          "name": "ezhdehaye atash andaz",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 250,
+          "mana": 5,
+          "description": "fireeee! fireeee!"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 5,
+          "hp": 9,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 4,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 14,
+          "name": "ezhdehaye atash andaz",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 250,
+          "mana": 5,
+          "description": "fireeee! fireeee!"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 5,
+          "hp": 9,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 4,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 13,
+          "name": "ezhdehaye atash andaz",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 250,
+          "mana": 5,
+          "description": "fireeee! fireeee!"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 12,
+          "name": "camandare farse",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 300,
+          "mana": 2,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 11,
+          "name": "camandare farse",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 300,
+          "mana": 2,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 6,
+          "hp": 10,
+          "type": "MELEE",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 1,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 10,
+          "name": "asb savare fars",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 200,
+          "mana": 4,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 6,
+          "hp": 10,
+          "type": "MELEE",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 1,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 9,
+          "name": "asb savare fars",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 200,
+          "mana": 4,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 4,
+          "hp": 6,
+          "type": "RANGED",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 8,
+          "name": "camandare farse",
+          "number": 15,
+          "price": 300,
+          "mana": 2,
+          "description": ""
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [
+            {
+              "CLASSNAME": "model.Buff.StunBuff",
+              "INSTANCE": {
+                "kind": "NEGATIVE",
+                "duration": 2,
+                "isContinuous": false,
+                "numberOfUsage": 0,
+                "onMoment": false,
+                "currentTurn": 0,
+                "castTurn": 1,
+                "isForCell": false
+              }
+            }
+          ],
+          "ap": 6,
+          "hp": 4,
+          "type": "MELEE",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 1,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "abilityCastTime": "ON_ATTACK",
+          "cardId": 7,
+          "name": "shamshir zane fars",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 400,
+          "mana": 2,
+          "description": "stun enemy for one turn"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 6,
+          "hp": 24,
+          "type": "MELEE",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 1,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 6,
+          "name": "pahlavane fars",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 600,
+          "mana": 9,
+          "description": "for every attack in last turn,deal 5 damage to enemy"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 8,
+          "hp": 16,
+          "type": "MELEE",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 1,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 5,
+          "name": "dive goraz savar",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 300,
+          "mana": 6,
+          "description": "gooraaa!"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 8,
+          "hp": 16,
+          "type": "MELEE",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 1,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 4,
+          "name": "dive goraz savar",
+          "number": 15,
+          "price": 300,
+          "mana": 6,
+          "description": "gooraaa!"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 10,
+          "hp": 14,
+          "type": "HYBRID",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 3,
+          "name": "dive siah",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 300,
+          "mana": 9,
+          "description": "gooraaaa!"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Minion",
+        "INSTANCE": {
+          "abilities": [],
+          "ap": 10,
+          "hp": 14,
+          "type": "HYBRID",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 7,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "cardId": 2,
+          "name": "dive siah",
+          "number": 15,
+          "price": 300,
+          "mana": 9,
+          "description": "gooraaaa!"
+        }
+      },
+      {
+        "CLASSNAME": "model.Cards.Hero",
+        "INSTANCE": {
+          "specialPower": {
+            "CLASSNAME": "model.Buff.PowerBuff",
+            "INSTANCE": {
+              "hpIncrease": 0,
+              "apIncrease": 4,
+              "hasCasted": false,
+              "kind": "POSITIVE",
+              "duration": 1,
+              "isContinuous": true,
+              "numberOfUsage": 0,
+              "onMoment": true,
+              "currentTurn": 0,
+              "castTurn": 1,
+              "isForCell": false
+            }
+          },
+          "coolDown": 2,
+          "coolDownWaiting": 0,
+          "ap": 4,
+          "hp": 50,
+          "type": "MELEE",
+          "buffs": [],
+          "flagNumber": 0,
+          "attackRange": 1,
+          "isAttackedThisTurn": false,
+          "isMovedThisTurn": false,
+          "antiDisArm": false,
+          "antiPoison": false,
+          "antiNegative": false,
+          "strongerAp": false,
+          "notAcceptingHolyBuff": false,
+          "target": {
+            "type": "SOLDIER",
+            "areaSize": 0,
+            "soldierTargetType": "ITSELF",
+            "isaffectingCell": false
+          },
+          "cardId": 1,
+          "name": "dive sepid",
+          "cardStatus": "IN_DECK",
+          "number": 15,
+          "price": 8000,
+          "mana": 1,
+          "description": "give itself power buff with increasing power by 4 continuously"
+        }
+      }
+    ]
+  }
+}

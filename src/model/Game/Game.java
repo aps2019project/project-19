@@ -79,7 +79,13 @@ public class Game {
     public Player getPlayer1() {
         return player1;
     }
-
+    public Player getPlayer(String userName){
+        if(player2.getAccount().getUserName().equals(userName))
+            return player2;
+        if(player1.getAccount().getUserName().equals(userName))
+            return player1;
+        return null;
+    }
     public void setPlayer1(Player player1) {
         this.player1 = player1;
     }

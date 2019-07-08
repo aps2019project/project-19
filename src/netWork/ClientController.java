@@ -95,6 +95,14 @@ public class ClientController extends Controller {
     }
 
     @Override
+    public Account getOpponentAccount() {
+        sendCommandToServer("getOpponentAccount");
+        Account account = gson.fromJson(serverScanner.nextLine(),Account.class);
+        readErrors();
+        return account;
+    }
+
+    @Override
     public void save() {
         sendCommandToServer("save");
         readErrors();
@@ -183,6 +191,7 @@ public class ClientController extends Controller {
     }
 
     private void sendCommandToServer(String command) {
+        System.out.println("sending: "+command);
         serverPrinter.println(command);
         serverPrinter.flush();
     }
@@ -190,7 +199,9 @@ public class ClientController extends Controller {
 
     private boolean readErrors() {
         ErrorType errorType = null;
-        errorType = gson.fromJson(serverScanner.nextLine(), ErrorType.class);
+        String error = serverScanner.nextLine();
+        System.err.println(error);
+        errorType = gson.fromJson(error, ErrorType.class);
         if (errorType.equals(ErrorType.NO_ERROR)) {
             setErrorType(null);
             return true;
@@ -198,7 +209,6 @@ public class ClientController extends Controller {
             setErrorType(errorType);
             return false;
         }
-
     }
 
     public boolean buyFromShop(String name) {
@@ -264,13 +274,20 @@ public class ClientController extends Controller {
         return results;
     }
 
-    public void waitForOpponent(GameMode gameMode, int numberOfFlags) {
+    public boolean waitForOpponent(GameMode gameMode, int numberOfFlags) {
         if (gameMode == GameMode.CAPTURE_THE_FLAGS)
             sendCommandToServer("start multiplayer game " + gameMode.toString() + " " + numberOfFlags);
         else
             sendCommandToServer("start multiplayer game " + gameMode.toString());
-        readErrors();
+        return readErrors();
     }
+
+    public boolean insertCard(String cardName, int x, int y) {
+        String command = String.format("Insert %s In (%d, %d)",cardName,x,y);
+        sendCommandToServer(command);
+        return readErrors();
+    }
+
 
     public boolean isGameStarted() {
         sendCommandToServer("isGameStarted");
