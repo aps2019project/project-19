@@ -91,7 +91,7 @@ public class CardInitializer {
         }
     }
 
-    public void updateJson() throws IOException {
+    public static void updateJsonFiles() throws IOException {
         FileWriter fileWriter;
         fileWriter = new FileWriter("src/data/minions.json");
         gson.toJson(minionCards, fileWriter);

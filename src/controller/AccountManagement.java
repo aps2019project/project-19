@@ -35,6 +35,7 @@ public class AccountManagement {
         try (Writer writer = new FileWriter("src/data/Accounts/" + account.getUserName() + ".json")) {
             writer.write(gson.toJson(account));
             writer.flush();
+            CardInitializer.updateJsonFiles();
         } catch (IOException e) {
             e.printStackTrace();
         }
