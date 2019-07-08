@@ -28,6 +28,7 @@ public class MultiGameMenu extends MenuController implements Initializable {
                     if (getMainController().isGameStarted()) {
                         System.out.println("isStarteeeed");
                         changeMenu("BattleView.fxml");
+                        this.stop();
                     }
                 }
             }

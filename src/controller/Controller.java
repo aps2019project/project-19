@@ -256,7 +256,7 @@ public class Controller {
                     createCustomGame();
                     break;
                 ///////////////////////////////// BATTLE  ////////////////////////
-                    /*case INSERT_CARD:
+                    case INSERT_CARD:
                         insertCard();
                         break;
                     case SHOW_GAME_INFO:
@@ -275,16 +275,16 @@ public class Controller {
                         showCardInfoInBattle();
                         break;
                     case SELECT_CARD_OR_COLLECTABLE:
-                        selectCardOrItem(activePlayer);
+//                        selectCardOrItem(activePlayer);
                         break;
                     case MOVE_CARD:
-                        moveCard();
+//                        moveCard();
                         break;
                     case ATTACK:
-                        attack();
+//                        attack();
                         break;
                     case COMBO_ATTACK:
-                        comboAttack();
+//                        comboAttack();
                         break;
                     case SHOW_HAND:
                         showHand();
@@ -312,12 +312,12 @@ public class Controller {
                         showAllCardsInGraveYard();
                         break;
                     case USE_SPECIAL_POWER:
-                        useSpecialPower();
+//                        useSpecialPower();
                         break;
                     case END_GAME:
                         endGame();
                         break;
-                        */
+
                 /////////////////////////////////            //////////////////////
                 case EXIT_MENU:
                     exitMenu();
@@ -334,6 +334,8 @@ public class Controller {
             errorType = null;
         } while (true);
     }
+
+
 
     private void isGameStarted() {
         if (game == null)
@@ -397,12 +399,13 @@ public class Controller {
             }
         }
     }
-    public Account getLoggedInAccount(){
-       return getLoggedInAccount(true);
+
+    public Account getLoggedInAccount() {
+        return getLoggedInAccount(true);
     }
 
     public Account getLoggedInAccount(boolean send) {
-        if(!send)
+        if (!send)
             return loggedInAccount;
         printStream.println(gson.toJson(loggedInAccount));
         printStream.flush();
@@ -482,6 +485,7 @@ public class Controller {
         Controller opponentController = Server.getClientController(opponentAccount.getUserName());
         opponentController.setGame(game);
         opponentController.setOpponentAccount(loggedInAccount);
+        opponentController.setMenuType(MenuType.BATTLE);
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
 
@@ -522,6 +526,10 @@ public class Controller {
         System.err.println("game mode seted");
         game.setPrize(1000);
         initNewGame(request.getGameMode());
+    }
+
+    public void setMenuType(MenuType menuType) {
+        this.menuType = menuType;
     }
 
     public void initNewGame(GameMode gameMode) {
@@ -1203,15 +1211,15 @@ public class Controller {
         view.show(activePlayer.handInfo());
     }
 
-    public boolean insertCard(String cardName, int x, int y) {
+    public boolean insertCard() {
         Player player = activePlayer;
         ArrayList<Card> cards = new ArrayList<>(player.getHandCards().values());
-        Card card = findCardInHandByName(cards, cardName);
+        Card card = findCardInHandByName(cards, request.getCardName());
         if (card == null) {
             errorType = ErrorType.INVALID_CARDNAME;
             return false;
         }
-        if (!game.coordinateIsValid(x, y)) {
+        if (!game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
             return false;
         }
@@ -1219,14 +1227,14 @@ public class Controller {
             errorType = ErrorType.NOT_ENOUGH_MANA;
             return false;
         }
-        Cell insertionCell = game.getCell(x, y);
+        Cell insertionCell = game.getCell(request.getX(), request.getY());
         if (card instanceof SpellCard) {
             if (!((SpellCard) card).getTargetArea().checkTargetValidation(game,
-                    activePlayer, deactivePlayer, x, y)) {
+                    activePlayer, deactivePlayer, request.getX(), request.getY())) {
                 errorType = ErrorType.INVALID_TARGET;
                 return false;
             }
-            castSpell((SpellCard) card, x, y);
+            castSpell((SpellCard) card, request.getX(), request.getY());
             card.setCardStatus(CardStatus.IN_GRAVEYARD);
             activePlayer.getGraveYard().put(card.getInBattleCardId(), card);
         } else {
@@ -1239,7 +1247,7 @@ public class Controller {
                 insertionCell.setCard(card);
                 card.setInBattleCardId(generateInBattleCardId(card));
                 view.show(card.getName() + " with " + card.getInBattleCardId() +
-                        " inserted to (" + x + ", " + y + ")");
+                        " inserted to (" + request.getX() + ", " + request.getY() + ")");
             }
             useUsable(activePlayer, WhenToUse.ON_SPAWN);
             player.getHandCards().remove(card.getCardId(), card);

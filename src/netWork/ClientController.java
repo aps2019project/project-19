@@ -282,6 +282,13 @@ public class ClientController extends Controller {
         return readErrors();
     }
 
+    public boolean insertCard(String cardName, int x, int y) {
+        String command = String.format("Insert %s In (%d, %d)",cardName,x,y);
+        sendCommandToServer(command);
+        return readErrors();
+    }
+
+
     public boolean isGameStarted() {
         sendCommandToServer("isGameStarted");
         return readErrors();
