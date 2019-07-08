@@ -274,11 +274,14 @@ public class Controller {
                     case SHOW_CARD_INFO_IN_BATTLE:
                         showCardInfoInBattle();
                         break;
+                     case UNSELECT_CARD:
+                        unSelectCard();
+                        break;
                     case SELECT_CARD_OR_COLLECTABLE:
-//                        selectCardOrItem(activePlayer);
+                        selectCardOrItem(activePlayer);
                         break;
                     case MOVE_CARD:
-//                        moveCard();
+                        moveCard();
                         break;
                     case ATTACK:
 //                        attack();
@@ -335,6 +338,9 @@ public class Controller {
         } while (true);
     }
 
+    private void unSelectCard() {
+        game.getPlayer(loggedInAccount.getUserName()).setSelectedCard(null);
+    }
 
 
     private void isGameStarted() {
@@ -929,51 +935,50 @@ public class Controller {
         errorType = ErrorType.INVALID_CARD_ID;
     }
 
-    public boolean selectCardOrItem(Player player, String inBattleCardId, int itemId) {
-        if (player.containsCardInBattle(inBattleCardId)) {
-            Card card = activePlayer.getInBattleCard(inBattleCardId);
+    public void selectCardOrItem(Player player) {
+        String id = request.getInBattleCardId();
+        if (player.containsCardInBattle(id)) {
+            Card card = activePlayer.getInBattleCard(id);
             activePlayer.setSelectedCard(card);
             System.err.println(card.getName() + " " + card.getCardId() + " selected");
-            return true;
+            return;
         }
+        int itemId = request.getItemID();
         if (player.getItems().containsKey(itemId)) {
             Item item = activePlayer.getItems().get(itemId);
             activePlayer.setSelectedItem(item);
             System.err.println(item.getName() + " selected");
-            return true;
+            return;
         }
         errorType = ErrorType.INVALID_CARD_ID;
-        return false;
     }
 
-    public boolean moveCard(int x, int y) {
+    public void moveCard() {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
-            return false;
+            return;
         }
         SoldierCard card = (SoldierCard) activePlayer.getSelectedCard();
         for (Buff buff : card.getBuffs()) {
             if (buff instanceof StunBuff) {
                 errorType = ErrorType.CARD_IS_STUNNED;
-                return false;
+                return;
             }
         }
         if (card.isMovedThisTurn()) {
             errorType = ErrorType.CAN_NOT_MOVE_AGAIN;
-            return false;
+            return;
         }
-        if (!game.coordinateIsValid(x, y)) {
+        if (!game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
-            return false;
+            return;
         }
         Cell currentCell = activePlayer.getInBattleCards().get(card);
-        Cell targetCell = game.getCell(x, y);
+        Cell targetCell = game.getCell(request.getX(), request.getY());
         if (targetCell.getCard() != null) {
             errorType = ErrorType.INVALID_TARGET;
-            return false;
         } else if (currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell, targetCell)) {
             errorType = ErrorType.INVALID_TARGET;
-            return false;
         } else {
             //removing old cell buffs
             card.removeCellBuffs();
@@ -982,7 +987,7 @@ public class Controller {
             activePlayer.getInBattleCards().replace(card, targetCell);
             if (!game.getGameMode().equals(GameMode.DEATH_MATCH))
                 card.pickUpFlags(targetCell);
-            System.err.println("card" + card.getName() + " moved to " + x + "," + y);
+            System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
             //adding cell buff to card
             if (targetCell.getBuff() != null) {
                 targetCell.getBuff().setForCell(true);
@@ -991,8 +996,8 @@ public class Controller {
                 card.checkBUffTiming(card, false);
             }
             card.setMovedThisTurn(true);
-            return true;
         }
+
     }
 
     public void comboAttack(ArrayList<String> comboAttackers, String defenderInBattleId) {

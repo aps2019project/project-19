@@ -38,6 +38,7 @@ public enum RequestType {
     /////// BATTLE ///////
     SHOW_GAME_INFO,
     SHOW_MY_MINIONS,
+    UNSELECT_CARD,
     SHOW_OPPONENT_MINIONS,
     SHOW_CARD_INFO_IN_BATTLE,
     MOVE_CARD,

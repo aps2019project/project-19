@@ -306,6 +306,26 @@ public class ClientController extends Controller {
         readErrors();
         return string;
     }
+    public void unSelectCard(){
+        sendCommandToServer("unSelectCard");
+        readErrors();
+    }
+    public boolean selectCardOrItem(String inBattleid) {
+        sendCommandToServer("select "+inBattleid);
+       return readErrors();
+    }
+
+    public boolean moveCard(int x, int y) {
+        String command = String.format("Move to (%d, %d)",x,y);
+        sendCommandToServer(command);
+        return readErrors();
+    }
+
+//
+//    public int attack(String defenderInBattleId) {
+//        sendCommandToServer("attack "+defenderInBattleId);
+//        readErrors();
+//    }
 
     public ArrayList<Account> getOnlines() {
         sendCommandToServer("get online accounts");

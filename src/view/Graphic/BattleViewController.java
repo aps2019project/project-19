@@ -20,6 +20,7 @@ import model.Cards.Card;
 import model.Cards.SoldierCard;
 import model.Cell;
 import model.Game.Game;
+import model.Player;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class BattleViewController extends MenuController implements Initializabl
     private Account enemyAccount;
     private int cellsLength;
     private int cellsWeight;
+    private Cell selectedCardCell;
     AnimationTimer requestUpdate;
     private CardImageView handSelectedCard;
     //private final int cellsLength = 9;
@@ -159,6 +161,7 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private void handleCellsMouseClick(Cell cell) {
         game = getMainController().getGame();
+        cell = game.getCell(cell.getXCoordinate(),cell.getYCoordinate());
         if(!isYourTurn(game))
             return;
         if (handSelectedCard != null) {
@@ -176,46 +179,48 @@ public class BattleViewController extends MenuController implements Initializabl
         }
 
         if (game.getPlayer(myAccount.getUserName()).isAnyCardSelected()) {
-            Cell currentCell = game.getPlayer(myAccount.getUserName()).getInBattleCards().get(game.getPlayer(myAccount.getUserName()).getSelectedCard());
-            AnchorPane currentAnchorePane = anchorPaneCells[currentCell.getYCoordinate() - 1][currentCell.getXCoordinate() - 1];
+            AnchorPane currentAnchorePane = anchorPaneCells[selectedCardCell.getYCoordinate() - 1][selectedCardCell.getXCoordinate() - 1];
             if (cell.getCard() == null) {
 
                 //move block
 
                 if (getMainController().moveCard(cell.getXCoordinate(), cell.getYCoordinate())) {
-                    playMoveAnimation(cell, currentCell, currentAnchorePane);
+                    playMoveAnimation(cell, selectedCardCell, currentAnchorePane);
                     return;
                 } else {
                     errorBox.setText(getMainController().getErrorType().getMessage());
                     getMainController().setErrorType(null);
+                    //todo
+                    getMainController().unSelectCard();
                     game.getPlayer(myAccount.getUserName()).setSelectedCard(null);
                     currentAnchorePane.getStyleClass().remove(0);
                     currentAnchorePane.getStyleClass().add("cells");
                 }
             } else {
                 //attack block
-                Cell targetCell = cell;
-                switch (getMainController().attack(targetCell.getCard().getInBattleCardId())) {
-                    case 1:
-                        AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
-                        playAttackAnimation(anchorPane);
-                    case 0:
-                        playAttackAnimation(currentAnchorePane);
-                        return;
-                    case -1:
-                        errorBox.setText(getMainController().getErrorType().getMessage());
-                        getMainController().setErrorType(null);
-                        game.getPlayer(myAccount.getUserName()).setSelectedCard(null);
-                        currentAnchorePane.getStyleClass().remove(0);
-                        currentAnchorePane.getStyleClass().add("cells");
-                }
+//                Cell targetCell = cell;
+//                switch (getMainController().attack(targetCell.getCard().getInBattleCardId())) {
+//                    case 1:
+//                        AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
+//                        playAttackAnimation(anchorPane);
+//                    case 0:
+//                        playAttackAnimation(currentAnchorePane);
+//                        return;
+//                    case -1:
+//                        errorBox.setText(getMainController().getErrorType().getMessage());
+//                        getMainController().setErrorType(null);
+//                        game.getPlayer(myAccount.getUserName()).setSelectedCard(null);
+//                        currentAnchorePane.getStyleClass().remove(0);
+//                        currentAnchorePane.getStyleClass().add("cells");
+//                }
             }
         }
         if (cell.getCard() != null) {
             //select Card Block
             AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
-            if (getMainController().selectCardOrItem(game.getPlayer(myAccount.getUserName()), cell.getCard().getInBattleCardId(), 0)) {
+            if (getMainController().selectCardOrItem(cell.getCard().getInBattleCardId())) {
                 updateCells();
+                selectedCardCell = cell;
                 setCellMouseHover(anchorPane, false);
                 anchorPane.getStyleClass().remove(0);
                 anchorPane.getStyleClass().add("selectedCell");
@@ -256,7 +261,7 @@ public class BattleViewController extends MenuController implements Initializabl
         Path path = new Path(new MoveTo((currentCell.getXCoordinate() - 1) * 100 + 90, (currentCell.getYCoordinate() - 1) * 100 + 30),
                 new LineTo((targetCell.getXCoordinate() - 1) * 100 + 90, (targetCell.getYCoordinate() - 1) * 100 + 30));
         path.setVisible(false);
-        CardImageView cardImageView = CardImageView.createCardImageView(targetCell.getCard().getName(), CardImageView.Stance.RUNING);
+        CardImageView cardImageView = CardImageView.createCardImageView(currentCell.getCard().getName(), CardImageView.Stance.RUNING);
         cardImageView.setFitHeight(100);
         cardImageView.setFitWidth(100);
         center.getChildren().addAll(cardImageView);
