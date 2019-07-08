@@ -1,5 +1,6 @@
 package view.Graphic;
 
+import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -41,6 +42,7 @@ public class BattleViewController extends MenuController implements Initializabl
     private Account enemyAccount;
     private int cellsLength;
     private int cellsWeight;
+    AnimationTimer requestUpdate;
     private CardImageView handSelectedCard;
     //todo: maybe we should change all getPlayer1 's to getActivePlayer
     //private final int cellsLength = 9;
@@ -53,6 +55,29 @@ public class BattleViewController extends MenuController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        requestUpdate = new AnimationTimer() {
+            //            every 200 milisecond sends a request to server to see if game is started or not
+            private long lastTime = 0;
+            private long second = 1000000000;
+            private double time = 0;
+
+            @Override
+            public void handle(long now) {
+                if (lastTime == 0) {
+                    lastTime = now;
+                }
+                if(getMainController()==null)
+                    return;
+                if (now > lastTime + second ) {
+                    lastTime = now;
+                    if (!isYourTurn(game)) {
+                        updateCells();
+                        updateStatus();
+                    }
+                }
+            }
+        };
+
     }
 
     public void loadGame() {
@@ -92,6 +117,7 @@ public class BattleViewController extends MenuController implements Initializabl
         leftManaLabel.setText(game.getPlayer(enemyAccount.getUserName()).getMana() + "/" + game.getPlayer(enemyAccount.getUserName()).getMaxMana());
         addHeroIcons(rightHeroAnchor,game.getPlayer(myAccount.getUserName()).getHero().getName(), false);
         addHeroIcons(leftHeroAnchor, game.getPlayer(enemyAccount.getUserName()).getHero().getName(), true);
+        requestUpdate.start();
     }
 
     private void setCellMouseHover(AnchorPane anchorPane, boolean on,Game game) {
@@ -365,11 +391,11 @@ public class BattleViewController extends MenuController implements Initializabl
         handSelectedCard = null;
         getMainController().endTurn();
         getMainController().endTurn();
+        game = getMainController().getGame();
         updateStatus();
     }
 
     private void updateStatus() {
-        game = getMainController().getGame();
         rightManaLabel.setText(game.getPlayer(myAccount.getUserName()).getMana() + "/" + game.getPlayer(myAccount.getUserName()).getMaxMana());
         leftManaLabel.setText(game.getPlayer(enemyAccount.getUserName()).getMana() + "/" + game.getPlayer(enemyAccount.getUserName()).getMaxMana());
         putHandsCards(new ArrayList<>(game.getPlayer(myAccount.getUserName()).getHandCards().values()));
