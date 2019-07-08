@@ -38,6 +38,11 @@ public class BattleViewController extends MenuController implements Initializabl
     Label leftManaLabel;
     @FXML
     Label errorBox;
+    @FXML
+    ImageView rightGraveYard;
+    @FXML
+    ImageView leftGraveYard;
+
 
     private Game game;
     private Account myAccount;
@@ -62,6 +67,7 @@ public class BattleViewController extends MenuController implements Initializabl
 
     public void loadGame() {
         game = getMainController().getGame();
+        graveYardHandler();
         myAccount = getMainController().getLoggedInAccount();
         enemyAccount = getMainController().getOpponentAccount();
         //System.out.println(game);
@@ -93,8 +99,14 @@ public class BattleViewController extends MenuController implements Initializabl
         putHandsCards(hand);
         rightManaLabel.setText(game.getPlayer(myAccount.getUserName()).getMana() + "/" + game.getPlayer(myAccount.getUserName()).getMaxMana());
         leftManaLabel.setText(game.getPlayer(enemyAccount.getUserName()).getMana() + "/" + game.getPlayer(enemyAccount.getUserName()).getMaxMana());
-        addHeroIcons(rightHeroAnchor,game.getPlayer(myAccount.getUserName()).getHero().getName(), false);
+        addHeroIcons(rightHeroAnchor, game.getPlayer(myAccount.getUserName()).getHero().getName(), false);
         addHeroIcons(leftHeroAnchor, game.getPlayer(enemyAccount.getUserName()).getHero().getName(), true);
+    }
+
+    private void graveYardHandler() {
+        leftGraveYard.setOnMouseEntered(e -> {
+            leftGraveYard.setImage(new Image("images/graveYard.png", 495.0, 505.0, false, true));
+        });
     }
 
     private void setCellMouseHover(AnchorPane anchorPane, boolean on) {
