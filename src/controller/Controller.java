@@ -41,7 +41,7 @@ public class Controller {
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
             .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
             .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
-            .create();
+            .enableComplexMapKeySerialization().create();
     private OutputStream outputStream;
     private InputStream inputStream;
     private Shop shop = Shop.getInstance();

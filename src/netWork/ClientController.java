@@ -31,7 +31,7 @@ public class ClientController extends Controller {
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
             .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
             .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
-            .create();
+            .enableComplexMapKeySerialization().create();
 
     public ClientController(InputStream inputStream, OutputStream outputStream) {
         this.inputStream = inputStream;
@@ -114,9 +114,7 @@ public class ClientController extends Controller {
     @Override
     public Game getGame() {
         sendCommandToServer("getGame");
-        String x = serverScanner.nextLine();
-        System.out.println("x ix : " + x);
-        Game game = gson.fromJson(x, Game.class);
+        Game game = gson.fromJson(serverScanner.nextLine(), Game.class);
         readErrors();
         return game;
     }
