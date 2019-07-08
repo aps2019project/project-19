@@ -49,6 +49,7 @@ public class Controller {
     private MenuType menuType = MenuType.ACCOUNT;
     private Request request;
     private Account loggedInAccount;
+    private Account opponentAccount;
     private Game game;
     private Player activePlayer;
     private Player deactivePlayer;
@@ -128,6 +129,9 @@ public class Controller {
                     break;
                 case GET_ACCOUNT:
                     getLoggedInAccount();
+                    break;
+                case GET_OPPONENT_ACCOUNT:
+                    getOpponentAccount();
                     break;
                 case GET_GAME:
                     getGame();
@@ -366,6 +370,12 @@ public class Controller {
         }
     }
 
+    public Account getOpponentAccount() {
+        printStream.println(gson.toJson(opponentAccount));
+        printStream.flush();
+        return opponentAccount;
+    }
+
     public boolean importDeck() {
         Deck deck = DeckManagement.importDeck(request.getDeckFileName());
         if (deck == null) {
@@ -460,7 +470,7 @@ public class Controller {
 //            errorType = ErrorType.INVALID_OPPONENT;
 //            return;
 //        }
-        Account opponentAccount = Account.getAccounts().get(userName);
+        opponentAccount = Account.getAccounts().get(userName);
 //        if (opponentAccount.getCollection().getMainDeck() == null ||
 //                !opponentAccount.getCollection().getMainDeck().deckIsValid()) {
 //            errorType = ErrorType.INVALID_OPPONENT_DECK;

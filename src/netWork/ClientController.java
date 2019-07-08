@@ -95,6 +95,14 @@ public class ClientController extends Controller {
     }
 
     @Override
+    public Account getOpponentAccount() {
+        sendCommandToServer("getOpponentAccount");
+        Account account = gson.fromJson(serverScanner.nextLine(),Account.class);
+        readErrors();
+        return account;
+    }
+
+    @Override
     public void save() {
         sendCommandToServer("save");
         readErrors();

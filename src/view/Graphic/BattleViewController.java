@@ -17,6 +17,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
+import model.Account;
 import model.Cards.Card;
 import model.Cards.SoldierCard;
 import model.Cell;
@@ -39,6 +40,8 @@ public class BattleViewController extends MenuController implements Initializabl
     Label errorBox;
 
     private Game game;
+    private Account myAccount;
+    private Account enemyAccount;
     private int cellsLength;
     private int cellsWeight;
     private CardImageView handSelectedCard;
@@ -59,6 +62,8 @@ public class BattleViewController extends MenuController implements Initializabl
 
     public void loadGame() {
         game = getMainController().getGame();
+        myAccount = getMainController().getLoggedInAccount();
+        enemyAccount = getMainController().getOpponentAccount();
         //System.out.println(game);
         cellsLength = game.getLength();
         cellsWeight = game.getWidth();
@@ -84,12 +89,12 @@ public class BattleViewController extends MenuController implements Initializabl
 
             }
         updateCells();
-        ArrayList<Card> hand = new ArrayList<>(game.getPlayer1().getHandCards().values());
+        ArrayList<Card> hand = new ArrayList<>(game.getPlayer(myAccount.getUserName()).getHandCards().values());
         putHandsCards(hand);
-        rightManaLabel.setText(game.getPlayer1().getMana() + "/" + game.getPlayer1().getMaxMana());
-        leftManaLabel.setText(game.getPlayer2().getMana() + "/" + game.getPlayer2().getMaxMana());
-        addHeroIcons(rightHeroAnchor,game.getPlayer1().getHero().getName(), false);
-        addHeroIcons(leftHeroAnchor, game.getPlayer2().getHero().getName(), true);
+        rightManaLabel.setText(game.getPlayer(myAccount.getUserName()).getMana() + "/" + game.getPlayer(myAccount.getUserName()).getMaxMana());
+        leftManaLabel.setText(game.getPlayer(enemyAccount.getUserName()).getMana() + "/" + game.getPlayer(enemyAccount.getUserName()).getMaxMana());
+        addHeroIcons(rightHeroAnchor,game.getPlayer(myAccount.getUserName()).getHero().getName(), false);
+        addHeroIcons(leftHeroAnchor, game.getPlayer(myAccount.getUserName()).getHero().getName(), true);
     }
 
     private void setCellMouseHover(AnchorPane anchorPane, boolean on) {
@@ -126,8 +131,8 @@ public class BattleViewController extends MenuController implements Initializabl
             }
         }
 
-        if (game.getPlayer1().isAnyCardSelected()) {
-            Cell currentCell = game.getPlayer1().getInBattleCards().get(game.getPlayer1().getSelectedCard());
+        if (game.getPlayer(myAccount.getUserName()).isAnyCardSelected()) {
+            Cell currentCell = game.getPlayer(myAccount.getUserName()).getInBattleCards().get(game.getPlayer(myAccount.getUserName()).getSelectedCard());
             AnchorPane currentAnchorePane = anchorPaneCells[currentCell.getYCoordinate() - 1][currentCell.getXCoordinate() - 1];
             if (cell.getCard() == null) {
 
@@ -139,7 +144,7 @@ public class BattleViewController extends MenuController implements Initializabl
                 } else {
                     errorBox.setText(getMainController().getErrorType().getMessage());
                     getMainController().setErrorType(null);
-                    game.getPlayer1().setSelectedCard(null);
+                    game.getPlayer(myAccount.getUserName()).setSelectedCard(null);
                     currentAnchorePane.getStyleClass().remove(0);
                     currentAnchorePane.getStyleClass().add("cells");
                 }
@@ -156,7 +161,7 @@ public class BattleViewController extends MenuController implements Initializabl
                     case -1:
                         errorBox.setText(getMainController().getErrorType().getMessage());
                         getMainController().setErrorType(null);
-                        game.getPlayer1().setSelectedCard(null);
+                        game.getPlayer(myAccount.getUserName()).setSelectedCard(null);
                         currentAnchorePane.getStyleClass().remove(0);
                         currentAnchorePane.getStyleClass().add("cells");
                 }
@@ -165,7 +170,7 @@ public class BattleViewController extends MenuController implements Initializabl
         if (cell.getCard() != null) {
             //select Card Block
             AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
-            if (getMainController().selectCardOrItem(game.getPlayer1(), cell.getCard().getInBattleCardId(), 0)) {
+            if (getMainController().selectCardOrItem(game.getPlayer(myAccount.getUserName()), cell.getCard().getInBattleCardId(), 0)) {
                 updateCells();
                 setCellMouseHover(anchorPane, false);
                 anchorPane.getStyleClass().remove(0);
@@ -354,15 +359,16 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private void updateStatus() {
         game = getMainController().getGame();
-        rightManaLabel.setText(game.getPlayer1().getMana() + "/" + game.getPlayer1().getMaxMana());
-        leftManaLabel.setText(game.getPlayer2().getMana() + "/" + game.getPlayer2().getMaxMana());
-        putHandsCards(new ArrayList<>(game.getPlayer1().getHandCards().values()));
+        rightManaLabel.setText(game.getPlayer(myAccount.getUserName()).getMana() + "/" + game.getPlayer(myAccount.getUserName()).getMaxMana());
+        leftManaLabel.setText(game.getPlayer(enemyAccount.getUserName()).getMana() + "/" + game.getPlayer(enemyAccount.getUserName()).getMaxMana());
+        putHandsCards(new ArrayList<>(game.getPlayer(myAccount.getUserName()).getHandCards().values()));
     }
 
     private void updateCells() {
+        game = getMainController().getGame();
         for (int i = 0; i < cellsLength; i++) {
             for (int j = 0; j < cellsWeight; j++) {
-                Cell cell = getMainController().getGame().getCell(i + 1, j + 1);
+                Cell cell = game.getCell(i + 1, j + 1);
                 AnchorPane anchorPane = anchorPaneCells[j][i];
                 anchorPane.getStyleClass().remove(0);
                 anchorPane.getStyleClass().add("cells");
