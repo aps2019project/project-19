@@ -16,7 +16,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 101,
     "name": "camandare farse",
-    "number": 15,
+    "number": 7,
     "price": 300,
     "mana": 2,
     "description": ""
@@ -53,7 +53,7 @@
     "abilityCastTime": "ON_ATTACK",
     "cardId": 102,
     "name": "shamshir zane fars",
-    "number": 15,
+    "number": 13,
     "price": 400,
     "mana": 2,
     "description": "stun enemy for one turn"
@@ -75,7 +75,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 103,
     "name": "neyzedare farse",
-    "number": 15,
+    "number": 14,
     "price": 500,
     "mana": 1,
     "description": ""
@@ -97,7 +97,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 104,
     "name": "asb savare fars",
-    "number": 15,
+    "number": 7,
     "price": 200,
     "mana": 4,
     "description": ""
@@ -119,7 +119,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 105,
     "name": "pahlavane fars",
-    "number": 15,
+    "number": 14,
     "price": 600,
     "mana": 9,
     "description": "for every attack in last turn,deal 5 damage to enemy"
@@ -142,7 +142,7 @@
     "abilityCastTime": "COMBO",
     "cardId": 106,
     "name": "sepah salare fars",
-    "number": 15,
+    "number": 14,
     "price": 600,
     "mana": 9,
     "description": "combo"
@@ -281,7 +281,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 111,
     "name": "ghorzdare torani",
-    "number": 15,
+    "number": 14,
     "price": 450,
     "mana": 2,
     "description": "GHORZDAR SMASH!!!"
@@ -326,7 +326,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 113,
     "name": "dive siah",
-    "number": 15,
+    "number": 10,
     "price": 300,
     "mana": 9,
     "description": "gooraaaa!"
@@ -348,7 +348,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 114,
     "name": "ghoole sang andaz",
-    "number": 15,
+    "number": 12,
     "price": 300,
     "mana": 9,
     "description": "gooraaa!"
@@ -394,7 +394,7 @@
     "abilityCastTime": "PASSIVE",
     "cardId": 115,
     "name": "oghab",
-    "number": 15,
+    "number": 5,
     "price": 200,
     "mana": 2,
     "description": "increase health by 10"
@@ -416,7 +416,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 116,
     "name": "dive goraz savar",
-    "number": 15,
+    "number": 11,
     "price": 300,
     "mana": 6,
     "description": "gooraaa!"
@@ -498,7 +498,7 @@
     "abilityCastTime": "ON_ATTACK",
     "cardId": 118,
     "name": "mare sammi",
-    "number": 15,
+    "number": 12,
     "price": 300,
     "mana": 4,
     "description": "poison enemy for 3 turn"
@@ -520,7 +520,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 119,
     "name": "ezhdehaye atash andaz",
-    "number": 15,
+    "number": 10,
     "price": 250,
     "mana": 5,
     "description": "fireeee! fireeee!"
@@ -543,7 +543,7 @@
     "abilityCastTime": "ON_ATTACK",
     "cardId": 120,
     "name": "shire darandeh",
-    "number": 15,
+    "number": 13,
     "price": 600,
     "mana": 2,
     "description": "don\u0027t be effected by holly buff"
@@ -640,7 +640,7 @@
     "abilityCastTime": "ON_ATTACK",
     "cardId": 122,
     "name": "gorge sephid",
-    "number": 15,
+    "number": 13,
     "price": 400,
     "mana": 5,
     "description": "miniony ke behesh zarbe zade dar nobat baad 6  va dar nobat baady 4 vahed zaebe mikhorad"
@@ -678,7 +678,7 @@
     "abilityCastTime": "ON_ATTACK",
     "cardId": 123,
     "name": "palang",
-    "number": 15,
+    "number": 14,
     "price": 400,
     "mana": 4,
     "description": "when attack a minion it damage in next turn by 8"
@@ -716,7 +716,7 @@
     "abilityCastTime": "ON_ATTACK",
     "cardId": 124,
     "name": "gorg",
-    "number": 15,
+    "number": 14,
     "price": 400,
     "mana": 3,
     "description": "when attack a minion it damage in next turn by 6"
@@ -1036,7 +1036,7 @@
     "abilityCastTime": "ON_DEFEND",
     "cardId": 132,
     "name": "ashkboos",
-    "number": 15,
+    "number": 14,
     "price": 400,
     "mana": 7,
     "description": "az nirooha ba ghodrat zarbeye kamtar attack nemikhorad"
@@ -1251,7 +1251,7 @@
     "abilityCastTime": "ON_DEATH",
     "cardId": 138,
     "name": "siavash",
-    "number": 15,
+    "number": 14,
     "price": 350,
     "mana": 4,
     "description": "deals 6 damage to enemy hero"
@@ -1297,7 +1297,7 @@
     "abilityCastTime": "COMBO",
     "cardId": 140,
     "name": "arzhang div",
-    "number": 15,
+    "number": 14,
     "price": 600,
     "mana": 3,
     "description": "combo"
@@ -1381,7 +1381,7 @@
     "abilityCastTime": "COMBO",
     "cardId": 1,
     "name": "shire zhian",
-    "number": 15,
+    "number": 13,
     "price": 200,
     "mana": 3,
     "description": ""

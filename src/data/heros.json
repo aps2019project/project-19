@@ -39,7 +39,7 @@
     },
     "cardId": 301,
     "name": "dive sepid",
-    "number": 15,
+    "number": 14,
     "price": 8000,
     "mana": 1,
     "description": "give itself power buff with increasing power by 4 continuously"
@@ -165,7 +165,7 @@
     },
     "cardId": 304,
     "name": "rakhsh",
-    "number": 15,
+    "number": 14,
     "price": 8000,
     "mana": 1,
     "description": "stun one enemy for 1 turn"
@@ -413,7 +413,7 @@
     },
     "cardId": 310,
     "name": "rostam",
-    "number": 15,
+    "number": 14,
     "price": 8000,
     "mana": 0,
     "description": ""

@@ -85,7 +85,7 @@
     },
     "cardId": 203,
     "name": "empower",
-    "number": 15,
+    "number": 13,
     "price": 250,
     "mana": 1,
     "description": "increase friendly force power by 2"
@@ -115,7 +115,7 @@
     },
     "cardId": 204,
     "name": "fire ball",
-    "number": 15,
+    "number": 14,
     "price": 400,
     "mana": 1,
     "description": "damage enemy by 4"

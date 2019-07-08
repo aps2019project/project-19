@@ -18,6 +18,7 @@ import model.Shop;
 import view.ErrorType;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class ClientController extends Controller {
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
             .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
             .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
-            .create();
+            .enableComplexMapKeySerialization().create();
 
     public ClientController(InputStream inputStream, OutputStream outputStream) {
         this.inputStream = inputStream;
@@ -114,9 +115,7 @@ public class ClientController extends Controller {
     @Override
     public Game getGame() {
         sendCommandToServer("getGame");
-        String x = serverScanner.nextLine();
-        System.out.println("x ix : " + x);
-        Game game = gson.fromJson(x, Game.class);
+        Game game = gson.fromJson(serverScanner.nextLine(), Game.class);
         readErrors();
         return game;
     }
@@ -135,6 +134,12 @@ public class ClientController extends Controller {
         Player player = gson.fromJson(serverScanner.nextLine(), Player.class);
         readErrors();
         return player;
+    }
+
+    @Override
+    public void endGame() {
+        sendCommandToServer("end turn");
+        readErrors();
     }
 
     public boolean exportDeck(String deckName, String fileName) {
@@ -270,5 +275,22 @@ public class ClientController extends Controller {
     public boolean isGameStarted() {
         sendCommandToServer("isGameStarted");
         return readErrors();
+    }
+
+    @Override
+    public String showLeaderBoard() {
+        sendCommandToServer("show leaderboard");
+        String string = gson.fromJson(serverScanner.nextLine(), String.class);
+        readErrors();
+        return string;
+    }
+
+    public ArrayList<Account> getOnlines() {
+        sendCommandToServer("get online accounts");
+        ArrayList<Account> accounts = new ArrayList<>();
+        accounts = gson.fromJson(serverScanner.nextLine(),  new TypeToken<ArrayList<Account>>() {
+        }.getType());
+        readErrors();
+        return accounts;
     }
 }

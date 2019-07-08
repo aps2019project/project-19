@@ -29,7 +29,6 @@ public class Controller {
         request = new Request(inputStream);
         view = new View(outputStream);
         printStream = new PrintStream(outputStream, true);
-        //scanner = new Scanner(inputStream);
     }
 
     private static ArrayList<Account> onlineAccounts = new ArrayList<>();
@@ -43,7 +42,7 @@ public class Controller {
     private Gson gson = new GsonBuilder().registerTypeAdapter(Buff.class, new AbstractClassAdapters<Buff>())
             .registerTypeAdapter(Card.class, new AbstractClassAdapters<Card>())
             .registerTypeAdapter(SoldierCard.class, new AbstractClassAdapters<SoldierCard>())
-            .create();
+            .enableComplexMapKeySerialization().create();
     private OutputStream outputStream;
     private InputStream inputStream;
     private Shop shop = Shop.getInstance();
@@ -57,6 +56,10 @@ public class Controller {
     private View view;
     private Deck aiDeck;
     private Ai ai;
+
+    public static ArrayList<Account> getOnlineAccounts() {
+        return onlineAccounts;
+    }
 
     public static void addOnlineAccount(Account account) {
         onlineAccounts.add(account);
@@ -135,6 +138,10 @@ public class Controller {
                 case GET_DEACTIVE_PLAYER:
                     getDeactivePlayer();
                     break;
+                case GET_ONLINE_ACCOUNTS:
+                    getOnlines();
+                    break;
+
                 ///////////////////////////// MAIN_MENU  && ACCOUNT ///////////////////////
                 case RECIVE_CHAT:
                     reciveChat();
@@ -176,7 +183,6 @@ public class Controller {
                 case SELL_TO_SHOP:
                     sellToShop();
                     break;
-
                 case SHOW_SHOP:
                     showShop();
                     break;
@@ -219,13 +225,9 @@ public class Controller {
                 case EXPORT_DECK:
                     exportDeck();
                     break;
-                    /*
-                    case EXPORT_DECK:
-                        exportDeck();
-                        break;
-                    case IMPORT_DECK:
-                        importDeck();
-                        break;*/
+                case IMPORT_DECK:
+                    importDeck();
+                    break;
                 ///////////////////////////////// CREATING GAME ///////////////////////
                 case SHOW_ALL_PLAYERS:
                     showAllPlayer();
@@ -559,13 +561,18 @@ public class Controller {
         }
         loggedInAccount = Account.getAccounts().get(request.getUserName());
         addOnlineAccount(loggedInAccount);
+        System.out.println(onlineAccounts.size());
+        System.out.println(Controller.getOnlineAccounts().size());
         menuType = MenuType.MAINMENU;
         System.out.println("logged into " + request.getUserName());
         return true;
     }
 
-    public void showLeaderBoard() {
-        view.show(Account.printAccounts());
+    public String showLeaderBoard() {
+        printStream.println(gson.toJson(Account.printAccounts()));
+        printStream.flush();
+//        view.show(Account.printAccounts());
+        return Account.printAccounts();
     }
 
     public void save() {
@@ -816,8 +823,8 @@ public class Controller {
             errorType = ErrorType.NOT_ENOUGH_MONEY;
         else if (!shop.validateNumberOfItems(request.getProductName(), loggedInAccount))
             errorType = ErrorType.FULL_ITEMS;
-//        else if (shop.isFinished(request.getProductName()))
-//            errorType = ErrorType.FINISH;
+        else if (shop.isFinished(request.getProductName()))
+            errorType = ErrorType.FINISH;
         else {
             shop.buy(request.getProductName(), loggedInAccount);
             view.show("Successful purchase");
@@ -1631,6 +1638,12 @@ public class Controller {
         printStream.println(gson.toJson(deactivePlayer));
         printStream.flush();
         return deactivePlayer;
+    }
+
+    public ArrayList<Account> getOnlines() {
+        printStream.println(gson.toJson(getOnlineAccounts()));
+        printStream.flush();
+        return getOnlineAccounts();
     }
 
     public void setGame(Game game) {
