@@ -175,7 +175,7 @@ public class Shop {
     }
 
     public static void generateNewId(Account account) {
-        id = account.getCollection().getCards().size() + account.getCollection().getItems().size();
+        id = findBiggestId(account);
         id++;
     }
 
@@ -191,5 +191,18 @@ public class Shop {
         for (int i = 0; i < this.getItems().size(); i++) {
             if (this.getItems().get(i).getName().equals(productName)) this.getItems().get(i).increaseNumber();
         }
+    }
+
+    private static int findBiggestId(Account account) {
+        int id = 0;
+        for (Card card : account.getCollection().getCards()) {
+            if (card.getCardId() > id)
+                id = card.getCardId();
+        }
+        for (Item item : account.getCollection().getItems()) {
+            if (item.getItemId() > id)
+                id = item.getItemId();
+        }
+        return id;
     }
 }
