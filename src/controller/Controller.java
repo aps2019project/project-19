@@ -558,7 +558,6 @@ public class Controller {
         loggedInAccount = Account.getAccounts().get(request.getUserName());
         addOnlineAccount(loggedInAccount);
         System.out.println(onlineAccounts.size());
-        System.out.println(Controller.getOnlineAccounts().size());
         menuType = MenuType.MAINMENU;
         System.out.println("logged into " + request.getUserName());
         return true;

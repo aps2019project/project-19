@@ -16,7 +16,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 101,
     "name": "camandare farse",
-    "number": 10,
+    "number": 15,
     "price": 300,
     "mana": 2,
     "description": ""
@@ -75,7 +75,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 103,
     "name": "neyzedare farse",
-    "number": 14,
+    "number": 11,
     "price": 500,
     "mana": 1,
     "description": ""
@@ -97,7 +97,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 104,
     "name": "asb savare fars",
-    "number": 12,
+    "number": 15,
     "price": 200,
     "mana": 4,
     "description": ""
@@ -326,7 +326,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 113,
     "name": "dive siah",
-    "number": 14,
+    "number": 15,
     "price": 300,
     "mana": 9,
     "description": "gooraaaa!"
@@ -348,7 +348,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 114,
     "name": "ghoole sang andaz",
-    "number": 14,
+    "number": 15,
     "price": 300,
     "mana": 9,
     "description": "gooraaa!"
@@ -394,7 +394,7 @@
     "abilityCastTime": "PASSIVE",
     "cardId": 115,
     "name": "oghab",
-    "number": 13,
+    "number": 0,
     "price": 200,
     "mana": 2,
     "description": "increase health by 10"
@@ -416,7 +416,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 116,
     "name": "dive goraz savar",
-    "number": 14,
+    "number": 15,
     "price": 300,
     "mana": 6,
     "description": "gooraaa!"
@@ -498,7 +498,7 @@
     "abilityCastTime": "ON_ATTACK",
     "cardId": 118,
     "name": "mare sammi",
-    "number": 14,
+    "number": 15,
     "price": 300,
     "mana": 4,
     "description": "poison enemy for 3 turn"
@@ -520,7 +520,7 @@
     "notAcceptingHolyBuff": false,
     "cardId": 119,
     "name": "ezhdehaye atash andaz",
-    "number": 14,
+    "number": 15,
     "price": 250,
     "mana": 5,
     "description": "fireeee! fireeee!"
@@ -716,7 +716,7 @@
     "abilityCastTime": "ON_ATTACK",
     "cardId": 124,
     "name": "gorg",
-    "number": 14,
+    "number": 15,
     "price": 400,
     "mana": 3,
     "description": "when attack a minion it damage in next turn by 6"
@@ -1381,7 +1381,7 @@
     "abilityCastTime": "COMBO",
     "cardId": 1,
     "name": "shire zhian",
-    "number": 14,
+    "number": 15,
     "price": 200,
     "mana": 3,
     "description": ""
