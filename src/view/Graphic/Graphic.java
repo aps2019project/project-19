@@ -37,7 +37,6 @@ public class Graphic extends Application {
         primaryStage.setScene(new Scene(root));
         Image image = new Image("view/Graphic/images/mouseCursor.png");
         primaryStage.getScene().setCursor(new ImageCursor(image));
-        primaryStage.getScene();
         primaryStage.getScene().getStylesheets().add("view/Graphic/Styles.css");
         primaryStage.show();
 

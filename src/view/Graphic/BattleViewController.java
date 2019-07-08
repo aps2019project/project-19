@@ -49,7 +49,6 @@ public class BattleViewController extends MenuController implements Initializabl
     private int cellsWeight;
     AnimationTimer requestUpdate;
     private CardImageView handSelectedCard;
-    //todo: maybe we should change all getPlayer1 's to getActivePlayer
     //private final int cellsLength = 9;
 //    private final int cellsWeight = 5;
     private AnchorPane[][] anchorPaneCells;
@@ -257,7 +256,7 @@ public class BattleViewController extends MenuController implements Initializabl
         Path path = new Path(new MoveTo((currentCell.getXCoordinate() - 1) * 100 + 90, (currentCell.getYCoordinate() - 1) * 100 + 30),
                 new LineTo((targetCell.getXCoordinate() - 1) * 100 + 90, (targetCell.getYCoordinate() - 1) * 100 + 30));
         path.setVisible(false);
-        CardImageView cardImageView = new CardImageView(targetCell.getCard().getName(), CardImageView.Stance.RUNING);
+        CardImageView cardImageView = CardImageView.createCardImageView(targetCell.getCard().getName(), CardImageView.Stance.RUNING);
         cardImageView.setFitHeight(100);
         cardImageView.setFitWidth(100);
         center.getChildren().addAll(cardImageView);
@@ -297,7 +296,7 @@ public class BattleViewController extends MenuController implements Initializabl
         }
         //todo remove khate paiin
         CardImageView.testImage(card.getName(),CardImageView.Stance.IDLING);
-        CardImageView cardImageView = new CardImageView(card.getName(), CardImageView.Stance.IDLING);
+        CardImageView cardImageView = CardImageView.createCardImageView(card.getName(), CardImageView.Stance.IDLING);
         cardImageView.setPreserveRatio(true);
         cardImageView.setPickOnBounds(true);
         cardImageView.setFitWidth(200);
@@ -364,7 +363,7 @@ public class BattleViewController extends MenuController implements Initializabl
 //                return;
 //            }
 //        }
-        CardImageView cardImageView = new CardImageView(cardName, CardImageView.Stance.IDLING);
+        CardImageView cardImageView = CardImageView.createCardImageView(cardName, CardImageView.Stance.IDLING);
         cardImageView.setFitWidth(100);
         cardImageView.setFitHeight(100);
         cardImageView.setLayoutY(-20);
