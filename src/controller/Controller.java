@@ -457,6 +457,7 @@ public class Controller {
         aiDeck = game.getStoryLevelDecks().get(request.getStoryLevel() - 1);
         ai = new Ai(new Player(new Account("ai", "ai"), aiDeck));
         game = new Game(player1, ai.getPlayer());
+        opponentAccount = ai.getPlayer().getAccount();
         if (request.getStoryLevel() == 1)
             game.setGameMode(GameMode.DEATH_MATCH);
         if (request.getStoryLevel() == 2)
