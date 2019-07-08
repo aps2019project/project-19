@@ -56,7 +56,9 @@ public class Controller {
     private Deck aiDeck;
     private Ai ai;
 
-    public static ArrayList<Account> getOnlineAccounts() { return onlineAccounts; }
+    public static ArrayList<Account> getOnlineAccounts() {
+        return onlineAccounts;
+    }
 
     public static void addOnlineAccount(Account account) {
         onlineAccounts.add(account);
@@ -180,7 +182,6 @@ public class Controller {
                 case SELL_TO_SHOP:
                     sellToShop();
                     break;
-
                 case SHOW_SHOP:
                     showShop();
                     break;
@@ -198,7 +199,6 @@ public class Controller {
                 case DELETE_DECK:
                     deleteDeck();
                     break;
-
                 case SHOW_DECK:
                     showDeck();
                     break;
@@ -223,13 +223,9 @@ public class Controller {
                 case EXPORT_DECK:
                     exportDeck();
                     break;
-                    /*
-                    case EXPORT_DECK:
-                        exportDeck();
-                        break;
-                    case IMPORT_DECK:
-                        importDeck();
-                        break;*/
+                case IMPORT_DECK:
+                    importDeck();
+                    break;
                 ///////////////////////////////// CREATING GAME ///////////////////////
                 case SHOW_ALL_PLAYERS:
                     showAllPlayer();
