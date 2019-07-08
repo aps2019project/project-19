@@ -266,3 +266,7 @@
     -fx-font-size: 20px;
     -fx-alignment: center;
 }
+.graveYardCard{
+    -fx-pref-width: 230;
+    -fx-background-image: url("images/deckCard.png");
+}

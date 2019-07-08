@@ -138,6 +138,8 @@ public class BattleViewController extends MenuController implements Initializabl
             leftGraveYard.setFitWidth(495);
             leftGraveYard.setOpacity(1);
             JFXMasonryPane pane = new JFXMasonryPane();
+            pane.setPrefHeight(509.0);
+            pane.setPrefWidth(495);
             for (Card card : getMainController().getGame().getPlayer1().getGraveYard().values()) {
                 addCardToGraveYard(pane, card.getName(), "left");
             }
@@ -150,6 +152,8 @@ public class BattleViewController extends MenuController implements Initializabl
             rightGraveYard.setFitWidth(495);
             rightGraveYard.setOpacity(1);
             JFXMasonryPane pane = new JFXMasonryPane();
+            pane.setPrefHeight(509.0);
+            pane.setPrefWidth(495);
             pane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
             for (Card card : getMainController().getGame().getPlayer2().getGraveYard().values()) {
                 addCardToGraveYard(pane, card.getName(), "right");
@@ -162,7 +166,7 @@ public class BattleViewController extends MenuController implements Initializabl
     }
 
     private void graveYardOnExit(ImageView graveYard, AnchorPane anchorPane) {
-        graveYard.setOnMouseExited(e -> {
+        anchorPane.setOnMouseExited(e -> {
             graveYard.setFitWidth(81);
             graveYard.setOpacity(0.5);
             anchorPane.getChildren().removeIf(node -> node instanceof JFXMasonryPane);
@@ -171,15 +175,16 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private void addCardToGraveYard(JFXMasonryPane pane, String cardName, String toward) {
         AnchorPane anchorPane = new AnchorPane();
-        ImageView imageView = new ImageView();
-        imageView.setImage(new Image("view/Graphic/images/deckCard.png"));
+        anchorPane.getStyleClass().add("graveYardCard");
+//        ImageView imageView = new ImageView();
+//        imageView.setImage(new Image("view/Graphic/images/deckCard.png"));
         if (toward.equals("right"))
-            imageView.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        imageView.setFitWidth(250);
+            anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+//        imageView.setFitWidth(250);
         Label name = new Label(cardName);
         name.getStyleClass().add("labelName");
         name.relocate(30, 25);
-        anchorPane.getChildren().addAll(imageView, name);
+        anchorPane.getChildren().addAll(name);
         pane.getChildren().addAll(anchorPane);
     }
 
