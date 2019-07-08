@@ -18,6 +18,7 @@ import model.Shop;
 import view.ErrorType;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ArrayList;
@@ -274,5 +275,22 @@ public class ClientController extends Controller {
     public boolean isGameStarted() {
         sendCommandToServer("isGameStarted");
         return readErrors();
+    }
+
+    @Override
+    public String showLeaderBoard() {
+        sendCommandToServer("show leaderboard");
+        String string = gson.fromJson(serverScanner.nextLine(), String.class);
+        readErrors();
+        return string;
+    }
+
+    public ArrayList<Account> getOnlines() {
+        sendCommandToServer("get online accounts");
+        ArrayList<Account> accounts = new ArrayList<>();
+        accounts = gson.fromJson(serverScanner.nextLine(),  new TypeToken<ArrayList<Account>>() {
+        }.getType());
+        readErrors();
+        return accounts;
     }
 }

@@ -25,14 +25,14 @@ public class Account implements Comparable<Account> {
     public static String printAccounts() {
         ArrayList<Account> accounts = new ArrayList<>(Account.getAccounts().values());
         Collections.sort(accounts);
-        String output = new String("");
+        StringBuilder output = new StringBuilder(new String(""));
         int counter = 1;
         for (Account account : accounts) {
-            output += counter + " -  UserName : " + account.getUserName() +
-                    " - Wins : " + account.getNumberOfWins() + "\n";
+            output.append(counter).append(".\t\tUserName :\t").append(account.getUserName())
+                    .append("\t\t\tWins :\t").append(account.getNumberOfWins()).append("\n");
             counter++;
         }
-        return output;
+        return output.toString();
     }
 
     public static void addAccount(Account account) {

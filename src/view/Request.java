@@ -97,6 +97,8 @@ public class Request {
             return RequestType.GET_DEACTIVE_PLAYER;
         if (command.matches("isgamestarted"))
             return RequestType.IS_GAME_STARTED;
+        if (command.matches("get online accounts"))
+            return RequestType.GET_ONLINE_ACCOUNTS;
 
         switch (menuType) {
             case ACCOUNT:
@@ -104,8 +106,8 @@ public class Request {
                     return RequestType.CREATE_ACCOUNT;
                 if (command.matches("login \\w+"))
                     return RequestType.LOGIN;
-                if (command.matches("show leaderboard"))
-                    return RequestType.SHOW_LEADER_BOARD;
+//                if (command.matches("show leaderboard"))
+//                    return RequestType.SHOW_LEADER_BOARD;
                 break;
             case MAINMENU:
                 if (command.equals("getchats"))
@@ -118,6 +120,8 @@ public class Request {
                     return RequestType.LOGOUT;
                 if (command.matches("delete account"))
                     return RequestType.DELETE_ACCOUNT;
+                if (command.matches("show leaderboard"))
+                    return RequestType.SHOW_LEADER_BOARD;
                 break;
             case COLLECTION:
                 if (command.matches("show"))

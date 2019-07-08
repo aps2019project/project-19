@@ -124,4 +124,7 @@ public class MainMenuController extends MenuController implements Initializable 
         }
     }
 
+    public void showLeaderBoard() {
+        changeMenu("leaderBoard.fxml");
+    }
 }

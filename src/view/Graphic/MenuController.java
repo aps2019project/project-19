@@ -76,6 +76,8 @@ public class MenuController {
             MenuController controller = loader.getController();
             controller.setStage(this.getStage());
             controller.setMainController(this.getMainController());
+            if (controller instanceof LeaderBoardController)
+                ((LeaderBoardController) controller).getLeaderBoard();
             if (controller instanceof ShopController) {
                 ShopController.setController(((ShopController) controller));
                 ((ShopController) controller).changeTab();
@@ -245,7 +247,6 @@ public class MenuController {
                         }
                         if (!gotError || !mainController.getErrorType().equals(ErrorType.EXISTS_IN_DECK))
                             break;
-                        else System.out.println(mainController.getErrorType().getMessage());
                     }
                     if (gotError) {
                         AlertBox.display(Alert.AlertType.ERROR, "Deck", mainController.getErrorType().getMessage());
