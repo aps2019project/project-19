@@ -136,6 +136,12 @@ public class ClientController extends Controller {
         return player;
     }
 
+    @Override
+    public void endGame() {
+        sendCommandToServer("end turn");
+        readErrors();
+    }
+
     public boolean exportDeck(String deckName, String fileName) {
         sendCommandToServer("export deck " + deckName + " with name " + fileName);
         return readErrors();
