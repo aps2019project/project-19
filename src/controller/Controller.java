@@ -426,6 +426,7 @@ public class Controller {
                 if (request.getGameMode().equals(GameMode.CAPTURE_THE_FLAGS)) {
                     game.setNumOfFlags(request.getNumOfFlags());
                 }
+                opponentAccount = ai.getPlayer().getAccount();
                 initNewGame(request.getGameMode());
                 game.setPrize(1000);
             } else {
