@@ -90,4 +90,20 @@ public class CardInitializer {
             e.printStackTrace();
         }
     }
+
+    public void updateJson() throws IOException {
+        FileWriter fileWriter;
+        fileWriter = new FileWriter("src/data/minions.json");
+        gson.toJson(minionCards, fileWriter);
+        fileWriter.flush();
+        fileWriter = new FileWriter("src/data/heros.json");
+        gson.toJson(heroes, fileWriter);
+        fileWriter.flush();
+        fileWriter = new FileWriter("src/data/spells.json");
+        gson.toJson(spellCards, fileWriter);
+        fileWriter.flush();
+        fileWriter = new FileWriter("src/data/items.json");
+        gson.toJson(items, fileWriter);
+        fileWriter.flush();
+    }
 }
