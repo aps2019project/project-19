@@ -37,10 +37,8 @@ public class Ai {
                 case 3:
                     return attackRandomCard(opponent);
                 case 4:
-                    return "show hand";
-                case 5:
                     return "end turn";
-                case 6:
+                case 5:
                     counter = -1;
                     return "";
             }

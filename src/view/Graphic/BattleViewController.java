@@ -461,7 +461,7 @@ public class BattleViewController extends MenuController implements Initializabl
     public void endTurn() {
         handSelectedCard = null;
         getMainController().endTurn();
-        game = getMainController().getGame();
+        updateCells();
         updateStatus();
     }
 

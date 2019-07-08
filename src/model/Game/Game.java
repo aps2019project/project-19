@@ -187,6 +187,7 @@ public class Game {
         checkCoolDownWaiting(player2);
         checkBuffsAtTheStartOfTurn(player1);
         checkBuffsAtTheStartOfTurn(player2);
+
     }
 
     private void checkCoolDownWaiting(Player player) {

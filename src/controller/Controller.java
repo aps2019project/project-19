@@ -112,10 +112,7 @@ public class Controller {
         do {
             System.out.println("Menu: " + menuType + " ");
 //                request.resetProperties();
-            if (ai != null && !game.isTurnOfPlayerOne()) {
-                request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
-                System.err.println("ai requested: " + request.getCommand());
-            } else request.getNewCommand();
+            request.getNewCommand();
             request.setRequestType(menuType);
             request.parseCommand();
             setActivePlayer();
@@ -1413,9 +1410,39 @@ public class Controller {
         if (!game.gameIsOver()) {
             game.changeTurn();
             castPassiveBuffs();
+            if (ai != null && !game.isTurnOfPlayerOne()) {
+                runAi();
+                endTurn();
+            }
+
         } else
             endGame();
         setActivePlayer();
+    }
+
+    private void runAi() {
+        outer:
+        while (true){
+            request.setCommand(ai.sendRandomRequest(game.getPlayer1()));
+            request.setRequestType(menuType);
+            request.parseCommand();
+            setActivePlayer();
+            switch (request.getRequestType()){
+                case INSERT_CARD:
+                    insertCard();
+                    break;
+                case SELECT_CARD_OR_COLLECTABLE:
+                    selectCardOrItem(activePlayer);
+                case MOVE_CARD:
+                    moveCard();
+                    break;
+                case ATTACK:
+                    attack();
+                    break;
+                case END_TURN:
+                    break outer;
+            }
+        }
     }
 
     private void castPassiveBuffs() {
