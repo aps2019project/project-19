@@ -321,11 +321,17 @@ public class ClientController extends Controller {
         return readErrors();
     }
 
-//
-//    public int attack(String defenderInBattleId) {
-//        sendCommandToServer("attack "+defenderInBattleId);
-//        readErrors();
-//    }
+
+
+    public int attack(String defenderInBattleId) {
+        sendCommandToServer("attack "+defenderInBattleId);
+        readErrors();
+        if(getErrorType() == null)
+            return 1;
+        if(getErrorType() == ErrorType.NO_COUNTER_ATTACK)
+            return 0;
+        else return -1;
+    }
 
     public ArrayList<Account> getOnlines() {
         sendCommandToServer("get online accounts");

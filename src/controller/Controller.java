@@ -284,7 +284,7 @@ public class Controller {
                         moveCard();
                         break;
                     case ATTACK:
-//                        attack();
+                        attack();
                         break;
                     case COMBO_ATTACK:
 //                        comboAttack();
@@ -1000,22 +1000,22 @@ public class Controller {
 
     }
 
-    public void comboAttack(ArrayList<String> comboAttackers, String defenderInBattleId) {
-        for (String comboAttackerId : comboAttackers) {
-            if (!activePlayer.containsCardInBattle(comboAttackerId)) {
-                errorType = ErrorType.INVALID_CARD_ID;
-                return;
-            }
-            SoldierCard attacker = (SoldierCard) activePlayer.getInBattleCard(comboAttackerId);
-            if (!attacker.getAbilityCastTime().equals(AbilityCastTime.COMBO)) {
-                continue;
-            }
-            activePlayer.setSelectedCard(attacker);
-            attack(defenderInBattleId);
-        }
-    }
+//    public void comboAttack(ArrayList<String> comboAttackers, String defenderInBattleId) {
+//        for (String comboAttackerId : comboAttackers) {
+//            if (!activePlayer.containsCardInBattle(comboAttackerId)) {
+//                errorType = ErrorType.INVALID_CARD_ID;
+//                return;
+//            }
+//            SoldierCard attacker = (SoldierCard) activePlayer.getInBattleCard(comboAttackerId);
+//            if (!attacker.getAbilityCastTime().equals(AbilityCastTime.COMBO)) {
+//                continue;
+//            }
+//            activePlayer.setSelectedCard(attacker);
+//            attack(defenderInBattleId);
+//        }
+//    }
 
-    public int attack(String defenderInBattleId) {
+    public int attack() {
         // return -1 if error occurred
         // return 0 if attack had no counter Attack
         // return 1 if attack had counter attack
@@ -1029,6 +1029,7 @@ public class Controller {
             errorType = ErrorType.CAN_NOT_ATTACK_AGAIN;
             return -1;
         }
+        String defenderInBattleId = request.getInBattleCardId();
         if (!deactivePlayer.containsCardInBattle(defenderInBattleId)) {
             errorType = ErrorType.INVALID_CARD_ID;
             return -1;
@@ -1044,11 +1045,13 @@ public class Controller {
         useUsable(activePlayer, WhenToUse.ON_ATTACK);
         attacker.setAttackedThisTurn(true);
         System.err.println("attacked");
+        errorType = ErrorType.NO_COUNTER_ATTACK;
         result = 0;
         if (defender.targetIsInRange(defenderCell, attackerCell)) {
             defender.counterAttack(attacker);
             System.err.println("counter attacked");
             checkDeadCard(activePlayer, attacker);
+            errorType = null;
             result = 1;
         }
         checkDeadCard(deactivePlayer, defender);
