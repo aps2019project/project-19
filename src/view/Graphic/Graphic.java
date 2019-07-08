@@ -30,14 +30,13 @@ public class Graphic extends Application {
         controller.setMainController(mainController);
         primaryStage.setTitle("Duelyst");
         stage = primaryStage;
-        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(false);
         primaryStage.setOnCloseRequest((event)->{
             mainController.logOut();
         });
         primaryStage.setScene(new Scene(root));
         Image image = new Image("view/Graphic/images/mouseCursor.png");
         primaryStage.getScene().setCursor(new ImageCursor(image));
-        primaryStage.getScene();
         primaryStage.getScene().getStylesheets().add("view/Graphic/Styles.css");
         primaryStage.show();
 

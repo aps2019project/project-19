@@ -12,6 +12,7 @@ public enum ErrorType {
     FULL_ITEMS("you have already three items"),
     FINISH("card or item has finished"),
     //    INVALID_SELL("you dont have that."),
+    NO_COUNTER_ATTACK("had no counter attack"),
     GAME_IS_NOT_STARTED("game is not started"),
     DECK_EXISTS("a deck with this name already exists"),
     DECK_NOT_EXISTS("you dont have any deck with this name"),

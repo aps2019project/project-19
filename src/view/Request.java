@@ -190,6 +190,8 @@ public class Request {
                     return RequestType.SELECT_CARD_OR_COLLECTABLE;
                 if (command.matches("move to \\((?<X>\\d+), (?<Y>\\d+)\\)"))
                     return RequestType.MOVE_CARD;
+                if (command.matches("unselectcard"))
+                    return RequestType.UNSELECT_CARD;
                 if (command.matches("attack (\\w+)"))
                     return RequestType.ATTACK;
                 if (command.matches("attack combo( \\w+)+"))

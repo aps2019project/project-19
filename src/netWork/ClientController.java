@@ -288,6 +288,11 @@ public class ClientController extends Controller {
         return readErrors();
     }
 
+    @Override
+    public void endTurn() {
+        sendCommandToServer("end turn");
+        readErrors();
+    }
 
     public boolean isGameStarted() {
         sendCommandToServer("isGameStarted");
@@ -300,6 +305,32 @@ public class ClientController extends Controller {
         String string = gson.fromJson(serverScanner.nextLine(), String.class);
         readErrors();
         return string;
+    }
+    public void unSelectCard(){
+        sendCommandToServer("unSelectCard");
+        readErrors();
+    }
+    public boolean selectCardOrItem(String inBattleid) {
+        sendCommandToServer("select "+inBattleid);
+       return readErrors();
+    }
+
+    public boolean moveCard(int x, int y) {
+        String command = String.format("Move to (%d, %d)",x,y);
+        sendCommandToServer(command);
+        return readErrors();
+    }
+
+
+
+    public int attack(String defenderInBattleId) {
+        sendCommandToServer("attack "+defenderInBattleId);
+        readErrors();
+        if(getErrorType() == null)
+            return 1;
+        if(getErrorType() == ErrorType.NO_COUNTER_ATTACK)
+            return 0;
+        else return -1;
     }
 
     public ArrayList<Account> getOnlines() {

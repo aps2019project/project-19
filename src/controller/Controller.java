@@ -274,14 +274,17 @@ public class Controller {
                     case SHOW_CARD_INFO_IN_BATTLE:
                         showCardInfoInBattle();
                         break;
+                     case UNSELECT_CARD:
+                        unSelectCard();
+                        break;
                     case SELECT_CARD_OR_COLLECTABLE:
-//                        selectCardOrItem(activePlayer);
+                        selectCardOrItem(activePlayer);
                         break;
                     case MOVE_CARD:
-//                        moveCard();
+                        moveCard();
                         break;
                     case ATTACK:
-//                        attack();
+                        attack();
                         break;
                     case COMBO_ATTACK:
 //                        comboAttack();
@@ -335,6 +338,9 @@ public class Controller {
         } while (true);
     }
 
+    private void unSelectCard() {
+        game.getPlayer(loggedInAccount.getUserName()).setSelectedCard(null);
+    }
 
 
     private void isGameStarted() {
@@ -426,6 +432,7 @@ public class Controller {
                 if (request.getGameMode().equals(GameMode.CAPTURE_THE_FLAGS)) {
                     game.setNumOfFlags(request.getNumOfFlags());
                 }
+                opponentAccount = ai.getPlayer().getAccount();
                 initNewGame(request.getGameMode());
                 game.setPrize(1000);
             } else {
@@ -928,51 +935,50 @@ public class Controller {
         errorType = ErrorType.INVALID_CARD_ID;
     }
 
-    public boolean selectCardOrItem(Player player, String inBattleCardId, int itemId) {
-        if (player.containsCardInBattle(inBattleCardId)) {
-            Card card = activePlayer.getInBattleCard(inBattleCardId);
+    public void selectCardOrItem(Player player) {
+        String id = request.getInBattleCardId();
+        if (player.containsCardInBattle(id)) {
+            Card card = activePlayer.getInBattleCard(id);
             activePlayer.setSelectedCard(card);
             System.err.println(card.getName() + " " + card.getCardId() + " selected");
-            return true;
+            return;
         }
+        int itemId = request.getItemID();
         if (player.getItems().containsKey(itemId)) {
             Item item = activePlayer.getItems().get(itemId);
             activePlayer.setSelectedItem(item);
             System.err.println(item.getName() + " selected");
-            return true;
+            return;
         }
         errorType = ErrorType.INVALID_CARD_ID;
-        return false;
     }
 
-    public boolean moveCard(int x, int y) {
+    public void moveCard() {
         if (!activePlayer.isAnyCardSelected()) {
             errorType = ErrorType.CARD_NOT_SELECTED;
-            return false;
+            return;
         }
         SoldierCard card = (SoldierCard) activePlayer.getSelectedCard();
         for (Buff buff : card.getBuffs()) {
             if (buff instanceof StunBuff) {
                 errorType = ErrorType.CARD_IS_STUNNED;
-                return false;
+                return;
             }
         }
         if (card.isMovedThisTurn()) {
             errorType = ErrorType.CAN_NOT_MOVE_AGAIN;
-            return false;
+            return;
         }
-        if (!game.coordinateIsValid(x, y)) {
+        if (!game.coordinateIsValid(request.getX(), request.getY())) {
             errorType = ErrorType.INVALID_TARGET;
-            return false;
+            return;
         }
         Cell currentCell = activePlayer.getInBattleCards().get(card);
-        Cell targetCell = game.getCell(x, y);
+        Cell targetCell = game.getCell(request.getX(), request.getY());
         if (targetCell.getCard() != null) {
             errorType = ErrorType.INVALID_TARGET;
-            return false;
         } else if (currentCell.getManhattanDistance(targetCell) > 2 || game.pathIsBlocked(currentCell, targetCell)) {
             errorType = ErrorType.INVALID_TARGET;
-            return false;
         } else {
             //removing old cell buffs
             card.removeCellBuffs();
@@ -981,7 +987,7 @@ public class Controller {
             activePlayer.getInBattleCards().replace(card, targetCell);
             if (!game.getGameMode().equals(GameMode.DEATH_MATCH))
                 card.pickUpFlags(targetCell);
-            System.err.println("card" + card.getName() + " moved to " + x + "," + y);
+            System.err.println("card" + card.getName() + " moved to " + request.getX() + "," + request.getY());
             //adding cell buff to card
             if (targetCell.getBuff() != null) {
                 targetCell.getBuff().setForCell(true);
@@ -990,26 +996,26 @@ public class Controller {
                 card.checkBUffTiming(card, false);
             }
             card.setMovedThisTurn(true);
-            return true;
         }
+
     }
 
-    public void comboAttack(ArrayList<String> comboAttackers, String defenderInBattleId) {
-        for (String comboAttackerId : comboAttackers) {
-            if (!activePlayer.containsCardInBattle(comboAttackerId)) {
-                errorType = ErrorType.INVALID_CARD_ID;
-                return;
-            }
-            SoldierCard attacker = (SoldierCard) activePlayer.getInBattleCard(comboAttackerId);
-            if (!attacker.getAbilityCastTime().equals(AbilityCastTime.COMBO)) {
-                continue;
-            }
-            activePlayer.setSelectedCard(attacker);
-            attack(defenderInBattleId);
-        }
-    }
+//    public void comboAttack(ArrayList<String> comboAttackers, String defenderInBattleId) {
+//        for (String comboAttackerId : comboAttackers) {
+//            if (!activePlayer.containsCardInBattle(comboAttackerId)) {
+//                errorType = ErrorType.INVALID_CARD_ID;
+//                return;
+//            }
+//            SoldierCard attacker = (SoldierCard) activePlayer.getInBattleCard(comboAttackerId);
+//            if (!attacker.getAbilityCastTime().equals(AbilityCastTime.COMBO)) {
+//                continue;
+//            }
+//            activePlayer.setSelectedCard(attacker);
+//            attack(defenderInBattleId);
+//        }
+//    }
 
-    public int attack(String defenderInBattleId) {
+    public int attack() {
         // return -1 if error occurred
         // return 0 if attack had no counter Attack
         // return 1 if attack had counter attack
@@ -1023,6 +1029,7 @@ public class Controller {
             errorType = ErrorType.CAN_NOT_ATTACK_AGAIN;
             return -1;
         }
+        String defenderInBattleId = request.getInBattleCardId();
         if (!deactivePlayer.containsCardInBattle(defenderInBattleId)) {
             errorType = ErrorType.INVALID_CARD_ID;
             return -1;
@@ -1038,11 +1045,13 @@ public class Controller {
         useUsable(activePlayer, WhenToUse.ON_ATTACK);
         attacker.setAttackedThisTurn(true);
         System.err.println("attacked");
+        errorType = ErrorType.NO_COUNTER_ATTACK;
         result = 0;
         if (defender.targetIsInRange(defenderCell, attackerCell)) {
             defender.counterAttack(attacker);
             System.err.println("counter attacked");
             checkDeadCard(activePlayer, attacker);
+            errorType = null;
             result = 1;
         }
         checkDeadCard(deactivePlayer, defender);

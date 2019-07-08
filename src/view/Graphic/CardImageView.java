@@ -2,6 +2,7 @@ package view.Graphic;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.Cards.Card;
 
 public class CardImageView extends ImageView {
     String cardName;
@@ -16,21 +17,36 @@ public class CardImageView extends ImageView {
     public CardImageView(){
         super();
     }
-    public CardImageView(String cardName,Stance stance){
-        super(new Image("view/Graphic/cards/" + cardName + " "+stance.getMessage()+".gif"));
+    public static boolean testImage(String cardName,Stance stance){
         try {
             new Image("view/Graphic/cards/" + cardName + " "+stance.getMessage()+".gif");
+            return true;
         }catch (Exception e){
-            System.err.println(cardName + " have problem " + stance.toString());
+            return false;
         }
+    }
+    public static CardImageView createCardImageView(String cardName, Stance stance){
+        if (testImage(cardName,stance))
+            return new CardImageView(cardName,stance);
+        else
+            return new CardImageView("default",stance);
+    }
+    private CardImageView(String cardName,Stance stance){
+        super(new Image("view/Graphic/cards/" + cardName + " "+stance.getMessage()+".gif"));
         this.cardName=cardName;
     }
     public void changeImage(String cardName,Stance stance){
-        this.setImage(new Image("view/Graphic/cards/" + cardName + " "+stance.getMessage()+".gif"));
+        if (testImage(cardName,stance))
+            this.setImage(new Image("view/Graphic/cards/" + cardName + " "+stance.getMessage()+".gif"));
+        else
+            this.setImage(new Image("view/Graphic/cards/" + "default "+stance.getMessage()+".gif"));
         this.cardName = cardName;
     }
     public void changeStance(Stance newStance){
-        this.setImage(new Image("view/Graphic/cards/" + cardName + " "+newStance.getMessage()+".gif"));
+        if (testImage(cardName,newStance))
+            this.setImage(new Image("view/Graphic/cards/" + cardName + " "+newStance.getMessage()+".gif"));
+        else
+            this.setImage(new Image("view/Graphic/cards/" + "default "+newStance.getMessage()+".gif"));
     }
     public enum Stance{
 
