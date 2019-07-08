@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXMasonryPane;
 import controller.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
@@ -117,6 +118,7 @@ public class MenuController {
             Label nameLabel = new Label();
             Label mana = new Label();
             Label price = new Label();
+            Label number = new Label();
             kind.getStyleClass().add("kindLabel");
             mana.getStyleClass().add("manaLabel");
             mana.setId("manaLabel");
@@ -188,6 +190,15 @@ public class MenuController {
             kind.relocate(14, 140);
             nameLabel.relocate(10, 120);
             pane.getChildren().add(cardView);
+            if (pane.getId().equals("shopServerPane")){
+                if (product instanceof Card)
+                    number.setText("x" + ((Card) product).getNumber());
+                if (product instanceof Item)
+                    number.setText("x" + ((Item) product).getNumber());
+                number.getStyleClass().add("numberLabel");
+                number.relocate(160, 12);
+                cardView.getChildren().add(number);
+            }
 
             cardView.setOnMouseExited(event -> {
                 cardView.getChildren().removeIf(node -> node instanceof ImageView);
@@ -197,12 +208,17 @@ public class MenuController {
                     cardView.getChildren().remove(mana);
                     cardView.getChildren().add(mana);
                 }
+                if (pane.getId().equals("shopServerPane")) {
+                    cardView.getChildren().remove(number);
+                    cardView.getChildren().add(number);
+                }
             });
 
             cardView.setOnMouseEntered(event -> {
                 for (int i = 0; i < 8; i++) {
                     Image image = new Image("view/Graphic/images/cardShadow.png");
                     ImageView imageView = new ImageView(image);
+                    imageView.setId("shadow");
                     imageView.setFitWidth(240);
                     imageView.setFitHeight(300);
                     imageView.setLayoutX(-10);
@@ -248,7 +264,7 @@ public class MenuController {
                         if (!gotError || !mainController.getErrorType().equals(ErrorType.EXISTS_IN_DECK))
                             break;
                     }
-                    if (gotError) {
+                    if (gotError && !mainController.getErrorType().equals(null)) {
                         AlertBox.display(Alert.AlertType.ERROR, "Deck", mainController.getErrorType().getMessage());
                         mainController.setErrorType(null);
                     }
