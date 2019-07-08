@@ -481,6 +481,7 @@ public class Controller {
         game = new Game(player1, player2);
         Controller opponentController = Server.getClientController(opponentAccount.getUserName());
         opponentController.setGame(game);
+        opponentController.setOpponentAccount(loggedInAccount);
         view.show(opponentAccount.getUserName() + "selected as your opponent");
     }
 
@@ -491,6 +492,7 @@ public class Controller {
                     selectOpponent(deathMatchWaiters.get(0).getUserName());
                 } else {
                     deathMatchWaiters.add(loggedInAccount);
+                    errorType = ErrorType.GAME_IS_NOT_STARTED;
                     return;
                 }
                 break;
@@ -498,6 +500,7 @@ public class Controller {
                 if (!keepTheFlagWaiters.isEmpty())
                     selectOpponent(keepTheFlagWaiters.get(0).getUserName());
                 else {
+                    errorType = ErrorType.GAME_IS_NOT_STARTED;
                     keepTheFlagWaiters.add(loggedInAccount);
                     return;
                 }
@@ -506,6 +509,7 @@ public class Controller {
                 if (!captureTheFlagWaiters.isEmpty()) {
                     selectOpponent(captureTheFlagWaiters.get(0).getUserName());
                 } else {
+                    errorType = ErrorType.GAME_IS_NOT_STARTED;
                     captureTheFlagWaiters.add(loggedInAccount);
                     return;
                 }
@@ -1657,6 +1661,10 @@ public class Controller {
         printStream.println(gson.toJson(getOnlineAccounts()));
         printStream.flush();
         return getOnlineAccounts();
+    }
+
+    public void setOpponentAccount(Account opponentAccount) {
+        this.opponentAccount = opponentAccount;
     }
 
     public void setGame(Game game) {

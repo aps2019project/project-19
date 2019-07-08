@@ -274,12 +274,12 @@ public class ClientController extends Controller {
         return results;
     }
 
-    public void waitForOpponent(GameMode gameMode, int numberOfFlags) {
+    public boolean waitForOpponent(GameMode gameMode, int numberOfFlags) {
         if (gameMode == GameMode.CAPTURE_THE_FLAGS)
             sendCommandToServer("start multiplayer game " + gameMode.toString() + " " + numberOfFlags);
         else
             sendCommandToServer("start multiplayer game " + gameMode.toString());
-        readErrors();
+        return readErrors();
     }
 
     public boolean isGameStarted() {

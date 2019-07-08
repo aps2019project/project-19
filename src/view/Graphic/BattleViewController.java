@@ -94,7 +94,7 @@ public class BattleViewController extends MenuController implements Initializabl
         rightManaLabel.setText(game.getPlayer(myAccount.getUserName()).getMana() + "/" + game.getPlayer(myAccount.getUserName()).getMaxMana());
         leftManaLabel.setText(game.getPlayer(enemyAccount.getUserName()).getMana() + "/" + game.getPlayer(enemyAccount.getUserName()).getMaxMana());
         addHeroIcons(rightHeroAnchor,game.getPlayer(myAccount.getUserName()).getHero().getName(), false);
-        addHeroIcons(leftHeroAnchor, game.getPlayer(myAccount.getUserName()).getHero().getName(), true);
+        addHeroIcons(leftHeroAnchor, game.getPlayer(enemyAccount.getUserName()).getHero().getName(), true);
     }
 
     private void setCellMouseHover(AnchorPane anchorPane, boolean on) {

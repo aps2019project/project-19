@@ -33,8 +33,11 @@ public class Server {
     }
     public static Controller getClientController(String userName){
         for (ManageClient client : clients) {
-            if (client.getController().getLoggedInAccount(false)!= null && client.getController().getLoggedInAccount(false).getUserName().equals(userName));
-                return client.getController();
+            if (client.getController().getLoggedInAccount(false)!= null) {
+                String x = client.getController().getLoggedInAccount(false).getUserName();
+                if(x.equals(userName))
+                    return client.getController();
+            }
         }
         return null;
     }
