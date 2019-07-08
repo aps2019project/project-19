@@ -1,10 +1,7 @@
 package view.Graphic;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
-import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;
-import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -61,8 +58,6 @@ public class BattleViewController extends MenuController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
     }
 
     public void loadGame() {
@@ -70,15 +65,16 @@ public class BattleViewController extends MenuController implements Initializabl
         graveYardHandler();
         myAccount = getMainController().getLoggedInAccount();
         enemyAccount = getMainController().getOpponentAccount();
-        //System.out.println(game);
         cellsLength = game.getLength();
         cellsWeight = game.getWidth();
         anchorPaneCells = new AnchorPane[cellsWeight][cellsLength];
+        //create battleGround cells
         for (int i = 0; i < cellsWeight; i++) {
             for (int j = 0; j < cellsLength; j++) {
                 anchorPaneCells[i][j] = new AnchorPane();
             }
         }
+
         for (int i = 0; i < cellsLength; i++)
             for (int j = 0; j < cellsWeight; j++) {
                 AnchorPane anchorPane = new AnchorPane();
@@ -88,12 +84,13 @@ public class BattleViewController extends MenuController implements Initializabl
                 center.getChildren().add(anchorPane);
                 anchorPaneCells[j][i] = anchorPane;
                 Cell cell = game.getCell(i + 1, j + 1);
-                setCellMouseHover(anchorPane, true);
+                setCellMouseHover(anchorPane, true,game);
                 anchorPane.setOnMouseClicked(x -> {
                     handleCellsMouseClick(cell);
                 });
 
             }
+
         updateCells();
         ArrayList<Card> hand = new ArrayList<>(game.getPlayer(myAccount.getUserName()).getHandCards().values());
         putHandsCards(hand);
@@ -109,7 +106,9 @@ public class BattleViewController extends MenuController implements Initializabl
         });
     }
 
-    private void setCellMouseHover(AnchorPane anchorPane, boolean on) {
+    private void setCellMouseHover(AnchorPane anchorPane, boolean on,Game game) {
+        if(!isYourTurn(game))
+            return;
         if (!on) {
             anchorPane.setOnMouseEntered(x -> {
             });
@@ -129,6 +128,8 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private void handleCellsMouseClick(Cell cell) {
         game = getMainController().getGame();
+        if(!isYourTurn(game))
+            return;
         if (handSelectedCard != null) {
             //insert card block
             if (getMainController().insertCard(handSelectedCard.getCardName(), cell.getXCoordinate(), cell.getYCoordinate())) {
@@ -184,7 +185,7 @@ public class BattleViewController extends MenuController implements Initializabl
             AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
             if (getMainController().selectCardOrItem(game.getPlayer(myAccount.getUserName()), cell.getCard().getInBattleCardId(), 0)) {
                 updateCells();
-                setCellMouseHover(anchorPane, false);
+                setCellMouseHover(anchorPane, false,game);
                 anchorPane.getStyleClass().remove(0);
                 anchorPane.getStyleClass().add("selectedCell");
             } else {
@@ -192,6 +193,16 @@ public class BattleViewController extends MenuController implements Initializabl
                 getMainController().setErrorType(null);
             }
         }
+    }
+
+    private boolean isYourTurn(Game game) {
+        if (game == null)
+            return true;
+        String user1 = game.getPlayer1().getAccount().getUserName();
+        String user2 = game.getPlayer2().getAccount().getUserName();
+        if (game.isTurnOfPlayerOne())
+            return user1.equals(myAccount.getUserName());
+        else return user2.equals(myAccount.getUserName());
     }
 
     private void playAttackAnimation(AnchorPane anchorPane) {
@@ -240,11 +251,11 @@ public class BattleViewController extends MenuController implements Initializabl
     private void putHandsCards(ArrayList<Card> hand) {
         for (int i = 0; i < hand.size(); i++) {
             AnchorPane child = (AnchorPane) deckBar.getChildren().get(i);
-            addCardGifInDeck((AnchorPane) child, hand.get(i));
+            addCardGifInHand((AnchorPane) child, hand.get(i));
         }
     }
 
-    private void addCardGifInDeck(AnchorPane child, Card card) {
+    private void addCardGifInHand(AnchorPane child, Card card) {
         ((ImageView) child.getChildren().get(0)).setImage(new Image("view/Graphic/images/card_background.png"));
         for (Node childChild : child.getChildren()) {
             if (childChild instanceof CardImageView) {
@@ -384,7 +395,7 @@ public class BattleViewController extends MenuController implements Initializabl
                 AnchorPane anchorPane = anchorPaneCells[j][i];
                 anchorPane.getStyleClass().remove(0);
                 anchorPane.getStyleClass().add("cells");
-                setCellMouseHover(anchorPane, true);
+                setCellMouseHover(anchorPane, true,game);
                 if (cell.getCard() != null) {
                     anchorPane.getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
                             || node instanceof CardImageProperties);

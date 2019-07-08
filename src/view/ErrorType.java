@@ -7,6 +7,7 @@ public enum ErrorType {
     INVALID_PASSWORD("your password is wrong."),
     USER_IS_ONLINE("this user is already online"),
     NOT_FOUND("card or item not found"),
+    NOT_YOUR_TURN("its not your turn"),
     NOT_ENOUGH_MONEY("not enough money"),
     FULL_ITEMS("you have already three items"),
     FINISH("card or item has finished"),
