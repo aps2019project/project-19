@@ -1,12 +1,15 @@
 package view.Graphic;
 
+import com.jfoenix.controls.JFXMasonryPane;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -40,6 +43,10 @@ public class BattleViewController extends MenuController implements Initializabl
     ImageView rightGraveYard;
     @FXML
     ImageView leftGraveYard;
+    @FXML
+    AnchorPane left;
+    @FXML
+    AnchorPane right;
 
 
     private Game game;
@@ -71,9 +78,9 @@ public class BattleViewController extends MenuController implements Initializabl
                 if (lastTime == 0) {
                     lastTime = now;
                 }
-                if(getMainController()==null)
+                if (getMainController() == null)
                     return;
-                if (now > lastTime + second ) {
+                if (now > lastTime + second) {
                     lastTime = now;
                     if (!isYourTurn(game)) {
                         updateCells();
@@ -128,8 +135,52 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private void graveYardHandler() {
         leftGraveYard.setOnMouseEntered(e -> {
-            leftGraveYard.setImage(new Image("view/Graphic/images/graveYard.png", 495.0, 505.0, false, true));
+            leftGraveYard.setFitWidth(495);
+            leftGraveYard.setOpacity(1);
+            JFXMasonryPane pane = new JFXMasonryPane();
+            for (Card card : getMainController().getGame().getPlayer1().getGraveYard().values()) {
+                addCardToGraveYard(pane, card.getName(), "left");
+            }
+            left.getChildren().addAll(pane);
+            AnchorPane.setTopAnchor(pane, 30.0);
         });
+        graveYardOnExit(leftGraveYard, left);
+        rightGraveYard.setOnMouseEntered(e -> {
+            System.out.println("entered");
+            rightGraveYard.setFitWidth(495);
+            rightGraveYard.setOpacity(1);
+            JFXMasonryPane pane = new JFXMasonryPane();
+            pane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            for (Card card : getMainController().getGame().getPlayer2().getGraveYard().values()) {
+                addCardToGraveYard(pane, card.getName(), "right");
+            }
+            right.getChildren().addAll(pane);
+            AnchorPane.setTopAnchor(pane, 30.0);
+            AnchorPane.setRightAnchor(pane, 0.0);
+        });
+        graveYardOnExit(rightGraveYard, right);
+    }
+
+    private void graveYardOnExit(ImageView graveYard, AnchorPane anchorPane) {
+        graveYard.setOnMouseExited(e -> {
+            graveYard.setFitWidth(81);
+            graveYard.setOpacity(0.5);
+            anchorPane.getChildren().removeIf(node -> node instanceof JFXMasonryPane);
+        });
+    }
+
+    private void addCardToGraveYard(JFXMasonryPane pane, String cardName, String toward) {
+        AnchorPane anchorPane = new AnchorPane();
+        ImageView imageView = new ImageView();
+        imageView.setImage(new Image("view/Graphic/images/deckCard.png"));
+        if (toward.equals("right"))
+            imageView.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        imageView.setFitWidth(250);
+        Label name = new Label(cardName);
+        name.getStyleClass().add("labelName");
+        name.relocate(30, 25);
+        anchorPane.getChildren().addAll(imageView, name);
+        pane.getChildren().addAll(anchorPane);
     }
 
     private void setCellMouseHover(AnchorPane anchorPane, boolean on, Game game) {
