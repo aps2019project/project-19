@@ -30,7 +30,7 @@ public class Graphic extends Application {
         controller.setMainController(mainController);
         primaryStage.setTitle("Duelyst");
         stage = primaryStage;
-        primaryStage.setFullScreen(false);
+        primaryStage.setFullScreen(true);
         primaryStage.setOnCloseRequest((event)->{
             mainController.logOut();
         });

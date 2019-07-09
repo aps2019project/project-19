@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.image.*?>
-<AnchorPane prefHeight="1600.0" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
+<AnchorPane fx:id="root" prefHeight="1600.0" prefWidth="1920.0" styleClass="mainMenu" stylesheets="@Styles.css"
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.Graphic.StartNewGameController">
@@ -22,4 +22,13 @@
         <Label text="Multi Player" onMouseClicked="#goToMultiPlayerMode"
         />
     </VBox>
+    <Button layoutX="1530.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#showBattles" prefHeight="25.0" prefWidth="370.0" text="**runningBattles**" />
+    <AnchorPane fx:id="gamesAnchor" layoutX="1530.0" layoutY="50.0" prefHeight="300.0" prefWidth="370.0">
+        <children>
+            <ScrollPane prefHeight="300.0" prefWidth="370.0">
+                <VBox fx:id="gamesVBox"/>
+            </ScrollPane>
+            <Button  layoutY="300.0" mnemonicParsing="false" onMouseClicked="#refresh" prefHeight="50.0"  text="refresh" />
+        </children>
+    </AnchorPane>
 </AnchorPane>

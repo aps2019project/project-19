@@ -70,7 +70,12 @@ public class ClientController extends Controller {
         readErrors();
         return chats;
     }
-
+    public ArrayList<Game> getRunnigBattles(){
+        sendCommandToServer("getRunningBattles");
+        ArrayList<Game> runningGames = gson.fromJson(serverScanner.nextLine(),new TypeToken<ArrayList<Game>>(){}.getType());
+        readErrors();
+        return runningGames;
+    }
     public void sendChat(String message) {
         Account account = getLoggedInAccount();
         sendCommandToServer("recivechat");
@@ -335,7 +340,10 @@ public class ClientController extends Controller {
             return 0;
         else return -1;
     }
-
+    public void observeBattle(String playerName){
+        sendCommandToServer("Observe "+playerName);
+        readErrors();
+    }
     public ArrayList<Account> getOnlines() {
         sendCommandToServer("get online accounts");
         ArrayList<Account> accounts = new ArrayList<>();

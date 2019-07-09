@@ -36,6 +36,7 @@ public class Controller {
     private static ArrayList<Account> deathMatchWaiters = new ArrayList<>();
     private static ArrayList<Account> keepTheFlagWaiters = new ArrayList<>();
     private static ArrayList<Account> captureTheFlagWaiters = new ArrayList<>();
+    private static ArrayList<Game> runningGames = new ArrayList<>();
 
     private PrintStream printStream;
     //private Scanner scanner;
@@ -239,6 +240,9 @@ public class Controller {
                 case IS_GAME_STARTED:
                     isGameStarted();
                     break;
+                case GET_RUNNIG_BATTLES:
+                    getRunningBattles();
+                    break;
                 case SELECT_MULTI_PLAYER_MODE:
                     selectMultiPlayerMode();
                     // TODO: 2019-04- test
@@ -254,6 +258,9 @@ public class Controller {
                     break;
                 case ABORT_GAME:
                     abortGame();
+                    break;
+                case OBSERVE_BATTLE:
+                    observeBattle();
                     break;
                 ///////////////////////////////// BATTLE  ////////////////////////
                     case INSERT_CARD:
@@ -347,11 +354,23 @@ public class Controller {
         if (game == null)
             errorType = ErrorType.GAME_IS_NOT_STARTED;
     }
+    public void observeBattle(){
+        for (Game runningGame : runningGames) {
+            String player1 = runningGame.getPlayer1().getAccount().getUserName();
+            if(player1.equals(request.getUserName())) {
+                game = runningGame;
+                return;
+            }
+        }
+        errorType = ErrorType.GAME_NOT_FOUND;
+
+    }
     public void abortGame(){
         deathMatchWaiters.removeIf(account -> account.getUserName().equals(loggedInAccount.getUserName()));
         keepTheFlagWaiters.removeIf(account -> account.getUserName().equals(loggedInAccount.getUserName()));
         captureTheFlagWaiters.removeIf(account -> account.getUserName().equals(loggedInAccount.getUserName()));
         if(game!=null) {
+            runningGames.remove(game);
             game = null;
             Controller opponentController = Server.getClientController(opponentAccount.getUserName());
             opponentController.setGame(null);
@@ -549,7 +568,10 @@ public class Controller {
     public void setMenuType(MenuType menuType) {
         this.menuType = menuType;
     }
-
+    public void getRunningBattles(){
+        printStream.println(gson.toJson(runningGames));
+        printStream.flush();
+    }
     public void initNewGame(GameMode gameMode) {
         switch (gameMode) {
             case DEATH_MATCH:
@@ -571,6 +593,7 @@ public class Controller {
         useUsable(game.getPlayer1(), WhenToUse.ON_GAME_START);
         useUsable(game.getPlayer2(), WhenToUse.ON_GAME_START);
         menuType = MenuType.BATTLE;
+        runningGames.add(game);
         System.err.println("game started");
     }
 
@@ -1543,6 +1566,7 @@ public class Controller {
         game.getPlayer1().getAccount().getMatchHistory().add(game);
         game.getPlayer2().getAccount().getMatchHistory().add(game);
         menuType = MenuType.MAINMENU;
+        runningGames.remove(game);
         game = null;
         ai = null;
         aiDeck = null;

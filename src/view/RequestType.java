@@ -8,6 +8,8 @@ public enum RequestType {
     GET_CHATS,
     RECIVE_CHAT,
     GET_OPPONENT_ACCOUNT,
+    GET_RUNNIG_BATTLES,
+    OBSERVE_BATTLE,
     /////////// ACCOUNT /////////
     CREATE_ACCOUNT,
     LOGIN,

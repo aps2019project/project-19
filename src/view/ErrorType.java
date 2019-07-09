@@ -2,6 +2,7 @@ package view;
 
 public enum ErrorType {
     //    INVALID_COMMAND("invalid command."),
+    GAME_NOT_FOUND("game not found"),
     USERNAME_TAKEN("this user name is already taken."),
     INVALID_USERNAME("this user name does not exists."),
     INVALID_PASSWORD("your password is wrong."),

@@ -154,6 +154,10 @@ public class Request {
                     return RequestType.IMPORT_DECK;
                 break;
             case START_NEW_GAME:
+                if(command.matches("getrunningbattles"))
+                    return RequestType.GET_RUNNIG_BATTLES;
+                if(command.matches("observe \\w+"))
+                    return RequestType.OBSERVE_BATTLE;
                 break;
             case SINGLE_GAME_MENU:
                 break;
@@ -259,6 +263,9 @@ public class Request {
 
     public void parseCommand() {
         switch (requestType) {
+            case OBSERVE_BATTLE:
+                userName = command.split(" ")[1];
+                break;
             ///////////////////// ACCOUNT ///////////////////
             case CREATE_ACCOUNT:
                 userName = command.split(" ")[2];
