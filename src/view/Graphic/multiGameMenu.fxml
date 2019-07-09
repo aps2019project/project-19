@@ -11,7 +11,7 @@
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.Graphic.MultiGameMenu">
-    <Label layoutX="800" styleClass="gameStatus"  layoutY="500" text = "Waiting For An Oponent..." prefHeight="80" prefWidth="320"/>
-    <Button layoutY="580" layoutX="900" prefWidth="120" prefHeight="80" text="Abort" />
+    <Label fx:id="status" layoutX="800" styleClass="gameStatus"  layoutY="500" text = "Waiting For An Oponent..." prefHeight="80" prefWidth="320"/>
+    <Button layoutY="580" layoutX="900" prefWidth="120" prefHeight="80" text="Abort" onAction="#abort"/>
 
 </AnchorPane>

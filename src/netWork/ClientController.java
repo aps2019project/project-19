@@ -320,7 +320,10 @@ public class ClientController extends Controller {
         sendCommandToServer(command);
         return readErrors();
     }
-
+    public void abortGame(){
+        sendCommandToServer("abortGame");
+        readErrors();
+    }
 
 
     public int attack(String defenderInBattleId) {

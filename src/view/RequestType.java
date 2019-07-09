@@ -66,6 +66,7 @@ public enum RequestType {
     CHOOSE_HERO,
     SELECT_CUSTOM_GAME_GAMEMODE,
     IS_GAME_STARTED,
+    ABORT_GAME,
     ////////default////////
     GET_SHOP,
     GET_ACCOUNT,

@@ -252,6 +252,9 @@ public class Controller {
                 case SELECT_CUSTOM_GAME_GAMEMODE:
                     createCustomGame();
                     break;
+                case ABORT_GAME:
+                    abortGame();
+                    break;
                 ///////////////////////////////// BATTLE  ////////////////////////
                     case INSERT_CARD:
                         insertCard();
@@ -344,7 +347,17 @@ public class Controller {
         if (game == null)
             errorType = ErrorType.GAME_IS_NOT_STARTED;
     }
+    public void abortGame(){
+        deathMatchWaiters.removeIf(account -> account.getUserName().equals(loggedInAccount.getUserName()));
+        keepTheFlagWaiters.removeIf(account -> account.getUserName().equals(loggedInAccount.getUserName()));
+        captureTheFlagWaiters.removeIf(account -> account.getUserName().equals(loggedInAccount.getUserName()));
+        if(game!=null) {
+            game = null;
+            Controller opponentController = Server.getClientController(opponentAccount.getUserName());
+            opponentController.setGame(null);
+        }
 
+    }
     public void createCustomCard() {
         Card card = request.getCustomCard();
         shop.getCards().add(card);

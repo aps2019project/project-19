@@ -176,8 +176,12 @@ public class Request {
                 if (command.matches("start multiplayer game " +
                         "(death match|capture the flags|keep the flag)( \\d+)?"))
                     return RequestType.SELECT_MULTI_PLAYER_MODE;
+                if(command.matches("abortgame"))
+                    return RequestType.ABORT_GAME;
                 break;
             case BATTLE:
+                if(command.matches("abortgame"))
+                    return RequestType.ABORT_GAME;
                 if (command.matches("game info"))
                     return RequestType.SHOW_GAME_INFO;
                 if (command.matches("show my minions"))
