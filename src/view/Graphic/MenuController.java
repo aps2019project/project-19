@@ -98,7 +98,9 @@ public class MenuController {
             if (controller instanceof BattleViewController) {
                 ((BattleViewController) controller).loadGame();
             }
-
+            if(controller instanceof ObserveBattleController){
+                ((ObserveBattleController) controller).loadGame();
+            }
             this.getStage().getScene().setRoot(root);
         } catch (Exception e) {
             e.printStackTrace();

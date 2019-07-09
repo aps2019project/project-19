@@ -54,7 +54,7 @@ public class StartNewGameController extends MenuController implements Initializa
             Button button = new Button(runnigBattle.getPlayer1().getAccount().getUserName()+ " vs "+runnigBattle.getPlayer2().getAccount().getUserName());
             button.setOnMouseClicked(event -> {
                 getMainController().observeBattle(runnigBattle.getPlayer1().getAccount().getUserName());
-                System.out.println(getMainController().getGame().getPlayer2().getAccount().getUserName());
+                changeMenu("observeBattle.fxml");
             });
             gamesVBox.getChildren().add(button);
         }

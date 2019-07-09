@@ -83,10 +83,9 @@ public class ObserveBattleController extends MenuController implements Initializ
                     return;
                 if (now > lastTime + second) {
                     lastTime = now;
-                    if (!isYourTurn(game)) {
-                        updateCells();
-                        updateStatus();
-                    }
+                    updateCells();
+                    updateStatus();
+
                 }
             }
         };
@@ -96,10 +95,8 @@ public class ObserveBattleController extends MenuController implements Initializ
     public void loadGame() {
         game = getMainController().getGame();
         graveYardHandler();
-        myAccount = getMainController().getLoggedInAccount();
-        enemyAccount = getMainController().getOpponentAccount();
-        cellsLength = game.getLength();
         cellsWeight = game.getWidth();
+        cellsLength = game.getLength();
         anchorPaneCells = new AnchorPane[cellsWeight][cellsLength];
         //create battleGround cells
         for (int i = 0; i < cellsWeight; i++) {
@@ -112,25 +109,21 @@ public class ObserveBattleController extends MenuController implements Initializ
             for (int j = 0; j < cellsWeight; j++) {
                 AnchorPane anchorPane = new AnchorPane();
                 anchorPane.getStyleClass().add("cells");
-                anchorPane.setLayoutX(i * 100 + 40);
                 anchorPane.setLayoutY(j * 100);
-                center.getChildren().add(anchorPane);
+                anchorPane.setLayoutX(i * 100 + 40);
                 anchorPaneCells[j][i] = anchorPane;
+                center.getChildren().add(anchorPane);
                 Cell cell = game.getCell(i + 1, j + 1);
-                setCellMouseHover(anchorPane, true);
-                anchorPane.setOnMouseClicked(x -> {
-                    handleCellsMouseClick(cell);
-                });
+                setCellMouseHover(anchorPane);
 
             }
-
+        myAccount = game.getPlayer1().getAccount();
+        enemyAccount = game.getPlayer2().getAccount();
         updateCells();
-        ArrayList<Card> hand = new ArrayList<>(game.getPlayer(myAccount.getUserName()).getHandCards().values());
-        putHandsCards(hand);
-        rightManaLabel.setText(game.getPlayer(myAccount.getUserName()).getMana() + "/" + game.getPlayer(myAccount.getUserName()).getMaxMana());
         leftManaLabel.setText(game.getPlayer(enemyAccount.getUserName()).getMana() + "/" + game.getPlayer(enemyAccount.getUserName()).getMaxMana());
-        addHeroIcons(rightHeroAnchor, game.getPlayer(myAccount.getUserName()).getHero().getName(), false);
         addHeroIcons(leftHeroAnchor, game.getPlayer(enemyAccount.getUserName()).getHero().getName(), true);
+        addHeroIcons(rightHeroAnchor, game.getPlayer(myAccount.getUserName()).getHero().getName(), false);
+        rightManaLabel.setText(game.getPlayer(myAccount.getUserName()).getMana() + "/" + game.getPlayer(myAccount.getUserName()).getMaxMana());
         requestUpdate.start();
     }
 
@@ -139,9 +132,10 @@ public class ObserveBattleController extends MenuController implements Initializ
             leftGraveYard.setFitWidth(495);
             leftGraveYard.setOpacity(1);
             JFXMasonryPane pane = new JFXMasonryPane();
-            pane.setPrefHeight(509.0);
             pane.setPrefWidth(495);
-            for (Card card : getMainController().getGame().getPlayer1().getGraveYard().values()) {
+            pane.setPrefHeight(509.0);
+            game = getMainController().getGame();
+            for (Card card : game.getPlayer1().getGraveYard().values()) {
                 addCardToGraveYard(pane, card.getName(), "left");
             }
             left.getChildren().addAll(pane);
@@ -150,13 +144,14 @@ public class ObserveBattleController extends MenuController implements Initializ
         graveYardOnExit(leftGraveYard, left);
         rightGraveYard.setOnMouseEntered(e -> {
             System.out.println("entered");
-            rightGraveYard.setFitWidth(495);
             rightGraveYard.setOpacity(1);
+            rightGraveYard.setFitWidth(495);
             JFXMasonryPane pane = new JFXMasonryPane();
             pane.setPrefHeight(509.0);
             pane.setPrefWidth(495);
             pane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-            for (Card card : getMainController().getGame().getPlayer2().getGraveYard().values()) {
+            game = getMainController().getGame();
+            for (Card card : game.getPlayer2().getGraveYard().values()) {
                 addCardToGraveYard(pane, card.getName(), "right");
             }
             right.getChildren().addAll(pane);
@@ -177,33 +172,16 @@ public class ObserveBattleController extends MenuController implements Initializ
     private void addCardToGraveYard(JFXMasonryPane pane, String cardName, String toward) {
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getStyleClass().add("graveYardCard");
-//        ImageView imageView = new ImageView();
-//        imageView.setImage(new Image("view/Graphic/images/deckCard.png"));
         if (toward.equals("right"))
             anchorPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-//        imageView.setFitWidth(250);
         Label name = new Label(cardName);
-        name.getStyleClass().add("labelName");
         name.relocate(30, 25);
+        name.getStyleClass().add("labelName");
         anchorPane.getChildren().addAll(name);
         pane.getChildren().addAll(anchorPane);
     }
 
-    private void setCellMouseHover(AnchorPane anchorPane, boolean on) {
-        if(!isYourTurn(game)) {
-            anchorPane.setOnMouseEntered(x -> {
-            });
-            anchorPane.setOnMouseExited(x -> {
-            });
-            return;
-        }
-        if (!on) {
-            anchorPane.setOnMouseEntered(x -> {
-            });
-            anchorPane.setOnMouseExited(x -> {
-            });
-            return;
-        }
+    private void setCellMouseHover(AnchorPane anchorPane) {
         anchorPane.setOnMouseEntered(x -> {
             anchorPane.getStyleClass().remove(0);
             anchorPane.getStyleClass().add("hoveredCells");
@@ -214,236 +192,70 @@ public class ObserveBattleController extends MenuController implements Initializ
         });
     }
 
-    private void handleCellsMouseClick(Cell cell) {
-        game = getMainController().getGame();
-        cell = game.getCell(cell.getXCoordinate(),cell.getYCoordinate());
-        if(!isYourTurn(game))
-            return;
-        if (handSelectedCard != null) {
-            //insert card block
-            if (getMainController().insertCard(handSelectedCard.getCardName(), cell.getXCoordinate(), cell.getYCoordinate())) {
-                updateCells();
-                removeCardsFromHand();
-                handSelectedCard = null;
-                updateStatus();
-                return;
-            } else {
-                errorBox.setText(getMainController().getErrorType().getMessage());
-                getMainController().setErrorType(null);
-            }
-        }
 
-        if (game.getPlayer(myAccount.getUserName()).isAnyCardSelected()) {
-            AnchorPane currentAnchorePane = anchorPaneCells[selectedCardCell.getYCoordinate() - 1][selectedCardCell.getXCoordinate() - 1];
-            if (cell.getCard() == null) {
-                //move block
-                if (getMainController().moveCard(cell.getXCoordinate(), cell.getYCoordinate())) {
-                    playMoveAnimation(cell, selectedCardCell, currentAnchorePane);
-                    return;
-                } else {
-                    errorBox.setText(getMainController().getErrorType().getMessage());
-                    getMainController().setErrorType(null);
-                    getMainController().unSelectCard();
-                    game.getPlayer(myAccount.getUserName()).setSelectedCard(null);
-                    currentAnchorePane.getStyleClass().remove(0);
-                    currentAnchorePane.getStyleClass().add("cells");
-                }
-            } else {
-//                attack block
-                Cell targetCell = cell;
-                switch (getMainController().attack(targetCell.getCard().getInBattleCardId())) {
-                    case 1:
-                        AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
-                        playAttackAnimation(anchorPane);
-                    case 0:
-                        playAttackAnimation(currentAnchorePane);
-                        return;
-                    case -1:
-                        errorBox.setText(getMainController().getErrorType().getMessage());
-                        getMainController().setErrorType(null);
-                        game.getPlayer(myAccount.getUserName()).setSelectedCard(null);
-                        currentAnchorePane.getStyleClass().remove(0);
-                        currentAnchorePane.getStyleClass().add("cells");
-                }
-            }
-        }
-        if (cell.getCard() != null) {
-            //select Card Block
-            AnchorPane anchorPane = anchorPaneCells[cell.getYCoordinate() - 1][cell.getXCoordinate() - 1];
-            if (getMainController().selectCardOrItem(cell.getCard().getInBattleCardId())) {
-                updateCells();
-                selectedCardCell = cell;
-                setCellMouseHover(anchorPane, false);
-                anchorPane.getStyleClass().remove(0);
-                anchorPane.getStyleClass().add("selectedCell");
-            } else {
-                errorBox.setText(getMainController().getErrorType().getMessage());
-                getMainController().setErrorType(null);
-            }
-        }
-    }
+//    private void playAttackAnimation(AnchorPane anchorPane) {
+//        anchorPane.getChildren().stream().filter(node -> node instanceof CardImageView).forEach(
+//                node -> ((CardImageView) node).changeStance(CardImageView.Stance.ATTACKING));
+//
+//        PauseTransition pauseTransition = new PauseTransition(Duration.millis(2000));
+//        pauseTransition.setOnFinished(x -> {
+//            anchorPane.getChildren().stream().filter(node -> node instanceof CardImageView).forEach(
+//                    node -> ((CardImageView) node).changeStance(CardImageView.Stance.IDLING));
+//            updateCells();
+//
+//        });
+//        pauseTransition.play();
+//    }
 
-    private boolean isYourTurn(Game game) {
-        if (game == null)
-            return true;
-        String user1 = game.getPlayer1().getAccount().getUserName();
-        String user2 = game.getPlayer2().getAccount().getUserName();
-        if (game.isTurnOfPlayerOne())
-            return user1.equals(myAccount.getUserName());
-        else return user2.equals(myAccount.getUserName());
-    }
-
-    private void playAttackAnimation(AnchorPane anchorPane) {
-        anchorPane.getChildren().stream().filter(node -> node instanceof CardImageView).forEach(
-                node -> ((CardImageView) node).changeStance(CardImageView.Stance.ATTACKING));
-
-        PauseTransition pauseTransition = new PauseTransition(Duration.millis(2000));
-        pauseTransition.setOnFinished(x -> {
-            anchorPane.getChildren().stream().filter(node -> node instanceof CardImageView).forEach(
-                    node -> ((CardImageView) node).changeStance(CardImageView.Stance.IDLING));
-            updateCells();
-
-        });
-        pauseTransition.play();
-    }
-
-    private void playMoveAnimation(Cell targetCell, Cell currentCell, AnchorPane anchorPane) {
-        anchorPane.getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
-                || node instanceof CardImageProperties);
-        Path path = new Path(new MoveTo((currentCell.getXCoordinate() - 1) * 100 + 90, (currentCell.getYCoordinate() - 1) * 100 + 30),
-                new LineTo((targetCell.getXCoordinate() - 1) * 100 + 90, (targetCell.getYCoordinate() - 1) * 100 + 30));
-        path.setVisible(false);
-        CardImageView cardImageView = CardImageView.createCardImageView(currentCell.getCard().getName(), CardImageView.Stance.RUNING);
-        cardImageView.setFitHeight(100);
-        cardImageView.setFitWidth(100);
-        center.getChildren().addAll(cardImageView);
-        PathTransition pathTransition = new PathTransition(Duration.millis(2000), path, cardImageView);
-        pathTransition.setCycleCount(1);
-        pathTransition.setAutoReverse(false);
-        anchorPane.getStyleClass().remove(0);
-        anchorPane.getStyleClass().add("cells");
-        pathTransition.setOnFinished(x -> {
-            center.getChildren().removeAll(cardImageView);
-            updateCells();
-        });
-        pathTransition.play();
-    }
-
-    private void removeCardsFromHand() {
-        for (Node child : deckBar.getChildren()) {
-            ((AnchorPane) child).getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
-                    || node instanceof CardImageProperties);
-        }
-    }
-
-    private void putHandsCards(ArrayList<Card> hand) {
-        for (int i = 0; i < hand.size(); i++) {
-            AnchorPane child = (AnchorPane) deckBar.getChildren().get(i);
-            addCardGifInHand((AnchorPane) child, hand.get(i));
-        }
-    }
-
-    private void addCardGifInHand(AnchorPane child, Card card) {
-        ((ImageView) child.getChildren().get(0)).setImage(new Image("view/Graphic/images/card_background.png"));
-        for (Node childChild : child.getChildren()) {
-            if (childChild instanceof CardImageView) {
-                ((CardImageView) childChild).changeImage(card.getName(), CardImageView.Stance.IDLING);
-                return;
-            }
-        }
-        //todo remove khate paiin
-        CardImageView.testImage(card.getName(),CardImageView.Stance.IDLING);
-        CardImageView cardImageView = CardImageView.createCardImageView(card.getName(), CardImageView.Stance.IDLING);
-        cardImageView.setPreserveRatio(true);
-        cardImageView.setPickOnBounds(true);
-        cardImageView.setFitWidth(200);
-        cardImageView.setFitHeight(200);
-        cardImageView.setLayoutY(-50);
-        child.getChildren().add(cardImageView);
-        if (card instanceof SoldierCard) {
-            ImageView attackImage = new CardImageProperties(new Image("view/Graphic/images/icon_atk.png"));
-            ImageView healthImage = new CardImageProperties(new Image("view/Graphic/images/icon_hp.png"));
-            ImageView manaImage = new CardImageProperties(new Image("view/Graphic/images/mana.png"));
-            Label attack = new Label();
-            Label health = new Label();
-            Label mana = new Label();
-            attack.setText(((SoldierCard) card).getAp() + "");
-            health.setText(((SoldierCard) card).getHp() + "");
-            mana.setText(card.getMana() + "");
-            attackImage.setFitWidth(70);
-            attackImage.setFitHeight(70);
-            healthImage.setFitWidth(70);
-            healthImage.setFitHeight(70);
-            manaImage.setFitWidth(50);
-            manaImage.setFitHeight(50);
-            attackImage.relocate(30, 120);
-            healthImage.relocate(110, 120);
-            manaImage.relocate(20, 20);
-            attack.getStyleClass().add("aPLabel");
-            health.getStyleClass().add("hPLabel");
-            mana.getStyleClass().add("manaLabel");
-            attack.relocate(50, 140);
-            health.relocate(130, 140);
-            mana.relocate(30, 30);
-            child.getChildren().add(attackImage);
-            child.getChildren().add(attack);
-            child.getChildren().add(healthImage);
-            child.getChildren().add(health);
-            child.getChildren().add(manaImage);
-            child.getChildren().add(mana);
-        }
-        cardImageView.setOnMouseClicked(x -> {
-            handleHandCardSelection(child, card);
-        });
-    }
-
-    private void handleHandCardSelection(AnchorPane child, Card card) {
-        for (Node childChild : child.getChildren()) {
-            if (childChild instanceof CardImageView) {
-                handSelectedCard = (CardImageView) childChild;
-                ImageView backGroundImage = ((ImageView) child.getChildren().get(0));
-                for (Node deckBarChild : deckBar.getChildren()) {
-                    if (((AnchorPane) deckBarChild).getChildren().size() != 1) {
-                        ((ImageView) (((AnchorPane) deckBarChild).getChildren().get(0))).setImage(new Image("view/Graphic/images/card_background.png"));
-                    }
-                }
-                backGroundImage.setImage(new Image("view/Graphic/images/card_background_highlight.png"));
-            }
-        }
-    }
+//    private void playMoveAnimation(Cell targetCell, Cell currentCell, AnchorPane anchorPane) {
+//        anchorPane.getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
+//                || node instanceof CardImageProperties);
+//        Path path = new Path(new MoveTo((currentCell.getXCoordinate() - 1) * 100 + 90, (currentCell.getYCoordinate() - 1) * 100 + 30),
+//                new LineTo((targetCell.getXCoordinate() - 1) * 100 + 90, (targetCell.getYCoordinate() - 1) * 100 + 30));
+//        path.setVisible(false);
+//        CardImageView cardImageView = CardImageView.createCardImageView(currentCell.getCard().getName(), CardImageView.Stance.RUNING);
+//        cardImageView.setFitHeight(100);
+//        cardImageView.setFitWidth(100);
+//        center.getChildren().addAll(cardImageView);
+//        PathTransition pathTransition = new PathTransition(Duration.millis(2000), path, cardImageView);
+//        pathTransition.setCycleCount(1);
+//        pathTransition.setAutoReverse(false);
+//        anchorPane.getStyleClass().remove(0);
+//        anchorPane.getStyleClass().add("cells");
+//        pathTransition.setOnFinished(x -> {
+//            center.getChildren().removeAll(cardImageView);
+//            updateCells();
+//        });
+//        pathTransition.play();
+//    }
 
     private void addCardGifInGround(AnchorPane anchorPane, Card card) {
         String cardName = card.getName();
-//        for (Node childChild : anchorPane.getChildren()) {
-//            if (childChild instanceof CardImageView) {
-//                ((CardImageView) childChild).changeImage(cardName, CardImageView.Stance.IDLING);
-//                return;
-//            }
-//        }
+
         CardImageView cardImageView = CardImageView.createCardImageView(cardName, CardImageView.Stance.IDLING);
+        cardImageView.setLayoutY(-20);
         cardImageView.setFitWidth(100);
         cardImageView.setFitHeight(100);
-        cardImageView.setLayoutY(-20);
-        cardImageView.setPreserveRatio(true);
         cardImageView.setPickOnBounds(true);
+        cardImageView.setPreserveRatio(true);
         anchorPane.getChildren().add(cardImageView);
         if (card instanceof SoldierCard) {
-            ImageView attackImage = new CardImageProperties(new Image("view/Graphic/images/icon_atk.png"));
-            ImageView healthImage = new CardImageProperties(new Image("view/Graphic/images/icon_hp.png"));
+            ImageView attackImage = new ObserveBattleController.CardImageProperties(new Image("view/Graphic/images/icon_atk.png"));
+            ImageView healthImage = new ObserveBattleController.CardImageProperties(new Image("view/Graphic/images/icon_hp.png"));
             Label attack = new Label();
             Label health = new Label();
             attack.setText(((SoldierCard) card).getAp() + "");
             attackImage.setFitWidth(35);
-            attackImage.setFitHeight(35);
             healthImage.setFitWidth(35);
-            health.setText(((SoldierCard) card).getHp() + "");
+            attackImage.setFitHeight(35);
             healthImage.setFitHeight(35);
+            health.setText(((SoldierCard) card).getHp() + "");
             attackImage.relocate(15, 60);
             healthImage.relocate(55, 60);
             attack.getStyleClass().add("aPLabelSmall");
             health.getStyleClass().add("hPLabelSmall");
-            attack.relocate(25, 70);
             health.relocate(65, 70);
+            attack.relocate(25, 70);
             anchorPane.getChildren().add(attackImage);
             anchorPane.getChildren().add(attack);
             anchorPane.getChildren().add(healthImage);
@@ -455,36 +267,28 @@ public class ObserveBattleController extends MenuController implements Initializ
         ImageView heroIcon = new ImageView(new Image("view/Graphic/cards/" + name + ".png"));
         heroIcon.setFitHeight(300);
         heroIcon.setFitWidth(300);
-        heroIcon.setPreserveRatio(true);
         heroIcon.setPickOnBounds(true);
+        heroIcon.setPreserveRatio(true);
         heroIcon.setLayoutY(-50);
         if (left)
             AnchorPane.setRightAnchor(heroIcon, 0.0);
         anchorPane.getChildren().add(heroIcon);
     }
 
-    public void endTurn() {
-        handSelectedCard = null;
-        getMainController().endTurn();
-        updateCells();
-        updateStatus();
-    }
-
     private void updateStatus() {
         rightManaLabel.setText(game.getPlayer(myAccount.getUserName()).getMana() + "/" + game.getPlayer(myAccount.getUserName()).getMaxMana());
         leftManaLabel.setText(game.getPlayer(enemyAccount.getUserName()).getMana() + "/" + game.getPlayer(enemyAccount.getUserName()).getMaxMana());
-        putHandsCards(new ArrayList<>(game.getPlayer(myAccount.getUserName()).getHandCards().values()));
     }
 
     private void updateCells() {
         game = getMainController().getGame();
         for (int i = 0; i < cellsLength; i++) {
             for (int j = 0; j < cellsWeight; j++) {
-                Cell cell = game.getCell(i + 1, j + 1);
                 AnchorPane anchorPane = anchorPaneCells[j][i];
+                Cell cell = game.getCell(i + 1, j + 1);
                 anchorPane.getStyleClass().remove(0);
                 anchorPane.getStyleClass().add("cells");
-                setCellMouseHover(anchorPane, true);
+                setCellMouseHover(anchorPane);
                 anchorPane.getChildren().removeIf(node -> node instanceof CardImageView || node instanceof Label
                         || node instanceof CardImageProperties);
                 if (cell.getCard() != null) {

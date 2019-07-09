@@ -200,7 +200,7 @@
                                 </ImageView>
                             </children>
                         </AnchorPane>
-                        <Label alignment="CENTER" onMouseClicked="#endTurn" prefHeight="86.0" prefWidth="262.0"
+                        <Label alignment="CENTER"  prefHeight="86.0" prefWidth="262.0"
                                styleClass="endTurnButton" text="END TURN" AnchorPane.rightAnchor="0.0">
                             <font>
                                 <Font size="29.0"/>

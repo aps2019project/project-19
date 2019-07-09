@@ -136,11 +136,11 @@ public class BattleViewController extends MenuController implements Initializabl
 
     private void graveYardHandler() {
         leftGraveYard.setOnMouseEntered(e -> {
-            leftGraveYard.setFitWidth(495);
             leftGraveYard.setOpacity(1);
+            leftGraveYard.setFitWidth(495);
             JFXMasonryPane pane = new JFXMasonryPane();
-            pane.setPrefHeight(509.0);
             pane.setPrefWidth(495);
+            pane.setPrefHeight(509.0);
             for (Card card : getMainController().getGame().getPlayer1().getGraveYard().values()) {
                 addCardToGraveYard(pane, card.getName(), "left");
             }
